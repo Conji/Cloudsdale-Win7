@@ -83,17 +83,18 @@ namespace Cloudsdale
                 };
                 await Connection.InitializeAsync();
                 await PreloadMessages((JArray)Main.User["user"]["clouds"]);
-                Login.Enabled = true;
-                Register.Enabled = true;
-                Email.ReadOnly = false;
-                Password.ReadOnly = false;
                 LoginPanel.Visible = false;
+                Console.WriteLine(User["username"].ToString());
+
             }
             catch (CouldNotLoginException ex)
             {
                 System.Windows.MessageBox.Show(ex.Message.ToString());
             }
-
+            Login.Enabled = true;
+            Register.Enabled = true;
+            Email.ReadOnly = false;
+            Password.ReadOnly = false;
         }
         public async Task LoginRequest()
         {
@@ -232,15 +233,10 @@ namespace Cloudsdale
 
         private void CloudList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            if (CloudList.SelectedItems.Count > 0)
             {
-                System.Windows.MessageBox.Show(CloudList.FocusedItem.Text.ToString());
+                MessageGroup.Text = CloudList.FocusedItem.Text;
             }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message);
-            }
-
         }
 
         private void button1_Click_1(object sender, EventArgs e)

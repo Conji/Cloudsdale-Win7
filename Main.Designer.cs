@@ -51,6 +51,14 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SendMessage = new System.Windows.Forms.Button();
             this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
+            this.CloudContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.goToThisCloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cloudRulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cloudDescriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyLinkToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.leaveThisCloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MessagesSource = new System.Windows.Forms.BindingSource(this.components);
             this.LoginPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -58,6 +66,7 @@
             this.panel2.SuspendLayout();
             this.MessageUI.SuspendLayout();
             this.MessageGroup.SuspendLayout();
+            this.CloudContext.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,7 +83,7 @@
             this.LoginPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoginPanel.Location = new System.Drawing.Point(0, 0);
             this.LoginPanel.Name = "LoginPanel";
-            this.LoginPanel.Size = new System.Drawing.Size(692, 438);
+            this.LoginPanel.Size = new System.Drawing.Size(694, 436);
             this.LoginPanel.TabIndex = 0;
             // 
             // Register
@@ -140,7 +149,7 @@
             this.pictureBox1.Image = global::Cloudsdale.Properties.Resources.cloudsdale_thin_bright_logo;
             this.pictureBox1.Location = new System.Drawing.Point(3, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(686, 140);
+            this.pictureBox1.Size = new System.Drawing.Size(688, 140);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -158,7 +167,7 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Location = new System.Drawing.Point(-1, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(203, 439);
+            this.panel1.Size = new System.Drawing.Size(203, 437);
             this.panel1.TabIndex = 1;
             // 
             // panel2
@@ -169,7 +178,7 @@
             this.panel2.Controls.Add(this.CloudList);
             this.panel2.Location = new System.Drawing.Point(2, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 438);
+            this.panel2.Size = new System.Drawing.Size(200, 436);
             this.panel2.TabIndex = 0;
             // 
             // button1
@@ -200,7 +209,7 @@
             this.CloudList.MultiSelect = false;
             this.CloudList.Name = "CloudList";
             this.CloudList.ShowItemToolTips = true;
-            this.CloudList.Size = new System.Drawing.Size(203, 393);
+            this.CloudList.Size = new System.Drawing.Size(203, 391);
             this.CloudList.SmallImageList = this.CloudIco;
             this.CloudList.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.CloudList.TabIndex = 0;
@@ -219,7 +228,7 @@
             this.MessageUI.Controls.Add(this.SendMessage);
             this.MessageUI.Location = new System.Drawing.Point(198, 0);
             this.MessageUI.Name = "MessageUI";
-            this.MessageUI.Size = new System.Drawing.Size(494, 439);
+            this.MessageUI.Size = new System.Drawing.Size(496, 437);
             this.MessageUI.TabIndex = 2;
             // 
             // MessageGroup
@@ -230,10 +239,10 @@
             this.MessageGroup.Controls.Add(this.MessagePanel);
             this.MessageGroup.Location = new System.Drawing.Point(3, 0);
             this.MessageGroup.Name = "MessageGroup";
-            this.MessageGroup.Size = new System.Drawing.Size(479, 400);
+            this.MessageGroup.Size = new System.Drawing.Size(481, 398);
             this.MessageGroup.TabIndex = 2;
             this.MessageGroup.TabStop = false;
-            this.MessageGroup.Text = "MessageBox";
+            this.MessageGroup.Text = "Welcome Back!";
             // 
             // MessagePanel
             // 
@@ -246,15 +255,15 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(3, 406);
+            this.textBox1.Location = new System.Drawing.Point(3, 404);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(394, 27);
+            this.textBox1.Size = new System.Drawing.Size(396, 27);
             this.textBox1.TabIndex = 1;
             // 
             // SendMessage
             // 
             this.SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SendMessage.Location = new System.Drawing.Point(406, 406);
+            this.SendMessage.Location = new System.Drawing.Point(408, 404);
             this.SendMessage.Name = "SendMessage";
             this.SendMessage.Size = new System.Drawing.Size(75, 27);
             this.SendMessage.TabIndex = 0;
@@ -269,6 +278,59 @@
             this.Subscriber.Text = "[USER] posted in [CLOUD]!";
             this.Subscriber.Visible = true;
             // 
+            // CloudContext
+            // 
+            this.CloudContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.goToThisCloudToolStripMenuItem,
+            this.cloudRulesToolStripMenuItem,
+            this.cloudDescriptionToolStripMenuItem,
+            this.copyLinkToClipboardToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.leaveThisCloudToolStripMenuItem,
+            this.toolStripSeparator2});
+            this.CloudContext.Name = "CloudContext";
+            this.CloudContext.Size = new System.Drawing.Size(192, 126);
+            // 
+            // goToThisCloudToolStripMenuItem
+            // 
+            this.goToThisCloudToolStripMenuItem.Name = "goToThisCloudToolStripMenuItem";
+            this.goToThisCloudToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.goToThisCloudToolStripMenuItem.Text = "Go to this cloud...";
+            // 
+            // cloudRulesToolStripMenuItem
+            // 
+            this.cloudRulesToolStripMenuItem.Name = "cloudRulesToolStripMenuItem";
+            this.cloudRulesToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.cloudRulesToolStripMenuItem.Text = "Cloud rules...";
+            // 
+            // cloudDescriptionToolStripMenuItem
+            // 
+            this.cloudDescriptionToolStripMenuItem.Name = "cloudDescriptionToolStripMenuItem";
+            this.cloudDescriptionToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.cloudDescriptionToolStripMenuItem.Text = "Cloud description...";
+            // 
+            // copyLinkToClipboardToolStripMenuItem
+            // 
+            this.copyLinkToClipboardToolStripMenuItem.Name = "copyLinkToClipboardToolStripMenuItem";
+            this.copyLinkToClipboardToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.copyLinkToClipboardToolStripMenuItem.Text = "Copy link to clipboard";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
+            // 
+            // leaveThisCloudToolStripMenuItem
+            // 
+            this.leaveThisCloudToolStripMenuItem.Name = "leaveThisCloudToolStripMenuItem";
+            this.leaveThisCloudToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.leaveThisCloudToolStripMenuItem.Text = "Leave this cloud...";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(188, 6);
+            // 
             // MessagesSource
             // 
             this.MessagesSource.DataSource = typeof(Cloudsdale.connection.MessageSource);
@@ -278,7 +340,7 @@
             this.AcceptButton = this.Login;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(692, 438);
+            this.ClientSize = new System.Drawing.Size(694, 436);
             this.Controls.Add(this.MessageUI);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.LoginPanel);
@@ -296,6 +358,7 @@
             this.MessageUI.ResumeLayout(false);
             this.MessageUI.PerformLayout();
             this.MessageGroup.ResumeLayout(false);
+            this.CloudContext.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -325,6 +388,14 @@
         private System.Windows.Forms.Panel MessagePanel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ContextMenuStrip CloudContext;
+        private System.Windows.Forms.ToolStripMenuItem goToThisCloudToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cloudRulesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cloudDescriptionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyLinkToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem leaveThisCloudToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         
     }
 }
