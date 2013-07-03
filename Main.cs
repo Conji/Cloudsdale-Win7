@@ -89,6 +89,7 @@ namespace Cloudsdale
                 Email.ReadOnly = false;
                 Password.ReadOnly = false;
                 LoginPanel.Visible = false;
+                
             }
             catch (CouldNotLoginException ex)
             {
@@ -172,21 +173,6 @@ namespace Cloudsdale
                     source.AddMessage(message);
                 }
             }
-
-            if (Main.CurrentCloud != null && cloudId == (string)Main.CurrentCloud["id"])
-            {
-                MessageQueue.Queue.Enqueue(LinkRegex.Replace((string)message["content"], "")
-                    //.Truncate(maxchars)
-                    .Replace("\\n", " ")
-                    .Replace("\\t", " ")
-                    .Replace(":)", " smiley face ")
-                    .Replace(":(", " sad face ")
-                    .Replace(":D", " happy face ")
-                    .Replace("<3", "♥")
-                    .Replace("♥", " heart ")
-                    .RegexReplace("^/me", (string)message["author"]["name"])
-                    );
-            }
         }
         private void LogMessage(JToken message, string cloudId)
         {
@@ -239,6 +225,8 @@ namespace Cloudsdale
             if (CloudList.SelectedItems.Count > 0)
             {
                 MessageGroup.Text = CloudList.FocusedItem.Text;
+                var test = MessageSource.GetSource((string)CurrentCloud["id"].ToString());
+                Console.WriteLine(test.Messages.ToString());
             }
 
         }

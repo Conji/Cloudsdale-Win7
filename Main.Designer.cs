@@ -35,8 +35,6 @@
             this.Login = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Password = new System.Windows.Forms.TextBox();
-            this.Email = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ViewTimer = new System.Windows.Forms.Timer(this.components);
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
@@ -47,11 +45,14 @@
             this.CloudList = new System.Windows.Forms.ListView();
             this.MessageUI = new System.Windows.Forms.Panel();
             this.MessageGroup = new System.Windows.Forms.GroupBox();
-            this.MessagePanel = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SendMessage = new System.Windows.Forms.Button();
             this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
+            this.Password = new System.Windows.Forms.TextBox();
+            this.Email = new System.Windows.Forms.TextBox();
             this.MessagesSource = new System.Windows.Forms.BindingSource(this.components);
+            this.MessagePanel = new System.Windows.Forms.Panel();
+            this.messageBox1 = new Cloudsdale.lib.MessageUI.MessageBox();
             this.LoginPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -59,6 +60,7 @@
             this.MessageUI.SuspendLayout();
             this.MessageGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).BeginInit();
+            this.MessagePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // LoginPanel
@@ -85,6 +87,7 @@
             this.Register.TabIndex = 6;
             this.Register.Text = "Register";
             this.Register.UseVisualStyleBackColor = true;
+            this.Register.Click += new System.EventHandler(this.LaunchReg);
             // 
             // Login
             // 
@@ -113,25 +116,6 @@
             this.label1.Size = new System.Drawing.Size(137, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Username or Email:";
-            // 
-            // Password
-            // 
-            this.Password.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Password.Location = new System.Drawing.Point(153, 267);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(346, 27);
-            this.Password.TabIndex = 2;
-            this.Password.Text = global::Cloudsdale.Properties.Settings.Default.PreviousPassword;
-            this.Password.UseSystemPasswordChar = true;
-            // 
-            // Email
-            // 
-            this.Email.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousEmail", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Email.Location = new System.Drawing.Point(153, 209);
-            this.Email.Name = "Email";
-            this.Email.Size = new System.Drawing.Size(346, 27);
-            this.Email.TabIndex = 1;
-            this.Email.Text = global::Cloudsdale.Properties.Settings.Default.PreviousEmail;
             // 
             // pictureBox1
             // 
@@ -233,14 +217,7 @@
             this.MessageGroup.Size = new System.Drawing.Size(479, 400);
             this.MessageGroup.TabIndex = 2;
             this.MessageGroup.TabStop = false;
-            this.MessageGroup.Text = "MessageBox";
-            // 
-            // MessagePanel
-            // 
-            this.MessagePanel.Location = new System.Drawing.Point(7, 26);
-            this.MessagePanel.Name = "MessagePanel";
-            this.MessagePanel.Size = new System.Drawing.Size(471, 374);
-            this.MessagePanel.TabIndex = 0;
+            this.MessageGroup.Text = "Welcome back!";
             // 
             // textBox1
             // 
@@ -269,9 +246,61 @@
             this.Subscriber.Text = "[USER] posted in [CLOUD]!";
             this.Subscriber.Visible = true;
             // 
+            // Password
+            // 
+            this.Password.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Password.Location = new System.Drawing.Point(153, 267);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(346, 27);
+            this.Password.TabIndex = 2;
+            this.Password.Text = global::Cloudsdale.Properties.Settings.Default.PreviousPassword;
+            this.Password.UseSystemPasswordChar = true;
+            // 
+            // Email
+            // 
+            this.Email.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousEmail", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Email.Location = new System.Drawing.Point(153, 209);
+            this.Email.Name = "Email";
+            this.Email.Size = new System.Drawing.Size(346, 27);
+            this.Email.TabIndex = 1;
+            this.Email.Text = global::Cloudsdale.Properties.Settings.Default.PreviousEmail;
+            // 
             // MessagesSource
             // 
             this.MessagesSource.DataSource = typeof(Cloudsdale.connection.MessageSource);
+            // 
+            // MessagePanel
+            // 
+            this.MessagePanel.Controls.Add(this.messageBox1);
+            this.MessagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MessagePanel.Location = new System.Drawing.Point(3, 23);
+            this.MessagePanel.Name = "MessagePanel";
+            this.MessagePanel.Size = new System.Drawing.Size(473, 374);
+            this.MessagePanel.TabIndex = 0;
+            // 
+            // messageBox1
+            // 
+            this.messageBox1.DataMember = null;
+            this.messageBox1.DataSource = null;
+            this.messageBox1.FontLine1 = new System.Drawing.Font("Tahoma", 8F);
+            this.messageBox1.FontLine2 = new System.Drawing.Font("Tahoma", 8F);
+            this.messageBox1.Input = ((System.Collections.ArrayList)(resources.GetObject("messageBox1.Input")));
+            this.messageBox1.ItemImage = null;
+            this.messageBox1.ItemImageDisplayMember = "Picture";
+            this.messageBox1.Line1DisplayMember = "Name";
+            this.messageBox1.Line2DisplayMember = "Time";
+            this.messageBox1.Location = new System.Drawing.Point(142, 23);
+            this.messageBox1.Name = "messageBox1";
+            this.messageBox1.ScrollBarWidth = 14;
+            this.messageBox1.SelectedBackColor = System.Drawing.SystemColors.Highlight;
+            this.messageBox1.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
+            this.messageBox1.SelectedIndex = -1;
+            this.messageBox1.SeparatorColor = System.Drawing.SystemColors.ActiveBorder;
+            this.messageBox1.Size = new System.Drawing.Size(224, 200);
+            this.messageBox1.TabIndex = 0;
+            this.messageBox1.Text = "messageBox1";
+            this.messageBox1.TransparentColor = System.Drawing.Color.Magenta;
+            this.messageBox1.UseTransparentColor = false;
             // 
             // Main
             // 
@@ -297,6 +326,7 @@
             this.MessageUI.PerformLayout();
             this.MessageGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).EndInit();
+            this.MessagePanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -322,9 +352,10 @@
         public System.Windows.Forms.NotifyIcon Subscriber;
         public System.Windows.Forms.BindingSource MessagesSource;
         private System.Windows.Forms.GroupBox MessageGroup;
-        private System.Windows.Forms.Panel MessagePanel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel MessagePanel;
+        private lib.MessageUI.MessageBox messageBox1;
         
     }
 }

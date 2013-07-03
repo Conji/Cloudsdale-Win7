@@ -88,7 +88,9 @@
     <Compile Include="connection\FayeConnector.cs" />
     <Compile Include="connection\Helpers.cs" />
     <Compile Include="connection\MessageSource.cs" />
-    <Compile Include="lib\MessageUI\Slide.cs" />
+    <Compile Include="lib\MessageUI\MessagerView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +137,7 @@
   <ItemGroup>
     <Content Include="icon_color1.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
