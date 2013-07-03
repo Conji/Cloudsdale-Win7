@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -229,16 +230,15 @@ namespace Cloudsdale
                 }
             }
         }
-
+        private void LaunchReg(object sender, EventArgs e)
+        {
+            Process.Start("https://www.cloudsdale.org/register");
+        }
         private void CloudList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            if (CloudList.SelectedItems.Count > 0)
             {
-                System.Windows.MessageBox.Show(CloudList.FocusedItem.Text.ToString());
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message);
+                MessageGroup.Text = CloudList.FocusedItem.Text;
             }
 
         }
