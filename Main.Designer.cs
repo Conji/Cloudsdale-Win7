@@ -35,6 +35,8 @@
             this.Login = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.Password = new System.Windows.Forms.TextBox();
+            this.Email = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ViewTimer = new System.Windows.Forms.Timer(this.components);
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
@@ -45,22 +47,23 @@
             this.CloudList = new System.Windows.Forms.ListView();
             this.MessageUI = new System.Windows.Forms.Panel();
             this.MessageGroup = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.SendMessage = new System.Windows.Forms.Button();
-            this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
-            this.Password = new System.Windows.Forms.TextBox();
-            this.Email = new System.Windows.Forms.TextBox();
-            this.MessagesSource = new System.Windows.Forms.BindingSource(this.components);
+            this.h_memberSince = new System.Windows.Forms.Label();
+            this.h_message = new System.Windows.Forms.TextBox();
+            this.h_avatar = new System.Windows.Forms.PictureBox();
             this.MessagePanel = new System.Windows.Forms.Panel();
-            this.messageBox1 = new Cloudsdale.lib.MessageUI.MessageBox();
+            this.m_NewMessage = new System.Windows.Forms.TextBox();
+            this.m_SendMessage = new System.Windows.Forms.Button();
+            this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
+            this.MessagesSource = new System.Windows.Forms.BindingSource(this.components);
             this.LoginPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.MessageUI.SuspendLayout();
             this.MessageGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).BeginInit();
             this.MessagePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).BeginInit();
             this.SuspendLayout();
             // 
             // LoginPanel
@@ -116,6 +119,25 @@
             this.label1.Size = new System.Drawing.Size(137, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Username or Email:";
+            // 
+            // Password
+            // 
+            this.Password.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Password.Location = new System.Drawing.Point(153, 267);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(346, 27);
+            this.Password.TabIndex = 2;
+            this.Password.Text = global::Cloudsdale.Properties.Settings.Default.PreviousPassword;
+            this.Password.UseSystemPasswordChar = true;
+            // 
+            // Email
+            // 
+            this.Email.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousEmail", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Email.Location = new System.Drawing.Point(153, 209);
+            this.Email.Name = "Email";
+            this.Email.Size = new System.Drawing.Size(346, 27);
+            this.Email.TabIndex = 1;
+            this.Email.Text = global::Cloudsdale.Properties.Settings.Default.PreviousEmail;
             // 
             // pictureBox1
             // 
@@ -184,7 +206,7 @@
             this.CloudList.MultiSelect = false;
             this.CloudList.Name = "CloudList";
             this.CloudList.ShowItemToolTips = true;
-            this.CloudList.Size = new System.Drawing.Size(203, 393);
+            this.CloudList.Size = new System.Drawing.Size(199, 393);
             this.CloudList.SmallImageList = this.CloudIco;
             this.CloudList.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.CloudList.TabIndex = 0;
@@ -198,9 +220,10 @@
             this.MessageUI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.MessageUI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.MessageUI.Controls.Add(this.MessageGroup);
-            this.MessageUI.Controls.Add(this.textBox1);
-            this.MessageUI.Controls.Add(this.SendMessage);
+            this.MessageUI.Controls.Add(this.m_NewMessage);
+            this.MessageUI.Controls.Add(this.m_SendMessage);
             this.MessageUI.Location = new System.Drawing.Point(198, 0);
             this.MessageUI.Name = "MessageUI";
             this.MessageUI.Size = new System.Drawing.Size(494, 439);
@@ -211,6 +234,7 @@
             this.MessageGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.MessageGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.MessageGroup.Controls.Add(this.MessagePanel);
             this.MessageGroup.Location = new System.Drawing.Point(3, 0);
             this.MessageGroup.Name = "MessageGroup";
@@ -219,24 +243,69 @@
             this.MessageGroup.TabStop = false;
             this.MessageGroup.Text = "Welcome back!";
             // 
-            // textBox1
+            // h_memberSince
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.h_memberSince.AutoSize = true;
+            this.h_memberSince.Font = new System.Drawing.Font("Segoe UI Emoji", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.h_memberSince.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_memberSince.Location = new System.Drawing.Point(10, 163);
+            this.h_memberSince.Name = "h_memberSince";
+            this.h_memberSince.Size = new System.Drawing.Size(96, 20);
+            this.h_memberSince.TabIndex = 2;
+            this.h_memberSince.Text = "date joined";
+            // 
+            // h_message
+            // 
+            this.h_message.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.h_message.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.h_message.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_message.Location = new System.Drawing.Point(174, 4);
+            this.h_message.Multiline = true;
+            this.h_message.Name = "h_message";
+            this.h_message.ReadOnly = true;
+            this.h_message.Size = new System.Drawing.Size(302, 179);
+            this.h_message.TabIndex = 1;
+            this.h_message.Text = resources.GetString("h_message.Text");
+            // 
+            // h_avatar
+            // 
+            this.h_avatar.Location = new System.Drawing.Point(10, 3);
+            this.h_avatar.Name = "h_avatar";
+            this.h_avatar.Size = new System.Drawing.Size(148, 137);
+            this.h_avatar.TabIndex = 0;
+            this.h_avatar.TabStop = false;
+            // 
+            // MessagePanel
+            // 
+            this.MessagePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(3, 406);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(394, 27);
-            this.textBox1.TabIndex = 1;
+            this.MessagePanel.Controls.Add(this.h_memberSince);
+            this.MessagePanel.Controls.Add(this.h_message);
+            this.MessagePanel.Controls.Add(this.h_avatar);
+            this.MessagePanel.Location = new System.Drawing.Point(-3, 23);
+            this.MessagePanel.Name = "MessagePanel";
+            this.MessagePanel.Size = new System.Drawing.Size(482, 410);
+            this.MessagePanel.TabIndex = 0;
             // 
-            // SendMessage
+            // m_NewMessage
             // 
-            this.SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SendMessage.Location = new System.Drawing.Point(406, 406);
-            this.SendMessage.Name = "SendMessage";
-            this.SendMessage.Size = new System.Drawing.Size(75, 27);
-            this.SendMessage.TabIndex = 0;
-            this.SendMessage.Text = "Send\r\n";
-            this.SendMessage.UseVisualStyleBackColor = true;
+            this.m_NewMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_NewMessage.Location = new System.Drawing.Point(10, 406);
+            this.m_NewMessage.Name = "m_NewMessage";
+            this.m_NewMessage.Size = new System.Drawing.Size(387, 27);
+            this.m_NewMessage.TabIndex = 1;
+            // 
+            // m_SendMessage
+            // 
+            this.m_SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_SendMessage.Location = new System.Drawing.Point(406, 406);
+            this.m_SendMessage.Name = "m_SendMessage";
+            this.m_SendMessage.Size = new System.Drawing.Size(75, 27);
+            this.m_SendMessage.TabIndex = 0;
+            this.m_SendMessage.Text = "Send\r\n";
+            this.m_SendMessage.UseVisualStyleBackColor = true;
             // 
             // Subscriber
             // 
@@ -246,61 +315,9 @@
             this.Subscriber.Text = "[USER] posted in [CLOUD]!";
             this.Subscriber.Visible = true;
             // 
-            // Password
-            // 
-            this.Password.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Password.Location = new System.Drawing.Point(153, 267);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(346, 27);
-            this.Password.TabIndex = 2;
-            this.Password.Text = global::Cloudsdale.Properties.Settings.Default.PreviousPassword;
-            this.Password.UseSystemPasswordChar = true;
-            // 
-            // Email
-            // 
-            this.Email.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousEmail", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Email.Location = new System.Drawing.Point(153, 209);
-            this.Email.Name = "Email";
-            this.Email.Size = new System.Drawing.Size(346, 27);
-            this.Email.TabIndex = 1;
-            this.Email.Text = global::Cloudsdale.Properties.Settings.Default.PreviousEmail;
-            // 
             // MessagesSource
             // 
             this.MessagesSource.DataSource = typeof(Cloudsdale.connection.MessageSource);
-            // 
-            // MessagePanel
-            // 
-            this.MessagePanel.Controls.Add(this.messageBox1);
-            this.MessagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MessagePanel.Location = new System.Drawing.Point(3, 23);
-            this.MessagePanel.Name = "MessagePanel";
-            this.MessagePanel.Size = new System.Drawing.Size(473, 374);
-            this.MessagePanel.TabIndex = 0;
-            // 
-            // messageBox1
-            // 
-            this.messageBox1.DataMember = null;
-            this.messageBox1.DataSource = null;
-            this.messageBox1.FontLine1 = new System.Drawing.Font("Tahoma", 8F);
-            this.messageBox1.FontLine2 = new System.Drawing.Font("Tahoma", 8F);
-            this.messageBox1.Input = ((System.Collections.ArrayList)(resources.GetObject("messageBox1.Input")));
-            this.messageBox1.ItemImage = null;
-            this.messageBox1.ItemImageDisplayMember = "Picture";
-            this.messageBox1.Line1DisplayMember = "Name";
-            this.messageBox1.Line2DisplayMember = "Time";
-            this.messageBox1.Location = new System.Drawing.Point(142, 23);
-            this.messageBox1.Name = "messageBox1";
-            this.messageBox1.ScrollBarWidth = 14;
-            this.messageBox1.SelectedBackColor = System.Drawing.SystemColors.Highlight;
-            this.messageBox1.SelectedForeColor = System.Drawing.SystemColors.HighlightText;
-            this.messageBox1.SelectedIndex = -1;
-            this.messageBox1.SeparatorColor = System.Drawing.SystemColors.ActiveBorder;
-            this.messageBox1.Size = new System.Drawing.Size(224, 200);
-            this.messageBox1.TabIndex = 0;
-            this.messageBox1.Text = "messageBox1";
-            this.messageBox1.TransparentColor = System.Drawing.Color.Magenta;
-            this.messageBox1.UseTransparentColor = false;
             // 
             // Main
             // 
@@ -325,14 +342,18 @@
             this.MessageUI.ResumeLayout(false);
             this.MessageUI.PerformLayout();
             this.MessageGroup.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).EndInit();
             this.MessagePanel.ResumeLayout(false);
+            this.MessagePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        //for controls rested in the MessageUI, use "m_ExampleControl". 
+        //for controls rested in the HomeTab, use "h_ExampleControl".
         private System.Windows.Forms.Panel LoginPanel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button Register;
@@ -347,15 +368,17 @@
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.ListView CloudList;
         private System.Windows.Forms.Panel MessageUI;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button SendMessage;
+        private System.Windows.Forms.TextBox m_NewMessage;
+        private System.Windows.Forms.Button m_SendMessage;
         public System.Windows.Forms.NotifyIcon Subscriber;
         public System.Windows.Forms.BindingSource MessagesSource;
         private System.Windows.Forms.GroupBox MessageGroup;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel MessagePanel;
-        private lib.MessageUI.MessageBox messageBox1;
+        private System.Windows.Forms.Label h_memberSince;
+        private System.Windows.Forms.TextBox h_message;
+        private System.Windows.Forms.PictureBox h_avatar;
         
     }
 }
