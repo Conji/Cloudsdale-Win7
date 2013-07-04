@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -18,6 +19,7 @@ using Newtonsoft.Json.Linq;
 using Cloudsdale.actions;
 using Cloudsdale.actions.MessageController;
 using Cloudsdale.connection;
+using Cloudsdale.lib;
 
 namespace Cloudsdale
 {
@@ -29,6 +31,7 @@ namespace Cloudsdale
         public static JObject User;
         public static JToken CurrentCloud;
         public static Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        public bool DirectedToHome;
 
         public Main()
         {
@@ -71,7 +74,7 @@ namespace Cloudsdale
                 Email.ReadOnly = true;
                 Password.ReadOnly = true;
                 await LoginRequest();
-                this.AcceptButton = SendMessage;
+                this.AcceptButton = m_SendMessage;
                 this.MaximizeBox = true;
                 Connection.MessageReceived += o =>
                 {
@@ -83,11 +86,23 @@ namespace Cloudsdale
                 };
                 await Connection.InitializeAsync();
                 await PreloadMessages((JArray)Main.User["user"]["clouds"]);
+                h_avatar.ImageLocation = User["user"]["avatar"]["normal"].ToString();
+                h_avatar.SizeMode = PictureBoxSizeMode.Zoom;
                 Login.Enabled = true;
                 Register.Enabled = true;
                 Email.ReadOnly = false;
                 Password.ReadOnly = false;
                 LoginPanel.Visible = false;
+                //UserCheck.Authorize(User["user"]["name"].ToString());
+                //Discord's fault.
+                MessageGroup.Text = "Welcome back, " + User["user"]["name"] + "!";
+                var calDate = User["user"]["member_since"].ToString();
+                var newDate = calDate.Replace("+0000", "");
+                h_memberSince.Text = "Member since " + newDate;
+                h_message.Text = h_message.Text.Replace("[:user:]", User["user"]["name"].ToString());
+                RedirectHome(true);
+
+                
             }
             catch (CouldNotLoginException ex)
             {
@@ -108,6 +123,8 @@ namespace Cloudsdale
             request.ContentLength = data.Length;
             request.ContentType = "application/json";
             request.Accept = "application/json";
+            request.Timeout = 1500;
+            
             using (var requestStream = await request.GetRequestStreamAsync())
             {
                 await requestStream.WriteAsync(data, 0, data.Length);
@@ -171,21 +188,6 @@ namespace Cloudsdale
                     source.AddMessage(message);
                 }
             }
-
-            if (Main.CurrentCloud != null && cloudId == (string)Main.CurrentCloud["id"])
-            {
-                MessageQueue.Queue.Enqueue(LinkRegex.Replace((string)message["content"], "")
-                    //.Truncate(maxchars)
-                    .Replace("\\n", " ")
-                    .Replace("\\t", " ")
-                    .Replace(":)", " smiley face ")
-                    .Replace(":(", " sad face ")
-                    .Replace(":D", " happy face ")
-                    .Replace("<3", "♥")
-                    .Replace("♥", " heart ")
-                    .RegexReplace("^/me", (string)message["author"]["name"])
-                    );
-            }
         }
         private void LogMessage(JToken message, string cloudId)
         {
@@ -229,24 +231,53 @@ namespace Cloudsdale
                 }
             }
         }
-
+        private void LaunchReg(object sender, EventArgs e)
+        {
+            Process.Start("https://www.cloudsdale.org/register");
+        }
         private void CloudList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            if (CloudList.SelectedItems.Count > 0)
             {
-                System.Windows.MessageBox.Show(CloudList.FocusedItem.Text.ToString());
+                MessageGroup.Text = CloudList.FocusedItem.Text;
+                CurrentCloud = (JToken)CloudList.FocusedItem.ToString();
+                Console.WriteLine(CurrentCloud);
+                if (CloudList.FocusedItem.Index >= 0)
+                {
+                    RedirectHome(false);
+                }
+                else
+                {
+                    RedirectHome(true);
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message);
-            }
-
         }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
-            MessagePanel.Visible = false;
-            MessageGroup.Text = "Welcome back!";
+            MessageGroup.Text = "Welcome back, " + User["user"]["name"] + "!";
+            RedirectHome(true);
+        }
+        private void RedirectHome(bool RedirectedHome)
+        {
+            if (RedirectedHome == true)
+            {
+                //add the component here to release all MessageViews
+                h_avatar.Visible = true;
+                h_message.Visible = true;
+                h_memberSince.Visible = true;
+
+                m_NewMessage.Visible = false;
+                m_SendMessage.Visible = false;
+            }
+            else
+            {
+                h_avatar.Visible = false;
+                h_message.Visible = false;
+                h_memberSince.Visible = false;
+
+                m_NewMessage.Visible = true;
+                m_SendMessage.Visible = true;
+            }
         }
     }
 }

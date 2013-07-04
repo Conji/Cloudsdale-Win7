@@ -11,7 +11,7 @@ namespace Cloudsdale.connection
         //Client
         public const string Base = "http://www.cloudsdale.org/";
         public const string Version = "v1";
-        public const string AssetSource = "https://avatar-cloudsdale.netdna-ssl.com";
+        public const string AssetSource = "https://avatar-cloudsdale.netdna-ssl.com/";
 
         public const string Api = Base + Version;
         public const string InternalToken = "$2a$10$7Pfcv89Q9c/9WMAk6ySfhu";

@@ -48,8 +48,11 @@
             this.MessageUI = new System.Windows.Forms.Panel();
             this.MessageGroup = new System.Windows.Forms.GroupBox();
             this.MessagePanel = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.SendMessage = new System.Windows.Forms.Button();
+            this.h_memberSince = new System.Windows.Forms.Label();
+            this.h_message = new System.Windows.Forms.TextBox();
+            this.h_avatar = new System.Windows.Forms.PictureBox();
+            this.m_NewMessage = new System.Windows.Forms.TextBox();
+            this.m_SendMessage = new System.Windows.Forms.Button();
             this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
             this.MessagesSource = new System.Windows.Forms.BindingSource(this.components);
             this.LoginPanel.SuspendLayout();
@@ -58,6 +61,8 @@
             this.panel2.SuspendLayout();
             this.MessageUI.SuspendLayout();
             this.MessageGroup.SuspendLayout();
+            this.MessagePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,6 +90,7 @@
             this.Register.TabIndex = 6;
             this.Register.Text = "Register";
             this.Register.UseVisualStyleBackColor = true;
+            this.Register.Click += new System.EventHandler(this.LaunchReg);
             // 
             // Login
             // 
@@ -200,7 +206,7 @@
             this.CloudList.MultiSelect = false;
             this.CloudList.Name = "CloudList";
             this.CloudList.ShowItemToolTips = true;
-            this.CloudList.Size = new System.Drawing.Size(203, 393);
+            this.CloudList.Size = new System.Drawing.Size(199, 393);
             this.CloudList.SmallImageList = this.CloudIco;
             this.CloudList.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.CloudList.TabIndex = 0;
@@ -214,9 +220,10 @@
             this.MessageUI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.MessageUI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.MessageUI.Controls.Add(this.MessageGroup);
-            this.MessageUI.Controls.Add(this.textBox1);
-            this.MessageUI.Controls.Add(this.SendMessage);
+            this.MessageUI.Controls.Add(this.m_NewMessage);
+            this.MessageUI.Controls.Add(this.m_SendMessage);
             this.MessageUI.Location = new System.Drawing.Point(198, 0);
             this.MessageUI.Name = "MessageUI";
             this.MessageUI.Size = new System.Drawing.Size(494, 439);
@@ -227,39 +234,79 @@
             this.MessageGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.MessageGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.MessageGroup.Controls.Add(this.MessagePanel);
             this.MessageGroup.Location = new System.Drawing.Point(3, 0);
             this.MessageGroup.Name = "MessageGroup";
-            this.MessageGroup.Size = new System.Drawing.Size(479, 400);
+            this.MessageGroup.Size = new System.Drawing.Size(488, 400);
             this.MessageGroup.TabIndex = 2;
             this.MessageGroup.TabStop = false;
-            this.MessageGroup.Text = "MessageBox";
+            this.MessageGroup.Text = "Welcome back!";
             // 
             // MessagePanel
             // 
-            this.MessagePanel.Location = new System.Drawing.Point(7, 26);
+            this.MessagePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MessagePanel.Controls.Add(this.h_memberSince);
+            this.MessagePanel.Controls.Add(this.h_message);
+            this.MessagePanel.Controls.Add(this.h_avatar);
+            this.MessagePanel.Location = new System.Drawing.Point(6, 23);
             this.MessagePanel.Name = "MessagePanel";
-            this.MessagePanel.Size = new System.Drawing.Size(471, 374);
+            this.MessagePanel.Size = new System.Drawing.Size(473, 371);
             this.MessagePanel.TabIndex = 0;
             // 
-            // textBox1
+            // h_memberSince
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.h_memberSince.AutoSize = true;
+            this.h_memberSince.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.h_memberSince.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_memberSince.Location = new System.Drawing.Point(171, 195);
+            this.h_memberSince.Name = "h_memberSince";
+            this.h_memberSince.Size = new System.Drawing.Size(76, 18);
+            this.h_memberSince.TabIndex = 2;
+            this.h_memberSince.Text = "date joined";
+            // 
+            // h_message
+            // 
+            this.h_message.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.h_message.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.h_message.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_message.Location = new System.Drawing.Point(164, 3);
+            this.h_message.Multiline = true;
+            this.h_message.Name = "h_message";
+            this.h_message.ReadOnly = true;
+            this.h_message.Size = new System.Drawing.Size(302, 179);
+            this.h_message.TabIndex = 1;
+            this.h_message.Text = resources.GetString("h_message.Text");
+            // 
+            // h_avatar
+            // 
+            this.h_avatar.ImageLocation = "";
+            this.h_avatar.Location = new System.Drawing.Point(10, 3);
+            this.h_avatar.Name = "h_avatar";
+            this.h_avatar.Size = new System.Drawing.Size(148, 137);
+            this.h_avatar.TabIndex = 0;
+            this.h_avatar.TabStop = false;
+            // 
+            // m_NewMessage
+            // 
+            this.m_NewMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(3, 406);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(394, 27);
-            this.textBox1.TabIndex = 1;
+            this.m_NewMessage.Location = new System.Drawing.Point(10, 406);
+            this.m_NewMessage.Name = "m_NewMessage";
+            this.m_NewMessage.Size = new System.Drawing.Size(387, 27);
+            this.m_NewMessage.TabIndex = 1;
             // 
-            // SendMessage
+            // m_SendMessage
             // 
-            this.SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SendMessage.Location = new System.Drawing.Point(406, 406);
-            this.SendMessage.Name = "SendMessage";
-            this.SendMessage.Size = new System.Drawing.Size(75, 27);
-            this.SendMessage.TabIndex = 0;
-            this.SendMessage.Text = "Send\r\n";
-            this.SendMessage.UseVisualStyleBackColor = true;
+            this.m_SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_SendMessage.Location = new System.Drawing.Point(406, 406);
+            this.m_SendMessage.Name = "m_SendMessage";
+            this.m_SendMessage.Size = new System.Drawing.Size(75, 27);
+            this.m_SendMessage.TabIndex = 0;
+            this.m_SendMessage.Text = "Send\r\n";
+            this.m_SendMessage.UseVisualStyleBackColor = true;
             // 
             // Subscriber
             // 
@@ -296,6 +343,9 @@
             this.MessageUI.ResumeLayout(false);
             this.MessageUI.PerformLayout();
             this.MessageGroup.ResumeLayout(false);
+            this.MessagePanel.ResumeLayout(false);
+            this.MessagePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -303,6 +353,8 @@
 
         #endregion
 
+        //for controls rested in the MessageUI, use "m_ExampleControl". 
+        //for controls rested in the HomeTab, use "h_ExampleControl".
         private System.Windows.Forms.Panel LoginPanel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button Register;
@@ -317,14 +369,17 @@
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.ListView CloudList;
         private System.Windows.Forms.Panel MessageUI;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button SendMessage;
+        private System.Windows.Forms.TextBox m_NewMessage;
+        private System.Windows.Forms.Button m_SendMessage;
         public System.Windows.Forms.NotifyIcon Subscriber;
         public System.Windows.Forms.BindingSource MessagesSource;
         private System.Windows.Forms.GroupBox MessageGroup;
-        private System.Windows.Forms.Panel MessagePanel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel MessagePanel;
+        private System.Windows.Forms.Label h_memberSince;
+        private System.Windows.Forms.TextBox h_message;
+        private System.Windows.Forms.PictureBox h_avatar;
         
     }
 }
