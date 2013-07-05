@@ -20,6 +20,7 @@ namespace Cloudsdale.connection
                 return Sources[(string)cloud["id"]];
             }
             return Sources[(string)cloud["id"]] = new MessageSource();
+            
         }
         public static MessageSource GetSource(string cloudId)
         {

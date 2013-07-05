@@ -36,6 +36,8 @@
     <ApplicationIcon>icon_color1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\..\Desktop\cdSource\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -83,12 +85,24 @@
     <Compile Include="actions\MessageController\DependancyJToken.cs" />
     <Compile Include="actions\MessageController\MessageQueue.cs" />
     <Compile Include="actions\MessageHandler.cs" />
+    <Compile Include="actions\ShowControl.cs" />
     <Compile Include="connection\CouldNotLoginException.cs" />
     <Compile Include="connection\Endpoints.cs" />
     <Compile Include="connection\FayeConnector.cs" />
     <Compile Include="connection\Helpers.cs" />
     <Compile Include="connection\MessageSource.cs" />
-    <Compile Include="lib\MessageUI\Slide.cs" />
+    <Compile Include="lib\MessageUI\ChatPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="lib\MessageUI\Item\Add.cs" />
+    <Compile Include="lib\MessageUI\Item\Message.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="lib\MessageUI\Item\UserControl1.Designer.cs">
+      <DependentUpon>Message.cs</DependentUpon>
+    </Compile>
+    <Compile Include="lib\UnhandledSwagEvent.cs" />
+    <Compile Include="lib\UserCheck.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,20 +111,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="lib\MessageUI\Item\UserControl1.resx">
+      <DependentUpon>Message.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Cloudsdale.connection.MessageSource.datasource" />
     <None Include="Properties\Settings.settings">
@@ -133,7 +150,20 @@
     <None Include="Resources\icon_auth_gray.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Fallback\user.png" />
+    <None Include="Resources\preview_thumb_drop.png" />
+    <None Include="Resources\1.png" />
+    <None Include="Resources\Fallback\app.png" />
+    <None Include="Resources\Fallback\cloud.png" />
+    <None Include="Resources\accessible.png" />
+    <None Include="Resources\cloud.png" />
+    <None Include="Resources\book.png" />
+    <None Include="Resources\credit_card.png" />
+    <Content Include="Resources\main_logo.png" />
     <Content Include="icon_color1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\Menu\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
