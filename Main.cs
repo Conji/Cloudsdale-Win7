@@ -38,21 +38,27 @@ namespace Cloudsdale
         {
             InitializeComponent();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-
-
             this.Width = 695;
             LoginPanel.BringToFront();
             LoginPanel.Dock = DockStyle.Fill;
             if (LoginPanel.Visible == true) { this.MaximizeBox = false; }
             Subscriber.Visible = true;
+            SettingsPanel.Height = 0;
 
         }
         private void ActivateMenuHover(object sender, EventArgs e)
         {
-            ViewTimer.Start();
+
+            if (SettingsPanel.Height != 55)
+            {
+                ViewTimer.Start();
+            }
+            else
+            {
+                SettingsPanel.Height = 0;
+            }
             
         }
         private void SettingsLeft(object sender, EventArgs e)
@@ -62,19 +68,19 @@ namespace Cloudsdale
         private void SettingsHover(object sender, EventArgs e)
         {
             SettingsVisible = true;
-            SettingsPanel.Height = 230;
+            SettingsPanel.Height = 55;
         }
         private void ShowSettings(object sender, EventArgs e)
         {
             var SettingsNewSize = SettingsPanel.Height;
-            if (SettingsNewSize >= 230)
+            if (SettingsNewSize >= 55)
             {
-                SettingsPanel.Height = 230;
+                SettingsPanel.Height = 55;
                 ViewTimer.Stop();
             }
             else
             {
-                SettingsNewSize += 5 * ((SettingsNewSize + 4/3) / 2);
+                SettingsNewSize += 1 * ((SettingsNewSize + 2) / 2);
                 SettingsPanel.Height = SettingsNewSize;
             }
         }
@@ -115,7 +121,7 @@ namespace Cloudsdale
                 var calDate = User["user"]["member_since"].ToString();
                 var newDate = calDate.Replace("+0000", "");
                 h_memberSince.Text = "Member since " + newDate;
-                h_message.Text = h_message.Text.Replace("[:user:]", User["user"]["name"].ToString());
+
                 RedirectHome(true);
 
                 
@@ -247,11 +253,37 @@ namespace Cloudsdale
                             LoadMessageToSource(source, message, (string)cloud["id"]);
                         }
                         FayeConnector.Subscribe("/clouds/" + cloud["id"] + "/chat/messages");
-                        CloudList.Items.Add(cloud["name"].ToString());
+
+                        CloudList.SmallImageList.Images.Add(cloud["id"].ToString(), LoadImage(cloud["avatar"]["thumb"].ToString()));
+                        CloudList.Items.Add(cloud["id"].ToString(), cloud["name"].ToString(), CloudList.SmallImageList.Images.Count - 1);
+                        
                     }
                 }
             }
         }
+        private Image LoadImage(string url)
+        {
+            System.Net.WebRequest request =
+            System.Net.WebRequest.Create(url);
+
+            System.Net.WebResponse response = request.GetResponse();
+            System.IO.Stream responseStream =
+                response.GetResponseStream();
+
+            Bitmap bmp = new Bitmap(responseStream);
+
+            responseStream.Dispose();
+
+            return bmp;
+        }
+        //public Task CloudID(ICollection<JToken> clouds)
+        //{
+        //    foreach (var cloud in clouds)
+        //    {
+                
+        //    }
+            
+        //}
         private void LaunchReg(object sender, EventArgs e)
         {
             Process.Start("https://www.cloudsdale.org/register");
@@ -266,6 +298,9 @@ namespace Cloudsdale
                 Console.WriteLine(CurrentCloud);
                 if (CloudList.FocusedItem.Index >= 0) { RedirectHome(false); }
                 else { RedirectHome(true); }
+                
+                
+
             }
         }
         private void button1_Click_1(object sender, EventArgs e)

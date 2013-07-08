@@ -37,13 +37,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Password = new System.Windows.Forms.TextBox();
             this.Email = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ViewTimer = new System.Windows.Forms.Timer(this.components);
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
-            this.CloudIco = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.CloudList = new System.Windows.Forms.ListView();
             this.CloudContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.goToCloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,29 +60,42 @@
             this.SettingsPanel = new System.Windows.Forms.Panel();
             this.MessagePanel = new System.Windows.Forms.Panel();
             this.h_about = new System.Windows.Forms.TextBox();
+            this.h_message = new System.Windows.Forms.Label();
+            this.h_memberSince = new System.Windows.Forms.Label();
+            this.m_NewMessage = new System.Windows.Forms.TextBox();
+            this.m_SendMessage = new System.Windows.Forms.Button();
+            this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
+            this.CloudIco = new System.Windows.Forms.ImageList(this.components);
+            this.label3 = new System.Windows.Forms.Label();
+            this.settingsIcon = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.cmdDonate = new System.Windows.Forms.Button();
             this.cmdInfo = new System.Windows.Forms.Button();
             this.cmdExplore = new System.Windows.Forms.Button();
             this.h_pony = new System.Windows.Forms.PictureBox();
-            this.h_message = new System.Windows.Forms.TextBox();
-            this.h_memberSince = new System.Windows.Forms.Label();
             this.h_avatar = new System.Windows.Forms.PictureBox();
-            this.m_NewMessage = new System.Windows.Forms.TextBox();
-            this.m_SendMessage = new System.Windows.Forms.Button();
-            this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
-            this.settingsIcon = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.MessagesSource = new System.Windows.Forms.BindingSource(this.components);
             this.LoginPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.CloudContext.SuspendLayout();
             this.MessageUI.SuspendLayout();
             this.MessageGroup.SuspendLayout();
+            this.SettingsPanel.SuspendLayout();
             this.MessagePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -158,27 +168,10 @@
             this.Email.Size = new System.Drawing.Size(346, 27);
             this.Email.TabIndex = 1;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::Cloudsdale.Properties.Resources.cloudsdale_thin_bright_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(681, 140);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // ViewTimer
             // 
+            this.ViewTimer.Interval = 1;
             this.ViewTimer.Tick += new System.EventHandler(this.ShowSettings);
-            // 
-            // CloudIco
-            // 
-            this.CloudIco.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.CloudIco.ImageSize = new System.Drawing.Size(16, 16);
-            this.CloudIco.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // panel1
             // 
@@ -201,21 +194,6 @@
             this.panel2.Size = new System.Drawing.Size(200, 438);
             this.panel2.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.button1.Location = new System.Drawing.Point(-1, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(202, 45);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Home";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // CloudList
             // 
             this.CloudList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -223,6 +201,7 @@
             this.CloudList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.CloudList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.CloudList.ContextMenuStrip = this.CloudContext;
+            this.CloudList.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CloudList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.CloudList.FullRowSelect = true;
             this.CloudList.GridLines = true;
@@ -235,7 +214,7 @@
             this.CloudList.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.CloudList.TabIndex = 0;
             this.CloudList.UseCompatibleStateImageBehavior = false;
-            this.CloudList.View = System.Windows.Forms.View.Tile;
+            this.CloudList.View = System.Windows.Forms.View.List;
             this.CloudList.SelectedIndexChanged += new System.EventHandler(this.CloudList_SelectedIndexChanged);
             this.CloudList.Click += new System.EventHandler(this.CloudList_SelectedIndexChanged);
             // 
@@ -347,7 +326,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MessageGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.MessageGroup.Controls.Add(this.SettingsPanel);
             this.MessageGroup.Controls.Add(this.MessagePanel);
             this.MessageGroup.Location = new System.Drawing.Point(3, 0);
             this.MessageGroup.Name = "MessageGroup";
@@ -359,13 +337,21 @@
             // SettingsPanel
             // 
             this.SettingsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SettingsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.SettingsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.SettingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SettingsPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.SettingsPanel.Location = new System.Drawing.Point(316, 1);
+            this.SettingsPanel.Controls.Add(this.label5);
+            this.SettingsPanel.Controls.Add(this.pictureBox4);
+            this.SettingsPanel.Controls.Add(this.label4);
+            this.SettingsPanel.Controls.Add(this.pictureBox3);
+            this.SettingsPanel.Controls.Add(this.label3);
+            this.SettingsPanel.Controls.Add(this.pictureBox2);
+            this.SettingsPanel.Font = new System.Drawing.Font("Pfennig", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SettingsPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.SettingsPanel.Location = new System.Drawing.Point(10, 3);
+            this.SettingsPanel.MaximumSize = new System.Drawing.Size(10000, 55);
             this.SettingsPanel.Name = "SettingsPanel";
             this.SettingsPanel.Padding = new System.Windows.Forms.Padding(2);
-            this.SettingsPanel.Size = new System.Drawing.Size(170, 0);
+            this.SettingsPanel.Size = new System.Drawing.Size(470, 55);
             this.SettingsPanel.TabIndex = 8;
             this.SettingsPanel.MouseHover += new System.EventHandler(this.SettingsHover);
             // 
@@ -374,6 +360,7 @@
             this.MessagePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.MessagePanel.Controls.Add(this.SettingsPanel);
             this.MessagePanel.Controls.Add(this.h_about);
             this.MessagePanel.Controls.Add(this.cmdDonate);
             this.MessagePanel.Controls.Add(this.cmdInfo);
@@ -398,10 +385,111 @@
             this.h_about.Location = new System.Drawing.Point(458, 3);
             this.h_about.Multiline = true;
             this.h_about.Name = "h_about";
+            this.h_about.ReadOnly = true;
             this.h_about.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.h_about.Size = new System.Drawing.Size(0, 365);
             this.h_about.TabIndex = 7;
             this.h_about.Text = resources.GetString("h_about.Text");
+            // 
+            // h_message
+            // 
+            this.h_message.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.h_message.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.h_message.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_message.Location = new System.Drawing.Point(144, 3);
+            this.h_message.Name = "h_message";
+            this.h_message.Size = new System.Drawing.Size(311, 165);
+            this.h_message.TabIndex = 1;
+            this.h_message.Text = resources.GetString("h_message.Text");
+            // 
+            // h_memberSince
+            // 
+            this.h_memberSince.AutoSize = true;
+            this.h_memberSince.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.h_memberSince.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_memberSince.Location = new System.Drawing.Point(7, 163);
+            this.h_memberSince.Name = "h_memberSince";
+            this.h_memberSince.Size = new System.Drawing.Size(76, 18);
+            this.h_memberSince.TabIndex = 2;
+            this.h_memberSince.Text = "date joined";
+            // 
+            // m_NewMessage
+            // 
+            this.m_NewMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_NewMessage.Location = new System.Drawing.Point(10, 406);
+            this.m_NewMessage.Name = "m_NewMessage";
+            this.m_NewMessage.Size = new System.Drawing.Size(382, 27);
+            this.m_NewMessage.TabIndex = 1;
+            // 
+            // m_SendMessage
+            // 
+            this.m_SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_SendMessage.Location = new System.Drawing.Point(401, 406);
+            this.m_SendMessage.Name = "m_SendMessage";
+            this.m_SendMessage.Size = new System.Drawing.Size(75, 27);
+            this.m_SendMessage.TabIndex = 0;
+            this.m_SendMessage.Text = "Send\r\n";
+            this.m_SendMessage.UseVisualStyleBackColor = true;
+            // 
+            // Subscriber
+            // 
+            this.Subscriber.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.Subscriber.BalloonTipText = "[:user] posted on [:cloud]!\r\n";
+            this.Subscriber.BalloonTipTitle = "Cloudsdale Subscriber";
+            this.Subscriber.Text = "[USER] posted in [CLOUD]!";
+            this.Subscriber.Visible = true;
+            // 
+            // CloudIco
+            // 
+            this.CloudIco.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.CloudIco.ImageSize = new System.Drawing.Size(16, 16);
+            this.CloudIco.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Location = new System.Drawing.Point(43, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "User";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // settingsIcon
+            // 
+            this.settingsIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.settingsIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.settingsIcon.Image = global::Cloudsdale.Properties.Resources.icon_auth_gray;
+            this.settingsIcon.Location = new System.Drawing.Point(659, 0);
+            this.settingsIcon.Name = "settingsIcon";
+            this.settingsIcon.Size = new System.Drawing.Size(28, 31);
+            this.settingsIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.settingsIcon.TabIndex = 1;
+            this.settingsIcon.TabStop = false;
+            this.settingsIcon.Click += new System.EventHandler(this.ActivateMenuHover);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox3.Image = global::Cloudsdale.Properties.Resources._lock;
+            this.pictureBox3.Location = new System.Drawing.Point(154, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(44, 36);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 2;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox2.Image = global::Cloudsdale.Properties.Resources.user1;
+            this.pictureBox2.Location = new System.Drawing.Point(44, -1);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(56, 37);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
             // 
             // cmdDonate
             // 
@@ -450,31 +538,6 @@
             this.h_pony.TabIndex = 3;
             this.h_pony.TabStop = false;
             // 
-            // h_message
-            // 
-            this.h_message.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.h_message.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.h_message.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.h_message.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.h_message.Location = new System.Drawing.Point(144, 3);
-            this.h_message.Multiline = true;
-            this.h_message.Name = "h_message";
-            this.h_message.ReadOnly = true;
-            this.h_message.Size = new System.Drawing.Size(311, 165);
-            this.h_message.TabIndex = 1;
-            this.h_message.Text = resources.GetString("h_message.Text");
-            // 
-            // h_memberSince
-            // 
-            this.h_memberSince.AutoSize = true;
-            this.h_memberSince.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.h_memberSince.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.h_memberSince.Location = new System.Drawing.Point(7, 163);
-            this.h_memberSince.Name = "h_memberSince";
-            this.h_memberSince.Size = new System.Drawing.Size(76, 18);
-            this.h_memberSince.TabIndex = 2;
-            this.h_memberSince.Text = "date joined";
-            // 
             // h_avatar
             // 
             this.h_avatar.ErrorImage = ((System.Drawing.Image)(resources.GetObject("h_avatar.ErrorImage")));
@@ -487,46 +550,66 @@
             this.h_avatar.TabIndex = 0;
             this.h_avatar.TabStop = false;
             // 
-            // m_NewMessage
+            // button1
             // 
-            this.m_NewMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.button1.Image = global::Cloudsdale.Properties.Resources.home1;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(-1, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(202, 45);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Home Page";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_NewMessage.Location = new System.Drawing.Point(10, 406);
-            this.m_NewMessage.Name = "m_NewMessage";
-            this.m_NewMessage.Size = new System.Drawing.Size(382, 27);
-            this.m_NewMessage.TabIndex = 1;
+            this.pictureBox1.Image = global::Cloudsdale.Properties.Resources.cloudsdale_thin_bright_logo;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(681, 140);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
-            // m_SendMessage
+            // label4
             // 
-            this.m_SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_SendMessage.Location = new System.Drawing.Point(401, 406);
-            this.m_SendMessage.Name = "m_SendMessage";
-            this.m_SendMessage.Size = new System.Drawing.Size(75, 27);
-            this.m_SendMessage.TabIndex = 0;
-            this.m_SendMessage.Text = "Send\r\n";
-            this.m_SendMessage.UseVisualStyleBackColor = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Location = new System.Drawing.Point(131, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 20);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Cloud Panel";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Subscriber
+            // pictureBox4
             // 
-            this.Subscriber.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.Subscriber.BalloonTipText = "[:user] posted on [:cloud]!\r\n";
-            this.Subscriber.BalloonTipTitle = "Cloudsdale Subscriber";
-            this.Subscriber.Text = "[USER] posted in [CLOUD]!";
-            this.Subscriber.Visible = true;
+            this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox4.Image = global::Cloudsdale.Properties.Resources.cloud1;
+            this.pictureBox4.Location = new System.Drawing.Point(259, -1);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(52, 37);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 4;
+            this.pictureBox4.TabStop = false;
             // 
-            // settingsIcon
+            // label5
             // 
-            this.settingsIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.settingsIcon.Image = global::Cloudsdale.Properties.Resources.icon_auth_gray;
-            this.settingsIcon.Location = new System.Drawing.Point(659, 0);
-            this.settingsIcon.Name = "settingsIcon";
-            this.settingsIcon.Size = new System.Drawing.Size(28, 31);
-            this.settingsIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.settingsIcon.TabIndex = 1;
-            this.settingsIcon.TabStop = false;
-            this.settingsIcon.MouseLeave += new System.EventHandler(this.SettingsLeft);
-            this.settingsIcon.MouseHover += new System.EventHandler(this.ActivateMenuHover);
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Location = new System.Drawing.Point(255, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 20);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Explore";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MessagesSource
             // 
@@ -545,6 +628,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MinimumSize = new System.Drawing.Size(695, 474);
             this.Name = "Main";
             this.Text = "Cloudsdale";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -552,18 +636,22 @@
             this.Resize += new System.EventHandler(this.ResizeCheck);
             this.LoginPanel.ResumeLayout(false);
             this.LoginPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.CloudContext.ResumeLayout(false);
             this.MessageUI.ResumeLayout(false);
             this.MessageUI.PerformLayout();
             this.MessageGroup.ResumeLayout(false);
+            this.SettingsPanel.ResumeLayout(false);
             this.MessagePanel.ResumeLayout(false);
             this.MessagePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MessagesSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -583,7 +671,6 @@
         internal System.Windows.Forms.TextBox Email;
         public System.Windows.Forms.TextBox Password;
         private System.Windows.Forms.HelpProvider helpProvider1;
-        private System.Windows.Forms.ImageList CloudIco;
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.ListView CloudList;
         private System.Windows.Forms.Panel MessageUI;
@@ -596,7 +683,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel MessagePanel;
         private System.Windows.Forms.Label h_memberSince;
-        private System.Windows.Forms.TextBox h_message;
+        private System.Windows.Forms.Label h_message;
         private System.Windows.Forms.PictureBox h_avatar;
         private System.Windows.Forms.PictureBox settingsIcon;
         private System.Windows.Forms.PictureBox h_pony;
@@ -618,6 +705,13 @@
         private System.Windows.Forms.TextBox h_about;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.Panel SettingsPanel;
+        private System.Windows.Forms.ImageList CloudIco;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.PictureBox pictureBox4;
         
     }
 }
