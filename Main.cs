@@ -63,7 +63,7 @@ namespace Cloudsdale
                 Email.ReadOnly = true;
                 Password.ReadOnly = true;
                 await LoginRequest();
-                this.Text = "Login succesful.";
+                this.Text = "Login succesful!";
                 this.AcceptButton = m_SendMessage;
                 this.MaximizeBox = true;
                 Connection.MessageReceived += o =>
