@@ -10,18 +10,18 @@ using System.Windows.Forms;
 
 namespace Cloudsdale.lib.MessageUI
 {
-    public partial class Message : UserControl
+    public partial class CloudMessage : UserControl
     {
-        private string _name { get; set; }
-        private string _username { get; set; }
-        private string _role { get; set; }
-        private string _time { get; set; }
-        private string _status { get; set; }
-        private string _platform { get; set; }
-        private string _content { get; set; }
-        private Image _avatar { get; set; }
+        public string _name { get; set; }
+        public string _username { get; set; }
+        public string _role { get; set; }
+        public string _time { get; set; }
+        public string _status { get; set; }
+        public string _platform { get; set; }
+        public string _content { get; set; }
+        public Image _avatar { get; set; }
 
-        public Message()
+        public CloudMessage()
         {
             InitializeComponent();
         }
@@ -193,157 +193,186 @@ namespace Cloudsdale.lib.MessageUI
         }
         #endregion
         #endregion
-        public void AddMessage(string name, string username, string role, string time, string status, string platform, string content)
+        public static CloudMessage NewMessage = new CloudMessage();
+        public void AddMessage(ListView cloud, string name, string username, string role, string time, string status, string platform, string content)
         {
-            _name = name;
-            _username = username;
-            _role = role;
-            _time = time;
-            _status = status;
-            _platform = platform;
-            _content = content;
-            _avatar = Cloudsdale.Properties.Resources.user;
 
-            c_name.Text = SetName;
-            c_user.Text = SetUsername;
+            NewMessage.Width = cloud.Width;
+
+            NewMessage._name = name;
+            NewMessage._username = username;
+            NewMessage._role = role;
+            NewMessage._time = time;
+            NewMessage._status = status;
+            NewMessage._platform = platform;
+            NewMessage._content = content;
+            NewMessage._avatar = Cloudsdale.Properties.Resources.user;
+
+            NewMessage.c_name.Text = NewMessage.SetName;
+            NewMessage.c_user.Text = NewMessage.SetUsername;
             #region c_role = SetRole;
-            switch (SetRole)
+            switch (NewMessage.SetRole)
             {
                 case "founder":
-                    c_role.Text = "founder";
-                    c_role.BackColor = Assets.FounderTag;
+                    NewMessage.c_role.Text = "founder";
+                    NewMessage.c_role.BackColor = Assets.FounderTag;
                     break;
                 case "dev":
-                    c_role.Text = "dev";
-                    c_role.BackColor = Assets.DevTag;
+                    NewMessage.c_role.Text = "dev";
+                    NewMessage.c_role.BackColor = Assets.DevTag;
                     break;
                 case "admin":
-                    c_role.Text = "admin";
-                    c_role.BackColor = Assets.AdminTag;
+                    NewMessage.c_role.Text = "admin";
+                    NewMessage.c_role.BackColor = Assets.AdminTag;
                     break;
                 case "donator":
-                    c_role.Text = "donator";
-                    c_role.BackColor = Color.Goldenrod;
+                    NewMessage.c_role.Text = "donator";
+                    NewMessage.c_role.BackColor = Color.Goldenrod;
                     break;
                 case "legacy":
-                    c_role.Text = "legacy";
-                    c_role.BackColor = Color.LightGray;
+                    NewMessage.c_role.Text = "legacy";
+                    NewMessage.c_role.BackColor = Color.LightGray;
                     break;
                 default:
-                    c_role.Text = null;
-                    c_role.BackColor = Assets.PrimaryBackground;
-                    c_role.BorderStyle = System.Windows.Forms.BorderStyle.None;
+                    NewMessage.c_role.Text = null;
+                    NewMessage.c_role.BackColor = Assets.PrimaryBackground;
+                    NewMessage.c_role.BorderStyle = System.Windows.Forms.BorderStyle.None;
                     break;
             }
             #endregion
-            c_time.Text = SetTimestamp;
+            NewMessage.c_time.Text = NewMessage.SetTimestamp;
             #region c_status = SetStatus;
-            switch (SetRole)
+            switch (NewMessage.SetRole)
             {
                 case "online":
-                    c_status.FillColor = Assets.OnlineStatus;
+                    NewMessage.c_status.FillColor = Assets.OnlineStatus;
                     break;
                 case "offline":
-                    c_status.FillColor = Assets.OfflineStatus;
+                    NewMessage.c_status.FillColor = Assets.OfflineStatus;
                     break;
                 case "away":
-                    c_status.FillColor = Assets.AwayStatus;
+                    NewMessage.c_status.FillColor = Assets.AwayStatus;
                     break;
                 case "busy":
-                    c_status.FillColor = Assets.BusyStatus;
+                    NewMessage.c_status.FillColor = Assets.BusyStatus;
                     break;
                 default:
                     break;
             }
             #endregion
             #region c_platform = SetPlatform;
-            switch (SetPlatform)
+            switch (NewMessage.SetPlatform)
             {
                 case "mobile":
-                    c_platform.Image = Cloudsdale.Properties.Resources.phone;
+                    NewMessage.c_platform.Image = Cloudsdale.Properties.Resources.phone;
                     break;
                 default:
-                    c_platform.Image = null;
+                    NewMessage.c_platform.Image = null;
                     break;
             }
             #endregion
-            c_content.Text = SetContent;
-            c_avatar.Image = SetAvatar;
-        }
-        public void AddMessage(string name, string username, string role, string time, string status, string platform, string content, Image avatar)
-        {
-            _name = name;
-            _username = username;
-            _role = role;
-            _time = time;
-            _status = status;
-            _platform = platform;
-            _content = content;
-            _avatar = avatar;
+            if (NewMessage._content.StartsWith(">") && !NewMessage._content.StartsWith(">.>") && !NewMessage._content.StartsWith(">:"))
+            {
+                NewMessage.c_content.Text = NewMessage.SetContent;
+                NewMessage.c_content.ForeColor = Assets.Success_Bright;
+            }
+            else if (NewMessage._content.StartsWith("/me "))
+            {
+                NewMessage.c_content.Text = NewMessage.SetContent.Replace("/me", NewMessage._name);
+            }
+            else { NewMessage.c_content.Text = NewMessage.SetContent; }
+            NewMessage.c_avatar.Image = NewMessage.SetAvatar;
 
-            c_name.Text = SetName;
-            c_user.Text = SetUsername;
-            switch (SetRole)
+            cloud.Controls.Add(NewMessage);
+        }
+        public void AddMessage(ListView cloud, string name, string username, string role, string time, string status, string platform, string content, Image avatar)
+        {
+
+            NewMessage.Width = cloud.Width;
+
+            NewMessage._name = name;
+            NewMessage._username = username;
+            NewMessage._role = role;
+            NewMessage._time = time;
+            NewMessage._status = status;
+            NewMessage._platform = platform;
+            NewMessage._content = content;
+            NewMessage._avatar = avatar;
+
+            NewMessage.c_name.Text = NewMessage.SetName;
+            NewMessage.c_user.Text = NewMessage.SetUsername;
+            switch (NewMessage.SetRole)
             {
                 case "founder":
-                    c_role.Text = "founder";
-                    c_role.BackColor = Assets.FounderTag;
+                    NewMessage.c_role.Text = "founder";
+                    NewMessage.c_role.BackColor = Assets.FounderTag;
                     break;
                 case "dev":
-                    c_role.Text = "dev";
-                    c_role.BackColor = Assets.DevTag;
+                    NewMessage.c_role.Text = "dev";
+                    NewMessage.c_role.BackColor = Assets.DevTag;
                     break;
                 case "admin":
-                    c_role.Text = "admin";
-                    c_role.BackColor = Assets.AdminTag;
+                    NewMessage.c_role.Text = "admin";
+                    NewMessage.c_role.BackColor = Assets.AdminTag;
                     break;
                 case "donator":
-                    c_role.Text = "donator";
-                    c_role.BackColor = Color.Goldenrod;
+                    NewMessage.c_role.Text = "donator";
+                    NewMessage.c_role.BackColor = Color.Goldenrod;
                     break;
                 case "legacy":
-                    c_role.Text = "legacy";
-                    c_role.BackColor = Color.LightGray;
+                    NewMessage.c_role.Text = "legacy";
+                    NewMessage.c_role.BackColor = Color.LightGray;
                     break;
                 default:
-                    c_role.Text = null;
-                    c_role.BackColor = Assets.PrimaryBackground;
-                    c_role.BorderStyle = System.Windows.Forms.BorderStyle.None;
+                    NewMessage.c_role.Text = null;
+                    NewMessage.c_role.BackColor = Assets.PrimaryBackground;
+                    NewMessage.c_role.BorderStyle = System.Windows.Forms.BorderStyle.None;
                     break;
             }
-            c_time.Text = SetTimestamp;
+            NewMessage.c_time.Text = NewMessage.SetTimestamp;
             #region c_status = SetStatus;
-            switch (SetRole)
+            switch (NewMessage.SetRole)
             {
                 case "online":
-                    c_status.FillColor = Assets.OnlineStatus;
+                    NewMessage.c_status.FillColor = Assets.OnlineStatus;
                     break;
                 case "offline":
-                    c_status.FillColor = Assets.OfflineStatus;
+                    NewMessage.c_status.FillColor = Assets.OfflineStatus;
                     break;
                 case "away":
-                    c_status.FillColor = Assets.AwayStatus;
+                    NewMessage.c_status.FillColor = Assets.AwayStatus;
                     break;
                 case "busy":
-                    c_status.FillColor = Assets.BusyStatus;
+                    NewMessage.c_status.FillColor = Assets.BusyStatus;
                     break;
                 default:
                     break;
             }
             #endregion
             #region c_platform = SetPlatform;
-            switch (SetPlatform)
+            switch (NewMessage.SetPlatform)
             {
                 case "mobile":
-                    c_platform.Image = Cloudsdale.Properties.Resources.phone;
+                    NewMessage.c_platform.Image = Cloudsdale.Properties.Resources.phone;
                     break;
                 default:
-                    c_platform.Image = null;
+                    NewMessage.c_platform.Image = null;
                     break;
             }
             #endregion
-            c_content.Text = SetContent;
-            c_avatar.Image = SetAvatar;
+            if (NewMessage._content.StartsWith(">") && !NewMessage._content.StartsWith(">.>") && !NewMessage._content.StartsWith(">:"))
+            {
+                NewMessage.c_content.Text = NewMessage.SetContent;
+                NewMessage.c_content.ForeColor = Assets.Success_Bright;
+            }
+            else if (NewMessage._content.StartsWith("/me "))
+            {
+                NewMessage.c_content.Text = NewMessage.SetContent.Replace("/me", Main.User["user"]["name"].ToString());
+            }
+            else { NewMessage.c_content.Text = NewMessage.SetContent; }
+            NewMessage.c_avatar.Image = NewMessage.SetAvatar;
+
+            cloud.Controls.Add(NewMessage);
         }
     }
 }

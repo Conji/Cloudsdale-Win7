@@ -1,6 +1,6 @@
 ﻿namespace Cloudsdale.lib.MessageUI
 {
-    partial class Message
+    partial class CloudMessage
     {
         /// <summary> 
         /// Required designer variable.
@@ -73,7 +73,7 @@
             // c_time
             // 
             this.c_time.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.c_time.Location = new System.Drawing.Point(502, 0);
+            this.c_time.Location = new System.Drawing.Point(288, 4);
             this.c_time.Name = "c_time";
             this.c_time.Size = new System.Drawing.Size(70, 20);
             this.c_time.TabIndex = 4;
@@ -83,7 +83,7 @@
             // c_platform
             // 
             this.c_platform.Image = global::Cloudsdale.Properties.Resources.phone;
-            this.c_platform.Location = new System.Drawing.Point(73, 37);
+            this.c_platform.Location = new System.Drawing.Point(348, 39);
             this.c_platform.Name = "c_platform";
             this.c_platform.Size = new System.Drawing.Size(10, 18);
             this.c_platform.TabIndex = 5;
@@ -108,7 +108,7 @@
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.c_status});
-            this.shapeContainer1.Size = new System.Drawing.Size(573, 90);
+            this.shapeContainer1.Size = new System.Drawing.Size(359, 93);
             this.shapeContainer1.TabIndex = 6;
             this.shapeContainer1.TabStop = false;
             // 
@@ -133,17 +133,16 @@
             this.c_content.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.c_content.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.c_content.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.c_content.Location = new System.Drawing.Point(90, 39);
+            this.c_content.Location = new System.Drawing.Point(77, 39);
             this.c_content.Name = "c_content";
             this.c_content.ReadOnly = true;
             this.c_content.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.c_content.Size = new System.Drawing.Size(463, 50);
+            this.c_content.Size = new System.Drawing.Size(265, 39);
             this.c_content.TabIndex = 7;
             this.c_content.Text = "content";
             // 
-            // Message
+            // CloudMessage
             // 
-            this.AccessibleRole = System.Windows.Forms.AccessibleRole.ListItem;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
@@ -160,9 +159,9 @@
             this.Font = new System.Drawing.Font("Pfennig", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Message";
+            this.Name = "CloudMessage";
             this.Padding = new System.Windows.Forms.Padding(2);
-            this.Size = new System.Drawing.Size(577, 94);
+            this.Size = new System.Drawing.Size(363, 97);
             ((System.ComponentModel.ISupportInitialize)(this.c_platform)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c_avatar)).EndInit();
             this.ResumeLayout(false);

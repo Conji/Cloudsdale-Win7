@@ -28,13 +28,15 @@ namespace Cloudsdale
     {
 
         public bool SettingsVisible;
-        public static Main Instance;
+        public static Main Instance = new Main();
         public static JObject User;
         public static JToken CurrentCloud;
         public static Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         public bool DirectedToHome;
         public bool LoggedIn;
-        
+        public CloudMessage NewMessage = new CloudMessage();
+        public ListView CloudMessages;
+
         public Main()
         {
             InitializeComponent();
@@ -50,42 +52,7 @@ namespace Cloudsdale
             SettingsPanel.Height = 0;
 
         }
-        private void ActivateMenuHover(object sender, EventArgs e)
-        {
-
-            if (SettingsPanel.Height != 55)
-            {
-                ViewTimer.Start();
-            }
-            else
-            {
-                SettingsPanel.Height = 0;
-            }
-            
-        }
-        private void SettingsLeft(object sender, EventArgs e)
-        {
-            if (SettingsVisible == false) { SettingsPanel.Height = 0; }
-        }
-        private void SettingsHover(object sender, EventArgs e)
-        {
-            SettingsVisible = true;
-            SettingsPanel.Height = 55;
-        }
-        private void ShowSettings(object sender, EventArgs e)
-        {
-            var SettingsNewSize = SettingsPanel.Height;
-            if (SettingsNewSize >= 55)
-            {
-                SettingsPanel.Height = 55;
-                ViewTimer.Stop();
-            }
-            else
-            {
-                SettingsNewSize += 1 * ((SettingsNewSize + 2) / 2);
-                SettingsPanel.Height = SettingsNewSize;
-            }
-        }
+ 
         private async void button1_Click(object sender, EventArgs e)
         {
             try
@@ -108,7 +75,6 @@ namespace Cloudsdale
                 };
                 await Connection.InitializeAsync();
                 this.Text = "Loading clouds...";
-                MessageList CloudMessagingUI = new MessageList();
                 Main MainWindow = new Main();
                 await PreloadMessages((JArray)User["user"]["clouds"]);
                 h_avatar.ImageLocation = User["user"]["avatar"]["normal"].ToString();
@@ -124,7 +90,6 @@ namespace Cloudsdale
                 var calDate = User["user"]["member_since"].ToString();
                 var newDate = calDate.Replace("+0000", "");
                 h_memberSince.Text = "Member since " + newDate;
-                
 
                 RedirectHome(true);
                 LoggedIn = true;
@@ -250,8 +215,7 @@ namespace Cloudsdale
                         
 
                         CloudList.SmallImageList.Images.Add((string)cloud["id"], LoadImage((string)cloud["avatar"]["normal"]));
-                        CloudList.Items.Add((string)cloud["id"], (string)cloud["name"], CloudList.SmallImageList.Images.Count - 1);
-                        
+                        CloudList.Items.Add((string)cloud["id"], (string)cloud["name"], CloudList.SmallImageList.Images.Count - 1);            
                     }
                 }
             }
@@ -277,7 +241,40 @@ namespace Cloudsdale
         }
         
         #region Visual changes
-
+        private void ActivateMenuHover(object sender, EventArgs e)
+        {
+            if (SettingsPanel.Height != 55)
+            {
+                ViewTimer.Start();
+            }
+            else
+            {
+                SettingsPanel.Height = 0;
+            }
+        }
+        private void SettingsLeft(object sender, EventArgs e)
+        {
+            if (SettingsVisible == false) { SettingsPanel.Height = 0; }
+        }
+        private void SettingsHover(object sender, EventArgs e)
+        {
+            SettingsVisible = true;
+            SettingsPanel.Height = 55;
+        }
+        private void ShowSettings(object sender, EventArgs e)
+        {
+            var SettingsNewSize = SettingsPanel.Height;
+            if (SettingsNewSize >= 55)
+            {
+                SettingsPanel.Height = 55;
+                ViewTimer.Stop();
+            }
+            else
+            {
+                SettingsNewSize += 1 * ((SettingsNewSize + 2) / 2);
+                SettingsPanel.Height = SettingsNewSize;
+            }
+        }
         private void CloudList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CloudList.SelectedItems.Count > 0)
@@ -288,6 +285,14 @@ namespace Cloudsdale
                     MessageGroup.Text = CloudList.FocusedItem.Text;
                     this.Text = CloudList.FocusedItem.Text;
                     CurrentCloud = CloudList.FocusedItem.Name;
+                    if (CloudList.FocusedItem.Index == 1)
+                    {
+                        CloudMessages.Visible = true;
+                    }
+                    else
+                    {
+                        CloudMessages.Visible = false;
+                    }
                     
                 }else{
                     RedirectHome(true);

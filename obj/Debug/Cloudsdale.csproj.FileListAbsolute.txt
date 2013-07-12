@@ -16,6 +16,4 @@ C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\
 C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.Main.resources
 C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.Properties.Resources.resources
 C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.csproj.GenerateResource.Cache
-C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\bin\Debug\ObjectListView.dll
-C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.lib.MessageUI.MessagingUI.resources
-C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.lib.MessageUI.Message.resources
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.lib.MessageUI.CloudMessage.resources
