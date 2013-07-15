@@ -32,11 +32,11 @@
             this.c_name = new System.Windows.Forms.Label();
             this.c_user = new System.Windows.Forms.Label();
             this.c_time = new System.Windows.Forms.Label();
-            this.c_platform = new System.Windows.Forms.PictureBox();
-            this.c_avatar = new System.Windows.Forms.PictureBox();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.c_status = new Microsoft.VisualBasic.PowerPacks.OvalShape();
             this.c_content = new System.Windows.Forms.RichTextBox();
+            this.c_platform = new System.Windows.Forms.PictureBox();
+            this.c_avatar = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.c_platform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c_avatar)).BeginInit();
             this.SuspendLayout();
@@ -73,33 +73,12 @@
             // c_time
             // 
             this.c_time.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.c_time.Location = new System.Drawing.Point(288, 4);
+            this.c_time.Location = new System.Drawing.Point(169, 4);
             this.c_time.Name = "c_time";
-            this.c_time.Size = new System.Drawing.Size(70, 20);
+            this.c_time.Size = new System.Drawing.Size(189, 20);
             this.c_time.TabIndex = 4;
             this.c_time.Text = "12:00:00 pm";
             this.c_time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // c_platform
-            // 
-            this.c_platform.Image = global::Cloudsdale.Properties.Resources.phone;
-            this.c_platform.Location = new System.Drawing.Point(348, 39);
-            this.c_platform.Name = "c_platform";
-            this.c_platform.Size = new System.Drawing.Size(10, 18);
-            this.c_platform.TabIndex = 5;
-            this.c_platform.TabStop = false;
-            // 
-            // c_avatar
-            // 
-            this.c_avatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.c_avatar.Image = global::Cloudsdale.Properties.Resources.user;
-            this.c_avatar.Location = new System.Drawing.Point(3, 4);
-            this.c_avatar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.c_avatar.Name = "c_avatar";
-            this.c_avatar.Size = new System.Drawing.Size(64, 64);
-            this.c_avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.c_avatar.TabIndex = 0;
-            this.c_avatar.TabStop = false;
             // 
             // shapeContainer1
             // 
@@ -108,7 +87,7 @@
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.c_status});
-            this.shapeContainer1.Size = new System.Drawing.Size(359, 93);
+            this.shapeContainer1.Size = new System.Drawing.Size(359, 97);
             this.shapeContainer1.TabIndex = 6;
             this.shapeContainer1.TabStop = false;
             // 
@@ -137,9 +116,30 @@
             this.c_content.Name = "c_content";
             this.c_content.ReadOnly = true;
             this.c_content.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.c_content.Size = new System.Drawing.Size(265, 39);
+            this.c_content.Size = new System.Drawing.Size(265, 43);
             this.c_content.TabIndex = 7;
             this.c_content.Text = "content";
+            // 
+            // c_platform
+            // 
+            this.c_platform.Image = global::Cloudsdale.Properties.Resources.phone;
+            this.c_platform.Location = new System.Drawing.Point(348, 39);
+            this.c_platform.Name = "c_platform";
+            this.c_platform.Size = new System.Drawing.Size(10, 18);
+            this.c_platform.TabIndex = 5;
+            this.c_platform.TabStop = false;
+            // 
+            // c_avatar
+            // 
+            this.c_avatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.c_avatar.Image = global::Cloudsdale.Properties.Resources.user;
+            this.c_avatar.Location = new System.Drawing.Point(3, 4);
+            this.c_avatar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.c_avatar.Name = "c_avatar";
+            this.c_avatar.Size = new System.Drawing.Size(64, 64);
+            this.c_avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.c_avatar.TabIndex = 0;
+            this.c_avatar.TabStop = false;
             // 
             // CloudMessage
             // 
@@ -161,7 +161,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "CloudMessage";
             this.Padding = new System.Windows.Forms.Padding(2);
-            this.Size = new System.Drawing.Size(363, 97);
+            this.Size = new System.Drawing.Size(363, 101);
             ((System.ComponentModel.ISupportInitialize)(this.c_platform)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c_avatar)).EndInit();
             this.ResumeLayout(false);

@@ -35,14 +35,10 @@
             this.Login = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Password = new System.Windows.Forms.TextBox();
-            this.Email = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ViewTimer = new System.Windows.Forms.Timer(this.components);
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.CloudList = new System.Windows.Forms.ListView();
             this.CloudContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.goToCloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,60 +55,72 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.CloudIco = new System.Windows.Forms.ImageList(this.components);
             this.MessageUI = new System.Windows.Forms.Panel();
-            this.settingsIcon = new System.Windows.Forms.PictureBox();
             this.MessageGroup = new System.Windows.Forms.GroupBox();
             this.SettingsPanel = new System.Windows.Forms.Panel();
-            this.menuItem_user = new System.Windows.Forms.PictureBox();
-            this.menuItem_CloudSettings = new System.Windows.Forms.PictureBox();
-            this.menuItem_Explore = new System.Windows.Forms.PictureBox();
-            this.menuItem_Logout = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.MessagePanel = new System.Windows.Forms.Panel();
             this.h_panel = new System.Windows.Forms.Panel();
-            this.h_avatar = new System.Windows.Forms.PictureBox();
             this.h_about = new System.Windows.Forms.TextBox();
             this.h_message = new System.Windows.Forms.Label();
             this.h_memberSince = new System.Windows.Forms.Label();
-            this.cmdDonate = new System.Windows.Forms.Button();
-            this.cmdExplore = new System.Windows.Forms.Button();
-            this.cmdInfo = new System.Windows.Forms.Button();
-            this.h_pony = new System.Windows.Forms.PictureBox();
             this.m_NewMessage = new System.Windows.Forms.TextBox();
             this.m_SendMessage = new System.Windows.Forms.Button();
             this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
             this._SourceLoader = new System.ComponentModel.BackgroundWorker();
+            this.autologin = new System.Windows.Forms.CheckBox();
+            this.LoadAnimation = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.CloudAnimation = new System.Windows.Forms.PictureBox();
+            this.settingsIcon = new System.Windows.Forms.PictureBox();
+            this.menuItem_user = new System.Windows.Forms.PictureBox();
+            this.menuItem_CloudSettings = new System.Windows.Forms.PictureBox();
+            this.menuItem_Explore = new System.Windows.Forms.PictureBox();
+            this.menuItem_Logout = new System.Windows.Forms.PictureBox();
+            this.h_avatar = new System.Windows.Forms.PictureBox();
+            this.cmdDonate = new System.Windows.Forms.Button();
+            this.cmdExplore = new System.Windows.Forms.Button();
+            this.cmdInfo = new System.Windows.Forms.Button();
+            this.h_pony = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Password = new System.Windows.Forms.TextBox();
+            this.Email = new System.Windows.Forms.TextBox();
             this.LoginPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.CloudContext.SuspendLayout();
             this.MessageUI.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).BeginInit();
             this.MessageGroup.SuspendLayout();
             this.SettingsPanel.SuspendLayout();
+            this.MessagePanel.SuspendLayout();
+            this.h_panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).BeginInit();
-            this.MessagePanel.SuspendLayout();
-            this.h_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).BeginInit();
             this.SuspendLayout();
             // 
             // LoginPanel
             // 
-            this.LoginPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(160)))), ((int)(((byte)(208)))));
+            this.LoginPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(168)))), ((int)(((byte)(208)))));
+            this.LoginPanel.Controls.Add(this.LoadAnimation);
+            this.LoginPanel.Controls.Add(this.autologin);
             this.LoginPanel.Controls.Add(this.Register);
             this.LoginPanel.Controls.Add(this.Login);
-            this.LoginPanel.Controls.Add(this.label2);
-            this.LoginPanel.Controls.Add(this.label1);
             this.LoginPanel.Controls.Add(this.Password);
+            this.LoginPanel.Controls.Add(this.label2);
             this.LoginPanel.Controls.Add(this.Email);
+            this.LoginPanel.Controls.Add(this.label1);
             this.LoginPanel.Controls.Add(this.pictureBox1);
+            this.LoginPanel.Controls.Add(this.CloudAnimation);
             this.LoginPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoginPanel.Location = new System.Drawing.Point(0, 0);
             this.LoginPanel.Name = "LoginPanel";
@@ -157,37 +165,6 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Email:";
             // 
-            // Password
-            // 
-            this.Password.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Password.Location = new System.Drawing.Point(153, 267);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(346, 27);
-            this.Password.TabIndex = 2;
-            this.Password.Text = global::Cloudsdale.Properties.Settings.Default.PreviousPassword;
-            this.Password.UseSystemPasswordChar = true;
-            // 
-            // Email
-            // 
-            this.Email.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousEmail", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Email.Location = new System.Drawing.Point(153, 209);
-            this.Email.Name = "Email";
-            this.Email.Size = new System.Drawing.Size(346, 27);
-            this.Email.TabIndex = 1;
-            this.Email.Text = global::Cloudsdale.Properties.Settings.Default.PreviousEmail;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::Cloudsdale.Properties.Resources.cloudsdale_thin_bright_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(681, 140);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // ViewTimer
             // 
             this.ViewTimer.Interval = 1;
@@ -213,24 +190,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 438);
             this.panel2.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.button1.Image = global::Cloudsdale.Properties.Resources.home1;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(-1, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(202, 45);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Home Page";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // CloudList
             // 
@@ -367,19 +326,6 @@
             this.MessageUI.Size = new System.Drawing.Size(489, 439);
             this.MessageUI.TabIndex = 2;
             // 
-            // settingsIcon
-            // 
-            this.settingsIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.settingsIcon.Image = global::Cloudsdale.Properties.Resources.icon_auth_gray;
-            this.settingsIcon.Location = new System.Drawing.Point(461, 0);
-            this.settingsIcon.Name = "settingsIcon";
-            this.settingsIcon.Size = new System.Drawing.Size(28, 31);
-            this.settingsIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.settingsIcon.TabIndex = 1;
-            this.settingsIcon.TabStop = false;
-            this.settingsIcon.Click += new System.EventHandler(this.ActivateMenuHover);
-            // 
             // MessageGroup
             // 
             this.MessageGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -417,50 +363,6 @@
             this.SettingsPanel.Size = new System.Drawing.Size(442, 55);
             this.SettingsPanel.TabIndex = 8;
             this.SettingsPanel.MouseHover += new System.EventHandler(this.SettingsHover);
-            // 
-            // menuItem_user
-            // 
-            this.menuItem_user.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.menuItem_user.Image = global::Cloudsdale.Properties.Resources.user1;
-            this.menuItem_user.Location = new System.Drawing.Point(44, -1);
-            this.menuItem_user.Name = "menuItem_user";
-            this.menuItem_user.Size = new System.Drawing.Size(56, 37);
-            this.menuItem_user.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.menuItem_user.TabIndex = 0;
-            this.menuItem_user.TabStop = false;
-            // 
-            // menuItem_CloudSettings
-            // 
-            this.menuItem_CloudSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.menuItem_CloudSettings.Image = global::Cloudsdale.Properties.Resources._lock;
-            this.menuItem_CloudSettings.Location = new System.Drawing.Point(154, 0);
-            this.menuItem_CloudSettings.Name = "menuItem_CloudSettings";
-            this.menuItem_CloudSettings.Size = new System.Drawing.Size(44, 36);
-            this.menuItem_CloudSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.menuItem_CloudSettings.TabIndex = 2;
-            this.menuItem_CloudSettings.TabStop = false;
-            // 
-            // menuItem_Explore
-            // 
-            this.menuItem_Explore.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.menuItem_Explore.Image = global::Cloudsdale.Properties.Resources.cloud1;
-            this.menuItem_Explore.Location = new System.Drawing.Point(259, -1);
-            this.menuItem_Explore.Name = "menuItem_Explore";
-            this.menuItem_Explore.Size = new System.Drawing.Size(52, 37);
-            this.menuItem_Explore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.menuItem_Explore.TabIndex = 4;
-            this.menuItem_Explore.TabStop = false;
-            // 
-            // menuItem_Logout
-            // 
-            this.menuItem_Logout.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.menuItem_Logout.Image = global::Cloudsdale.Properties.Resources.power;
-            this.menuItem_Logout.Location = new System.Drawing.Point(359, -1);
-            this.menuItem_Logout.Name = "menuItem_Logout";
-            this.menuItem_Logout.Size = new System.Drawing.Size(46, 37);
-            this.menuItem_Logout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.menuItem_Logout.TabIndex = 6;
-            this.menuItem_Logout.TabStop = false;
             // 
             // label6
             // 
@@ -531,19 +433,6 @@
             this.h_panel.Size = new System.Drawing.Size(448, 365);
             this.h_panel.TabIndex = 8;
             // 
-            // h_avatar
-            // 
-            this.h_avatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.h_avatar.ErrorImage = ((System.Drawing.Image)(resources.GetObject("h_avatar.ErrorImage")));
-            this.h_avatar.ImageLocation = "";
-            this.h_avatar.InitialImage = null;
-            this.h_avatar.Location = new System.Drawing.Point(3, 3);
-            this.h_avatar.Name = "h_avatar";
-            this.h_avatar.Size = new System.Drawing.Size(128, 128);
-            this.h_avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.h_avatar.TabIndex = 0;
-            this.h_avatar.TabStop = false;
-            // 
             // h_about
             // 
             this.h_about.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -582,6 +471,149 @@
             this.h_memberSince.Size = new System.Drawing.Size(76, 18);
             this.h_memberSince.TabIndex = 2;
             this.h_memberSince.Text = "date joined";
+            // 
+            // m_NewMessage
+            // 
+            this.m_NewMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_NewMessage.Location = new System.Drawing.Point(10, 406);
+            this.m_NewMessage.Name = "m_NewMessage";
+            this.m_NewMessage.Size = new System.Drawing.Size(382, 27);
+            this.m_NewMessage.TabIndex = 1;
+            // 
+            // m_SendMessage
+            // 
+            this.m_SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_SendMessage.Location = new System.Drawing.Point(401, 406);
+            this.m_SendMessage.Name = "m_SendMessage";
+            this.m_SendMessage.Size = new System.Drawing.Size(75, 27);
+            this.m_SendMessage.TabIndex = 0;
+            this.m_SendMessage.Text = "Send\r\n";
+            this.m_SendMessage.UseVisualStyleBackColor = true;
+            // 
+            // Subscriber
+            // 
+            this.Subscriber.BalloonTipText = "[:user] posted on [:cloud]!\r\n";
+            this.Subscriber.BalloonTipTitle = "Cloudsdale Subscriber";
+            this.Subscriber.Icon = ((System.Drawing.Icon)(resources.GetObject("Subscriber.Icon")));
+            this.Subscriber.Text = "No new messages.";
+            this.Subscriber.Visible = true;
+            // 
+            // autologin
+            // 
+            this.autologin.AutoSize = true;
+            this.autologin.Checked = true;
+            this.autologin.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autologin.Location = new System.Drawing.Point(153, 342);
+            this.autologin.Name = "autologin";
+            this.autologin.Size = new System.Drawing.Size(156, 24);
+            this.autologin.TabIndex = 8;
+            this.autologin.Text = "automatically login";
+            this.autologin.UseVisualStyleBackColor = true;
+            // 
+            // LoadAnimation
+            // 
+            this.LoadAnimation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(168)))), ((int)(((byte)(208)))));
+            this.LoadAnimation.Image = global::Cloudsdale.Properties.Resources.ajax_spinner;
+            this.LoadAnimation.Location = new System.Drawing.Point(153, 178);
+            this.LoadAnimation.Name = "LoadAnimation";
+            this.LoadAnimation.Size = new System.Drawing.Size(346, 213);
+            this.LoadAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LoadAnimation.TabIndex = 7;
+            this.LoadAnimation.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Cloudsdale.Properties.Resources.cloudsdale_thin_bright_logo;
+            this.pictureBox1.Location = new System.Drawing.Point(57, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(554, 106);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // CloudAnimation
+            // 
+            this.CloudAnimation.Image = global::Cloudsdale.Properties.Resources.Login;
+            this.CloudAnimation.Location = new System.Drawing.Point(0, 98);
+            this.CloudAnimation.Name = "CloudAnimation";
+            this.CloudAnimation.Size = new System.Drawing.Size(687, 290);
+            this.CloudAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CloudAnimation.TabIndex = 9;
+            this.CloudAnimation.TabStop = false;
+            // 
+            // settingsIcon
+            // 
+            this.settingsIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.settingsIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.settingsIcon.Image = global::Cloudsdale.Properties.Resources.icon_auth_gray;
+            this.settingsIcon.Location = new System.Drawing.Point(461, 0);
+            this.settingsIcon.Name = "settingsIcon";
+            this.settingsIcon.Size = new System.Drawing.Size(28, 31);
+            this.settingsIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.settingsIcon.TabIndex = 1;
+            this.settingsIcon.TabStop = false;
+            this.settingsIcon.Click += new System.EventHandler(this.ActivateMenuHover);
+            // 
+            // menuItem_user
+            // 
+            this.menuItem_user.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_user.Image = global::Cloudsdale.Properties.Resources.user1;
+            this.menuItem_user.Location = new System.Drawing.Point(44, -1);
+            this.menuItem_user.Name = "menuItem_user";
+            this.menuItem_user.Size = new System.Drawing.Size(56, 37);
+            this.menuItem_user.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_user.TabIndex = 0;
+            this.menuItem_user.TabStop = false;
+            // 
+            // menuItem_CloudSettings
+            // 
+            this.menuItem_CloudSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_CloudSettings.Image = global::Cloudsdale.Properties.Resources._lock;
+            this.menuItem_CloudSettings.Location = new System.Drawing.Point(154, 0);
+            this.menuItem_CloudSettings.Name = "menuItem_CloudSettings";
+            this.menuItem_CloudSettings.Size = new System.Drawing.Size(44, 36);
+            this.menuItem_CloudSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_CloudSettings.TabIndex = 2;
+            this.menuItem_CloudSettings.TabStop = false;
+            // 
+            // menuItem_Explore
+            // 
+            this.menuItem_Explore.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_Explore.Image = global::Cloudsdale.Properties.Resources.cloud1;
+            this.menuItem_Explore.Location = new System.Drawing.Point(259, -1);
+            this.menuItem_Explore.Name = "menuItem_Explore";
+            this.menuItem_Explore.Size = new System.Drawing.Size(52, 37);
+            this.menuItem_Explore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_Explore.TabIndex = 4;
+            this.menuItem_Explore.TabStop = false;
+            // 
+            // menuItem_Logout
+            // 
+            this.menuItem_Logout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_Logout.Image = global::Cloudsdale.Properties.Resources.power;
+            this.menuItem_Logout.Location = new System.Drawing.Point(359, -1);
+            this.menuItem_Logout.Name = "menuItem_Logout";
+            this.menuItem_Logout.Size = new System.Drawing.Size(46, 37);
+            this.menuItem_Logout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_Logout.TabIndex = 6;
+            this.menuItem_Logout.TabStop = false;
+            // 
+            // h_avatar
+            // 
+            this.h_avatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.h_avatar.ErrorImage = ((System.Drawing.Image)(resources.GetObject("h_avatar.ErrorImage")));
+            this.h_avatar.ImageLocation = "";
+            this.h_avatar.InitialImage = null;
+            this.h_avatar.Location = new System.Drawing.Point(3, 3);
+            this.h_avatar.Name = "h_avatar";
+            this.h_avatar.Size = new System.Drawing.Size(128, 128);
+            this.h_avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.h_avatar.TabIndex = 0;
+            this.h_avatar.TabStop = false;
             // 
             // cmdDonate
             // 
@@ -633,33 +665,42 @@
             this.h_pony.TabIndex = 3;
             this.h_pony.TabStop = false;
             // 
-            // m_NewMessage
+            // button1
             // 
-            this.m_NewMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_NewMessage.Location = new System.Drawing.Point(10, 406);
-            this.m_NewMessage.Name = "m_NewMessage";
-            this.m_NewMessage.Size = new System.Drawing.Size(382, 27);
-            this.m_NewMessage.TabIndex = 1;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.button1.Image = global::Cloudsdale.Properties.Resources.home1;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(-1, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(202, 45);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Home Page";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // m_SendMessage
+            // Password
             // 
-            this.m_SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_SendMessage.Location = new System.Drawing.Point(401, 406);
-            this.m_SendMessage.Name = "m_SendMessage";
-            this.m_SendMessage.Size = new System.Drawing.Size(75, 27);
-            this.m_SendMessage.TabIndex = 0;
-            this.m_SendMessage.Text = "Send\r\n";
-            this.m_SendMessage.UseVisualStyleBackColor = true;
+            this.Password.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Password.Location = new System.Drawing.Point(153, 267);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(346, 27);
+            this.Password.TabIndex = 2;
+            this.Password.Text = global::Cloudsdale.Properties.Settings.Default.PreviousPassword;
+            this.Password.UseSystemPasswordChar = true;
             // 
-            // Subscriber
+            // Email
             // 
-            this.Subscriber.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.Subscriber.BalloonTipText = "[:user] posted on [:cloud]!\r\n";
-            this.Subscriber.BalloonTipTitle = "Cloudsdale Subscriber";
-            this.Subscriber.Icon = ((System.Drawing.Icon)(resources.GetObject("Subscriber.Icon")));
-            this.Subscriber.Text = "No new messages.";
-            this.Subscriber.Visible = true;
+            this.Email.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousEmail", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Email.Location = new System.Drawing.Point(153, 209);
+            this.Email.Name = "Email";
+            this.Email.Size = new System.Drawing.Size(346, 27);
+            this.Email.TabIndex = 1;
+            this.Email.Text = global::Cloudsdale.Properties.Settings.Default.PreviousEmail;
             // 
             // Main
             // 
@@ -667,9 +708,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(687, 443);
+            this.Controls.Add(this.LoginPanel);
             this.Controls.Add(this.MessageUI);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.LoginPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -682,22 +723,24 @@
             this.Resize += new System.EventHandler(this.ResizeCheck);
             this.LoginPanel.ResumeLayout(false);
             this.LoginPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.CloudContext.ResumeLayout(false);
             this.MessageUI.ResumeLayout(false);
             this.MessageUI.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).EndInit();
             this.MessageGroup.ResumeLayout(false);
             this.SettingsPanel.ResumeLayout(false);
+            this.MessagePanel.ResumeLayout(false);
+            this.h_panel.ResumeLayout(false);
+            this.h_panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).EndInit();
-            this.MessagePanel.ResumeLayout(false);
-            this.h_panel.ResumeLayout(false);
-            this.h_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).EndInit();
             this.ResumeLayout(false);
@@ -762,6 +805,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel h_panel;
         private System.ComponentModel.BackgroundWorker _SourceLoader;
+        private System.Windows.Forms.PictureBox LoadAnimation;
+        private System.Windows.Forms.CheckBox autologin;
+        private System.Windows.Forms.PictureBox CloudAnimation;
         
     }
 }

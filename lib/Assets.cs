@@ -10,7 +10,7 @@ namespace Cloudsdale.lib
     class Assets
     {
         #region Color list
-        public static Color PrimaryBlue = Color.FromArgb(99, 160, 208);
+        public static Color PrimaryBlue = Color.FromArgb(99, 168, 208);
         public static Color PrimaryBlue_Dark = Color.FromArgb(63, 133, 179);
         public static Color PrimaryText = Color.FromArgb(77, 77, 77);
         public static Color PrimaryBackground = Color.FromArgb(250, 250, 250);

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,8 +17,8 @@ using System.Net;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Cloudsdale.actions;
-using Cloudsdale.actions.MessageController;
+using Cloudsdale.connection;
+using Cloudsdale.connection.MessageController;
 using Cloudsdale.connection;
 using Cloudsdale.lib;
 using Cloudsdale.lib.MessageUI;
@@ -35,7 +36,8 @@ namespace Cloudsdale
         public bool DirectedToHome;
         public bool LoggedIn;
         public CloudMessage NewMessage = new CloudMessage();
-        public ListView CloudMessages;
+        public MessageList CloudMessages = new MessageList();
+        
 
         public Main()
         {
@@ -43,6 +45,10 @@ namespace Cloudsdale
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            Email.Text = CloudsdaleSettings.Default.PreviousEmail;
+            Password.Text = CloudsdaleSettings.Default.PreviousPassword;
+            LoadAnimation.Visible = false;
+            ImageAnimator.Animate(CloudAnimation.Image, null);
             LoggedIn = false;
             this.Width = 695;
             LoginPanel.BringToFront();
@@ -51,19 +57,37 @@ namespace Cloudsdale
             Subscriber.Visible = true;
             SettingsPanel.Height = 0;
 
+            CloudMessages.Width = 500;
+            CloudMessages.Height = 300;
+            CloudMessages.Visible = false;
+
+            CloudMessages.BringToFront();
+            MessageGroup.Controls.Add(CloudMessages);
+            if (autologin.Checked)
+            {
+                if (Email.Text != null)
+                {
+                    button1_Click(Login, EventArgs.Empty);
+                }
+            }
         }
  
         private async void button1_Click(object sender, EventArgs e)
         {
             try
             {
+                CloudsdaleSettings.Default.PreviousEmail = Email.Text;
+                CloudsdaleSettings.Default.PreviousPassword = Password.Text;
+                CloudsdaleSettings.Default.Save();
+                LoadAnimation.Visible = true;
+                ImageAnimator.Animate(LoadAnimation.Image, null);
                 this.Text = "Logging in...";
                 Login.Enabled = false;
                 Register.Enabled = false;
                 Email.ReadOnly = true;
                 Password.ReadOnly = true;
                 await LoginRequest();
-                this.Text = "Login succesful!";
+                this.Text = "Login succesful.";
                 this.AcceptButton = m_SendMessage;
                 this.MaximizeBox = true;
                 Connection.MessageReceived += o =>
@@ -90,6 +114,7 @@ namespace Cloudsdale
                 var calDate = User["user"]["member_since"].ToString();
                 var newDate = calDate.Replace("+0000", "");
                 h_memberSince.Text = "Member since " + newDate;
+     
 
                 RedirectHome(true);
                 LoggedIn = true;
@@ -112,6 +137,7 @@ namespace Cloudsdale
                 Password.ReadOnly = false;
                 this.Text = "Cloudsdale";
             }
+            LoadAnimation.Visible = false;
         }
         public async Task LoginRequest()
         {
@@ -189,6 +215,55 @@ namespace Cloudsdale
                         .ToString().RegexReplace("^/me", (string)message["author"]["name"]);
                     source.AddMessage(message);
                 }
+                
+                if (LoggedIn)
+                {
+
+                    Subscriber.BalloonTipText = (string) message["author"]["name"] + " has posted in " +
+                                                Endpoints.Cloud.Replace("[:id]", cloudId);
+                    Subscriber.ShowBalloonTip(5);
+                }
+                //NewMessage.AddMessage(CloudMessages, (string)message["author"]["name"], (string)message["author"]["username"], (string)message["author"]["role"], (string)message["timestamp"], "online", "mobile", (string)message["content"], LoadImage((string)message["author"]["avatar"]["normal"]));
+                if (CloudMessages.InvokeRequired)
+                {
+                    CloudMessages.Invoke(new Action(() =>
+                    {
+                        NewMessage.Width = CloudMessages.Width - 20;
+                        NewMessage._name = (string)message["author"]["name"];
+                        NewMessage._username = (string)message["author"]["username"];
+                        NewMessage._role = (string)message["author"]["role"];
+                        NewMessage._time = message["timestamp"].ToString().Replace("+0000", "");
+                        NewMessage._status = (string)message["author"]["status"];
+                        NewMessage._platform = (string)message["author"]["device"];
+                        NewMessage._content = (string)message["content"];
+                        NewMessage._avatar = LoadImage((string)message["author"]["avatar"]["chat"]);
+
+                        NewMessage.c_name.Text = NewMessage.SetName;
+                        NewMessage.c_user.Text = "@" + NewMessage.SetUsername;
+                        NewMessage.c_role.Text = NewMessage.SetRole;
+                        NewMessage.c_time.Text = NewMessage.SetTimestamp;
+                        NewMessage.c_status.FillColor = Color.FromName(NewMessage.SetStatus);
+                        NewMessage.c_platform.Image = null;
+                        NewMessage.c_content.Text = NewMessage.SetContent;
+                        NewMessage.c_avatar.Image = NewMessage.SetAvatar;
+
+                        if (NewMessage.c_role.Text == "normal")
+                        {
+                            NewMessage.c_role.Text = "";
+                            NewMessage.c_role.BorderStyle = BorderStyle.None;
+                        }
+                        else
+                        {
+                            NewMessage.c_role.BorderStyle = BorderStyle.FixedSingle;
+                        }
+
+                        int ListCount;
+                        if (CloudMessages.Controls.Count == 0) { ListCount = 0; } else { ListCount = CloudMessages.Controls.Count - 1; }
+                        CloudMessages.Controls.Add(NewMessage);
+                        //use Cloudmessages.ControlAdded and change the index 
+
+                    }));
+                }
             }
         }
         private async Task PreloadMessages(ICollection<JToken> clouds)
@@ -215,7 +290,7 @@ namespace Cloudsdale
                         
 
                         CloudList.SmallImageList.Images.Add((string)cloud["id"], LoadImage((string)cloud["avatar"]["normal"]));
-                        CloudList.Items.Add((string)cloud["id"], (string)cloud["name"], CloudList.SmallImageList.Images.Count - 1);            
+                        CloudList.Items.Add((string)cloud["id"], (string)cloud["name"], CloudList.SmallImageList.Images.Count - 1);        
                     }
                 }
             }
@@ -288,6 +363,7 @@ namespace Cloudsdale
                     if (CloudList.FocusedItem.Index == 1)
                     {
                         CloudMessages.Visible = true;
+                        CloudMessages.BringToFront();
                     }
                     else
                     {
