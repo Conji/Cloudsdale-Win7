@@ -22,6 +22,7 @@ using Cloudsdale.connection.MessageController;
 using Cloudsdale.connection;
 using Cloudsdale.lib;
 using Cloudsdale.lib.MessageUI;
+using Cloudsdale.lib.Models;
 
 namespace Cloudsdale
 {
@@ -63,6 +64,7 @@ namespace Cloudsdale
 
             CloudMessages.BringToFront();
             MessageGroup.Controls.Add(CloudMessages);
+
             if (autologin.Checked)
             {
                 if (Email.Text != null)
@@ -101,8 +103,8 @@ namespace Cloudsdale
                 this.Text = "Loading clouds...";
                 Main MainWindow = new Main();
                 await PreloadMessages((JArray)User["user"]["clouds"]);
-                h_avatar.ImageLocation = User["user"]["avatar"]["normal"].ToString();
-                h_avatar.SizeMode = PictureBoxSizeMode.Zoom;
+                h_avatar.BackgroundImage = AvatarConverter.LoadImage((string) User["user"]["avatar"]["normal"]);
+                h_avatar.BackgroundImageLayout = ImageLayout.Zoom;
                 Login.Enabled = true;
                 Register.Enabled = true;
                 Email.ReadOnly = false;
@@ -219,8 +221,9 @@ namespace Cloudsdale
                 if (LoggedIn)
                 {
 
-                    Subscriber.BalloonTipText = (string) message["author"]["name"] + " has posted in " +
-                                                Endpoints.Cloud.Replace("[:id]", cloudId);
+                    Subscriber.BalloonTipText = (string) message["author"]["name"] + " posted: '" +
+                                                (string) message["content"] + @"' in " +
+                                                CloudModel.CloudName(cloudId);
                     Subscriber.ShowBalloonTip(5);
                 }
                 //NewMessage.AddMessage(CloudMessages, (string)message["author"]["name"], (string)message["author"]["username"], (string)message["author"]["role"], (string)message["timestamp"], "online", "mobile", (string)message["content"], LoadImage((string)message["author"]["avatar"]["normal"]));

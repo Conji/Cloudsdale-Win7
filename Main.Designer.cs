@@ -71,22 +71,36 @@
             this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
             this._SourceLoader = new System.ComponentModel.BackgroundWorker();
             this.autologin = new System.Windows.Forms.CheckBox();
-            this.LoadAnimation = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.CloudAnimation = new System.Windows.Forms.PictureBox();
+            this.Password = new System.Windows.Forms.TextBox();
+            this.Email = new System.Windows.Forms.TextBox();
+            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.settingsIcon = new System.Windows.Forms.PictureBox();
             this.menuItem_user = new System.Windows.Forms.PictureBox();
             this.menuItem_CloudSettings = new System.Windows.Forms.PictureBox();
             this.menuItem_Explore = new System.Windows.Forms.PictureBox();
             this.menuItem_Logout = new System.Windows.Forms.PictureBox();
-            this.h_avatar = new System.Windows.Forms.PictureBox();
+            this.sp_user = new System.Windows.Forms.Panel();
             this.cmdDonate = new System.Windows.Forms.Button();
             this.cmdExplore = new System.Windows.Forms.Button();
             this.cmdInfo = new System.Windows.Forms.Button();
             this.h_pony = new System.Windows.Forms.PictureBox();
+            this.h_avatar = new Microsoft.VisualBasic.PowerPacks.OvalShape();
             this.button1 = new System.Windows.Forms.Button();
-            this.Password = new System.Windows.Forms.TextBox();
-            this.Email = new System.Windows.Forms.TextBox();
+            this.LoadAnimation = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.CloudAnimation = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.AKAList = new System.Windows.Forms.ListBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.LoginPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -96,16 +110,19 @@
             this.SettingsPanel.SuspendLayout();
             this.MessagePanel.SuspendLayout();
             this.h_panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).BeginInit();
+            this.sp_user.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // LoginPanel
@@ -409,6 +426,7 @@
             this.MessagePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.MessagePanel.Controls.Add(this.sp_user);
             this.MessagePanel.Controls.Add(this.h_panel);
             this.MessagePanel.Location = new System.Drawing.Point(6, 23);
             this.MessagePanel.Name = "MessagePanel";
@@ -420,7 +438,6 @@
             this.h_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.h_panel.Controls.Add(this.h_avatar);
             this.h_panel.Controls.Add(this.h_about);
             this.h_panel.Controls.Add(this.h_message);
             this.h_panel.Controls.Add(this.h_memberSince);
@@ -428,6 +445,7 @@
             this.h_panel.Controls.Add(this.cmdExplore);
             this.h_panel.Controls.Add(this.cmdInfo);
             this.h_panel.Controls.Add(this.h_pony);
+            this.h_panel.Controls.Add(this.shapeContainer1);
             this.h_panel.Location = new System.Drawing.Point(10, 3);
             this.h_panel.Name = "h_panel";
             this.h_panel.Size = new System.Drawing.Size(448, 365);
@@ -476,9 +494,9 @@
             // 
             this.m_NewMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_NewMessage.Location = new System.Drawing.Point(10, 406);
+            this.m_NewMessage.Location = new System.Drawing.Point(22, 406);
             this.m_NewMessage.Name = "m_NewMessage";
-            this.m_NewMessage.Size = new System.Drawing.Size(382, 27);
+            this.m_NewMessage.Size = new System.Drawing.Size(370, 27);
             this.m_NewMessage.TabIndex = 1;
             // 
             // m_SendMessage
@@ -511,39 +529,35 @@
             this.autologin.Text = "automatically login";
             this.autologin.UseVisualStyleBackColor = true;
             // 
-            // LoadAnimation
+            // Password
             // 
-            this.LoadAnimation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(168)))), ((int)(((byte)(208)))));
-            this.LoadAnimation.Image = global::Cloudsdale.Properties.Resources.ajax_spinner;
-            this.LoadAnimation.Location = new System.Drawing.Point(153, 178);
-            this.LoadAnimation.Name = "LoadAnimation";
-            this.LoadAnimation.Size = new System.Drawing.Size(346, 213);
-            this.LoadAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LoadAnimation.TabIndex = 7;
-            this.LoadAnimation.TabStop = false;
+            this.Password.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Password.Location = new System.Drawing.Point(153, 267);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(346, 27);
+            this.Password.TabIndex = 2;
+            this.Password.Text = global::Cloudsdale.Properties.Settings.Default.PreviousPassword;
+            this.Password.UseSystemPasswordChar = true;
             // 
-            // pictureBox1
+            // Email
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Cloudsdale.Properties.Resources.cloudsdale_thin_bright_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(57, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(554, 106);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.Email.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousEmail", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Email.Location = new System.Drawing.Point(153, 209);
+            this.Email.Name = "Email";
+            this.Email.Size = new System.Drawing.Size(346, 27);
+            this.Email.TabIndex = 1;
+            this.Email.Text = global::Cloudsdale.Properties.Settings.Default.PreviousEmail;
             // 
-            // CloudAnimation
+            // shapeContainer1
             // 
-            this.CloudAnimation.Image = global::Cloudsdale.Properties.Resources.Login;
-            this.CloudAnimation.Location = new System.Drawing.Point(0, 98);
-            this.CloudAnimation.Name = "CloudAnimation";
-            this.CloudAnimation.Size = new System.Drawing.Size(687, 290);
-            this.CloudAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.CloudAnimation.TabIndex = 9;
-            this.CloudAnimation.TabStop = false;
+            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
+            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.shapeContainer1.Name = "shapeContainer1";
+            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.h_avatar});
+            this.shapeContainer1.Size = new System.Drawing.Size(448, 365);
+            this.shapeContainer1.TabIndex = 8;
+            this.shapeContainer1.TabStop = false;
             // 
             // settingsIcon
             // 
@@ -602,18 +616,16 @@
             this.menuItem_Logout.TabIndex = 6;
             this.menuItem_Logout.TabStop = false;
             // 
-            // h_avatar
+            // sp_user
             // 
-            this.h_avatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.h_avatar.ErrorImage = ((System.Drawing.Image)(resources.GetObject("h_avatar.ErrorImage")));
-            this.h_avatar.ImageLocation = "";
-            this.h_avatar.InitialImage = null;
-            this.h_avatar.Location = new System.Drawing.Point(3, 3);
-            this.h_avatar.Name = "h_avatar";
-            this.h_avatar.Size = new System.Drawing.Size(128, 128);
-            this.h_avatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.h_avatar.TabIndex = 0;
-            this.h_avatar.TabStop = false;
+            this.sp_user.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sp_user.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.sp_user.BackgroundImage = global::Cloudsdale.Properties.Resources.sp_user;
+            this.sp_user.Controls.Add(this.panel4);
+            this.sp_user.Location = new System.Drawing.Point(10, 32);
+            this.sp_user.Name = "sp_user";
+            this.sp_user.Size = new System.Drawing.Size(442, 336);
+            this.sp_user.TabIndex = 8;
             // 
             // cmdDonate
             // 
@@ -665,6 +677,15 @@
             this.h_pony.TabIndex = 3;
             this.h_pony.TabStop = false;
             // 
+            // h_avatar
+            // 
+            this.h_avatar.BackgroundImage = global::Cloudsdale.Properties.Resources.user;
+            this.h_avatar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.h_avatar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_avatar.Location = new System.Drawing.Point(6, 15);
+            this.h_avatar.Name = "h_avatar";
+            this.h_avatar.Size = new System.Drawing.Size(124, 124);
+            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
@@ -683,24 +704,163 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // Password
+            // LoadAnimation
             // 
-            this.Password.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Password.Location = new System.Drawing.Point(153, 267);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(346, 27);
-            this.Password.TabIndex = 2;
-            this.Password.Text = global::Cloudsdale.Properties.Settings.Default.PreviousPassword;
-            this.Password.UseSystemPasswordChar = true;
+            this.LoadAnimation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(168)))), ((int)(((byte)(208)))));
+            this.LoadAnimation.Image = global::Cloudsdale.Properties.Resources.ajax_spinner;
+            this.LoadAnimation.Location = new System.Drawing.Point(153, 178);
+            this.LoadAnimation.Name = "LoadAnimation";
+            this.LoadAnimation.Size = new System.Drawing.Size(346, 213);
+            this.LoadAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LoadAnimation.TabIndex = 7;
+            this.LoadAnimation.TabStop = false;
             // 
-            // Email
+            // pictureBox1
             // 
-            this.Email.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Cloudsdale.Properties.Settings.Default, "PreviousEmail", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Email.Location = new System.Drawing.Point(153, 209);
-            this.Email.Name = "Email";
-            this.Email.Size = new System.Drawing.Size(346, 27);
-            this.Email.TabIndex = 1;
-            this.Email.Text = global::Cloudsdale.Properties.Settings.Default.PreviousEmail;
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Cloudsdale.Properties.Resources.cloudsdale_thin_bright_logo;
+            this.pictureBox1.Location = new System.Drawing.Point(57, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(554, 106);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // CloudAnimation
+            // 
+            this.CloudAnimation.Image = global::Cloudsdale.Properties.Resources.Login;
+            this.CloudAnimation.Location = new System.Drawing.Point(0, 98);
+            this.CloudAnimation.Name = "CloudAnimation";
+            this.CloudAnimation.Size = new System.Drawing.Size(687, 290);
+            this.CloudAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CloudAnimation.TabIndex = 9;
+            this.CloudAnimation.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(228, 7);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(124, 124);
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(7, 30);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(217, 27);
+            this.textBox1.TabIndex = 1;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(25, 84);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(199, 27);
+            this.textBox2.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.label7.Location = new System.Drawing.Point(3, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 20);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Screen Name:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.label8.Location = new System.Drawing.Point(3, 61);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(78, 20);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Username:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.label9.Location = new System.Drawing.Point(3, 114);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(94, 20);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Changes left:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.label10.Location = new System.Drawing.Point(160, 114);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(62, 20);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "triesLeft";
+            // 
+            // label11
+            // 
+            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.label11.Location = new System.Drawing.Point(3, 84);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(25, 27);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "@";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panel3
+            // 
+            this.panel3.AutoScroll = true;
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.AKAList);
+            this.panel3.Controls.Add(this.label10);
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.pictureBox2);
+            this.panel3.Controls.Add(this.textBox2);
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(355, 425);
+            this.panel3.TabIndex = 8;
+            // 
+            // panel4
+            // 
+            this.panel4.AutoScroll = true;
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.panel4.Controls.Add(this.panel3);
+            this.panel4.Location = new System.Drawing.Point(32, 30);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(374, 281);
+            this.panel4.TabIndex = 9;
+            // 
+            // AKAList
+            // 
+            this.AKAList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.AKAList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AKAList.ForeColor = System.Drawing.Color.White;
+            this.AKAList.FormattingEnabled = true;
+            this.AKAList.ItemHeight = 20;
+            this.AKAList.Location = new System.Drawing.Point(7, 148);
+            this.AKAList.Name = "AKAList";
+            this.AKAList.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.AKAList.Size = new System.Drawing.Size(217, 120);
+            this.AKAList.TabIndex = 8;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.label12.Location = new System.Drawing.Point(230, 148);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(67, 20);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "AKA List:";
             // 
             // Main
             // 
@@ -708,9 +868,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(687, 443);
-            this.Controls.Add(this.LoginPanel);
             this.Controls.Add(this.MessageUI);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.LoginPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -733,16 +893,20 @@
             this.MessagePanel.ResumeLayout(false);
             this.h_panel.ResumeLayout(false);
             this.h_panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.h_avatar)).EndInit();
+            this.sp_user.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -773,7 +937,6 @@
         private System.Windows.Forms.Panel MessagePanel;
         private System.Windows.Forms.Label h_memberSince;
         private System.Windows.Forms.Label h_message;
-        private System.Windows.Forms.PictureBox h_avatar;
         private System.Windows.Forms.PictureBox settingsIcon;
         private System.Windows.Forms.PictureBox h_pony;
         private System.Windows.Forms.ContextMenuStrip CloudContext;
@@ -808,6 +971,21 @@
         private System.Windows.Forms.PictureBox LoadAnimation;
         private System.Windows.Forms.CheckBox autologin;
         private System.Windows.Forms.PictureBox CloudAnimation;
+        private System.Windows.Forms.Panel sp_user;
+        private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer1;
+        private Microsoft.VisualBasic.PowerPacks.OvalShape h_avatar;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ListBox AKAList;
         
     }
 }

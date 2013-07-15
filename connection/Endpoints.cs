@@ -19,6 +19,7 @@ namespace Cloudsdale.connection
         public const string Session = Api + "/sessions";
         public const string User = Api + "/users/[:id]";
         public const string Cloud = Api + "/clouds/[:id]";
+        public const string CloudJson = Cloud + ".json";
 
         public const string CloudMessages = Cloud + "/chat/messages";
         public const string CloudUsers = Cloud + "/users";
@@ -28,5 +29,6 @@ namespace Cloudsdale.connection
         public const string Avatar = AssetSource + "/[:type]/[:id].png?s=[:size]";
         public const string PushAddress = "wss://push.cloudsdale.org/push";
 
+        public const string BaseCloudAddress = "http://www.cloudsdale.org/clouds/";
     }
 }
