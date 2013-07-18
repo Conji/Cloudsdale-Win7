@@ -13,16 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Cloudsdale.lib.MessageUI
+namespace MessageControl
 {
     /// <summary>
     /// Interaction logic for MessageControl.xaml
     /// </summary>
-    public partial class MessageControl : UserControl
+    public partial class UserControl1
     {
-        public MessageControl()
+       
+        public UserControl1()
         {
             InitializeComponent();
+
         }
+
     }
 }
