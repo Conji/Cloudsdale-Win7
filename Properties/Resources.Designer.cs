@@ -123,9 +123,9 @@ namespace Cloudsdale.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap book {
+        internal static System.Drawing.Bitmap Cash {
             get {
-                object obj = ResourceManager.GetObject("book", resourceCulture);
+                object obj = ResourceManager.GetObject("Cash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,6 +153,16 @@ namespace Cloudsdale.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cloud2 {
+            get {
+                object obj = ResourceManager.GetObject("cloud2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cloudsdale_thin_bright_logo {
             get {
                 object obj = ResourceManager.GetObject("cloudsdale-thin-bright-logo", resourceCulture);
@@ -166,16 +176,6 @@ namespace Cloudsdale.Properties {
         internal static System.Drawing.Bitmap cog {
             get {
                 object obj = ResourceManager.GetObject("cog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap credit_card {
-            get {
-                object obj = ResourceManager.GetObject("credit_card", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -206,6 +206,16 @@ namespace Cloudsdale.Properties {
         internal static System.Drawing.Bitmap icon_auth_gray {
             get {
                 object obj = ResourceManager.GetObject("icon_auth_gray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Info1 {
+            get {
+                object obj = ResourceManager.GetObject("Info1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -256,6 +266,16 @@ namespace Cloudsdale.Properties {
         internal static System.Drawing.Bitmap preview_thumb_drop {
             get {
                 object obj = ResourceManager.GetObject("preview_thumb_drop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sp_user {
+            get {
+                object obj = ResourceManager.GetObject("sp_user", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

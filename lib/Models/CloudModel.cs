@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Cloudsdale.connection;
@@ -27,8 +28,7 @@ namespace Cloudsdale.lib.Models
 
         public int _dropcount;
 
-        public string _avatar =
-            "https://avatar-cloudsdale.netdna-ssl.com/cloud/[:id].png?s=24&mtime=1373579446".Replace("[:id]", _id);
+        public string _avatar;
 
         public string _name;
 
@@ -40,12 +40,23 @@ namespace Cloudsdale.lib.Models
             var responseReader = new StreamReader(responseStream);
             var responseData = JObject.Parse(responseReader.ReadToEnd());
 
-            return (responseData);
+            return responseData;
         }
         public static string CloudName(string cloudID)
         {
             JObject cloud = CloudJson(cloudID);
             return cloud["result"]["name"].ToString();
+        }
+        public static string OwnerID(string cloudID)
+        {
+            JObject cloud = CloudJson(cloudID);
+            return cloud["result"]["owner_id"].ToString();
+        }
+        public static string[] ModeratorIDs(string cloudID)
+        {
+            JObject cloud = CloudJson(cloudID);
+            var ModIDs = new List<string>();
+            return null;
         }
     }
 }

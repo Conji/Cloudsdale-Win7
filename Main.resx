@@ -124,10 +124,10 @@
     <value>125, 17</value>
   </metadata>
   <metadata name="CloudContext.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>592, 17</value>
+    <value>583, 17</value>
   </metadata>
   <metadata name="CloudIco.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>252, 17</value>
+    <value>248, 17</value>
   </metadata>
   <data name="h_about.Text" xml:space="preserve">
     <value>Connect In Real Time:
@@ -1892,7 +1892,7 @@ We provide beautiful, easy to use mobile applications for the platform of your c
 </value>
   </data>
   <metadata name="Subscriber.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>352, 17</value>
+    <value>346, 17</value>
   </metadata>
   <data name="Subscriber.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -7785,7 +7785,7 @@ We provide beautiful, easy to use mobile applications for the platform of your c
 </value>
   </data>
   <metadata name="_SourceLoader.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>461, 17</value>
+    <value>454, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>43</value>

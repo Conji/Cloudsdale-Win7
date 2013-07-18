@@ -16,4 +16,8 @@ C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\
 C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.Main.resources
 C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.Properties.Resources.resources
 C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.csproj.GenerateResource.Cache
-C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.lib.MessageUI.CloudMessage.resources
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\lib\MessageUI\MessageControl.baml
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\lib\MessageUI\MessageControl.g.cs
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale_Content.g.cs
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale_MarkupCompile.cache
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Debug\Cloudsdale.g.resources

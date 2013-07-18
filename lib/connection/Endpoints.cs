@@ -20,6 +20,7 @@ namespace Cloudsdale.connection
         public const string User = Api + "/users/[:id]";
         public const string Cloud = Api + "/clouds/[:id]";
         public const string CloudJson = Cloud + ".json";
+        public const string UserJson = User + ".json";
 
         public const string CloudMessages = Cloud + "/chat/messages";
         public const string CloudUsers = Cloud + "/users";
