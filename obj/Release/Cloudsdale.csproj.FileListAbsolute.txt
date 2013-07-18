@@ -1,0 +1,9 @@
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\bin\Release\Cloudsdale.exe.config
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\bin\Release\Cloudsdale.exe
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\bin\Release\Cloudsdale.pdb
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Release\Cloudsdale.csprojResolveAssemblyReference.cache
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Release\Cloudsdale.Main.resources
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Release\Cloudsdale.Properties.Resources.resources
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Release\Cloudsdale.csproj.GenerateResource.Cache
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Release\Cloudsdale.exe
+C:\Users\Justin\Documents\Visual Studio 2012\Projects\Cloudsdale\Cloudsdale\obj\Release\Cloudsdale.pdb
