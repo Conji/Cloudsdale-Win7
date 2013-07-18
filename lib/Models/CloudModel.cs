@@ -52,11 +52,15 @@ namespace Cloudsdale.lib.Models
             JObject cloud = CloudJson(cloudID);
             return cloud["result"]["owner_id"].ToString();
         }
-        public static string[] ModeratorIDs(string cloudID)
+        public static List<string> ModeratorIDs(string cloudID)
         {
             JObject cloud = CloudJson(cloudID);
             var ModIDs = new List<string>();
-            return null;
+            foreach (var mod in CloudJson(cloudID)["result"]["moderator_ids"])
+            {
+                ModIDs.Add(mod.ToString());
+            }
+            return ModIDs;
         }
     }
 }

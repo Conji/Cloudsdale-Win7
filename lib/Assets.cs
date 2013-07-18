@@ -24,6 +24,9 @@ namespace Cloudsdale.lib
         public static Color FounderTag = Color.FromArgb(255, 183, 230);
         public static Color DevTag = Color.FromArgb(142, 60, 255);
         public static Color AdminTag = Color.FromArgb(99, 151, 63);
+        public static Color DonatorTag = Color.FromArgb(220, 206, 70);
+        public static Color LegacyTag = Color.FromArgb(160, 160, 160);
+        public static Color VerifiedTag = Color.FromArgb(40, 40, 250);
 
         public static Color OnlineStatus = Color.LightGreen;
         public static Color OfflineStatus = Color.LightGray;

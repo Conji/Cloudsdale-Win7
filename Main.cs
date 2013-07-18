@@ -57,7 +57,7 @@ namespace Cloudsdale
                 this.MaximizeBox = false;
             }
             Subscriber.Visible = true;
-            SettingsPanel.Height = 0;
+            LeaveSettings();
 
             if (autologin.Checked)
             {
@@ -85,7 +85,7 @@ namespace Cloudsdale
                 Password.ReadOnly = true;
                 await LoginRequest();
                 this.Text = "Login succesful!";
-                Console.WriteLine((string)User ["user"]["id"]);
+
                 this.AcceptButton = m_SendMessage;
                 this.MaximizeBox = true;
                 Connection.MessageReceived += o =>
@@ -311,7 +311,7 @@ namespace Cloudsdale
 
             sp_user_joinDate.Text = User["user"]["member_since"].ToString().Replace("+0000", "");
 
-            sp_user_triesLeft.Text = User["user"]["username_changes_allowed"].ToString();
+            sp_user_triesLeft.Text = UserModel.NameChangesAllowed().ToString();
 
             if (sp_user_triesLeft.Text == "0")
             {
@@ -331,14 +331,6 @@ namespace Cloudsdale
             {
                 SettingsPanel.Height = 0;
                 sp_user.Visible = false;
-            }
-        }
-
-        private void SettingsLeft(object sender, EventArgs e)
-        {
-            if (SettingsVisible == false)
-            {
-                SettingsPanel.Height = 0;
             }
         }
 
@@ -363,8 +355,15 @@ namespace Cloudsdale
             }
         }
 
+        private void LeaveSettings()
+        {
+            SettingsPanel.Height = 0;
+            sp_user.Visible = false;
+            sp_settings.Visible = false;
+        }
         private void CloudList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            LeaveSettings();
             if (CloudList.SelectedItems.Count > 0)
             {
                 if (CloudList.FocusedItem.Index >= 0)

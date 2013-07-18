@@ -65,6 +65,8 @@
             this.settingsIcon = new System.Windows.Forms.PictureBox();
             this.MessageGroup = new System.Windows.Forms.GroupBox();
             this.SettingsPanel = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.menuItem_Settings = new System.Windows.Forms.PictureBox();
             this.menuItem_user = new System.Windows.Forms.PictureBox();
             this.menuItem_CloudSettings = new System.Windows.Forms.PictureBox();
             this.menuItem_Explore = new System.Windows.Forms.PictureBox();
@@ -75,6 +77,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.MessagePanel = new System.Windows.Forms.Panel();
             this.h_panel = new System.Windows.Forms.Panel();
+            this.sp_settings = new System.Windows.Forms.Panel();
             this.sp_user = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -111,6 +114,25 @@
             this.m_SendMessage = new System.Windows.Forms.Button();
             this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
             this._SourceLoader = new System.ComponentModel.BackgroundWorker();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.sublist_clouds = new System.Windows.Forms.ListBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.sublist_users = new System.Windows.Forms.ListBox();
+            this.MessageContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Quote = new System.Windows.Forms.ToolStripMenuItem();
+            this.CopyMessage = new System.Windows.Forms.ToolStripMenuItem();
+            this.Remove = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.subscribe = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeUserMessages = new System.Windows.Forms.ToolStripMenuItem();
+            this.blockUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.ban = new System.Windows.Forms.ToolStripMenuItem();
+            this.kick = new System.Windows.Forms.ToolStripMenuItem();
             this.LoginPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -122,17 +144,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).BeginInit();
             this.MessageGroup.SuspendLayout();
             this.SettingsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Settings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).BeginInit();
             this.MessagePanel.SuspendLayout();
             this.h_panel.SuspendLayout();
+            this.sp_settings.SuspendLayout();
             this.sp_user.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sp_user_avatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.MessageContext.SuspendLayout();
             this.SuspendLayout();
             // 
             // LoginPanel
@@ -415,9 +446,9 @@
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
             this.button1.Image = global::Cloudsdale.Properties.Resources.home1;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(-1, 0);
+            this.button1.Location = new System.Drawing.Point(-1, -1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(202, 45);
+            this.button1.Size = new System.Drawing.Size(202, 46);
             this.button1.TabIndex = 1;
             this.button1.Text = "Home Page";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -473,6 +504,8 @@
             this.SettingsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SettingsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.SettingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SettingsPanel.Controls.Add(this.label10);
+            this.SettingsPanel.Controls.Add(this.menuItem_Settings);
             this.SettingsPanel.Controls.Add(this.menuItem_user);
             this.SettingsPanel.Controls.Add(this.menuItem_CloudSettings);
             this.SettingsPanel.Controls.Add(this.menuItem_Explore);
@@ -487,9 +520,30 @@
             this.SettingsPanel.MaximumSize = new System.Drawing.Size(10000, 55);
             this.SettingsPanel.Name = "SettingsPanel";
             this.SettingsPanel.Padding = new System.Windows.Forms.Padding(2);
-            this.SettingsPanel.Size = new System.Drawing.Size(520, 55);
+            this.SettingsPanel.Size = new System.Drawing.Size(521, 55);
             this.SettingsPanel.TabIndex = 8;
             this.SettingsPanel.MouseHover += new System.EventHandler(this.SettingsHover);
+            // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Location = new System.Drawing.Point(227, 31);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(87, 20);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Settings";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // menuItem_Settings
+            // 
+            this.menuItem_Settings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_Settings.Image = global::Cloudsdale.Properties.Resources.computer_service;
+            this.menuItem_Settings.Location = new System.Drawing.Point(247, -1);
+            this.menuItem_Settings.Name = "menuItem_Settings";
+            this.menuItem_Settings.Size = new System.Drawing.Size(44, 38);
+            this.menuItem_Settings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_Settings.TabIndex = 9;
+            this.menuItem_Settings.TabStop = false;
             // 
             // menuItem_user
             // 
@@ -518,7 +572,7 @@
             // 
             this.menuItem_Explore.Cursor = System.Windows.Forms.Cursors.Hand;
             this.menuItem_Explore.Image = global::Cloudsdale.Properties.Resources.cloud1;
-            this.menuItem_Explore.Location = new System.Drawing.Point(259, -1);
+            this.menuItem_Explore.Location = new System.Drawing.Point(339, 0);
             this.menuItem_Explore.Name = "menuItem_Explore";
             this.menuItem_Explore.Size = new System.Drawing.Size(52, 37);
             this.menuItem_Explore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -529,7 +583,7 @@
             // 
             this.menuItem_Logout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.menuItem_Logout.Image = global::Cloudsdale.Properties.Resources.power;
-            this.menuItem_Logout.Location = new System.Drawing.Point(359, -1);
+            this.menuItem_Logout.Location = new System.Drawing.Point(441, -1);
             this.menuItem_Logout.Name = "menuItem_Logout";
             this.menuItem_Logout.Size = new System.Drawing.Size(46, 37);
             this.menuItem_Logout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -540,7 +594,7 @@
             // label6
             // 
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Location = new System.Drawing.Point(345, 31);
+            this.label6.Location = new System.Drawing.Point(427, 31);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 20);
             this.label6.TabIndex = 7;
@@ -550,7 +604,7 @@
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Location = new System.Drawing.Point(255, 31);
+            this.label5.Location = new System.Drawing.Point(335, 32);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 20);
             this.label5.TabIndex = 5;
@@ -593,6 +647,7 @@
             this.h_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.h_panel.Controls.Add(this.sp_settings);
             this.h_panel.Controls.Add(this.sp_user);
             this.h_panel.Controls.Add(this.h_about);
             this.h_panel.Controls.Add(this.h_message);
@@ -606,6 +661,15 @@
             this.h_panel.Name = "h_panel";
             this.h_panel.Size = new System.Drawing.Size(653, 442);
             this.h_panel.TabIndex = 8;
+            // 
+            // sp_settings
+            // 
+            this.sp_settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.sp_settings.Controls.Add(this.tabControl1);
+            this.sp_settings.Location = new System.Drawing.Point(127, 26);
+            this.sp_settings.Name = "sp_settings";
+            this.sp_settings.Size = new System.Drawing.Size(521, 333);
+            this.sp_settings.TabIndex = 20;
             // 
             // sp_user
             // 
@@ -672,9 +736,9 @@
             // 
             // sp_user_akaList
             // 
-            this.sp_user_akaList.Location = new System.Drawing.Point(3, 187);
+            this.sp_user_akaList.Location = new System.Drawing.Point(3, 169);
             this.sp_user_akaList.Name = "sp_user_akaList";
-            this.sp_user_akaList.Size = new System.Drawing.Size(277, 129);
+            this.sp_user_akaList.Size = new System.Drawing.Size(277, 138);
             this.sp_user_akaList.TabIndex = 18;
             this.sp_user_akaList.Text = "label10";
             // 
@@ -974,6 +1038,7 @@
             this.h_avatar.BackgroundImage = global::Cloudsdale.Properties.Resources.user;
             this.h_avatar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.h_avatar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_avatar.ContextMenuStrip = this.MessageContext;
             this.h_avatar.Location = new System.Drawing.Point(6, 15);
             this.h_avatar.Name = "h_avatar";
             this.h_avatar.Size = new System.Drawing.Size(124, 124);
@@ -1004,6 +1069,170 @@
             this.Subscriber.Icon = ((System.Drawing.Icon)(resources.GetObject("Subscriber.Icon")));
             this.Subscriber.Text = "No new messages.";
             this.Subscriber.Visible = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(9, 6);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(509, 324);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.tabPage1.Location = new System.Drawing.Point(4, 21);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(501, 299);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Settings";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.tabPage2.Controls.Add(this.splitContainer1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 21);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(501, 299);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Subscriber";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.label13);
+            this.splitContainer1.Panel1.Controls.Add(this.sublist_clouds);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.sublist_users);
+            this.splitContainer1.Panel2.Controls.Add(this.label15);
+            this.splitContainer1.Size = new System.Drawing.Size(505, 252);
+            this.splitContainer1.SplitterDistance = 248;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // sublist_clouds
+            // 
+            this.sublist_clouds.FormattingEnabled = true;
+            this.sublist_clouds.ItemHeight = 20;
+            this.sublist_clouds.Location = new System.Drawing.Point(0, 40);
+            this.sublist_clouds.Name = "sublist_clouds";
+            this.sublist_clouds.Size = new System.Drawing.Size(243, 204);
+            this.sublist_clouds.TabIndex = 0;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(-4, 17);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(131, 20);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Subscribed Clouds";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(0, 17);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(115, 20);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "Subcribed Users";
+            // 
+            // sublist_users
+            // 
+            this.sublist_users.FormattingEnabled = true;
+            this.sublist_users.ItemHeight = 20;
+            this.sublist_users.Location = new System.Drawing.Point(3, 40);
+            this.sublist_users.Name = "sublist_users";
+            this.sublist_users.Size = new System.Drawing.Size(243, 204);
+            this.sublist_users.TabIndex = 2;
+            // 
+            // MessageContext
+            // 
+            this.MessageContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Quote,
+            this.CopyMessage,
+            this.Remove,
+            this.toolStripSeparator3,
+            this.subscribe,
+            this.removeUserMessages,
+            this.blockUser,
+            this.toolStripSeparator4,
+            this.ban,
+            this.kick});
+            this.MessageContext.Name = "MessageContext";
+            this.MessageContext.Size = new System.Drawing.Size(263, 192);
+            // 
+            // Quote
+            // 
+            this.Quote.Name = "Quote";
+            this.Quote.Size = new System.Drawing.Size(262, 22);
+            this.Quote.Text = "Quote Message";
+            // 
+            // CopyMessage
+            // 
+            this.CopyMessage.Name = "CopyMessage";
+            this.CopyMessage.Size = new System.Drawing.Size(262, 22);
+            this.CopyMessage.Text = "Copy message to clipboard";
+            // 
+            // Remove
+            // 
+            this.Remove.Name = "Remove";
+            this.Remove.Size = new System.Drawing.Size(262, 22);
+            this.Remove.Text = "Remove message";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(259, 6);
+            // 
+            // subscribe
+            // 
+            this.subscribe.Name = "subscribe";
+            this.subscribe.Size = new System.Drawing.Size(262, 22);
+            this.subscribe.Text = "Subscribe to this user";
+            // 
+            // removeUserMessages
+            // 
+            this.removeUserMessages.Name = "removeUserMessages";
+            this.removeUserMessages.Size = new System.Drawing.Size(262, 22);
+            this.removeUserMessages.Text = "Remove all messages from this user";
+            // 
+            // blockUser
+            // 
+            this.blockUser.AutoToolTip = true;
+            this.blockUser.Name = "blockUser";
+            this.blockUser.Size = new System.Drawing.Size(262, 22);
+            this.blockUser.Text = "Block this user";
+            this.blockUser.ToolTipText = "Stops you from seeing this user\'s messages in the chat.";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(259, 6);
+            // 
+            // ban
+            // 
+            this.ban.Name = "ban";
+            this.ban.Size = new System.Drawing.Size(262, 22);
+            this.ban.Text = "Ban this user";
+            // 
+            // kick
+            // 
+            this.kick.Name = "kick";
+            this.kick.Size = new System.Drawing.Size(262, 22);
+            this.kick.Text = "Kick this user";
             // 
             // Main
             // 
@@ -1038,6 +1267,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).EndInit();
             this.MessageGroup.ResumeLayout(false);
             this.SettingsPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Settings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).EndInit();
@@ -1045,12 +1275,22 @@
             this.MessagePanel.ResumeLayout(false);
             this.h_panel.ResumeLayout(false);
             this.h_panel.PerformLayout();
+            this.sp_settings.ResumeLayout(false);
             this.sp_user.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sp_user_avatar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.MessageContext.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1140,6 +1380,28 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label sp_user_akaList;
+        private System.Windows.Forms.PictureBox menuItem_Settings;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel sp_settings;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ListBox sublist_clouds;
+        private System.Windows.Forms.ListBox sublist_users;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ContextMenuStrip MessageContext;
+        private System.Windows.Forms.ToolStripMenuItem Quote;
+        private System.Windows.Forms.ToolStripMenuItem CopyMessage;
+        private System.Windows.Forms.ToolStripMenuItem Remove;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem subscribe;
+        private System.Windows.Forms.ToolStripMenuItem removeUserMessages;
+        private System.Windows.Forms.ToolStripMenuItem blockUser;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem ban;
+        private System.Windows.Forms.ToolStripMenuItem kick;
         
     }
 }

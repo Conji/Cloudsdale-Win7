@@ -114,7 +114,7 @@ namespace Cloudsdale.lib.Models
         public static int NameChangesAllowed()
         {
             JObject self = Main.User;
-            return self["user"]["name-changes-allowed"].ToObject<int>();
+            return self["user"]["username_changes_allowed"].ToObject<int>();
         }
     }
 }

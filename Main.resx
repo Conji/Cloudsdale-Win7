@@ -1891,6 +1891,9 @@ We provide beautiful, easy to use mobile applications for the platform of your c
         mKYjjvg/FxUeRfbWwWwAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="MessageContext.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>709, 17</value>
+  </metadata>
   <metadata name="Subscriber.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>346, 17</value>
   </metadata>
