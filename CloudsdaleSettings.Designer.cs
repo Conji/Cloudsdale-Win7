@@ -8,42 +8,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cloudsdale.Properties {
+namespace Cloudsdale {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class CloudsdaleSettings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        private static CloudsdaleSettings defaultInstance = ((CloudsdaleSettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new CloudsdaleSettings())));
         
-        public static Settings Default {
+        public static CloudsdaleSettings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Auto {
-            get {
-                return ((bool)(this["Auto"]));
-            }
-            set {
-                this["Auto"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool RememberMe {
-            get {
-                return ((bool)(this["RememberMe"]));
-            }
-            set {
-                this["RememberMe"] = value;
             }
         }
         
@@ -68,6 +44,18 @@ namespace Cloudsdale.Properties {
             }
             set {
                 this["PreviousPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoLogin {
+            get {
+                return ((bool)(this["AutoLogin"]));
+            }
+            set {
+                this["AutoLogin"] = value;
             }
         }
     }

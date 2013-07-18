@@ -44,7 +44,13 @@ namespace Cloudsdale.connection
             handshake["version"] = "1.0";
             handshake["minimumVersion"] = "1.0beta";
             handshake["supportedConnectionTypes"] = new JArray { "websocket" };
-            socket.Send(handshake.ToString());
+            try
+            { socket.Send(handshake.ToString()); }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                socket.Send(handshake.ToString());
+            }
         }
 
         static void MessageReceived(object sender, MessageReceivedEventArgs e) {
@@ -118,21 +124,37 @@ namespace Cloudsdale.connection
 
         public static void Initialize()
         {
-            FayeConnector.LostConnection += FayeConnector.Connect;
-            FayeConnector.DoneConnecting += delegate
+            try
             {
-                foreach (var cloud in Main.User["user"]["clouds"])
+                FayeConnector.LostConnection += FayeConnector.Connect;
+                FayeConnector.DoneConnecting += delegate
                 {
-                    FayeConnector.Subscribe("/clouds/" + cloud["id"] + "/chat/messages");
-                }
-            };
-            FayeConnector.Connect();
+                    foreach (var cloud in Main.User["user"]["clouds"])
+                    {
+                        FayeConnector.Subscribe("/clouds/" + cloud["id"] + "/chat/messages");
+                    }
+                };
+                FayeConnector.Connect();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                InitializeAsync();
+            }
         }
 
         public static async Task InitializeAsync()
         {
-            FayeConnector.LostConnection += FayeConnector.Connect;
-            await FayeConnector.ConnectAsync();
+            try
+            {
+                FayeConnector.LostConnection += FayeConnector.Connect;
+                await FayeConnector.ConnectAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Initialize();
+            }
         }
 
         internal static void OnMessageReceived(JObject obj)

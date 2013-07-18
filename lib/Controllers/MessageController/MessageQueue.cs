@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Cloudsdale.actions.MessageController
+namespace Cloudsdale.connection.MessageController
 {
     public class MessageQueue
     {

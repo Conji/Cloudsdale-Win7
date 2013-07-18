@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cloudsdale.actions
+namespace Cloudsdale.lib.Models
 {
-    class MessageHandler
+    class RoleModel
     {
     }
 }
