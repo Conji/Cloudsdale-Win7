@@ -46,8 +46,38 @@ namespace MessageControl
             get { return Fetchdevice(new Image()); }
             set
             {
-                //in progress }
+                //in progress 
             }
+        }
+        public Color GetStatus(string userstatus0)
+        {
+            return userstatus0; // here
+        }
+        public Color SetStatusBubble
+        {
+            get { return GetStatus("status"); }
+            set
+            {
+                switch (value) // and here
+                {
+                    case "online":
+                        value = Color.FromRgb(16,175,0);
+                        break;
+                    case "offline":
+                        value = Color.FromRgb(117,117,117);
+                        break;
+                    case "busy":
+                        value = Color.FromRgb(255,0,0);
+                        break;
+                    case "away":
+                        value = Color.FromRgb(255,228,0);
+                        break;
+                    default:
+                        value = Color.FromRgb(117,117,117);
+                        break;
+                }
+                SetStatusBubble = value;
+            }        
         }
         public string Fetchname(string displayname)
         {
@@ -58,7 +88,7 @@ namespace MessageControl
             get { return Fetchname("new displayname"); }
             set { DisplayName.Content = value; }
         }
-                public string Fetchusername(string username)
+        public string Fetchusername(string username)
         {
             return username;
         }
