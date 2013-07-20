@@ -12,8 +12,7 @@ namespace Cloudsdale.lib.Controllers.MessageController
         public static string ProcessedContent(string message, string userId)
         {
             message = SlashMeProcessor.Process(message, userId);
-            //Name the message control here for the message to change the color of the text from normal to a quote
-
+            //quotation conversion
             return message;
         }
     }
