@@ -10,12 +10,11 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
+using Cloudsdale.lib.Controllers.MessageController;
+using Cloudsdale.lib.Controllers.MessageController.Processors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Cloudsdale.connection;
-using Cloudsdale.connection.MessageController;
-using Cloudsdale.lib;
-using Cloudsdale.lib.MessageUI;
 using Cloudsdale.lib.Models;
 
 namespace Cloudsdale
@@ -56,7 +55,6 @@ namespace Cloudsdale
             {
                 this.MaximizeBox = false;
             }
-            Subscriber.Visible = true;
             LeaveSettings();
 
             if (autologin.Checked)
@@ -85,6 +83,8 @@ namespace Cloudsdale
                 Password.ReadOnly = true;
                 await LoginRequest();
                 this.Text = "Login succesful!";
+
+                DropProcessor.AddDrop("this is test", (string) User["user"]["id"]);
 
                 this.AcceptButton = m_SendMessage;
                 this.MaximizeBox = true;
@@ -214,18 +214,7 @@ namespace Cloudsdale
                     message["content"] = message["content"]
                         .ToString().RegexReplace("^/me", (string) message["author"]["name"]);
                     source.AddMessage(message);
-                }
-
-                if (LoggedIn)
-                {
-
-                    Subscriber.BalloonTipText = (string) message["author"]["name"] + " posted: '" +
-                                                (string) message["content"] + @"' in " +
-                                                CloudModel.CloudName(cloudId);
-                    
-                    Subscriber.ShowBalloonTip(3);
-                }
-                
+                }             
                 //NewMessage.AddMessage(CloudMessages, (string)message["author"]["name"], (string)message["author"]["username"], (string)message["author"]["role"], (string)message["timestamp"], "online", "mobile", (string)message["content"], LoadImage((string)message["author"]["avatar"]["normal"]));
 
             }
@@ -461,7 +450,6 @@ namespace Cloudsdale
             this.Controls.Clear();
             InitializeComponent();
 
-            Subscriber.Visible = false;
             Email.Text = CloudsdaleSettings.Default.PreviousEmail;
             Password.Text = CloudsdaleSettings.Default.PreviousPassword;
             autologin.Checked = CloudsdaleSettings.Default.AutoLogin;
@@ -475,7 +463,6 @@ namespace Cloudsdale
             {
                 this.MaximizeBox = false;
             }
-            Subscriber.Visible = true;
             SettingsPanel.Height = 0;
         }
     }

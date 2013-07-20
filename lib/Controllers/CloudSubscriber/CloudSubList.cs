@@ -44,7 +44,7 @@ namespace Cloudsdale.lib.Controllers.CloudSubscriber
             SubbedClouds.CopyTo(CloudListString, SubbedClouds.Count - 1);
             return CloudListString[0];
         }
-        public static void ShowMessages(string cloudId, string message)
+        public static void ShowMessages(string cloudId, string message, string userId)
         {
             if (SubbedClouds.Contains(cloudId))
             {

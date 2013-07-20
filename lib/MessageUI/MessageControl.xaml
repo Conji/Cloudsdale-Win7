@@ -3,15 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignWidth="680" Height="91.259">
+             mc:Ignorable="d" d:DesignWidth="680" Height="122.259">
     <Grid x:Name="CloudsdaleMessage">
-        <Image x:Name="Avatar" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="40" Margin="10,30,0,0"/>
-        <Label x:Name="DisplayName" Content="DisplayName" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="15" Width="90"/>
-        <Label x:Name="Username" Content="UserName" HorizontalAlignment="Left" Margin="105,10,0,0" VerticalAlignment="Top" Width="90" Height="15"/>
-        <Label x:Name="Role" Content="Role" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Height="10" Width="40"/>
-        <Label x:Name="TimeStamp" Content="TimeStamp" HorizontalAlignment="Left" Margin="625,10,0,0" VerticalAlignment="Top" Height="16" Width="45"/>
-        <Image x:Name="DeviceInfo" HorizontalAlignment="Left" Height="16" Margin="608,10,0,0" VerticalAlignment="Top" Width="12" RenderTransformOrigin="-11.975,8.354"/>
-        <TextBlock x:Name="Message" HorizontalAlignment="Left" Margin="64,30,0,0" TextWrapping="Wrap" Text="Message" VerticalAlignment="Top" Height="51" Width="606"/>
-        <Ellipse x:Name="StatusBubble" Fill="#FF757575" HorizontalAlignment="Left" Height="15" Margin="200,10,0,0" Stroke="White" VerticalAlignment="Top" Width="15"/>
+        <Image x:Name="Avatar" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="64" Margin="10,21,0,0"/>
+        <Label x:Name="DisplayName" Content="DisplayName" HorizontalAlignment="Left" Margin="79,0,0,0" VerticalAlignment="Top" Height="25" Width="90"/>
+        <Label x:Name="Username" Content="@UserName" HorizontalAlignment="Left" Margin="74,21,0,0" VerticalAlignment="Top" Width="90" Height="26"/>
+        <Label x:Name="Role" Content="Role" HorizontalAlignment="Left" Margin="10,90,0,0" Width="64" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="27" VerticalAlignment="Top"/>
+        <Label x:Name="TimeStamp" Content="TimeStamp" HorizontalAlignment="Left" Margin="565,0,0,0" VerticalAlignment="Top" Height="25" Width="105" RenderTransformOrigin="0.511,0.438"/>
+        <Image x:Name="DeviceInfo" HorizontalAlignment="Left" Height="16" Margin="658,52,0,0" VerticalAlignment="Top" Width="12" RenderTransformOrigin="-11.975,8.354"/>
+        <TextBlock x:Name="Message" HorizontalAlignment="Left" Margin="79,52,0,0" TextWrapping="Wrap" Text="Message" VerticalAlignment="Top" Height="51" Width="555"/>
+        <Label x:Name="Status" Content="Status" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Center" Foreground="Black"/>
     </Grid>
 </UserControl>
