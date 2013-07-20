@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Drawing;
 
 namespace Cloudsdale.lib
 {
-    class Assets
+    public sealed class Assets
     {
         #region Color list
         public static Color PrimaryBlue = Color.FromArgb(99, 168, 208);
@@ -24,6 +21,7 @@ namespace Cloudsdale.lib
         public static Color FounderTag = Color.FromArgb(255, 183, 230);
         public static Color DevTag = Color.FromArgb(142, 60, 255);
         public static Color AdminTag = Color.FromArgb(99, 151, 63);
+        public static Color AssociateTag = Color.FromArgb(110, 110, 167);
         public static Color DonatorTag = Color.FromArgb(220, 206, 70);
         public static Color LegacyTag = Color.FromArgb(160, 160, 160);
         public static Color VerifiedTag = Color.FromArgb(40, 40, 250);
@@ -32,6 +30,14 @@ namespace Cloudsdale.lib
         public static Color OfflineStatus = Color.LightGray;
         public static Color AwayStatus = Color.Yellow;
         public static Color BusyStatus = Color.Red;
+        #endregion
+        #region Folders
+
+        public static string BaseDirectory = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Cloudsdale\";
+        public static string InstallDirectory = BaseDirectory + @"cloudsdale-win7\";
+        public static string Library = InstallDirectory + @"lib\";
+        public static string DataDirectory = BaseDirectory + @"data\";
+
         #endregion
     }
 }

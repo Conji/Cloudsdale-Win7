@@ -22,6 +22,9 @@ namespace Cloudsdale.lib.Models
                 case "admin":
                     return Assets.AdminTag;
                     break;
+                case "associate":
+                    return Assets.AssociateTag;
+                    break;
                 case "donator":
                     return Assets.DonatorTag;
                     break;

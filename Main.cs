@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
+using Cloudsdale.lib.Controllers;
 using Cloudsdale.lib.Controllers.MessageController;
 using Cloudsdale.lib.Controllers.MessageController.Processors;
 using Newtonsoft.Json;
@@ -84,7 +85,7 @@ namespace Cloudsdale
                 await LoginRequest();
                 this.Text = "Login succesful!";
 
-                DropProcessor.AddDrop("this is test", (string) User["user"]["id"]);
+                Token.SaveToken((string)User["user"]["auth_token"]);
 
                 this.AcceptButton = m_SendMessage;
                 this.MaximizeBox = true;
