@@ -148,6 +148,9 @@ We provide beautiful, easy to use mobile applications for the platform of your c
   <data name="h_message.Text" xml:space="preserve">
     <value>Hello, and welcome to Cloudsdale! We hope you enjoy your stay in this city in the clouds. While you're here, be sure to explore some clouds by clicking on the "Explore" button below! All of the information you'll be using here can be access by simply hovering your mouse over the top right corner of the application! </value>
   </data>
+  <metadata name="_SourceLoader.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>454, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="h_pony.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1894,14 +1897,14 @@ We provide beautiful, easy to use mobile applications for the platform of your c
   <metadata name="MessageContext.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>709, 17</value>
   </metadata>
-  <metadata name="_SourceLoader.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>454, 17</value>
-  </metadata>
   <metadata name="cloudSubListBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
   </metadata>
+  <metadata name="Subscriber.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>851, 17</value>
+  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>43</value>
+    <value>75</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

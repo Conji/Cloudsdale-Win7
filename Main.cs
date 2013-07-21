@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using Cloudsdale.lib.Controllers;
+using Cloudsdale.lib.Controllers.CloudSubscriber;
 using Cloudsdale.lib.Controllers.MessageController;
 using Cloudsdale.lib.Controllers.MessageController.Processors;
 using Newtonsoft.Json;
@@ -217,7 +218,10 @@ namespace Cloudsdale
                     source.AddMessage(message);
                 }             
                 //NewMessage.AddMessage(CloudMessages, (string)message["author"]["name"], (string)message["author"]["username"], (string)message["author"]["role"], (string)message["timestamp"], "online", "mobile", (string)message["content"], LoadImage((string)message["author"]["avatar"]["normal"]));
-
+                if (LoggedIn)
+                {
+                    NotificationControl.ShowSimple(cloudId, (string)message["author"]["id"]);
+                }
             }
         }
 
@@ -382,7 +386,7 @@ namespace Cloudsdale
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            MessageGroup.Text = "Welcome back, " + User["user"]["name"] + "!";
+            MessageGroup.Text = "Welcome back, [:user]!".Replace("[:user]", (string) User["user"]["name"]);
             RedirectHome(true);
         }
 
@@ -444,6 +448,13 @@ namespace Cloudsdale
             browser.Title = "Upload new avatar.";
             browser.InitialDirectory = Environment.SpecialFolder.CommonPictures.ToString();
             browser.ShowDialog();
+            
+            if (DialogResult == DialogResult.OK)
+            {
+                Stream selectedImage = new FileStream(browser.FileName, FileMode.Open);
+                UserModel.UploadNewAvatar(selectedImage, "test");
+                selectedImage.Dispose();
+            }
         }
 
         private void menuItem_Logout_Click(object sender, EventArgs e)
@@ -465,6 +476,18 @@ namespace Cloudsdale
                 this.MaximizeBox = false;
             }
             SettingsPanel.Height = 0;
+        }
+
+        private void menuItem_Settings_Click(object sender, EventArgs e)
+        {
+            if (sp_settings.Visible)
+            {
+                sp_settings.Visible = false;
+            }
+            else
+            {
+                sp_settings.Visible = true;
+            }
         }
     }
 }

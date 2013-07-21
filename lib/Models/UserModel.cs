@@ -131,7 +131,7 @@ namespace Cloudsdale.lib.Models
             return self["user"]["username_changes_allowed"].ToObject<int>();
         }
 
-        public async Task UploadNewAvatar(Stream picture, string mimetype)
+        public static async Task UploadNewAvatar(Stream picture, string mimetype)
         {
             HttpContent postData;
             using (var dataStream = new MemoryStream())
@@ -163,8 +163,13 @@ namespace Cloudsdale.lib.Models
                                               {"X-Auth-Token", Token.ReadToken()}
                                           }
                                   };
+                var response = await request.PostAsync(Endpoints.User.Replace("[:id]", (string)Main.User["user"]["id"]),
+                                                 postData);
+                var result = await 
+                    JsonConvert.DeserializeObjectAsync<WebResponse>(
+                        await response.Content.ReadAsStringAsync());
+                Console.WriteLine(result);
             }
-
         }
     }
 }

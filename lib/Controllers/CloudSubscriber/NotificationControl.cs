@@ -5,7 +5,6 @@ namespace Cloudsdale.lib.Controllers.CloudSubscriber
 {
     class NotificationControl
     {
-        private static NotifyIcon _subscriber = new NotifyIcon();
         private static Main Instance = new Main();
         public NotificationControl()
         {
@@ -13,15 +12,22 @@ namespace Cloudsdale.lib.Controllers.CloudSubscriber
         }
         public static void ShowSimple(string cloudId, string userId)
         {
-            _subscriber.BalloonTipIcon = ToolTipIcon.None;
-            _subscriber.BalloonTipText = UserModel.Name(userId) + "said something in " + CloudModel.CloudName(cloudId);
-            _subscriber.ShowBalloonTip(3);
+            Instance.Subscriber.BalloonTipIcon = ToolTipIcon.None;
+            Instance.Subscriber.BalloonTipText =
+                "[:user] said something in [:cloud]!".Replace("[:user]", UserModel.Name(userId)).Replace("[:cloud]",
+                                                                                                         CloudModel.
+                                                                                                             CloudName(
+                                                                                                                 cloudId));
+            Instance.Subscriber.ShowBalloonTip(3);
         }
         public static void ShowDetailed(string cloudId, string userId, string message)
         {
-            _subscriber.BalloonTipIcon = ToolTipIcon.Info;
-            _subscriber.BalloonTipText = UserModel.Name(userId) + "(@" + UserModel.Username(userId) + "): " + message;
-            _subscriber.BalloonTipTitle = CloudModel.CloudName(cloudId);
+            Instance.Subscriber.BalloonTipIcon = ToolTipIcon.Info;
+            Instance.Subscriber.BalloonTipText = "[:name](@[:username]):".Replace("[:name]", 
+                UserModel.Name(userId)).Replace("[:username]", 
+                UserModel.Username(userId)) + message;
+            Instance.Subscriber.BalloonTipTitle = CloudModel.CloudName(cloudId);
+            Instance.Subscriber.ShowBalloonTip(3);
         }
     }
 }
