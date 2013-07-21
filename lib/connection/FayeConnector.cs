@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using WebSocket4Net;
 
-namespace Cloudsdale.connection
+namespace Cloudsdale.lib.connection
 {
     static class FayeConnector
     {

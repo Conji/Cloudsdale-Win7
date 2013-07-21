@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using Cloudsdale.lib.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale.lib.Controllers.CloudSubscriber
 {
     public sealed class CloudSubList
     {
+        public static Main Instance = new Main();
         public static ObservableCollection<string> SubbedClouds = new ObservableCollection<string>();
         public static string[] CloudListString;
 
@@ -15,6 +17,7 @@ namespace Cloudsdale.lib.Controllers.CloudSubscriber
             if (!SubbedClouds.Contains(CloudId))
             {
                 SubbedClouds.Add(CloudId);
+                Instance.sublist_clouds.Items.Add(CloudModel.CloudName(CloudId));
             }
             else
             {
@@ -26,6 +29,7 @@ namespace Cloudsdale.lib.Controllers.CloudSubscriber
             if (SubbedClouds.Contains(CloudId))
             {
                 SubbedClouds.Remove(CloudId);
+                Instance.sublist_clouds.Items.Remove(CloudModel.CloudName(CloudId));
             }
             else
             {
@@ -48,7 +52,8 @@ namespace Cloudsdale.lib.Controllers.CloudSubscriber
         {
             if (SubbedClouds.Contains(cloudId))
             {
-                
+                if (Instance.chkSimple.Checked)
+                {NotificationControl.ShowSimple(cloudId, userId);}else{ NotificationControl.ShowDetailed(cloudId, userId, message);}
             }
         }
     }

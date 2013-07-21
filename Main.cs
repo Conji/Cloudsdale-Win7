@@ -11,12 +11,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using Cloudsdale.lib.Controllers;
+using Cloudsdale.lib.connection;
 using Cloudsdale.lib.Controllers.CloudSubscriber;
 using Cloudsdale.lib.Controllers.MessageController;
 using Cloudsdale.lib.Controllers.MessageController.Processors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Cloudsdale.connection;
+using Cloudsdale.lib;
 using Cloudsdale.lib.Models;
 
 namespace Cloudsdale
@@ -66,6 +67,7 @@ namespace Cloudsdale
                     button1_Click(Login, EventArgs.Empty);
                 }
             }
+            CloudSubList.AddCloud("hang_out");
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -444,16 +446,15 @@ namespace Cloudsdale
         private void sp_user_avatar_Click(object sender, EventArgs e)
         {
             OpenFileDialog browser = new OpenFileDialog();
-            browser.Filter = "JPG image (*.jpg)|*.jpg|PNG image (*.png)|*.png";
+            browser.Filter = "png image (*.png)|*.png| jpg image (*.jpg|*.jpg";
             browser.Title = "Upload new avatar.";
             browser.InitialDirectory = Environment.SpecialFolder.CommonPictures.ToString();
             browser.ShowDialog();
-            
-            if (DialogResult == DialogResult.OK)
+            if (DialogResult != DialogResult.Cancel)
             {
-                Stream selectedImage = new FileStream(browser.FileName, FileMode.Open);
-                UserModel.UploadNewAvatar(selectedImage, "test");
-                selectedImage.Dispose();
+                //Stream selectedImage = new FileStream(browser.FileName, FileMode.Open);
+                //UserModel.UploadNewAvatar(selectedImage, "test");
+                //selectedImage.Dispose();
             }
         }
 

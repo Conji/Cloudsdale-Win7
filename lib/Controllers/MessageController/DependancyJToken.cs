@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale.connection.MessageController
+namespace Cloudsdale.lib.MessageController
 {
     public class DependencyJToken : DependencyObject
     {

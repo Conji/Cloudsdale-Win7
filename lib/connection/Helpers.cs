@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Cloudsdale.connection
+namespace Cloudsdale.lib.connection
 {
     public static class Helpers
     {

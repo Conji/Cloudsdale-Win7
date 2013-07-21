@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale.connection
+namespace Cloudsdale.lib.connection
 {
     public class CouldNotLoginException : Exception
     {

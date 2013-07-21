@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale.connection
+namespace Cloudsdale.lib.connection
 {
     public class MessageSource
     {

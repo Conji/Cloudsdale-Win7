@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.LoginPanel = new System.Windows.Forms.Panel();
+            this.LoadAnimation = new System.Windows.Forms.PictureBox();
             this.autologin = new System.Windows.Forms.CheckBox();
             this.Register = new System.Windows.Forms.Button();
             this.Login = new System.Windows.Forms.Button();
@@ -38,6 +39,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Email = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.CloudAnimation = new System.Windows.Forms.PictureBox();
             this.ViewTimer = new System.Windows.Forms.Timer(this.components);
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -57,10 +60,17 @@
             this.ownerControlPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.CloudIco = new System.Windows.Forms.ImageList(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.MessageUI = new System.Windows.Forms.Panel();
+            this.settingsIcon = new System.Windows.Forms.PictureBox();
             this.MessageGroup = new System.Windows.Forms.GroupBox();
             this.SettingsPanel = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
+            this.menuItem_Settings = new System.Windows.Forms.PictureBox();
+            this.menuItem_user = new System.Windows.Forms.PictureBox();
+            this.menuItem_CloudSettings = new System.Windows.Forms.PictureBox();
+            this.menuItem_Explore = new System.Windows.Forms.PictureBox();
+            this.menuItem_Logout = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -71,27 +81,15 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chkSimple = new System.Windows.Forms.CheckBox();
+            this.RemoveUserSub = new System.Windows.Forms.Button();
+            this.RemoveCloudSub = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label13 = new System.Windows.Forms.Label();
             this.sublist_clouds = new System.Windows.Forms.ListBox();
+            this.cloudSubListBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.sublist_users = new System.Windows.Forms.ListBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.h_about = new System.Windows.Forms.TextBox();
-            this.h_message = new System.Windows.Forms.Label();
-            this.h_memberSince = new System.Windows.Forms.Label();
-            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
-            this.m_NewMessage = new System.Windows.Forms.TextBox();
-            this.m_SendMessage = new System.Windows.Forms.Button();
-            this._SourceLoader = new System.ComponentModel.BackgroundWorker();
-            this.RemoveCloudSub = new System.Windows.Forms.Button();
-            this.RemoveUserSub = new System.Windows.Forms.Button();
-            this.chkSimple = new System.Windows.Forms.CheckBox();
-            this.settingsIcon = new System.Windows.Forms.PictureBox();
-            this.menuItem_Settings = new System.Windows.Forms.PictureBox();
-            this.menuItem_user = new System.Windows.Forms.PictureBox();
-            this.menuItem_CloudSettings = new System.Windows.Forms.PictureBox();
-            this.menuItem_Explore = new System.Windows.Forms.PictureBox();
-            this.menuItem_Logout = new System.Windows.Forms.PictureBox();
             this.sp_user = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -115,10 +113,14 @@
             this.sp_user_avatar = new System.Windows.Forms.PictureBox();
             this.sp_user_username = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.h_about = new System.Windows.Forms.TextBox();
+            this.h_message = new System.Windows.Forms.Label();
+            this.h_memberSince = new System.Windows.Forms.Label();
             this.cmdDonate = new System.Windows.Forms.Button();
             this.cmdExplore = new System.Windows.Forms.Button();
             this.cmdInfo = new System.Windows.Forms.Button();
             this.h_pony = new System.Windows.Forms.PictureBox();
+            this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.h_avatar = new Microsoft.VisualBasic.PowerPacks.OvalShape();
             this.MessageContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Quote = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,19 +133,27 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.ban = new System.Windows.Forms.ToolStripMenuItem();
             this.kick = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            this.LoadAnimation = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.CloudAnimation = new System.Windows.Forms.PictureBox();
+            this.m_NewMessage = new System.Windows.Forms.TextBox();
+            this.m_SendMessage = new System.Windows.Forms.Button();
+            this._SourceLoader = new System.ComponentModel.BackgroundWorker();
             this.cloudSubListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
             this.LoginPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.CloudContext.SuspendLayout();
             this.MessageUI.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).BeginInit();
             this.MessageGroup.SuspendLayout();
             this.SettingsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Settings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).BeginInit();
             this.MessagePanel.SuspendLayout();
             this.h_panel.SuspendLayout();
             this.sp_settings.SuspendLayout();
@@ -153,21 +163,13 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Settings)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource1)).BeginInit();
             this.sp_user.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sp_user_avatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).BeginInit();
             this.MessageContext.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -189,6 +191,17 @@
             this.LoginPanel.Name = "LoginPanel";
             this.LoginPanel.Size = new System.Drawing.Size(892, 533);
             this.LoginPanel.TabIndex = 0;
+            // 
+            // LoadAnimation
+            // 
+            this.LoadAnimation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(168)))), ((int)(((byte)(208)))));
+            this.LoadAnimation.Image = global::Cloudsdale.Properties.Resources.ajax_spinner;
+            this.LoadAnimation.Location = new System.Drawing.Point(274, 186);
+            this.LoadAnimation.Name = "LoadAnimation";
+            this.LoadAnimation.Size = new System.Drawing.Size(346, 257);
+            this.LoadAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LoadAnimation.TabIndex = 7;
+            this.LoadAnimation.TabStop = false;
             // 
             // autologin
             // 
@@ -258,6 +271,31 @@
             this.label1.Size = new System.Drawing.Size(49, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Email:";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Cloudsdale.Properties.Resources.cloudsdale_thin_bright_logo;
+            this.pictureBox1.Location = new System.Drawing.Point(57, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(759, 106);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // CloudAnimation
+            // 
+            this.CloudAnimation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CloudAnimation.Image = global::Cloudsdale.Properties.Resources.Login;
+            this.CloudAnimation.Location = new System.Drawing.Point(0, 98);
+            this.CloudAnimation.Name = "CloudAnimation";
+            this.CloudAnimation.Size = new System.Drawing.Size(892, 321);
+            this.CloudAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CloudAnimation.TabIndex = 9;
+            this.CloudAnimation.TabStop = false;
             // 
             // ViewTimer
             // 
@@ -406,6 +444,24 @@
             this.CloudIco.ImageSize = new System.Drawing.Size(16, 16);
             this.CloudIco.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.button1.Image = global::Cloudsdale.Properties.Resources.home1;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(-1, -1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(202, 46);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Home Page";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // MessageUI
             // 
             this.MessageUI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -420,6 +476,20 @@
             this.MessageUI.Name = "MessageUI";
             this.MessageUI.Size = new System.Drawing.Size(694, 516);
             this.MessageUI.TabIndex = 2;
+            // 
+            // settingsIcon
+            // 
+            this.settingsIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.settingsIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.settingsIcon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.settingsIcon.Image = global::Cloudsdale.Properties.Resources.icon_auth_gray;
+            this.settingsIcon.Location = new System.Drawing.Point(666, 0);
+            this.settingsIcon.Name = "settingsIcon";
+            this.settingsIcon.Size = new System.Drawing.Size(28, 31);
+            this.settingsIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.settingsIcon.TabIndex = 1;
+            this.settingsIcon.TabStop = false;
+            this.settingsIcon.Click += new System.EventHandler(this.ActivateMenuHover);
             // 
             // MessageGroup
             // 
@@ -470,6 +540,64 @@
             this.label10.TabIndex = 8;
             this.label10.Text = "Settings";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // menuItem_Settings
+            // 
+            this.menuItem_Settings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_Settings.Image = global::Cloudsdale.Properties.Resources.computer_service;
+            this.menuItem_Settings.Location = new System.Drawing.Point(247, -1);
+            this.menuItem_Settings.Name = "menuItem_Settings";
+            this.menuItem_Settings.Size = new System.Drawing.Size(44, 38);
+            this.menuItem_Settings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_Settings.TabIndex = 9;
+            this.menuItem_Settings.TabStop = false;
+            this.menuItem_Settings.Click += new System.EventHandler(this.menuItem_Settings_Click);
+            // 
+            // menuItem_user
+            // 
+            this.menuItem_user.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_user.Image = global::Cloudsdale.Properties.Resources.user1;
+            this.menuItem_user.Location = new System.Drawing.Point(44, -1);
+            this.menuItem_user.Name = "menuItem_user";
+            this.menuItem_user.Size = new System.Drawing.Size(56, 37);
+            this.menuItem_user.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_user.TabIndex = 0;
+            this.menuItem_user.TabStop = false;
+            this.menuItem_user.Click += new System.EventHandler(this.menuItem_user_Click);
+            // 
+            // menuItem_CloudSettings
+            // 
+            this.menuItem_CloudSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_CloudSettings.Image = global::Cloudsdale.Properties.Resources._lock;
+            this.menuItem_CloudSettings.Location = new System.Drawing.Point(154, 0);
+            this.menuItem_CloudSettings.Name = "menuItem_CloudSettings";
+            this.menuItem_CloudSettings.Size = new System.Drawing.Size(44, 36);
+            this.menuItem_CloudSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_CloudSettings.TabIndex = 2;
+            this.menuItem_CloudSettings.TabStop = false;
+            // 
+            // menuItem_Explore
+            // 
+            this.menuItem_Explore.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_Explore.Image = global::Cloudsdale.Properties.Resources.cloud1;
+            this.menuItem_Explore.Location = new System.Drawing.Point(339, 0);
+            this.menuItem_Explore.Name = "menuItem_Explore";
+            this.menuItem_Explore.Size = new System.Drawing.Size(52, 37);
+            this.menuItem_Explore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_Explore.TabIndex = 4;
+            this.menuItem_Explore.TabStop = false;
+            // 
+            // menuItem_Logout
+            // 
+            this.menuItem_Logout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.menuItem_Logout.Image = global::Cloudsdale.Properties.Resources.power;
+            this.menuItem_Logout.Location = new System.Drawing.Point(441, -1);
+            this.menuItem_Logout.Name = "menuItem_Logout";
+            this.menuItem_Logout.Size = new System.Drawing.Size(46, 37);
+            this.menuItem_Logout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.menuItem_Logout.TabIndex = 6;
+            this.menuItem_Logout.TabStop = false;
+            this.menuItem_Logout.Click += new System.EventHandler(this.menuItem_Logout_Click);
             // 
             // label6
             // 
@@ -586,6 +714,34 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Subscriber";
             // 
+            // chkSimple
+            // 
+            this.chkSimple.AutoSize = true;
+            this.chkSimple.Location = new System.Drawing.Point(6, 260);
+            this.chkSimple.Name = "chkSimple";
+            this.chkSimple.Size = new System.Drawing.Size(110, 24);
+            this.chkSimple.TabIndex = 3;
+            this.chkSimple.Text = "Simple View";
+            this.chkSimple.UseVisualStyleBackColor = true;
+            // 
+            // RemoveUserSub
+            // 
+            this.RemoveUserSub.Location = new System.Drawing.Point(258, 216);
+            this.RemoveUserSub.Name = "RemoveUserSub";
+            this.RemoveUserSub.Size = new System.Drawing.Size(237, 33);
+            this.RemoveUserSub.TabIndex = 2;
+            this.RemoveUserSub.Text = "Remove";
+            this.RemoveUserSub.UseVisualStyleBackColor = true;
+            // 
+            // RemoveCloudSub
+            // 
+            this.RemoveCloudSub.Location = new System.Drawing.Point(6, 216);
+            this.RemoveCloudSub.Name = "RemoveCloudSub";
+            this.RemoveCloudSub.Size = new System.Drawing.Size(237, 33);
+            this.RemoveCloudSub.TabIndex = 1;
+            this.RemoveCloudSub.Text = "Remove ";
+            this.RemoveCloudSub.UseVisualStyleBackColor = true;
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
@@ -624,6 +780,10 @@
             this.sublist_clouds.Size = new System.Drawing.Size(237, 164);
             this.sublist_clouds.TabIndex = 0;
             // 
+            // cloudSubListBindingSource1
+            // 
+            this.cloudSubListBindingSource1.DataSource = typeof(Cloudsdale.lib.Controllers.CloudSubscriber.CloudSubList);
+            // 
             // sublist_users
             // 
             this.sublist_users.FormattingEnabled = true;
@@ -643,175 +803,6 @@
             this.label15.Size = new System.Drawing.Size(115, 20);
             this.label15.TabIndex = 2;
             this.label15.Text = "Subcribed Users";
-            // 
-            // h_about
-            // 
-            this.h_about.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.h_about.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.h_about.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.h_about.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.h_about.Location = new System.Drawing.Point(443, -3);
-            this.h_about.Multiline = true;
-            this.h_about.Name = "h_about";
-            this.h_about.ReadOnly = true;
-            this.h_about.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.h_about.Size = new System.Drawing.Size(205, 442);
-            this.h_about.TabIndex = 7;
-            this.h_about.Text = resources.GetString("h_about.Text");
-            // 
-            // h_message
-            // 
-            this.h_message.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.h_message.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.h_message.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.h_message.Location = new System.Drawing.Point(132, 3);
-            this.h_message.Name = "h_message";
-            this.h_message.Size = new System.Drawing.Size(310, 165);
-            this.h_message.TabIndex = 1;
-            this.h_message.Text = resources.GetString("h_message.Text");
-            // 
-            // h_memberSince
-            // 
-            this.h_memberSince.AutoSize = true;
-            this.h_memberSince.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.h_memberSince.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.h_memberSince.Location = new System.Drawing.Point(3, 162);
-            this.h_memberSince.Name = "h_memberSince";
-            this.h_memberSince.Size = new System.Drawing.Size(76, 18);
-            this.h_memberSince.TabIndex = 2;
-            this.h_memberSince.Text = "date joined";
-            // 
-            // shapeContainer1
-            // 
-            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
-            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.shapeContainer1.Name = "shapeContainer1";
-            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
-            this.h_avatar});
-            this.shapeContainer1.Size = new System.Drawing.Size(653, 442);
-            this.shapeContainer1.TabIndex = 8;
-            this.shapeContainer1.TabStop = false;
-            // 
-            // m_NewMessage
-            // 
-            this.m_NewMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_NewMessage.Location = new System.Drawing.Point(22, 483);
-            this.m_NewMessage.Name = "m_NewMessage";
-            this.m_NewMessage.Size = new System.Drawing.Size(575, 27);
-            this.m_NewMessage.TabIndex = 1;
-            // 
-            // m_SendMessage
-            // 
-            this.m_SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_SendMessage.Location = new System.Drawing.Point(606, 483);
-            this.m_SendMessage.Name = "m_SendMessage";
-            this.m_SendMessage.Size = new System.Drawing.Size(75, 27);
-            this.m_SendMessage.TabIndex = 0;
-            this.m_SendMessage.Text = "Send\r\n";
-            this.m_SendMessage.UseVisualStyleBackColor = true;
-            // 
-            // RemoveCloudSub
-            // 
-            this.RemoveCloudSub.Location = new System.Drawing.Point(6, 216);
-            this.RemoveCloudSub.Name = "RemoveCloudSub";
-            this.RemoveCloudSub.Size = new System.Drawing.Size(237, 33);
-            this.RemoveCloudSub.TabIndex = 1;
-            this.RemoveCloudSub.Text = "Remove ";
-            this.RemoveCloudSub.UseVisualStyleBackColor = true;
-            // 
-            // RemoveUserSub
-            // 
-            this.RemoveUserSub.Location = new System.Drawing.Point(258, 216);
-            this.RemoveUserSub.Name = "RemoveUserSub";
-            this.RemoveUserSub.Size = new System.Drawing.Size(237, 33);
-            this.RemoveUserSub.TabIndex = 2;
-            this.RemoveUserSub.Text = "Remove";
-            this.RemoveUserSub.UseVisualStyleBackColor = true;
-            // 
-            // chkSimple
-            // 
-            this.chkSimple.AutoSize = true;
-            this.chkSimple.Location = new System.Drawing.Point(6, 260);
-            this.chkSimple.Name = "chkSimple";
-            this.chkSimple.Size = new System.Drawing.Size(110, 24);
-            this.chkSimple.TabIndex = 3;
-            this.chkSimple.Text = "Simple View";
-            this.chkSimple.UseVisualStyleBackColor = true;
-            // 
-            // settingsIcon
-            // 
-            this.settingsIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.settingsIcon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.settingsIcon.Image = global::Cloudsdale.Properties.Resources.icon_auth_gray;
-            this.settingsIcon.Location = new System.Drawing.Point(666, 0);
-            this.settingsIcon.Name = "settingsIcon";
-            this.settingsIcon.Size = new System.Drawing.Size(28, 31);
-            this.settingsIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.settingsIcon.TabIndex = 1;
-            this.settingsIcon.TabStop = false;
-            this.settingsIcon.Click += new System.EventHandler(this.ActivateMenuHover);
-            // 
-            // menuItem_Settings
-            // 
-            this.menuItem_Settings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.menuItem_Settings.Image = global::Cloudsdale.Properties.Resources.computer_service;
-            this.menuItem_Settings.Location = new System.Drawing.Point(247, -1);
-            this.menuItem_Settings.Name = "menuItem_Settings";
-            this.menuItem_Settings.Size = new System.Drawing.Size(44, 38);
-            this.menuItem_Settings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.menuItem_Settings.TabIndex = 9;
-            this.menuItem_Settings.TabStop = false;
-            this.menuItem_Settings.Click += new System.EventHandler(this.menuItem_Settings_Click);
-            // 
-            // menuItem_user
-            // 
-            this.menuItem_user.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.menuItem_user.Image = global::Cloudsdale.Properties.Resources.user1;
-            this.menuItem_user.Location = new System.Drawing.Point(44, -1);
-            this.menuItem_user.Name = "menuItem_user";
-            this.menuItem_user.Size = new System.Drawing.Size(56, 37);
-            this.menuItem_user.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.menuItem_user.TabIndex = 0;
-            this.menuItem_user.TabStop = false;
-            this.menuItem_user.Click += new System.EventHandler(this.menuItem_user_Click);
-            // 
-            // menuItem_CloudSettings
-            // 
-            this.menuItem_CloudSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.menuItem_CloudSettings.Image = global::Cloudsdale.Properties.Resources._lock;
-            this.menuItem_CloudSettings.Location = new System.Drawing.Point(154, 0);
-            this.menuItem_CloudSettings.Name = "menuItem_CloudSettings";
-            this.menuItem_CloudSettings.Size = new System.Drawing.Size(44, 36);
-            this.menuItem_CloudSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.menuItem_CloudSettings.TabIndex = 2;
-            this.menuItem_CloudSettings.TabStop = false;
-            // 
-            // menuItem_Explore
-            // 
-            this.menuItem_Explore.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.menuItem_Explore.Image = global::Cloudsdale.Properties.Resources.cloud1;
-            this.menuItem_Explore.Location = new System.Drawing.Point(339, 0);
-            this.menuItem_Explore.Name = "menuItem_Explore";
-            this.menuItem_Explore.Size = new System.Drawing.Size(52, 37);
-            this.menuItem_Explore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.menuItem_Explore.TabIndex = 4;
-            this.menuItem_Explore.TabStop = false;
-            // 
-            // menuItem_Logout
-            // 
-            this.menuItem_Logout.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.menuItem_Logout.Image = global::Cloudsdale.Properties.Resources.power;
-            this.menuItem_Logout.Location = new System.Drawing.Point(441, -1);
-            this.menuItem_Logout.Name = "menuItem_Logout";
-            this.menuItem_Logout.Size = new System.Drawing.Size(46, 37);
-            this.menuItem_Logout.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.menuItem_Logout.TabIndex = 6;
-            this.menuItem_Logout.TabStop = false;
-            this.menuItem_Logout.Click += new System.EventHandler(this.menuItem_Logout_Click);
             // 
             // sp_user
             // 
@@ -1060,6 +1051,45 @@
             this.button2.Text = "Submit Changes";
             this.button2.UseVisualStyleBackColor = false;
             // 
+            // h_about
+            // 
+            this.h_about.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.h_about.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_about.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.h_about.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.h_about.Location = new System.Drawing.Point(443, -3);
+            this.h_about.Multiline = true;
+            this.h_about.Name = "h_about";
+            this.h_about.ReadOnly = true;
+            this.h_about.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.h_about.Size = new System.Drawing.Size(205, 442);
+            this.h_about.TabIndex = 7;
+            this.h_about.Text = resources.GetString("h_about.Text");
+            // 
+            // h_message
+            // 
+            this.h_message.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.h_message.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.h_message.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_message.Location = new System.Drawing.Point(132, 3);
+            this.h_message.Name = "h_message";
+            this.h_message.Size = new System.Drawing.Size(310, 165);
+            this.h_message.TabIndex = 1;
+            this.h_message.Text = resources.GetString("h_message.Text");
+            // 
+            // h_memberSince
+            // 
+            this.h_memberSince.AutoSize = true;
+            this.h_memberSince.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.h_memberSince.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.h_memberSince.Location = new System.Drawing.Point(3, 162);
+            this.h_memberSince.Name = "h_memberSince";
+            this.h_memberSince.Size = new System.Drawing.Size(76, 18);
+            this.h_memberSince.TabIndex = 2;
+            this.h_memberSince.Text = "date joined";
+            // 
             // cmdDonate
             // 
             this.cmdDonate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1124,6 +1154,17 @@
             this.h_pony.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.h_pony.TabIndex = 3;
             this.h_pony.TabStop = false;
+            // 
+            // shapeContainer1
+            // 
+            this.shapeContainer1.Location = new System.Drawing.Point(0, 0);
+            this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.shapeContainer1.Name = "shapeContainer1";
+            this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.h_avatar});
+            this.shapeContainer1.Size = new System.Drawing.Size(653, 442);
+            this.shapeContainer1.TabIndex = 8;
+            this.shapeContainer1.TabStop = false;
             // 
             // h_avatar
             // 
@@ -1211,59 +1252,24 @@
             this.kick.Size = new System.Drawing.Size(262, 22);
             this.kick.Text = "Kick this user";
             // 
-            // button1
+            // m_NewMessage
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.button1.Image = global::Cloudsdale.Properties.Resources.home1;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(-1, -1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(202, 46);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Home Page";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // LoadAnimation
-            // 
-            this.LoadAnimation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(168)))), ((int)(((byte)(208)))));
-            this.LoadAnimation.Image = global::Cloudsdale.Properties.Resources.ajax_spinner;
-            this.LoadAnimation.Location = new System.Drawing.Point(274, 186);
-            this.LoadAnimation.Name = "LoadAnimation";
-            this.LoadAnimation.Size = new System.Drawing.Size(346, 257);
-            this.LoadAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LoadAnimation.TabIndex = 7;
-            this.LoadAnimation.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.m_NewMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Cloudsdale.Properties.Resources.cloudsdale_thin_bright_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(57, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(759, 106);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.m_NewMessage.Location = new System.Drawing.Point(22, 483);
+            this.m_NewMessage.Name = "m_NewMessage";
+            this.m_NewMessage.Size = new System.Drawing.Size(575, 27);
+            this.m_NewMessage.TabIndex = 1;
             // 
-            // CloudAnimation
+            // m_SendMessage
             // 
-            this.CloudAnimation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CloudAnimation.Image = global::Cloudsdale.Properties.Resources.Login;
-            this.CloudAnimation.Location = new System.Drawing.Point(0, 98);
-            this.CloudAnimation.Name = "CloudAnimation";
-            this.CloudAnimation.Size = new System.Drawing.Size(892, 321);
-            this.CloudAnimation.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.CloudAnimation.TabIndex = 9;
-            this.CloudAnimation.TabStop = false;
+            this.m_SendMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_SendMessage.Location = new System.Drawing.Point(606, 483);
+            this.m_SendMessage.Name = "m_SendMessage";
+            this.m_SendMessage.Size = new System.Drawing.Size(75, 27);
+            this.m_SendMessage.TabIndex = 0;
+            this.m_SendMessage.Text = "Send\r\n";
+            this.m_SendMessage.UseVisualStyleBackColor = true;
             // 
             // cloudSubListBindingSource
             // 
@@ -1296,13 +1302,22 @@
             this.Resize += new System.EventHandler(this.ResizeCheck);
             this.LoginPanel.ResumeLayout(false);
             this.LoginPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.CloudContext.ResumeLayout(false);
             this.MessageUI.ResumeLayout(false);
             this.MessageUI.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).EndInit();
             this.MessageGroup.ResumeLayout(false);
             this.SettingsPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Settings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).EndInit();
             this.MessagePanel.ResumeLayout(false);
             this.h_panel.ResumeLayout(false);
             this.h_panel.PerformLayout();
@@ -1316,12 +1331,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.settingsIcon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Settings)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_user)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_CloudSettings)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Explore)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource1)).EndInit();
             this.sp_user.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -1329,9 +1339,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.sp_user_avatar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).EndInit();
             this.MessageContext.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CloudAnimation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -1448,6 +1455,7 @@
         public System.Windows.Forms.ListBox sublist_clouds;
         public System.Windows.Forms.ListBox sublist_users;
         public System.Windows.Forms.NotifyIcon Subscriber;
+        private System.Windows.Forms.BindingSource cloudSubListBindingSource1;
         
     }
 }

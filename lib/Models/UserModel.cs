@@ -4,8 +4,9 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Cloudsdale.connection;
+using Cloudsdale.lib;
 using Cloudsdale.lib.Controllers;
+using Cloudsdale.lib.connection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -130,6 +131,14 @@ namespace Cloudsdale.lib.Models
             JObject self = Main.User;
             return self["user"]["username_changes_allowed"].ToObject<int>();
         }
+
+        public static string HasReadTnc()
+        {
+            JObject self = Main.User;
+            return self["user"]["has_read_tnc"].ToString();
+        }
+
+        
 
         public static async Task UploadNewAvatar(Stream picture, string mimetype)
         {

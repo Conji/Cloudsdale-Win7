@@ -6,10 +6,11 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Collections.Generic;
+using Cloudsdale.lib.connection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Cloudsdale.connection;
-using Cloudsdale.connection.MessageController;
+using Cloudsdale.lib;
+using Cloudsdale.lib.MessageController;
 
 namespace Cloudsdale.lib.Models
 {
