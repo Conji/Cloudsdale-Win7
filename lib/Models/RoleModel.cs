@@ -3,13 +3,13 @@ using System.Windows.Forms;
 
 namespace Cloudsdale.lib.Models
 {
-    class RoleModel
+    public partial class RoleModel
     {
-        public string Role_Text(string UserID)
+        public static string Role_Text(string UserID)
         {
-            return UserModel.Status(UserID);
+            return UserModel.Role(UserID);
         }
-        public Color Role_Color(string role)
+        public static Color Role_Color(string role)
         {
             switch (role)
             {
@@ -39,7 +39,7 @@ namespace Cloudsdale.lib.Models
                     break;
             }
         }
-        public void CreateRole(Label roleText, string UserID)
+        public static void CreateRole(Label roleText, string UserID)
         {
             roleText.Text = Role_Text(UserID);
             roleText.BackColor = Role_Color(UserID);

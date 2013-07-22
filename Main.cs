@@ -219,7 +219,6 @@ namespace Cloudsdale
                         .ToString().RegexReplace("^/me", (string) message["author"]["name"]);
                     source.AddMessage(message);
                 }             
-                //NewMessage.AddMessage(CloudMessages, (string)message["author"]["name"], (string)message["author"]["username"], (string)message["author"]["role"], (string)message["timestamp"], "online", "mobile", (string)message["content"], LoadImage((string)message["author"]["avatar"]["normal"]));
                 if (LoggedIn)
                 {
                     NotificationControl.ShowSimple(cloudId, (string)message["author"]["id"]);
@@ -269,11 +268,11 @@ namespace Cloudsdale
 
         private Image LoadImage(string url)
         {
-            System.Net.WebRequest request =
-                System.Net.WebRequest.Create(url);
+            WebRequest request =
+                WebRequest.Create(url);
 
-            System.Net.WebResponse response = request.GetResponse();
-            System.IO.Stream responseStream =
+            WebResponse response = request.GetResponse();
+            Stream responseStream =
                 response.GetResponseStream();
 
             Bitmap bmp = new Bitmap(responseStream);
@@ -314,7 +313,12 @@ namespace Cloudsdale
                 sp_user_username.ReadOnly = true;
             }
 
-            
+            sp_user_status.SelectedIndex = Status.TryParse((string) User["user"]["preferred_status"], true, out int);
+
+            RoleModel.CreateRole(sp_user_role, (string) User["user"]["id"]);
+            sp_user_role.BackColor = RoleModel.Role_Color(UserModel.Role((string) User["user"]["id"]));
+
+            sp_user_email.Text = (string) User["user"]["email"];
         }
 
         private void ActivateMenuHover(object sender, EventArgs e)
@@ -434,18 +438,19 @@ namespace Cloudsdale
 
         private void menuItem_user_Click(object sender, EventArgs e)
         {
-            if (sp_user.Visible == true)
+            if (sp_user.Visible)
             {
                 sp_user.Visible = false;
             }else
             {
                 sp_user.Visible = true;
+                sp_settings.Visible = false;
             }
         }
 
         private void sp_user_avatar_Click(object sender, EventArgs e)
         {
-            OpenFileDialog browser = new OpenFileDialog();
+            var browser = new OpenFileDialog();
             browser.Filter = "png image (*.png)|*.png| jpg image (*.jpg|*.jpg";
             browser.Title = "Upload new avatar.";
             browser.InitialDirectory = Environment.SpecialFolder.CommonPictures.ToString();
@@ -488,6 +493,7 @@ namespace Cloudsdale
             else
             {
                 sp_settings.Visible = true;
+                sp_user.Visible = false;
             }
         }
     }

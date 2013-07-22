@@ -138,7 +138,11 @@ namespace Cloudsdale.lib.Models
             return self["user"]["has_read_tnc"].ToString();
         }
 
-        
+        public static string Role(string userId)
+        {
+            JObject user = UserJson(userId);
+            return user["result"]["role"].ToString();
+        }
 
         public static async Task UploadNewAvatar(Stream picture, string mimetype)
         {

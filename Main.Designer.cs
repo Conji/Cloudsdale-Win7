@@ -77,23 +77,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.MessagePanel = new System.Windows.Forms.Panel();
             this.h_panel = new System.Windows.Forms.Panel();
-            this.sp_settings = new System.Windows.Forms.Panel();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chkSimple = new System.Windows.Forms.CheckBox();
-            this.RemoveUserSub = new System.Windows.Forms.Button();
-            this.RemoveCloudSub = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label13 = new System.Windows.Forms.Label();
-            this.sublist_clouds = new System.Windows.Forms.ListBox();
-            this.cloudSubListBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.sublist_users = new System.Windows.Forms.ListBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.sp_user = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.sp_user_email = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.sp_user_akaList = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.sp_user_skype = new System.Windows.Forms.TextBox();
@@ -113,6 +102,18 @@
             this.sp_user_avatar = new System.Windows.Forms.PictureBox();
             this.sp_user_username = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.sp_settings = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chkSimple = new System.Windows.Forms.CheckBox();
+            this.RemoveUserSub = new System.Windows.Forms.Button();
+            this.RemoveCloudSub = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label13 = new System.Windows.Forms.Label();
+            this.sublist_clouds = new System.Windows.Forms.ListBox();
+            this.sublist_users = new System.Windows.Forms.ListBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.h_about = new System.Windows.Forms.TextBox();
             this.h_message = new System.Windows.Forms.Label();
             this.h_memberSince = new System.Windows.Forms.Label();
@@ -136,8 +137,9 @@
             this.m_NewMessage = new System.Windows.Forms.TextBox();
             this.m_SendMessage = new System.Windows.Forms.Button();
             this._SourceLoader = new System.ComponentModel.BackgroundWorker();
-            this.cloudSubListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Subscriber = new System.Windows.Forms.NotifyIcon(this.components);
+            this.cloudSubListBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.cloudSubListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.LoginPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoadAnimation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -156,6 +158,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.menuItem_Logout)).BeginInit();
             this.MessagePanel.SuspendLayout();
             this.h_panel.SuspendLayout();
+            this.sp_user.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sp_user_avatar)).BeginInit();
             this.sp_settings.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -163,13 +169,9 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource1)).BeginInit();
-            this.sp_user.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sp_user_avatar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).BeginInit();
             this.MessageContext.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -655,8 +657,8 @@
             this.h_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.h_panel.Controls.Add(this.sp_settings);
             this.h_panel.Controls.Add(this.sp_user);
+            this.h_panel.Controls.Add(this.sp_settings);
             this.h_panel.Controls.Add(this.h_about);
             this.h_panel.Controls.Add(this.h_message);
             this.h_panel.Controls.Add(this.h_memberSince);
@@ -669,140 +671,6 @@
             this.h_panel.Name = "h_panel";
             this.h_panel.Size = new System.Drawing.Size(653, 442);
             this.h_panel.TabIndex = 8;
-            // 
-            // sp_settings
-            // 
-            this.sp_settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.sp_settings.Controls.Add(this.tabControl1);
-            this.sp_settings.Location = new System.Drawing.Point(127, 26);
-            this.sp_settings.Name = "sp_settings";
-            this.sp_settings.Size = new System.Drawing.Size(521, 333);
-            this.sp_settings.TabIndex = 20;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(9, 6);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(509, 324);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(501, 296);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Settings";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.tabPage2.Controls.Add(this.chkSimple);
-            this.tabPage2.Controls.Add(this.RemoveUserSub);
-            this.tabPage2.Controls.Add(this.RemoveCloudSub);
-            this.tabPage2.Controls.Add(this.splitContainer1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(501, 296);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Subscriber";
-            // 
-            // chkSimple
-            // 
-            this.chkSimple.AutoSize = true;
-            this.chkSimple.Location = new System.Drawing.Point(6, 260);
-            this.chkSimple.Name = "chkSimple";
-            this.chkSimple.Size = new System.Drawing.Size(110, 24);
-            this.chkSimple.TabIndex = 3;
-            this.chkSimple.Text = "Simple View";
-            this.chkSimple.UseVisualStyleBackColor = true;
-            // 
-            // RemoveUserSub
-            // 
-            this.RemoveUserSub.Location = new System.Drawing.Point(258, 216);
-            this.RemoveUserSub.Name = "RemoveUserSub";
-            this.RemoveUserSub.Size = new System.Drawing.Size(237, 33);
-            this.RemoveUserSub.TabIndex = 2;
-            this.RemoveUserSub.Text = "Remove";
-            this.RemoveUserSub.UseVisualStyleBackColor = true;
-            // 
-            // RemoveCloudSub
-            // 
-            this.RemoveCloudSub.Location = new System.Drawing.Point(6, 216);
-            this.RemoveCloudSub.Name = "RemoveCloudSub";
-            this.RemoveCloudSub.Size = new System.Drawing.Size(237, 33);
-            this.RemoveCloudSub.TabIndex = 1;
-            this.RemoveCloudSub.Text = "Remove ";
-            this.RemoveCloudSub.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.label13);
-            this.splitContainer1.Panel1.Controls.Add(this.sublist_clouds);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.sublist_users);
-            this.splitContainer1.Panel2.Controls.Add(this.label15);
-            this.splitContainer1.Size = new System.Drawing.Size(505, 212);
-            this.splitContainer1.SplitterDistance = 248;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(55, 17);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(131, 20);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "Subscribed Clouds";
-            // 
-            // sublist_clouds
-            // 
-            this.sublist_clouds.FormattingEnabled = true;
-            this.sublist_clouds.ItemHeight = 20;
-            this.sublist_clouds.Location = new System.Drawing.Point(6, 40);
-            this.sublist_clouds.Name = "sublist_clouds";
-            this.sublist_clouds.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.sublist_clouds.Size = new System.Drawing.Size(237, 164);
-            this.sublist_clouds.TabIndex = 0;
-            // 
-            // cloudSubListBindingSource1
-            // 
-            this.cloudSubListBindingSource1.DataSource = typeof(Cloudsdale.lib.Controllers.CloudSubscriber.CloudSubList);
-            // 
-            // sublist_users
-            // 
-            this.sublist_users.FormattingEnabled = true;
-            this.sublist_users.ItemHeight = 20;
-            this.sublist_users.Location = new System.Drawing.Point(3, 40);
-            this.sublist_users.Name = "sublist_users";
-            this.sublist_users.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.sublist_users.Size = new System.Drawing.Size(243, 164);
-            this.sublist_users.TabIndex = 2;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(56, 17);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(115, 20);
-            this.label15.TabIndex = 2;
-            this.label15.Text = "Subcribed Users";
             // 
             // sp_user
             // 
@@ -844,6 +712,8 @@
             // 
             this.panel3.AutoScroll = true;
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.panel3.Controls.Add(this.sp_user_email);
+            this.panel3.Controls.Add(this.label17);
             this.panel3.Controls.Add(this.sp_user_akaList);
             this.panel3.Controls.Add(this.label18);
             this.panel3.Controls.Add(this.sp_user_skype);
@@ -864,14 +734,30 @@
             this.panel3.Controls.Add(this.sp_user_username);
             this.panel3.Location = new System.Drawing.Point(0, 6);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(437, 477);
+            this.panel3.Size = new System.Drawing.Size(437, 526);
             this.panel3.TabIndex = 8;
+            // 
+            // sp_user_email
+            // 
+            this.sp_user_email.Location = new System.Drawing.Point(68, 478);
+            this.sp_user_email.Name = "sp_user_email";
+            this.sp_user_email.Size = new System.Drawing.Size(283, 27);
+            this.sp_user_email.TabIndex = 20;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, 481);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(49, 20);
+            this.label17.TabIndex = 19;
+            this.label17.Text = "Email:";
             // 
             // sp_user_akaList
             // 
             this.sp_user_akaList.Location = new System.Drawing.Point(3, 169);
             this.sp_user_akaList.Name = "sp_user_akaList";
-            this.sp_user_akaList.Size = new System.Drawing.Size(277, 138);
+            this.sp_user_akaList.Size = new System.Drawing.Size(277, 146);
             this.sp_user_akaList.TabIndex = 18;
             this.sp_user_akaList.Text = "label10";
             // 
@@ -946,7 +832,9 @@
             // 
             // sp_user_role
             // 
+            this.sp_user_role.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
             this.sp_user_role.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.sp_user_role.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sp_user_role.Location = new System.Drawing.Point(308, 141);
             this.sp_user_role.Name = "sp_user_role";
             this.sp_user_role.Size = new System.Drawing.Size(122, 32);
@@ -1050,6 +938,137 @@
             this.button2.TabIndex = 18;
             this.button2.Text = "Submit Changes";
             this.button2.UseVisualStyleBackColor = false;
+            // 
+            // sp_settings
+            // 
+            this.sp_settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sp_settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.sp_settings.Controls.Add(this.tabControl1);
+            this.sp_settings.Location = new System.Drawing.Point(127, 26);
+            this.sp_settings.Name = "sp_settings";
+            this.sp_settings.Size = new System.Drawing.Size(521, 336);
+            this.sp_settings.TabIndex = 20;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(6, 20);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(512, 310);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(504, 282);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Settings";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.tabPage2.Controls.Add(this.chkSimple);
+            this.tabPage2.Controls.Add(this.RemoveUserSub);
+            this.tabPage2.Controls.Add(this.RemoveCloudSub);
+            this.tabPage2.Controls.Add(this.splitContainer1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(504, 282);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Subscriber";
+            // 
+            // chkSimple
+            // 
+            this.chkSimple.AutoSize = true;
+            this.chkSimple.Location = new System.Drawing.Point(6, 260);
+            this.chkSimple.Name = "chkSimple";
+            this.chkSimple.Size = new System.Drawing.Size(110, 24);
+            this.chkSimple.TabIndex = 3;
+            this.chkSimple.Text = "Simple View";
+            this.chkSimple.UseVisualStyleBackColor = true;
+            // 
+            // RemoveUserSub
+            // 
+            this.RemoveUserSub.Location = new System.Drawing.Point(258, 216);
+            this.RemoveUserSub.Name = "RemoveUserSub";
+            this.RemoveUserSub.Size = new System.Drawing.Size(237, 33);
+            this.RemoveUserSub.TabIndex = 2;
+            this.RemoveUserSub.Text = "Remove";
+            this.RemoveUserSub.UseVisualStyleBackColor = true;
+            // 
+            // RemoveCloudSub
+            // 
+            this.RemoveCloudSub.Location = new System.Drawing.Point(6, 216);
+            this.RemoveCloudSub.Name = "RemoveCloudSub";
+            this.RemoveCloudSub.Size = new System.Drawing.Size(237, 33);
+            this.RemoveCloudSub.TabIndex = 1;
+            this.RemoveCloudSub.Text = "Remove ";
+            this.RemoveCloudSub.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.label13);
+            this.splitContainer1.Panel1.Controls.Add(this.sublist_clouds);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.sublist_users);
+            this.splitContainer1.Panel2.Controls.Add(this.label15);
+            this.splitContainer1.Size = new System.Drawing.Size(505, 212);
+            this.splitContainer1.SplitterDistance = 248;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(55, 17);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(131, 20);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Subscribed Clouds";
+            // 
+            // sublist_clouds
+            // 
+            this.sublist_clouds.FormattingEnabled = true;
+            this.sublist_clouds.ItemHeight = 20;
+            this.sublist_clouds.Location = new System.Drawing.Point(6, 40);
+            this.sublist_clouds.Name = "sublist_clouds";
+            this.sublist_clouds.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.sublist_clouds.Size = new System.Drawing.Size(237, 164);
+            this.sublist_clouds.TabIndex = 0;
+            // 
+            // sublist_users
+            // 
+            this.sublist_users.FormattingEnabled = true;
+            this.sublist_users.ItemHeight = 20;
+            this.sublist_users.Location = new System.Drawing.Point(3, 40);
+            this.sublist_users.Name = "sublist_users";
+            this.sublist_users.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.sublist_users.Size = new System.Drawing.Size(243, 164);
+            this.sublist_users.TabIndex = 2;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(56, 17);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(115, 20);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "Subcribed Users";
             // 
             // h_about
             // 
@@ -1271,14 +1290,18 @@
             this.m_SendMessage.Text = "Send\r\n";
             this.m_SendMessage.UseVisualStyleBackColor = true;
             // 
-            // cloudSubListBindingSource
-            // 
-            this.cloudSubListBindingSource.DataSource = typeof(Cloudsdale.lib.Controllers.CloudSubscriber.CloudSubList);
-            // 
             // Subscriber
             // 
             this.Subscriber.Text = "No new messages.";
             this.Subscriber.Visible = true;
+            // 
+            // cloudSubListBindingSource1
+            // 
+            this.cloudSubListBindingSource1.DataSource = typeof(Cloudsdale.lib.Controllers.CloudSubscriber.CloudSubList);
+            // 
+            // cloudSubListBindingSource
+            // 
+            this.cloudSubListBindingSource.DataSource = typeof(Cloudsdale.lib.Controllers.CloudSubscriber.CloudSubList);
             // 
             // Main
             // 
@@ -1321,6 +1344,11 @@
             this.MessagePanel.ResumeLayout(false);
             this.h_panel.ResumeLayout(false);
             this.h_panel.PerformLayout();
+            this.sp_user.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sp_user_avatar)).EndInit();
             this.sp_settings.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -1331,14 +1359,9 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource1)).EndInit();
-            this.sp_user.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sp_user_avatar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.h_pony)).EndInit();
             this.MessageContext.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cloudSubListBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -1456,6 +1479,8 @@
         public System.Windows.Forms.ListBox sublist_users;
         public System.Windows.Forms.NotifyIcon Subscriber;
         private System.Windows.Forms.BindingSource cloudSubListBindingSource1;
+        private System.Windows.Forms.TextBox sp_user_email;
+        private System.Windows.Forms.Label label17;
         
     }
 }
