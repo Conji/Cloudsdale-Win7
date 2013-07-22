@@ -313,8 +313,6 @@ namespace Cloudsdale
                 sp_user_username.ReadOnly = true;
             }
 
-            sp_user_status.SelectedIndex = Status.TryParse((string) User["user"]["preferred_status"], true, out int);
-
             RoleModel.CreateRole(sp_user_role, (string) User["user"]["id"]);
             sp_user_role.BackColor = RoleModel.Role_Color(UserModel.Role((string) User["user"]["id"]));
 

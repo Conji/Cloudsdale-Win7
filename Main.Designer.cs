@@ -787,7 +787,7 @@
             "Offline",
             "Busy",
             "Away"});
-            this.sp_user_status.Location = new System.Drawing.Point(9, 382);
+            this.sp_user_status.Location = new System.Drawing.Point(11, 378);
             this.sp_user_status.Name = "sp_user_status";
             this.sp_user_status.Size = new System.Drawing.Size(121, 28);
             this.sp_user_status.TabIndex = 15;
