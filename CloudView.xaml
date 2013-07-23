@@ -1,0 +1,130 @@
+﻿<Page x:Class="Cloudsdale_Win7.CloudView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:MVVM="clr-namespace:Cloudsdale_Win7.MVVM" xmlns:Controls="clr-namespace:Cloudsdale_Win7.Controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="564.045" d:DesignWidth="819.101" Foreground="White"
+	Title="CloudView">
+    
+    <Page.Resources>
+        <MVVM:DependencyJToken x:Key="Cloud" />
+    </Page.Resources>
+
+    <Grid Background="#FFFAFAFA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF5FB8FF" Offset="0"/>
+                    <GradientStop Color="#FF63A0D0" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Image Height="100" Width="100" Source="{Binding Path=[avatar][normal], Converter={StaticResource StringUriConv}}" Margin="10" />
+            <StackPanel>
+                <TextBlock VerticalAlignment="Center" FontSize="36" Text="{Binding Path=[name]}" Margin="10" />
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Name="RateSliderContainer" Margin="2">
+                        <TextBlock Name="RateSliderLabel"  Text="{Binding Path=Rate}" />
+                    </StackPanel>
+                    <StackPanel Name="MaxCharContainer" Margin="2"/>
+                    <StackPanel Margin="2">
+                        <TextBlock></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <Image Width="100" Margin="0,10" Source="pack://siteoforigin:,,,/Resources/icon_black.png"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" Name="ChatScroll">
+            <ItemsControl Name="ChatMessages" Margin="0,0,0,7">
+                <ItemsControl.Background>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                </ItemsControl.Background>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Separator VerticalAlignment="Top" Opacity=".5" />
+                            <Grid Visibility="{Binding Path=[orgcontent], Converter={StaticResource SlashMe}, ConverterParameter=Inverse}"
+                                  Margin="4,6,4,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="3">
+                                    <Image Source="{Binding Path=[author][avatar][preview], Converter={StaticResource StringUriConv}}" 
+                                           Width="60" Height="60" />
+                                    <Border Background="{Binding Path=[author][role], Converter={StaticResource TagColor}}"
+                                            Visibility="{Binding Path=[author][role], Converter={StaticResource HCT}}"
+                                            Width="60" Margin="0,1">
+                                        <TextBlock Text="{Binding Path=[author][role], Converter={StaticResource RoleTag}}" 
+                                                   FontSize="12" FontWeight="Bold"  Foreground="White" HorizontalAlignment="Center" />
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock Margin="5" FontSize="18" Grid.Column="1" VerticalAlignment="Top" Foreground="DarkSlateGray">
+                                    <Run Text="{Binding Path=[author][name], Converter={StaticResource JTSC}}" Foreground="{Binding Path=[author], Converter={StaticResource NameColor}, 
+                                            ConverterParameter={StaticResource Cloud}}" /> (@<Run Text="{Binding Path=[author][username], Converter={StaticResource JTSC}}" Foreground="Gray"/>)
+                                    <LineBreak/>
+                                    <InlineUIContainer>
+                                        <ItemsControl ItemsSource="{Binding Path=[content], Converter={StaticResource SLSC}}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Controls:LinkDetectingTextBlock LinkedText="{Binding}" TextWrapping="Wrap"
+                                                                   Foreground="{Binding Converter={StaticResource ChatColor}}" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </InlineUIContainer>
+                                </TextBlock>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock FontSize="16" HorizontalAlignment="Right" Foreground="Black">
+                                        <Run Text="{Binding Path=[timestamp], Converter={StaticResource TDTS}}" />
+                                        <Run Text="{Binding Path=[device], Converter={StaticResource DeviceIcon}}" />
+                                    </TextBlock>
+                                    <ItemsControl ItemsSource="{Binding Path=[drops]}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel MaxWidth="500" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderBrush="DarkGray" BorderThickness="3" Margin="10">
+                                                    <Image Width="120" Height="90" Cursor="Hand" MouseUp="DropUp"
+                                                       Source="{Binding Path=[preview], Converter={StaticResource StringUriConv}}" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Grid>
+                            <StackPanel Visibility="{Binding Path=[orgcontent], Converter={StaticResource SlashMe}}" Margin="5">
+                                <Grid>
+                                    <TextBlock Text="{Binding Path=[timestamp], Converter={StaticResource TDTS}}" 
+                                               FontSize="14" HorizontalAlignment="Center" Foreground="Black" />
+                                    <TextBlock Text="{Binding Path=[device], Converter={StaticResource DeviceIcon}}"
+                                               FontSize="14" HorizontalAlignment="Right" Foreground="Black" />
+                                </Grid>
+                                <TextBlock Text="{Binding Path=[content], Converter={StaticResource JTSC}}" 
+                                           FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="Black"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <Controls:LinkDetectingTextBlock TextWrapping="Wrap" Text="LinkDetectingTextBlock"/>
+            </ItemsControl>
+        </ScrollViewer>
+        <TextBox Grid.Row="2" Name="InputBox" FontSize="20" KeyDown="SendBoxEnter" />
+    </Grid>
+</Page>
