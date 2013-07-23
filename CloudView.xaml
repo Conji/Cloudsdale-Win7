@@ -41,7 +41,7 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <Image Width="100" Margin="0,10" Source="pack://siteoforigin:,,,/Resources/icon_black.png"/>
+            <Image Width="100" Margin="0,10" Source="Assets/icon_auth_gray.png"/>
         </StackPanel>
         <ScrollViewer Grid.Row="1" Name="ChatScroll">
             <ItemsControl Name="ChatMessages" Margin="0,0,0,7">

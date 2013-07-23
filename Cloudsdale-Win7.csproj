@@ -231,6 +231,13 @@
   <ItemGroup>
     <None Include="Resources\Login.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Cloudsdale.png" />
+    <Resource Include="Assets\icon_auth_gray.png" />
+    <Resource Include="Assets\icon_white.bmp" />
+    <Resource Include="Assets\icon_white.png" />
+    <Resource Include="Assets\Login.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
