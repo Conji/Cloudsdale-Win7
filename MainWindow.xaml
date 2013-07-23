@@ -15,6 +15,18 @@
         <Grid>
             <ListView Name="CloudList" SelectionChanged="CloudListSelectionChanged"
                       Style="{StaticResource ListBoxStyle}">
+                <ListView.ContextMenu>
+                    <ContextMenu BorderBrush="#FF232323" Background="#FF212121">
+                        <ContextMenu.Foreground>
+                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                        </ContextMenu.Foreground>
+                        <Button Content="Go to cloud"/>
+                        <Button Content="Leave cloud"/>
+                        <Button Content="Copy cloud link"/>
+                        <Separator/>
+                        <CheckBox Content="Subscribed"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
                 <ListView.Background>
                     <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                 </ListView.Background>
