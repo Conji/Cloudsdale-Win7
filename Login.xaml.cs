@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Cloudsdale_Win7.Assets;
 using Cloudsdale_Win7.Cloudsdale;
 using Newtonsoft.Json;
@@ -22,6 +23,7 @@ namespace Cloudsdale_Win7 {
             EmailBox.Text = UserSettings.Default.PreviousEmail;
             PasswordBox.Password = UserSettings.Default.PreviousPassword;
             autoSession.IsChecked = UserSettings.Default.AutoLogin;
+            
         }
 
         private static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -56,6 +58,7 @@ namespace Cloudsdale_Win7 {
             };
             await Connection.InitializeAsync();
             await PreloadMessages((JArray)MainWindow.User["user"]["clouds"]);
+            //Home.Instance.JoinDate.Text = (string) MainWindow.User["user"]["member_since"];
 
             MainWindow.Instance.CloudList.ItemsSource = MainWindow.User["user"]["clouds"];
 

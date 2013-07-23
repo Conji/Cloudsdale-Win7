@@ -57,7 +57,10 @@ namespace Cloudsdale_Win7.Controls {
                 var hyperlink = new Hyperlink(new Run(match.Value));
                 var link = match.Value;
                 hyperlink.Click += (sender, eventArgs) => {
-                    Process.Start(link);
+                    MainWindow.Instance.Frame.Navigate(new Browser());
+                    Browser.Instance.WebBrowser.Navigate(link);
+                                                              Browser.Instance.Width = MainWindow.Instance.Width;
+
                 };
                 Inlines.Add(hyperlink);
                 lastIndex = match.Index + match.Length;

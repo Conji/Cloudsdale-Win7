@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace Cloudsdale_Win7.Assets
 {
-    class Assets
+    class Cloudsdale_Source
     {
         #region Color list
         public static Color PrimaryBlue = Color.FromRgb(99, 168, 208);

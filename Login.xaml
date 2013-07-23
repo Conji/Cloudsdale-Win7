@@ -10,20 +10,18 @@
         <Color x:Key="PrimaryBlue">#FF63A0D0</Color>
     </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="LoginBack">
         <Grid.Background>
-            <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+            <ImageBrush ImageSource="Assets/Login.gif"/>
         </Grid.Background>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Name="MainLayout" Margin="164,131,166,184" Height="165">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="MainLayout" Margin="164,131,166,184" Height="165">
             <StackPanel Orientation="Horizontal"/>
             <StackPanel Orientation="Horizontal"/>
             <StackPanel Orientation="Horizontal"/>
         </StackPanel>
-        <StackPanel Name="LoggingInUI" VerticalAlignment="Center" Visibility="Collapsed">
-            <TextBlock FontSize="18" HorizontalAlignment="Center">
-                <Run Name="LoadStatus" />
-            </TextBlock>
-            <ProgressBar Height="30" Name="LoadProgress" />
+        <StackPanel x:Name="LoggingInUI" VerticalAlignment="Center" Visibility="Collapsed">
+            <TextBlock FontSize="18" HorizontalAlignment="Center"><Run x:Name="LoadStatus" /></TextBlock>
+            <ProgressBar Height="30" x:Name="LoadProgress" />
         </StackPanel>
         <Image Height="110" Margin="95,69,95,0" VerticalAlignment="Top"/>
         <Grid x:Name="LogginContents" HorizontalAlignment="Center" Height="336" Margin="30,49,28,0" VerticalAlignment="Top" Width="582">
@@ -32,7 +30,8 @@
             <TextBlock Margin="100,201,122,119" Text="Password:"/>
             <PasswordBox Margin="100,217,100,96" x:Name="PasswordBox" FontSize="18" />
             <CheckBox x:Name="autoSession" Content="Auto-Login" HorizontalAlignment="Left" Margin="100,251,0,0" VerticalAlignment="Top" FontSize="20" VerticalContentAlignment="Center"/>
-            <Button x:Name="LoginButton" Width="136" Margin="0,249,100,52" HorizontalAlignment="Right" Click="LoginClick" Content="Login" IsDefault="True"/>
+            <Button x:Name="LoginButton" Width="191" Margin="0,249,100,52" HorizontalAlignment="Right" Click="LoginClick" Content="Login" IsDefault="True" FontSize="18"/>
+            <Image Height="125" VerticalAlignment="Top" Source="Assets/cloudsdale-thin-bright-logo.png"/>
         </Grid>
     </Grid>
 </Page>

@@ -11,25 +11,25 @@ namespace Cloudsdale_Win7.MVVM {
             var color = Colors.Transparent;
             switch (value.ToString()) {
                 case "developer":
-                    color = Assets.Assets.DevTag;
+                    color = Assets.Cloudsdale_Source.DevTag;
                     break;
                 case "verified":
-                    color = Assets.Assets.VerifiedTag;
+                    color = Assets.Cloudsdale_Source.VerifiedTag;
                     break;
                 case "founder":
-                    color = Assets.Assets.FounderTag;
+                    color = Assets.Cloudsdale_Source.FounderTag;
                     break;
                 case "donor":
-                    color = Assets.Assets.DonatorTag;
+                    color = Assets.Cloudsdale_Source.DonatorTag;
                     break;
                 case "admin":
-                    color = Assets.Assets.AdminTag;
+                    color = Assets.Cloudsdale_Source.AdminTag;
                     break;
                 case "legacy":
-                    color = Assets.Assets.LegacyTag;
+                    color = Assets.Cloudsdale_Source.LegacyTag;
                     break;
                 case "associate":
-                    color = Assets.Assets.AssociateTag;
+                    color = Assets.Cloudsdale_Source.AssociateTag;
                     break;
             }
             return new SolidColorBrush(color);

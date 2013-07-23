@@ -8,12 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("cloudsdale.ico")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/devices/cog.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/devices/cogwheel.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/devices/iphone.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/devices/phone.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/main_logo.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icon_color1.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/cloudsdale-thin-bright-logo.png")]
 
 

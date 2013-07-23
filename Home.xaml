@@ -17,7 +17,7 @@
                     <Floater HorizontalAlignment="Left">
                         <Paragraph>
                             <InlineUIContainer>
-                                <Image Source="{Binding Path=[user][avatar][normal], Converter={StaticResource StringUriConv}}"
+                                <Image Source="{Binding [user][avatar][normal], Converter={StaticResource StringUriConv}}"
                                        Width="200" Height="200">
                                     <Image.Effect>
                                         <DropShadowEffect/>
@@ -26,6 +26,9 @@
                                         <RectangleGeometry Rect="0,0,200,200" RadiusX="100" RadiusY="100" />
                                     </Image.Clip>
                                 </Image>
+                            </InlineUIContainer>
+                            <InlineUIContainer>
+                                <TextBlock x:Name="JoinDate" TextWrapping="Wrap" Text="User joined on " Width="297"/>
                             </InlineUIContainer>
                         </Paragraph>
                     </Floater>

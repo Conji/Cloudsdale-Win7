@@ -104,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Browser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CloudView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,8 +128,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Assets\Assets.cs" />
+    <Compile Include="Assets\Cloudsdale_Source.cs" />
     <Compile Include="Assets\Endpoints.cs" />
+    <Compile Include="Browser.xaml.cs">
+      <DependentUpon>Browser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Cloudsdale\Connection.cs" />
     <Compile Include="Cloudsdale\CouldNotLoginException.cs" />
     <Compile Include="Cloudsdale\FayeConnector.cs" />
@@ -161,6 +168,7 @@
     <Compile Include="MVVM\JTokenStringConverter.cs" />
     <Compile Include="MVVM\NameColor.cs" />
     <Compile Include="MVVM\NoiseGenerator.cs" />
+    <Compile Include="MVVM\StatusConverter.cs" />
     <Compile Include="MVVM\StringLinesplitConverter.cs" />
     <Compile Include="MVVM\StringUriConverter.cs" />
     <Compile Include="MVVM\TagColorConverter.cs" />
@@ -237,6 +245,9 @@
     <Resource Include="Assets\icon_white.bmp" />
     <Resource Include="Assets\icon_white.png" />
     <Resource Include="Assets\Login.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\cloudsdale-thin-bright-logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
