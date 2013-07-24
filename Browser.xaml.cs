@@ -28,12 +28,12 @@ namespace Cloudsdale_Win7
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            WebBrowser.GoBack();
+            try{WebBrowser.GoBack();}catch{}
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            WebBrowser.GoForward();
+            try{WebBrowser.GoForward();}catch{}
         }
 
         public void HideScriptErrors(WebBrowser wb, bool Hide)

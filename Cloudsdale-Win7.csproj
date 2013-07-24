@@ -165,6 +165,7 @@
     <Compile Include="Models\AvatarModel.cs" />
     <Compile Include="Models\AvatarSize.cs" />
     <Compile Include="Models\CloudModel.cs" />
+    <Compile Include="Models\UDUModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="MVVM\ChatColorConverter.cs" />
     <Compile Include="MVVM\DependencyJToken.cs" />
