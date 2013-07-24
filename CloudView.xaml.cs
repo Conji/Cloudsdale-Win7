@@ -75,8 +75,9 @@ namespace Cloudsdale_Win7 {
 
         private void DropUp(object sender, MouseButtonEventArgs e) {
             var drop = (JToken)((FrameworkElement)sender).DataContext;
-            Browser.Instance.WebBrowser.Navigate((string)drop["url"]);
             MainWindow.Instance.Frame.Navigate(new Browser());
+            Browser.Instance.WebBrowser.Navigate((string)drop["url"]);
+            
             Browser.Instance.Width = MainWindow.Instance.Width;
         }
     }

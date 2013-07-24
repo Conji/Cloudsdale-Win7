@@ -13,7 +13,7 @@
         <Button Content="&gt;" HorizontalAlignment="Left" Margin="37,10,0,0" VerticalAlignment="Top" Width="26" Height="23" Click="Button_Click_3"/>
         <Button Content="Go" HorizontalAlignment="Left" Margin="348,10,0,0" VerticalAlignment="Top" Width="34" Height="23" Click="Button_Click_1" IsDefault="True"/>
         <WebBrowser x:Name="WebBrowser" Margin="0,38,0,-260" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <Button Content="Go back to Cloudsdale!" Margin="0,0,0,-285" Height="25" VerticalAlignment="Bottom"/>
+        <Button Content="Go back to Cloudsdale!" Margin="0,0,0,-285" Height="25" VerticalAlignment="Bottom" Click="button4_click"/>
 
     </Grid>
 </Page>

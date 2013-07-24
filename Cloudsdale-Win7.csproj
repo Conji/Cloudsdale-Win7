@@ -159,6 +159,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Menus\Application.cs" />
+    <Compile Include="Menus\Cloud.cs" />
+    <Compile Include="Menus\User.cs" />
+    <Compile Include="Models\AvatarModel.cs" />
+    <Compile Include="Models\AvatarSize.cs" />
+    <Compile Include="Models\CloudModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="MVVM\ChatColorConverter.cs" />
     <Compile Include="MVVM\DependencyJToken.cs" />
     <Compile Include="MVVM\DeviceIcon.cs" />
@@ -248,6 +255,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\cloudsdale-thin-bright-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\Cloudsdale_Bots\Lib\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
