@@ -78,7 +78,7 @@ namespace Cloudsdale_Win7 {
             MainWindow.Instance.Frame.Navigate(new Browser());
             Browser.Instance.WebBrowser.Navigate((string)drop["url"]);
             
-            Browser.Instance.Width = MainWindow.Instance.Width;
+            Browser.Instance.BrowserPage.Width = MainWindow.Instance.Width;
         }
     }
 }

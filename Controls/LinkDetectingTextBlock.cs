@@ -59,7 +59,8 @@ namespace Cloudsdale_Win7.Controls {
                 hyperlink.Click += (sender, eventArgs) => {
                     MainWindow.Instance.Frame.Navigate(new Browser());
                     Browser.Instance.WebBrowser.Navigate(link);
-                                                              Browser.Instance.Width = MainWindow.Instance.Width;
+                                                              Browser.Instance.BrowserPage.Width =
+                                                                  MainWindow.Instance.Width;
                                                               Browser.Instance.WebAddress.Text = link;
 
                 };
