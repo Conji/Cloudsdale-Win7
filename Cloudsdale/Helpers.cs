@@ -81,5 +81,13 @@ namespace Cloudsdale_Win7.Cloudsdale {
         public static string RegexReplace(this string input, string regex, string replacement) {
             return new Regex(regex).Replace(input, replacement);
         }
+        public static string MultiReplace(this string input, string r1, string r2, string replacement)
+        {
+            return input.Replace(r1, replacement).Replace(r2, replacement);
+        }
+        public static string MultiReplace(this string input, string r1, string r2, string r3, string replacement)
+        {
+            return input.Replace(r1, replacement).Replace(r2, replacement).Replace(r3, replacement);
+        }
     }
 }
