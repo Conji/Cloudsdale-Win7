@@ -20,9 +20,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="190" />
+            <ColumnDefinition Width="363"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True">
+        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="3">
             <StackPanel.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF5FB8FF" Offset="0"/>
@@ -32,20 +34,19 @@
             <Image Height="100" Width="100" Source="{Binding Path=[avatar][normal], Converter={StaticResource StringUriConv}}" Margin="10" />
             <StackPanel Width="434">
                 <StackPanel Orientation="Horizontal">
-                    <StackPanel Name="RateSliderContainer" Margin="2">
-                        <TextBlock Name="RateSliderLabel"  Text="{Binding Path=Rate}" />
+                    <StackPanel x:Name="RateSliderContainer" Margin="2">
+                        <TextBlock x:Name="RateSliderLabel"  Text="{Binding Rate}" />
                     </StackPanel>
-                    <StackPanel Name="MaxCharContainer" Margin="2"/>
+                    <StackPanel x:Name="MaxCharContainer" Margin="2"/>
                     <StackPanel Margin="2">
-                        <TextBlock></TextBlock>
+                        <TextBlock/>
                     </StackPanel>
                 </StackPanel>
                 <TextBlock VerticalAlignment="Top" FontSize="30" Text="{Binding [name]}" Margin="10" Height="50"/>
             </StackPanel>
-            <Image Width="90" Margin="10,10,0,10" Source="Assets/icon_auth_gray.png" Cursor="Hand" HorizontalAlignment="Left"/>
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>
-        <ScrollViewer Grid.Row="1" Name="ChatScroll">
+        <ScrollViewer Grid.Row="1" Name="ChatScroll" Grid.ColumnSpan="3">
             <ItemsControl Name="ChatMessages" Margin="0,0,0,7">
                 <ItemsControl.Background>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
@@ -125,13 +126,11 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <Controls:LinkDetectingTextBlock TextWrapping="Wrap" Text="LinkDetectingTextBlock"/>
-                <Frame Content="Frame" Height="204">
-                    <Frame.Effect>
-                        <DropShadowEffect Opacity="0.2"/>
-                    </Frame.Effect>
-                </Frame>
             </ItemsControl>
         </ScrollViewer>
-        <TextBox Grid.Row="2" Name="InputBox" FontSize="20" KeyDown="SendBoxEnter" />
+        <TextBox Grid.Row="2" Name="InputBox" FontSize="20" KeyDown="SendBoxEnter" Grid.ColumnSpan="3" />
+        <Expander Header="" Margin="0,99,0,0" Grid.RowSpan="2" Grid.Column="1" Height="99" VerticalAlignment="Top">
+            <Grid Background="#FFE5E5E5"/>
+        </Expander>
     </Grid>
 </Page>
