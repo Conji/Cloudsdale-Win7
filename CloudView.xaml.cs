@@ -45,7 +45,8 @@ namespace Cloudsdale_Win7 {
 
         }
 
-        internal void Send(string message, string cloudId) {
+        internal void Send(string message, string cloudId)
+        {
             var dataObject = new JObject();
             dataObject["content"] = message;
             dataObject["client_id"] = FayeConnector.ClientID;

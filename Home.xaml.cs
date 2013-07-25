@@ -27,7 +27,6 @@ namespace Cloudsdale_Win7 {
             InitializeComponent();
             RootGrid.DataContext = MainWindow.User;
             Instance = this;
-            UDUModel.Name("Conjis new name");
         }
     }
 }
