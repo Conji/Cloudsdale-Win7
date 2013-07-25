@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Cloudsdale_Win7.Assets;
+using Cloudsdale_Win7.Cloudsdale;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale_Win7.Models
@@ -102,25 +103,25 @@ namespace Cloudsdale_Win7.Models
 
         public static string Email()
         {
-            JObject self = Main.User;
+            JObject self = MainWindow.User;
             return self["user"]["email"].ToString();
         }
 
         public static string AuthToken()
         {
-            JObject self = Main.User;
+            JObject self = MainWindow.User;
             return self["user"]["X-Auth-Token"].ToString();
         }
 
         public static int NameChangesAllowed()
         {
-            JObject self = Main.User;
+            JObject self = MainWindow.User;
             return self["user"]["username_changes_allowed"].ToObject<int>();
         }
 
         public static string HasReadTnc()
         {
-            JObject self = Main.User;
+            JObject self = MainWindow.User;
             return self["user"]["has_read_tnc"].ToString();
         }
 

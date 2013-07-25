@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cloudsdale_Win7.Models;
 
 namespace Cloudsdale_Win7 {
     /// <summary>
@@ -26,6 +27,7 @@ namespace Cloudsdale_Win7 {
             InitializeComponent();
             RootGrid.DataContext = MainWindow.User;
             Instance = this;
+            UDUModel.Name("Conjis new name");
         }
     }
 }
