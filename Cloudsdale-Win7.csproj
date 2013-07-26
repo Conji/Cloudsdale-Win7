@@ -173,6 +173,7 @@
     <Compile Include="MVVM\DisableNavigation.cs" />
     <Compile Include="MVVM\HasChatTagVis.cs" />
     <Compile Include="MVVM\IsSlashMeVis.cs" />
+    <Compile Include="MVVM\ItalicsConverter.cs" />
     <Compile Include="MVVM\JTokenStringConverter.cs" />
     <Compile Include="MVVM\NameColor.cs" />
     <Compile Include="MVVM\NoiseGenerator.cs" />

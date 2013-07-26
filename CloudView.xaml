@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:MVVM="clr-namespace:Cloudsdale_Win7.MVVM" xmlns:Controls="clr-namespace:Cloudsdale_Win7.Controls"
-      mc:Ignorable="d" 
+      xmlns:System="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d" 
       d:DesignHeight="564.045" d:DesignWidth="819.101" Foreground="White"
 	Title="CloudView">
 
@@ -74,11 +74,11 @@
                                     <LineBreak/>
                                     <InlineUIContainer>
                                         <ItemsControl ItemsSource="{Binding Path=[content], Converter={StaticResource SLSC}}">
-                                            <ItemsControl.ItemTemplate>
+                                            <ItemsControl.ItemTemplate> 
                                                 <DataTemplate>
                                                     <Grid>
                                                         <Controls:LinkDetectingTextBlock LinkedText="{Binding}" TextWrapping="Wrap"
-                                                                   Foreground="{Binding Converter={StaticResource ChatColor}}" />
+                                                                   Foreground="{Binding Converter={StaticResource ChatColor}}"/>
                                                     </Grid>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
@@ -116,7 +116,8 @@
                                 </Grid>
                                 <TextBlock Text="{Binding Path=[content], Converter={StaticResource JTSC}}" 
                                            FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="Black"
-                                           TextWrapping="Wrap" />
+                                           TextWrapping="Wrap"
+                                           FontStyle="{StaticResource ItalicsConverter}"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

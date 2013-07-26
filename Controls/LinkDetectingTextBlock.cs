@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cloudsdale_Win7.Cloudsdale;
+using Cloudsdale_Win7.Models;
 
 namespace Cloudsdale_Win7.Controls {
 
@@ -57,11 +58,15 @@ namespace Cloudsdale_Win7.Controls {
                 var hyperlink = new Hyperlink(new Run(match.Value));
                 var link = match.Value;
                 hyperlink.Click += (sender, eventArgs) => {
-                    MainWindow.Instance.Frame.Navigate(new Browser());
-                    Browser.Instance.WebBrowser.Navigate(link);
-                                                              Browser.Instance.BrowserPage.Width =
-                                                                  MainWindow.Instance.Width;
-                                                              Browser.Instance.WebAddress.Text = link;
+                    if (match.ToString().Contains("www.cloudsdale.org/clouds/"))
+                    {
+                        if (match.ToString().StartsWith("http://"))
+                        {
+                            var cloudId = match.ToString().Split('/')[4];
+                            MainWindow.Instance.CloudList.Items.Add(CloudModel.Name(cloudId));
+                            var newCloud = MainWindow.Instance.CloudList.Items.
+                        }
+                    }
 
                 };
                 Inlines.Add(hyperlink);
