@@ -20,16 +20,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="190" />
-            <ColumnDefinition Width="363"/>
+            <ColumnDefinition Width="131" />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="3">
+        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2">
             <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF5FB8FF" Offset="0"/>
-                    <GradientStop Color="#FF63A0D0" Offset="1"/>
-                </LinearGradientBrush>
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </StackPanel.Background>
             <Image Height="100" Width="100" Source="{Binding Path=[avatar][normal], Converter={StaticResource StringUriConv}}" Margin="10" />
             <StackPanel Width="434">
@@ -42,11 +38,11 @@
                         <TextBlock/>
                     </StackPanel>
                 </StackPanel>
-                <TextBlock VerticalAlignment="Top" FontSize="30" Text="{Binding [name]}" Margin="10" Height="50"/>
+                <TextBlock VerticalAlignment="Top" FontSize="30" Margin="10" Height="50"/>
             </StackPanel>
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>
-        <ScrollViewer Grid.Row="1" Name="ChatScroll" Grid.ColumnSpan="3">
+        <ScrollViewer Grid.Row="1" Name="ChatScroll" Grid.ColumnSpan="2">
             <ItemsControl Name="ChatMessages" Margin="0,0,0,7">
                 <ItemsControl.Background>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
@@ -128,9 +124,37 @@
                 <Controls:LinkDetectingTextBlock TextWrapping="Wrap" Text="LinkDetectingTextBlock"/>
             </ItemsControl>
         </ScrollViewer>
-        <TextBox Grid.Row="2" Name="InputBox" FontSize="20" KeyDown="SendBoxEnter" Grid.ColumnSpan="3" />
-        <Expander Header="" Margin="0,99,0,0" Grid.RowSpan="2" Grid.Column="1" Height="99" VerticalAlignment="Top">
-            <Grid Background="#FFE5E5E5"/>
+        <TextBox Grid.Row="2" Name="InputBox" FontSize="20" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" />
+        <Expander Header="Menu" Margin="0,93,0,0" Grid.Column="1" Grid.RowSpan="2" FontSize="18" HorizontalAlignment="Left" Width="460" Height="105" VerticalAlignment="Top">
+            <Grid Margin="0,0,-2,0">
+                <Grid.Background>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                </Grid.Background>
+                <Image Margin="30,10,0,21" HorizontalAlignment="Left" Width="52" Source="Assets/cloud.png" Cursor="Hand"/>
+                <TextBlock TextWrapping="Wrap" Text="Explore" Margin="30,51,378,0" FontSize="14">
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
+                <Image Margin="133,10,0,21" HorizontalAlignment="Left" Width="52" Source="Assets/home.png" Cursor="Hand" MouseDown="DirectHome"/>
+                <TextBlock TextWrapping="Wrap" Text="Home" Margin="140,51,275,0" FontSize="14">
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
+                <Image Margin="266,10,0,21" HorizontalAlignment="Left" Width="52" Source="Assets/computer_service.png" Cursor="Hand"/>
+                <TextBlock TextWrapping="Wrap" Text="Settings" Margin="266,51,142,0" FontSize="14">
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
+                <Image Margin="374,10,0,21" HorizontalAlignment="Left" Width="52" Source="Assets/circle_info.png" Cursor="Hand"/>
+                <TextBlock TextWrapping="Wrap" Text="Info" Margin="386,51,47,0" FontSize="14">
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
+            </Grid>
         </Expander>
     </Grid>
 </Page>

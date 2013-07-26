@@ -81,5 +81,10 @@ namespace Cloudsdale_Win7 {
             
             Browser.Instance.BrowserPage.Width = MainWindow.Instance.Width;
         }
+
+        private void DirectHome(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow.Instance.Frame.Navigate(new Home());
+        }
     }
 }

@@ -260,6 +260,21 @@
   <ItemGroup>
     <Folder Include="Controls\Cloudsdale_Bots\Lib\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\cloud.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\computer_service.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\circle_info.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

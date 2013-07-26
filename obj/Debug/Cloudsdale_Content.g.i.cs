@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/cloudsdale-thin-bright-logo.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/circle_info.png")]
 
 

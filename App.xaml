@@ -61,5 +61,6 @@
         </Style>
         <Color x:Key="PrimaryBackground">#FFFAFAFA</Color>
         <Color x:Key="PrimaryContent">#FF222222</Color>
+        <Color x:Key="PrimaryBlue">#FF63A0D0</Color>
     </Application.Resources>
 </Application>

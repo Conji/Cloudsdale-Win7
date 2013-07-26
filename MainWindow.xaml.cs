@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using Cloudsdale_Win7.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale_Win7 {
