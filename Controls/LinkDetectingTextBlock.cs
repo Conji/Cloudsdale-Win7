@@ -60,17 +60,31 @@ namespace Cloudsdale_Win7.Controls {
                 hyperlink.Click += (sender, eventArgs) => {
                     if (match.ToString().Contains("www.cloudsdale.org/clouds/"))
                     {
+                        //Adds the clicked cloud link to the cloud list and subscribes the user to the channel.
+                        string cloudId;
                         if (match.ToString().StartsWith("http://"))
                         {
-                            var cloudId = match.ToString().Split('/')[4];
-                            //MainWindow.Instance.CloudList.Items.Add(CloudModel.Name(cloudId));
-                            Console.WriteLine(CloudModel.Name(cloudId));
+                            cloudId = match.ToString().Split('/')[4];
+                            FayeConnector.Subscribe(cloudId);
+                            var newCloud = new ListViewItem();
+                            newCloud.Content = CloudModel.Name(cloudId);
+                            MainWindow.User["user"]["clouds"] +=
+                                "{ \"id\" : \"[:id]\" {\"name\" : \"[:name]\"}}".Replace("[:id]", cloudId).Replace("[:name]",
+                                                                                               CloudModel.Name(cloudId));
+                            Console.WriteLine(MainWindow.User["user"]["clouds"].ToString());
+                            MainWindow.Instance.CloudList.SelectedItem = newCloud;
                         }
+                        else if (match.ToString().StartsWith("www."))
+                        {
+                            cloudId = match.ToString().Split('/')[2];
+                            FayeConnector.Subscribe(cloudId);
+                        }
+                        
                     }
                     else
                     {
                         MainWindow.Instance.Frame.Navigate(new Browser());
-                        Browser.Instance.Width = MainWindow.Instance.Width - 200;
+                        Browser.Instance.Width = MainWindow.Instance.Width;
                         Browser.Instance.WebBrowser.Navigate(link);
                         Browser.Instance.WebAddress.Text = link;
                     }

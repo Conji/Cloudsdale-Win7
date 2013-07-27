@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cloudsdale_Win7.Assets;
 using Newtonsoft.Json.Linq;
 using WebSocket4Net;
 
@@ -26,7 +27,7 @@ namespace Cloudsdale_Win7.Cloudsdale {
 
         public static void Connect() {
             if (socket != null && socket.State == WebSocketState.Open) socket.Close();
-            socket = new WebSocket("ws://push01.cloudsdale.org/push");
+            socket = new WebSocket(Endpoints.PushAddress);
             socket.Opened += OnOpen;
             socket.MessageReceived += MessageReceived;
             socket.Closed += (sender, args) => { if (LostConnection != null) LostConnection(); };
