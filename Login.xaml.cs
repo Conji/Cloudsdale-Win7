@@ -58,12 +58,12 @@ namespace Cloudsdale_Win7 {
             };
             await Connection.InitializeAsync();
             await PreloadMessages((JArray)MainWindow.User["user"]["clouds"]);
-            //Home.Instance.JoinDate.Text = (string) MainWindow.User["user"]["member_since"];
+            
 
             MainWindow.Instance.CloudList.ItemsSource = MainWindow.User["user"]["clouds"];
-
             MainWindow.Instance.Frame.Navigated += NavToHomeCallback;
             MainWindow.Instance.Frame.Navigate(new Home());
+            Home.Instance.JoinDate.Text += MainWindow.User["user"]["member_since"].ToString().Split(' ')[0];
         }
 
         private void LoadMessageToSource(MessageSource source, JToken message, string cloudId) {

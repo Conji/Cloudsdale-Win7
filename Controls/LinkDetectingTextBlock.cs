@@ -63,11 +63,17 @@ namespace Cloudsdale_Win7.Controls {
                         if (match.ToString().StartsWith("http://"))
                         {
                             var cloudId = match.ToString().Split('/')[4];
-                            MainWindow.Instance.CloudList.Items.Add(CloudModel.Name(cloudId));
-                            var newCloud = MainWindow.Instance.CloudList.Items.
+                            //MainWindow.Instance.CloudList.Items.Add(CloudModel.Name(cloudId));
+                            Console.WriteLine(CloudModel.Name(cloudId));
                         }
                     }
-
+                    else
+                    {
+                        MainWindow.Instance.Frame.Navigate(new Browser());
+                        Browser.Instance.Width = MainWindow.Instance.Width - 200;
+                        Browser.Instance.WebBrowser.Navigate(link);
+                        Browser.Instance.WebAddress.Text = link;
+                    }
                 };
                 Inlines.Add(hyperlink);
                 lastIndex = match.Index + match.Length;
