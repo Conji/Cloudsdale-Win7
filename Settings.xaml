@@ -4,19 +4,41 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="505.263" d:DesignWidth="461.278"
+      d:DesignHeight="300" d:DesignWidth="300"
 	Title="Settings">
 
     <Grid>
-        <TabControl TabStripPlacement="Left">
-            <TabItem Header="User Settings" Margin="-2,-2,0,-16">
-                <Grid Background="#FFE5E5E5">
-                    <Image Height="100" Margin="0,10,21,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" Source="{Binding [user][avatar][normal], Converter={StaticResource StringUriConv}}"/>
+        <TabControl>
+            <TabControl.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+            </TabControl.Background>
+            <TabControl.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+            </TabControl.BorderBrush>
+            <TabItem Header="User Settings">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="{DynamicResource PrimaryBackground}" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </Grid.Background>
                 </Grid>
             </TabItem>
-            <TabItem Header="Application Settings" Margin="0,17,0,-38">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Application Settings">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </Grid.Background>
+                </Grid>
             </TabItem>
         </TabControl>
+
     </Grid>
 </Page>

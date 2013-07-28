@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cloudsdale_Win7.Cloudsdale;
 using Cloudsdale_Win7.Models;
+using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale_Win7.Controls {
 
@@ -61,23 +62,31 @@ namespace Cloudsdale_Win7.Controls {
                     if (match.ToString().Contains("www.cloudsdale.org/clouds/"))
                     {
                         //Adds the clicked cloud link to the cloud list and subscribes the user to the channel.
-                        string cloudId;
+                        string shortname;
+                        string id;
                         if (match.ToString().StartsWith("http://"))
                         {
-                            cloudId = match.ToString().Split('/')[4];
-                            FayeConnector.Subscribe(cloudId);
-                            var newCloud = new ListViewItem();
-                            newCloud.Content = CloudModel.Name(cloudId);
-                            MainWindow.User["user"]["clouds"] +=
-                                "{ \"id\" : \"[:id]\" {\"name\" : \"[:name]\"}}".Replace("[:id]", cloudId).Replace("[:name]",
-                                                                                               CloudModel.Name(cloudId));
-                            Console.WriteLine(MainWindow.User["user"]["clouds"].ToString());
-                            MainWindow.Instance.CloudList.SelectedItem = newCloud;
+                            shortname = match.ToString().Split('/')[4];
+                            id = CloudModel.ID(shortname);
+                            FayeConnector.Subscribe(id);
+                            var cloud_json = CloudModel.CloudJson(shortname);
+                            if (!MainWindow.User["user"]["clouds"].ToString().Contains(cloud_json.ToString()))
+                            {
+                                MainWindow.User["user"]["clouds"] = "," +
+                                MainWindow.User["user"]["clouds"].ToString().Insert(
+                                    MainWindow.User["user"]["clouds"].ToString().Length - 3, cloud_json.ToString());
+                            }
+                            MainWindow.CurrentCloud = (JToken) CloudModel.CloudJson(shortname);
+                            MainWindow.Instance.CloudList.SelectedItem = MainWindow.CurrentCloud;
+                            MainWindow.Instance.CloudList.ItemsSource = MainWindow.User["user"]["clouds"];
+
+                            //MainWindow.Instance.CloudList.SelectedItem = newCloud;
                         }
                         else if (match.ToString().StartsWith("www."))
                         {
-                            cloudId = match.ToString().Split('/')[2];
-                            FayeConnector.Subscribe(cloudId);
+                            shortname = match.ToString().Split('/')[2];
+                            id = CloudModel.ID(shortname);
+                            FayeConnector.Subscribe(id);
                         }
                         
                     }

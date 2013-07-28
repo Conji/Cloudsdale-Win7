@@ -11,7 +11,7 @@
             <ColumnDefinition Width="151*"/>
         </Grid.ColumnDefinitions>
         <Frame Name="Frame" Source="/Login.xaml" NavigationUIVisibility="Hidden" Grid.Column="1" 
-               MVVM:DisableNavigation.Disable="True" Navigated="Frame_Navigated" Grid.ColumnSpan="3" />
+               MVVM:DisableNavigation.Disable="True" Grid.ColumnSpan="3" />
         <Grid>
             <ListView Name="CloudList" SelectionChanged="CloudListSelectionChanged"
                       Style="{StaticResource ListBoxStyle}" UseLayoutRounding="False">

@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/circle_info.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("to-do-list.txt")]
 
 

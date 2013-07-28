@@ -13,7 +13,7 @@ namespace Cloudsdale_Win7.Models
         public static int Preview = 70;
         public static int Chat = 40;
 
-        public static Image LoadImage(string UserId, AvatarSize size)
+        public static Image LoadImage(string UserId, int size)
         {
             WebRequest request =
                 WebRequest.Create(Endpoints.Avatar.Replace("[:type]", "user").Replace("[:id]", UserId).Replace(

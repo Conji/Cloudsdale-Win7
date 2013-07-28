@@ -39,10 +39,5 @@ namespace Cloudsdale_Win7 {
             }
             return Clouds[(string)cloud["id"]] = new CloudView(cloud);
         }
-
-        private void Frame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
-        {
-
-        }
     }
 }

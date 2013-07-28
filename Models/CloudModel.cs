@@ -32,6 +32,12 @@ namespace Cloudsdale_Win7.Models
             JObject cloud = CloudJson(cloudId);
             return cloud["result"]["owner_id"].ToString();
         }
+
+        public static string ID(string cloudId)
+        {
+            JObject cloud = CloudJson(cloudId);
+            return cloud["result"]["id"].ToString();
+        }
         public static List<string> UserList(string cloudId)
         {
             JObject cloud = CloudJson(cloudId);
