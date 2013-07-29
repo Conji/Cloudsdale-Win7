@@ -4,13 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" d:DesignWidth="774"
-	Title="Settings" d:DesignHeight="482">
+	Title="Settings" d:DesignHeight="600">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl Margin="0,0,0,74">
+        <TabControl Margin="0,0,0,38">
             <TabControl.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </TabControl.Background>
@@ -47,7 +47,7 @@
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                         </TextBlock.Foreground>
                     </TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="534,192,0,0" TextWrapping="Wrap" Text="Also Known As:" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock Margin="0,192,110,0" TextWrapping="Wrap" Text="Also Known As:" VerticalAlignment="Top" FontWeight="Bold" HorizontalAlignment="Right" Width="124"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Application Settings">
@@ -62,7 +62,7 @@
             </TabItem>
         </TabControl>
 
-        <Button Content="Logout" BorderBrush="{x:Null}" FontFamily="Segoe UI Black" Height="20" VerticalAlignment="Bottom" Margin="0,0,0,74">
+        <Button Content="Logout" BorderBrush="{x:Null}" FontFamily="Segoe UI Black" Height="38" VerticalAlignment="Bottom">
             <Button.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </Button.Background>

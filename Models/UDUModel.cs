@@ -52,7 +52,7 @@ namespace Cloudsdale_Win7.Models
         }
         public static void Username(string username)
         {
-            var dataObject = "{ \"user\" : { \"name\" : \"[:username]\"}}".Replace("[:username]", username);
+            var dataObject = "{ \"user\" : { \"username\" : \"[:username]\"}}".Replace("[:username]", username);
             var data = Encoding.UTF8.GetBytes(dataObject);
             var request =
                 WebRequest.CreateHttp(Endpoints.User.Replace("[:id]", MainWindow.User["user"]["id"].ToString()));
@@ -88,7 +88,39 @@ namespace Cloudsdale_Win7.Models
         }
         public static void Skype(string skype)
         {
-            var dataObject = "{ \"user\" : { \"name\" : \"[:skype]\"}}".Replace("[:skype]", skype);
+            var dataObject = "{ \"user\" : { \"skype_name\" : \"[:skype]\"}}".Replace("[:skype]", skype);
+            var data = Encoding.UTF8.GetBytes(dataObject);
+            var request =
+                WebRequest.CreateHttp(Endpoints.User.Replace("[:id]", MainWindow.User["user"]["id"].ToString()));
+            request.Accept = _type;
+            request.Method = _method;
+            request.ContentType = _type;
+            request.ContentLength = data.Length;
+            request.Headers["X-Auth-Token"] = Auth_Token;
+
+            request.BeginGetRequestStream(ar =>
+            {
+                var reqs = request.EndGetRequestStream(ar);
+                reqs.Write(data, 0, data.Length);
+                reqs.Close();
+                request.BeginGetResponse(a =>
+                {
+                    try
+                    {
+                        var response = request.EndGetResponse(a);
+                        response.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(ex);
+                    }
+                }, null);
+            }, null);
+        }
+        public static void Clouds(string clouds)
+        {
+             var dataObject = "{ \"user\" : { \"clouds\" : [[:clouds]]}}".Replace("[:clouds]", clouds);
             var data = Encoding.UTF8.GetBytes(dataObject);
             var request =
                 WebRequest.CreateHttp(Endpoints.User.Replace("[:id]", MainWindow.User["user"]["id"].ToString()));

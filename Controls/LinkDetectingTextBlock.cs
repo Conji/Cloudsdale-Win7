@@ -88,7 +88,6 @@ namespace Cloudsdale_Win7.Controls {
                             id = CloudModel.ID(shortname);
                             FayeConnector.Subscribe(id);
                         }
-                        
                     }
                     else
                     {
