@@ -76,7 +76,7 @@ namespace Cloudsdale_Win7.Controls {
                                 MainWindow.User["user"]["clouds"].ToString().Insert(
                                     MainWindow.User["user"]["clouds"].ToString().Length - 3, cloud_json.ToString());
                             }
-                            MainWindow.CurrentCloud = (JToken) CloudModel.CloudJson(shortname);
+                            MainWindow.CurrentCloud = CloudModel.CloudJson(shortname)["result"];
                             MainWindow.Instance.CloudList.SelectedItem = MainWindow.CurrentCloud;
                             MainWindow.Instance.CloudList.ItemsSource = MainWindow.User["user"]["clouds"];
 
