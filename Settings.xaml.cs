@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cloudsdale_Win7.Assets;
 using Cloudsdale_Win7.Models;
 using Newtonsoft.Json.Linq;
 
@@ -40,6 +41,13 @@ namespace Cloudsdale_Win7
         private void ClearPassword(object sender, MouseButtonEventArgs e)
         {
             password.Password = "";
+        }
+
+        private void UpdateName(object sender, RoutedEventArgs e)
+        {
+            name.IsEnabled = false;
+            UDUModel.Name(name.Text);
+            name.IsEnabled = true;
         }
     }
 }

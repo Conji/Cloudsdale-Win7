@@ -15,8 +15,11 @@ namespace Cloudsdale_Win7 {
     /// </summary>
     public partial class CloudView {
         public JToken Cloud;
+        public static CloudView Instance;
 
-        public CloudView(JToken cloud) {
+        public CloudView(JToken cloud)
+        {
+            Instance = this;
             Cloud = cloud;
             InitializeComponent();
             ChatMessages.Items.Clear();

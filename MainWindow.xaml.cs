@@ -25,8 +25,15 @@ namespace Cloudsdale_Win7 {
         }
 
         private void CloudListSelectionChanged(object sender, SelectionChangedEventArgs e) {
-            CurrentCloud = (JToken)CloudList.SelectedItem;
-            Frame.Navigate(GetCloudView(CurrentCloud));
+            if (CloudList.SelectedIndex >= 0)
+            {
+                CurrentCloud = (JToken)CloudList.SelectedItem;
+                Frame.Navigate(GetCloudView(CurrentCloud));
+                if (User["user"]["id"].ToString() != CurrentCloud["owner_id"].ToString())
+                {
+                    CloudView.Instance.acp.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         public static DependencyProperty MaxCharactersProperty =

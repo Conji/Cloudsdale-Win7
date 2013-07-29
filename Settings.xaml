@@ -31,17 +31,17 @@
                     <Border BorderBrush="Black" BorderThickness="1" Height="147" Margin="0,42,90,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="144">
                         <Image x:Name="avatar"/>
                     </Border>
-                    <TextBlock HorizontalAlignment="Left" Margin="100,26,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="name" Height="23" Margin="100,42,358,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" ScrollViewer.CanContentScroll="True"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="100,80,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="username" Height="23" Margin="100,96,358,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="100,141,0,0" TextWrapping="Wrap" Text="Email:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="email" Height="23" Margin="100,157,358,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="100,230,0,0" TextWrapping="Wrap" Text="Skype:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="skype" Height="23" Margin="100,246,358,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="61,318,0,0" TextWrapping="Wrap" Text="New Password:" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="250,26,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top"/>
+                    <TextBox x:Name="name" Height="23" Margin="250,42,250,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" ScrollViewer.CanContentScroll="True" LostFocus="UpdateName"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="250,82,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top"/>
+                    <TextBox x:Name="username" Height="23" Margin="250,98,250,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="250,145,0,0" TextWrapping="Wrap" Text="Email:" VerticalAlignment="Top"/>
+                    <TextBox x:Name="email" Height="23" Margin="250,166,250,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="250,233,0,0" TextWrapping="Wrap" Text="Skype:" VerticalAlignment="Top"/>
+                    <TextBox x:Name="skype" Height="23" Margin="250,249,250,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="250,325,0,0" TextWrapping="Wrap" Text="New Password:" VerticalAlignment="Top"/>
                     <Separator Height="12" Margin="8,287,10,0" VerticalAlignment="Top"/>
-                    <PasswordBox x:Name="password" Margin="100,339,358,0" VerticalAlignment="Top" MouseDown="ClearPassword" Padding="0"/>
+                    <PasswordBox x:Name="password" Margin="250,346,250,0" VerticalAlignment="Top" MouseDown="ClearPassword" Padding="0" Height="23"/>
                     <TextBlock x:Name="akaList" Margin="0,208,90,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="79" HorizontalAlignment="Right" Width="144" FontSize="14" FontFamily="Segoe UI Semibold">
                         <TextBlock.Foreground>
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>

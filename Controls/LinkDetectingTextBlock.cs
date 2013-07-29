@@ -91,6 +91,7 @@ namespace Cloudsdale_Win7.Controls {
                     }
                     else
                     {
+                        MainWindow.Instance.CloudList.SelectedIndex = -1;
                         MainWindow.Instance.Frame.Navigate(new Browser());
                         Browser.Instance.Width = MainWindow.Instance.Width;
                         Browser.Instance.WebBrowser.Navigate(link);
