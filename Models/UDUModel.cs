@@ -41,6 +41,7 @@ namespace Cloudsdale_Win7.Models
                     {
                         var response = request.EndGetResponse(a);
                         response.Close();
+                        MainWindow.User["user"]["name"] = name;
                     }
                     catch (Exception ex)
                     {
@@ -73,6 +74,7 @@ namespace Cloudsdale_Win7.Models
                     {
                         var response = request.EndGetResponse(a);
                         response.Close();
+                        MainWindow.User["user"]["username"] = username;
                     }
                     catch (Exception ex)
                     {
@@ -109,6 +111,7 @@ namespace Cloudsdale_Win7.Models
                     {
                         var response = request.EndGetResponse(a);
                         response.Close();
+                        MainWindow.User["user"]["skype_name"] = skype;
                     }
                     catch (Exception ex)
                     {
@@ -120,7 +123,7 @@ namespace Cloudsdale_Win7.Models
         }
         public static void Clouds(string clouds)
         {
-             var dataObject = "{ \"user\" : { \"clouds\" : [[:clouds]]}}".Replace("[:clouds]", clouds);
+            var dataObject = "{ \"user\" : { \"clouds\" : [[:clouds]]}}".Replace("[:clouds]", clouds);
             var data = Encoding.UTF8.GetBytes(dataObject);
             var request =
                 WebRequest.CreateHttp(Endpoints.User.Replace("[:id]", MainWindow.User["user"]["id"].ToString()));
@@ -141,6 +144,7 @@ namespace Cloudsdale_Win7.Models
                     {
                         var response = request.EndGetResponse(a);
                         response.Close();
+                        MainWindow.User["user"]["clouds"] = clouds;
                     }
                     catch (Exception ex)
                     {
