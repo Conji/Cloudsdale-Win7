@@ -105,6 +105,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\CDUModel.cs" />
+    <Compile Include="MVVM\AkaConverter.cs" />
     <Compile Include="MVVM\IsUnread.cs" />
     <Compile Include="MVVM\UnreadConverter.cs" />
     <Compile Include="Settings.xaml.cs">

@@ -60,7 +60,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="3">
-                                    <Image Source="{Binding [author][avatar][chat], Converter={StaticResource StringUriConv}}" 
+                                    <Image Source="{Binding [author][avatar][preview], Converter={StaticResource StringUriConv}}" 
                                            Width="60" Height="60"
                                            Cursor="Hand"/>
                                     <Border Background="{Binding [author][role], Converter={StaticResource TagColor}}"

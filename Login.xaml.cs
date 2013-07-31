@@ -17,8 +17,12 @@ namespace Cloudsdale_Win7 {
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login {
-        public Login() {
+    public partial class Login
+    {
+        public static Login Instance;
+        public Login()
+        {
+            Instance = this;
             InitializeComponent();
             EmailBox.Text = UserSettings.Default.PreviousEmail;
             PasswordBox.Password = UserSettings.Default.PreviousPassword;
@@ -66,7 +70,6 @@ namespace Cloudsdale_Win7 {
             MainWindow.Instance.CloudList.ItemsSource = MainWindow.User["user"]["clouds"];
             MainWindow.Instance.Frame.Navigated += NavToHomeCallback;
             MainWindow.Instance.Frame.Navigate(new Home());
-            Home.Instance.JoinDate.Text += MainWindow.User["user"]["member_since"].ToString().Split(' ')[0];
         }
 
         private void LoadMessageToSource(MessageSource source, JToken message, string cloudId) {

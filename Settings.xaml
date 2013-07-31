@@ -31,18 +31,18 @@
                     <Border BorderBrush="Black" BorderThickness="1" Height="147" Margin="0,42,90,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="144">
                         <Image x:Name="avatar" Source="{Binding [user][avatar][normal], Converter={StaticResource StringUriConv}}"/>
                     </Border>
-                    <TextBlock HorizontalAlignment="Left" Margin="27,29,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="name" Height="23" Margin="27,50,584,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" ScrollViewer.CanContentScroll="True" LostFocus="UpdateName"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="27,96,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="username" Height="23" Margin="27,117,584,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="30,164,0,0" TextWrapping="Wrap" Text="Email:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="email" Height="23" Margin="27,185,584,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="30,233,0,0" TextWrapping="Wrap" Text="Skype:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="skype" Height="23" Margin="27,254,584,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="534,194,0,0" TextWrapping="Wrap" Text="New Password:" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="79,34,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" FontWeight="Black"/>
+                    <TextBox x:Name="name" Height="23" Margin="79,50,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" ScrollViewer.CanContentScroll="True" LostFocus="UpdateName"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="79,97,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top" FontWeight="Black"/>
+                    <TextBox x:Name="username" Height="23" Margin="79,113,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="82,169,0,0" TextWrapping="Wrap" Text="Email:" VerticalAlignment="Top" FontWeight="Black"/>
+                    <TextBox x:Name="email" Height="23" Margin="79,185,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="82,238,0,0" TextWrapping="Wrap" Text="Skype:" VerticalAlignment="Top" FontWeight="Black"/>
+                    <TextBox x:Name="skype" Height="23" Margin="79,254,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock Margin="0,194,90,0" TextWrapping="Wrap" Text="New Password:" VerticalAlignment="Top" HorizontalAlignment="Right" Width="144" FontWeight="Black" Height="21"/>
                     <Separator Height="12" Margin="8,312,10,0" VerticalAlignment="Top"/>
-                    <PasswordBox x:Name="password" Margin="534,215,90,0" VerticalAlignment="Top" MouseDown="ClearPassword" Padding="0" Height="23"/>
-                    <TextBlock x:Name="akaList" Margin="0,50,268,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="227" HorizontalAlignment="Right" Width="224" FontSize="14" FontFamily="Segoe UI Semibold">
+                    <PasswordBox x:Name="password" Margin="0,215,90,0" VerticalAlignment="Top" MouseDown="ClearPassword" Padding="0" Height="23" HorizontalAlignment="Right" Width="144"/>
+                    <TextBlock x:Name="akaList" Margin="0,50,268,0" TextWrapping="Wrap" Text="{Binding [user][also_known_as], Converter={StaticResource AkaConverter}}"  VerticalAlignment="Top" Height="227" HorizontalAlignment="Right" Width="224" FontSize="14" FontFamily="Segoe UI Semibold">
                         <TextBlock.Foreground>
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                         </TextBlock.Foreground>
@@ -52,7 +52,7 @@
             </TabItem>
         </TabControl>
 
-        <Button Content="Logout" BorderBrush="{x:Null}" FontFamily="Segoe UI Black" Height="38" VerticalAlignment="Bottom">
+        <Button Content="Logout" BorderBrush="{x:Null}" FontFamily="Segoe UI Black" Height="38" VerticalAlignment="Bottom" Click="Button_Click_1">
             <Button.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </Button.Background>

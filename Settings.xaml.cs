@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cloudsdale_Win7.Assets;
+using Cloudsdale_Win7.Cloudsdale;
 using Cloudsdale_Win7.Models;
 using Newtonsoft.Json.Linq;
 
@@ -48,6 +49,18 @@ namespace Cloudsdale_Win7
             name.IsEnabled = false;
             UDUModel.Name(name.Text);
             name.IsEnabled = true;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Instance.CloudList.ItemsSource = null;
+            MainWindow.User = null;
+            MainWindow.Instance.CloudList.Width = 5;
+            MainWindow.Instance.Frame.Navigate(new Login());
+            Login.Instance.EmailBox.Text = UserSettings.Default.PreviousEmail;
+            Login.Instance.PasswordBox.Password = UserSettings.Default.PreviousPassword;
+            Login.Instance.autoSession.IsChecked = false;
+
         }
     }
 }
