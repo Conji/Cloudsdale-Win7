@@ -25,6 +25,7 @@
                             <Image Source="{Binding Path=[avatar][mini], Converter={StaticResource StringUriConv}}"
                                    Margin="3" Width="24" Height="24"/>
                             <TextBlock Text="{Binding Path=[name]}" Width="200" FontSize="14" Foreground="White" />
+                            <TextBlock x:Name="newCount" Text="" FontSize="12" Foreground="WhiteSmoke" HorizontalAlignment="Right"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

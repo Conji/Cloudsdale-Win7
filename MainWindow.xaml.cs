@@ -33,6 +33,7 @@ namespace Cloudsdale_Win7 {
                 {
                     CloudView.Instance.acp.Visibility = Visibility.Collapsed;
                 }
+                
             }
         }
 
