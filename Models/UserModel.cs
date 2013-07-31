@@ -7,12 +7,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Cloudsdale_Win7.Assets;
 using Cloudsdale_Win7.Cloudsdale;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale_Win7.Models
 {
     class UserModel
     {
+
+        private static bool? _hasReadTnC;
+        private static bool? _hasAvatar;
+        private static bool? _hasVerified;
+        private static bool? _isMemberOfACloud;
+        private static bool? _isBanned;
+        private static bool? _isSuspended;
+        private static string _suspensionReason;
+        private static DateTime? _suspendedUntil;
+
         /// <summary>
         /// Initializer for fetching the user .json file.
         /// </summary>

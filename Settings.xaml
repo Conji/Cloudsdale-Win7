@@ -14,9 +14,7 @@
             <TabControl.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </TabControl.Background>
-            <TabControl.BorderBrush>
-                <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
-            </TabControl.BorderBrush>
+        
             <TabItem Header="Settings" Margin="-2,-2,-95,0">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -31,18 +29,18 @@
                     <Border BorderBrush="Black" BorderThickness="1" Height="147" Margin="0,42,90,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="144">
                         <Image x:Name="avatar" Source="{Binding [user][avatar][normal], Converter={StaticResource StringUriConv}}"/>
                     </Border>
-                    <TextBlock HorizontalAlignment="Left" Margin="79,34,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" FontWeight="Black"/>
-                    <TextBox x:Name="name" Height="23" Margin="79,50,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" ScrollViewer.CanContentScroll="True" LostFocus="UpdateName"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="79,97,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top" FontWeight="Black"/>
-                    <TextBox x:Name="username" Height="23" Margin="79,113,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="82,169,0,0" TextWrapping="Wrap" Text="Email:" VerticalAlignment="Top" FontWeight="Black"/>
-                    <TextBox x:Name="email" Height="23" Margin="79,185,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="82,238,0,0" TextWrapping="Wrap" Text="Skype:" VerticalAlignment="Top" FontWeight="Black"/>
-                    <TextBox x:Name="skype" Height="23" Margin="79,254,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Right" Margin="0,34,651,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" FontWeight="Black"/>
+                    <TextBox x:Name="name" Height="23" Margin="0,50,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" ScrollViewer.CanContentScroll="True" LostFocus="UpdateName" HorizontalAlignment="Right" Width="192"/>
+                    <TextBlock HorizontalAlignment="Right" Margin="0,97,626,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top" FontWeight="Black"/>
+                    <TextBox x:Name="username" Height="23" Margin="0,113,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Right" Width="192"/>
+                    <TextBlock HorizontalAlignment="Right" Margin="0,169,650,0" TextWrapping="Wrap" Text="Email:" VerticalAlignment="Top" FontWeight="Black"/>
+                    <TextBox x:Name="email" Height="23" Margin="0,185,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Right" Width="192"/>
+                    <TextBlock HorizontalAlignment="Right" Margin="0,238,647,0" TextWrapping="Wrap" Text="Skype:" VerticalAlignment="Top" FontWeight="Black"/>
+                    <TextBox x:Name="skype" Height="23" Margin="0,254,497,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Right" Width="192"/>
                     <TextBlock Margin="0,194,90,0" TextWrapping="Wrap" Text="New Password:" VerticalAlignment="Top" HorizontalAlignment="Right" Width="144" FontWeight="Black" Height="21"/>
-                    <Separator Height="12" Margin="8,312,10,0" VerticalAlignment="Top"/>
+                    <Separator Height="20" Margin="79,295,90,0" VerticalAlignment="Top"/>
                     <PasswordBox x:Name="password" Margin="0,215,90,0" VerticalAlignment="Top" MouseDown="ClearPassword" Padding="0" Height="23" HorizontalAlignment="Right" Width="144"/>
-                    <TextBlock x:Name="akaList" Margin="0,50,268,0" TextWrapping="Wrap" Text="{Binding [user][also_known_as], Converter={StaticResource AkaConverter}}"  VerticalAlignment="Top" Height="227" HorizontalAlignment="Right" Width="224" FontSize="14" FontFamily="Segoe UI Semibold">
+                    <TextBlock x:Name="akaList" Margin="0,50,268,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="227" HorizontalAlignment="Right" Width="224" FontSize="14" FontFamily="Segoe UI Semibold">
                         <TextBlock.Foreground>
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                         </TextBlock.Foreground>

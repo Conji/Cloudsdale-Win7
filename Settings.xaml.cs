@@ -53,14 +53,13 @@ namespace Cloudsdale_Win7
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.CloudList.ItemsSource = null;
-            MainWindow.User = null;
-            MainWindow.Instance.CloudList.Width = 5;
             MainWindow.Instance.Frame.Navigate(new Login());
             Login.Instance.EmailBox.Text = UserSettings.Default.PreviousEmail;
             Login.Instance.PasswordBox.Password = UserSettings.Default.PreviousPassword;
             Login.Instance.autoSession.IsChecked = false;
-
+            MainWindow.Instance.CloudList.ItemsSource = null;
+            MainWindow.User = null;
+            MainWindow.Instance.CloudList.Width = 5;
         }
     }
 }

@@ -104,6 +104,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cloudsdale\ModelSettings.cs" />
+    <Compile Include="Cloudsdale\Updater.cs" />
     <Compile Include="Models\CDUModel.cs" />
     <Compile Include="MVVM\AkaConverter.cs" />
     <Compile Include="MVVM\IsUnread.cs" />
