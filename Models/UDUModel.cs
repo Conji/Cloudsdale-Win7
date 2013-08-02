@@ -154,5 +154,9 @@ namespace Cloudsdale_Win7.Models
                 }, null);
             }, null);
         }
+        public static string Base()
+        {
+            return "{ \"user\"{ \"name\": \"[:name]\", \"username\": \"[:username]\", \"is_member_of_a_cloud\": ";
+        }
     }
 }

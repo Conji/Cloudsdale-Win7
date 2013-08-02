@@ -118,7 +118,7 @@
                 <Controls:LinkDetectingTextBlock TextWrapping="Wrap" Text="LinkDetectingTextBlock"/>
             </ItemsControl>
         </ScrollViewer>
-        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="20" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" />
+        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" />
         <Expander Header="Menu" Margin="0,18,10,0" FontSize="18" Height="97" VerticalAlignment="Top" Grid.Column="1" ExpandDirection="Left" HorizontalAlignment="Right" Width="468" FontFamily="Segoe UI Emoji">
             <Grid Margin="0,0,0,-2" Background="#FF3F85B3">
                 <Image Margin="30,10,0,21" HorizontalAlignment="Left" Width="52" Source="Assets/cloud.png" Cursor="Hand"/>

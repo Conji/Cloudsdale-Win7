@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Cloudsdale_Win7.Models;
 
 namespace Cloudsdale_Win7 {
     /// <summary>
@@ -12,7 +13,7 @@ namespace Cloudsdale_Win7 {
             RootGrid.DataContext = MainWindow.User;
             Instance = this;
             MainWindow.Instance.CloudList.Width = 200;
-            JoinDate.Text += MainWindow.User["user"]["member_since"].ToString().Split(' ')[0];
+            JoinDate.Text += UserModel.MemberSince(MainWindow.User["user"]["id"].ToString()).Split(' ')[0];
         }
     }
 }

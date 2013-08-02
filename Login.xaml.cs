@@ -48,6 +48,7 @@ namespace Cloudsdale_Win7 {
                 UserSettings.Default.PreviousPassword = PasswordBox.Password;
                 UserSettings.Default.AutoLogin = autoSession.IsChecked.Value;
                 UserSettings.Default.Save();
+                
             } catch (Exception ex) {
                 LoginButton.IsEnabled = true;
                 MainLayout.Visibility = Visibility.Visible;

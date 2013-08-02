@@ -23,7 +23,7 @@
             <TextBlock FontSize="18" HorizontalAlignment="Center"><Run x:Name="LoadStatus" /></TextBlock>
             <ProgressBar Height="30" x:Name="LoadProgress" BorderBrush="{x:Null}" >
                 <ProgressBar.Background>
-                    <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    <SolidColorBrush Color="#FF63A8D0"/>
                 </ProgressBar.Background>
                 <ProgressBar.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>

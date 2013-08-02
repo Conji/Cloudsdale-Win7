@@ -13,7 +13,6 @@ namespace Cloudsdale_Win7.Cloudsdale
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public delegate void INotifyPropertyChanged 
 
         protected internal virtual void OnPropertyChanged([CallerMemberName] string propertyname = null)
         {
@@ -21,8 +20,11 @@ namespace Cloudsdale_Win7.Cloudsdale
             if (handler == null) return;
             if (ModelSettings.Dispatcher != null && !ModelSettings.Dispatcher.Thread.IsAlive)
             {
-                ModelSettings.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                                                     handler(this, new PropertyChangedEventArgs(propertyname));
+                ModelSettings.Dispatcher.InvokeAsync(() => handler(this, new PropertyChangedEventArgs(propertyname)), DispatcherPriority.Normal);
+            }
+            else
+            {
+                handler(this, new PropertyChangedEventArgs(propertyname));
             }
         }
     }

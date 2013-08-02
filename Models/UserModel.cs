@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Cloudsdale_Win7.Cloudsdale;
 using Cloudsdale_Win7.Assets;
 using Cloudsdale_Win7.Cloudsdale;
 using Newtonsoft.Json;
@@ -23,6 +24,8 @@ namespace Cloudsdale_Win7.Models
         private static bool? _isSuspended;
         private static string _suspensionReason;
         private static DateTime? _suspendedUntil;
+
+        public static Updater Updater = new Updater();
 
         /// <summary>
         /// Initializer for fetching the user .json file.
@@ -45,9 +48,10 @@ namespace Cloudsdale_Win7.Models
         /// </summary>
         /// <param name="UserID"></param>
         /// <returns></returns>
-        public static string Name(string UserID)
+        public string Name(string UserID)
         {
             JObject user = UserJson(UserID);
+            Updater.OnPropertyChanged();
             return user["result"]["name"].ToString();
         }
 
@@ -59,6 +63,7 @@ namespace Cloudsdale_Win7.Models
         public static string Username(string UserID)
         {
             JObject user = UserJson(UserID);
+            Updater.OnPropertyChanged();
             return user["result"]["name"].ToString();
         }
 
@@ -70,6 +75,7 @@ namespace Cloudsdale_Win7.Models
         public static string TimeZone(string UserID)
         {
             JObject user = UserJson(UserID);
+            Updater.OnPropertyChanged();
             return user["result"]["time_zone"].ToString();
         }
 
@@ -81,6 +87,7 @@ namespace Cloudsdale_Win7.Models
         public static string MemberSince(string UserID)
         {
             JObject user = UserJson(UserID);
+            Updater.OnPropertyChanged();
             return user["result"]["member_since"].ToString();
         }
 
@@ -92,6 +99,7 @@ namespace Cloudsdale_Win7.Models
         public static string SkypeUsername(string UserID)
         {
             JObject user = UserJson(UserID);
+            Updater.OnPropertyChanged();
             return user["result"]["skype_name"].ToString();
         }
 
@@ -103,42 +111,49 @@ namespace Cloudsdale_Win7.Models
         public static string AkaList(string UserID)
         {
             JObject user = UserJson(UserID);
+            Updater.OnPropertyChanged();
             return user["result"]["also_known_as"].ToString().MultiReplace("[", "]", Environment.NewLine, "").Trim();
         }
 
         public static string Status(string UserID)
         {
             JObject user = UserJson(UserID);
+            Updater.OnPropertyChanged();
             return user["result"]["status"].ToString();
         }
 
         public static string Email()
         {
             JObject self = MainWindow.User;
+            Updater.OnPropertyChanged();
             return self["user"]["email"].ToString();
         }
 
         public static string AuthToken()
         {
             JObject self = MainWindow.User;
-            return self["user"]["X-Auth-Token"].ToString();
+            Updater.OnPropertyChanged();
+            return self["user"]["auth_token"].ToString();
         }
 
         public static int NameChangesAllowed()
         {
             JObject self = MainWindow.User;
+            Updater.OnPropertyChanged();
             return self["user"]["username_changes_allowed"].ToObject<int>();
         }
 
-        public static string HasReadTnc()
+        public static bool HasReadTnc()
         {
             JObject self = MainWindow.User;
-            return self["user"]["has_read_tnc"].ToString();
+            Updater.OnPropertyChanged();
+            return (bool)self["user"]["has_read_tnc"];
         }
 
         public static string Role(string userId)
         {
             JObject user = UserJson(userId);
+            Updater.OnPropertyChanged();
             return user["result"]["role"].ToString();
         }
 
