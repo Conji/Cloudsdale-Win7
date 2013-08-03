@@ -39,7 +39,7 @@
                         <TextBlock/>
                     </StackPanel>
                 </StackPanel>
-                <TextBlock VerticalAlignment="Top" FontSize="28" Margin="10" Text="{Binding [name]}" Height="36"/>
+                <TextBlock VerticalAlignment="Top" FontSize="28" Margin="10" Text="{Binding [name]}" Height="36" FontFamily="Segoe UI Semibold"/>
             </StackPanel>
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>

@@ -45,33 +45,34 @@ namespace Cloudsdale_Win7
         }
         private void name_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (name.IsFocused)
+            if (username.IsFocused)
             {
-                var input = name.Text;
-                var hasSymbol = !String.IsNullOrEmpty(input) && !Char.IsLetterOrDigit(input[input.Length - 1]);
+                var input = username.Text;
 
+                var hasSymbol = !String.IsNullOrEmpty(input) && !Char.IsLetterOrDigit(input[input.Length - 1]) && !Char.IsPunctuation(input[input.Length - 1]);
+                
                 if (hasSymbol)
                 {
                     var b = new SolidColorBrush();
                     b.Color = Cloudsdale_Source.Error_Bright;
-                    name.Background = b;
+                    username.Background = b;
                 }
                 else
                 {
                     var b = new SolidColorBrush();
                     b.Color = Cloudsdale_Source.Success_Bright;
-                    name.Background = b;
+                    username.Background = b;
                 }
             }
         }
         private void Logout(object sender, RoutedEventArgs e)
         {
+            MainWindow.User = null;
             MainWindow.Instance.Frame.Navigate(new Login());
             Login.Instance.EmailBox.Text = UserSettings.Default.PreviousEmail;
             Login.Instance.PasswordBox.Password = UserSettings.Default.PreviousPassword;
             Login.Instance.autoSession.IsChecked = false;
             MainWindow.Instance.CloudList.ItemsSource = null;
-            MainWindow.User = null;
             MainWindow.Instance.CloudList.Width = 5;
         }
 
