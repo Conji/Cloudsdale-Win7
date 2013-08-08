@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Cloudsdale_Win7.Cloudsdale_Lib {
-    public static class Helpers {
+namespace Cloudsdale_Win7.Win7_Lib {
+    public static class Cloudsdale_Helpers {
         private static readonly char[] SpecChars = { '\n', '\r', '\t', '\b', '\\' };
 
         public unsafe static string UnescapeLiteral(this string input) {

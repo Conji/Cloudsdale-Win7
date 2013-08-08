@@ -1,7 +1,6 @@
-﻿using Cloudsdale_Win7.Win7_Lib.Helpers;
-using Cloudsdale_Win7.Win7_Lib.Providers;
+﻿using Cloudsdale_Win7.Win7_Lib.Providers;
 
-namespace Cloudsdale_Win7.Cloudsdale_Lib
+namespace Cloudsdale_Win7.Win7_Lib.Win7_Lib
 {
     /// <summary>
     /// Provides static access to all the providers of cloudsdale

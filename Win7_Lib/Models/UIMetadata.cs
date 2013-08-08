@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cloudsdale_Win7.Providers;
+using Cloudsdale_Win7.Win7_Lib.Providers;
+using Cloudsdale_Win7.Win7_Lib.Win7_Lib;
 
 namespace Cloudsdale_Win7.Win7_Lib.Models
 {
@@ -24,7 +25,7 @@ namespace Cloudsdale_Win7.Win7_Lib.Models
             {
                 return objects.ContainsKey(key)
                            ? objects[key]
-                           : objects[key] = Cloudsdale_Lib.Cloudsdale[key].CreateNew(model);
+                           : objects[key] = Cloudsdale.MetadataProviders[key].CreateNew(model);
             }
         }
     }

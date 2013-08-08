@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Windows.Controls;
 using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Cloudsdale_Lib;
+using Cloudsdale_Win7.Win7_Lib;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale_Win7.Win7_Lib.Models.Updaters

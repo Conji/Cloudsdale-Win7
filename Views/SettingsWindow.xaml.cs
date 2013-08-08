@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Models;
-using Cloudsdale_Win7.Cloudsdale_Lib;
+using Cloudsdale_Win7.Win7_Lib;
 
 namespace Cloudsdale_Win7
 {

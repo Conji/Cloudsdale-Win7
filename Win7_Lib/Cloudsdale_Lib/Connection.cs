@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale_Win7.Cloudsdale_Lib {
+namespace Cloudsdale_Win7.Win7_Lib {
     public static class Connection {
         public static event Action<JObject> MessageReceived;
 

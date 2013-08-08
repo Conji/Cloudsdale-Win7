@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Cloudsdale_Win7.Win7_Lib.Helpers;
+using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Helpers;
 
 namespace Cloudsdale_Win7.Win7_Lib.Providers
 {public interface IModelErrorProvider

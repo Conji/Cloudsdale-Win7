@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Cloudsdale_Win7.Cloudsdale_Lib;
+using Cloudsdale_Win7.Win7_Lib;
+using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
 
 namespace Cloudsdale_Win7.Win7_Lib.Models
 {
-    public sealed class Ban : Cloudsdale_Lib {
+    public sealed class Ban : CloudsdaleResource {
         public Ban(string id) : base(id) { }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace Cloudsdale_Win7.Win7_Lib.Models
         /// <summary>
         /// The offending user
         /// </summary>
-        public User Offender { get { return Cloudsdale_Lib.UserProvider.GetUser(OffenderId); } }
+        public User Offender { get { return CloudsdaleResource.UserProvider.GetUser(OffenderId); } }
         /// <summary>
         /// The enforcing user
         /// </summary>

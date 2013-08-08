@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Cloudsdale_Lib;
+using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Models;
 using Newtonsoft.Json.Linq;
 
@@ -53,7 +53,7 @@ namespace Cloudsdale_Win7.Controls {
         protected virtual void OnLinkedTextChange(TextChangedEventArgs args) {
             if (LinkedTextChanged != null) LinkedTextChanged(args);
 
-            var matches = Helpers.LinkRegex.Matches(args.NewText);
+            var matches = Cloudsdale_Helpers.LinkRegex.Matches(args.NewText);
             var lastIndex = 0;
             Inlines.Clear();
             foreach (Match match in matches) {

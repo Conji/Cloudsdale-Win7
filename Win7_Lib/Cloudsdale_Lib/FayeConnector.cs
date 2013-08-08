@@ -5,7 +5,7 @@ using Cloudsdale_Win7.Win7_Lib;
 using Newtonsoft.Json.Linq;
 using WebSocket4Net;
 
-namespace Cloudsdale_Win7.Cloudsdale_Lib {
+namespace Cloudsdale_Win7.Win7_Lib {
     static class FayeConnector {
         public static WebSocket socket;
         private static string clientID;

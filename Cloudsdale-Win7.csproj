@@ -125,29 +125,29 @@
     <Compile Include="Win7_Lib\Providers\ICloudServiceProvider.cs" />
     <Compile Include="Win7_Lib\Providers\IErrorProvider.cs" />
     <Compile Include="Win7_Lib\Providers\IMetadataProvider.cs" />
-    <Compile Include="SettingsWindow.xaml.cs">
+    <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Win7_Lib\Providers\ISessionProvider.cs" />
     <Compile Include="Win7_Lib\Providers\IStatusProvider.cs" />
     <Compile Include="Win7_Lib\Providers\IUserProvider.cs" />
-    <Page Include="Browser.xaml">
+    <Page Include="Views\Browser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CloudView.xaml">
+    <Page Include="Views\CloudView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Explore.xaml">
+    <Page Include="Views\Explore.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Home.xaml">
+    <Page Include="Views\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Login.xaml">
+    <Page Include="Views\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,7 +161,7 @@
     </Compile>
     <Compile Include="Win7_Lib\Cloudsdale_Source.cs" />
     <Compile Include="Win7_Lib\Endpoints.cs" />
-    <Compile Include="Browser.xaml.cs">
+    <Compile Include="Views\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Win7_Lib\Cloudsdale_Lib\Connection.cs" />
@@ -174,24 +174,24 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>UserSettings.settings</DependentUpon>
     </Compile>
-    <Compile Include="CloudView.xaml.cs">
+    <Compile Include="Views\CloudView.xaml.cs">
       <DependentUpon>CloudView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\LinkDetectingTextBlock.cs" />
-    <Compile Include="Explore.xaml.cs">
+    <Compile Include="Views\Explore.xaml.cs">
       <DependentUpon>Explore.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Home.xaml.cs">
+    <Compile Include="Views\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Login.xaml.cs">
+    <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SettingsWindow.xaml">
+    <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

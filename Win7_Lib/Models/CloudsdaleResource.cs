@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using Cloudsdale_Win7.Cloudsdale_Lib;
 using Cloudsdale_Win7.Win7_Lib.Helpers;
+using Cloudsdale_Win7.Win7_Lib.Win7_Lib;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -150,7 +148,7 @@ namespace Cloudsdale_Win7.Win7_Lib.Models
             var response = await ValidationRequest(client, requestUrl);
 
             var responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
-            var responseModel = (CloudsdaleModel)ObjectFromWebResult(responseObject).ToObject(GetType());
+            var responseModel = ObjectFromWebResult(responseObject).ToObject<CloudsdaleModel>();
             responseModel.CopyTo(this);
             return true;
         }
@@ -176,9 +174,9 @@ namespace Cloudsdale_Win7.Win7_Lib.Models
         /// <returns>The response object returned from the server</returns>
         protected virtual async Task<HttpResponseMessage> ValidationRequest(HttpClient client, string uri)
         {
-            if (Cloudsdale_Lib.SessionProvider.CurrentSession != null)
+            if (Cloudsdale.SessionProvider.CurrentSession != null)
             {
-                client.DefaultRequestHeaders.Add("X-Auth-Token", Cloudsdale_Lib.SessionProvider.CurrentSession.AuthToken);
+                client.DefaultRequestHeaders.Add("X-Auth-Token", Cloudsdale.SessionProvider.CurrentSession.AuthToken);
             }
 
             return await client.GetAsync(uri);
@@ -232,7 +230,7 @@ namespace Cloudsdale_Win7.Win7_Lib.Models
             {
                 DefaultRequestHeaders = {
                     {"Accept", "application/json"},
-                    {"X-Auth-Token", Cloudsdale_Lib.SessionProvider.CurrentSession.AuthToken}
+                    {"X-Auth-Token", Cloudsdale.SessionProvider.CurrentSession.AuthToken}
                 }
             };
 
@@ -243,7 +241,7 @@ namespace Cloudsdale_Win7.Win7_Lib.Models
             if (responseMessage.StatusCode != HttpStatusCode.OK)
             {
                 if (!cancelError)
-                    await Cloudsdale_Lib.ModelErrorProvider.OnError(response);
+                    Cloudsdale.ModelErrorProvider.OnError(response);
                 return response;
             }
 

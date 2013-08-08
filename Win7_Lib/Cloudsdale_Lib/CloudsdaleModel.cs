@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using Cloudsdale_Win7.Win7_Lib.Models;
 using Newtonsoft.Json;
-using Cloudsdale_Win7.Cloudsdale_Lib;
+using Cloudsdale_Win7.Win7_Lib;
 
-namespace Cloudsdale_Win7.Cloudsdale_Lib
+namespace Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class CloudsdaleModel : INotifyPropertyChanged

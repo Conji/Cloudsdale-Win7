@@ -1,4 +1,6 @@
-﻿namespace Cloudsdale_Win7.Win7_Lib.Providers
+﻿using Cloudsdale_Win7.Win7_Lib.Models;
+
+namespace Cloudsdale_Win7.Win7_Lib.Providers
 {
     /// <summary>
     /// Provides internal models access to the currently logged in session
