@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cloudsdale_Win7.Assets
+﻿namespace Cloudsdale_Win7.Win7_Lib
 {
     class Endpoints
     {
@@ -32,5 +26,13 @@ namespace Cloudsdale_Win7.Assets
         public const string PushAddress = "wss://push.cloudsdale.org/push";
 
         public const string BaseCloudAddress = "http://www.cloudsdale.org/clouds/";
+
+        #region methods
+
+        public const string DESTROY = "DELETE";
+        public const string UPDATE = "PUT";
+        public const string INDEX = "POST";
+
+        #endregion
     }
 }

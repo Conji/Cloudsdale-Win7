@@ -104,13 +104,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cloudsdale\Cloudsdale.cs" />
+    <Compile Include="Cloudsdale\CloudsdaleModel.cs" />
     <Compile Include="Cloudsdale\ModelSettings.cs" />
-    <Compile Include="Cloudsdale\Updater.cs" />
+    <Compile Include="Cloudsdale\UIMetaData.cs" />
     <Compile Include="Exceptions\NotInstalledCorrectly.cs" />
-    <Compile Include="Models\CDUModel.cs" />
+    <Compile Include="Win7-Lib\Models\Avatar.cs" />
+    <Compile Include="Win7-Lib\Models\CDUModel.cs" />
+    <Compile Include="Win7-Lib\Models\Cloud.cs" />
     <Compile Include="MVVM\AkaConverter.cs" />
     <Compile Include="MVVM\IsUnread.cs" />
     <Compile Include="MVVM\UnreadConverter.cs" />
+    <Compile Include="Win7-Lib\Providers\ICloudProvider.cs" />
+    <Compile Include="Win7-Lib\Providers\IMetadataProvider.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -142,8 +148,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Assets\Cloudsdale_Source.cs" />
-    <Compile Include="Assets\Endpoints.cs" />
+    <Compile Include="Win7-Lib\Cloudsdale_Source.cs" />
+    <Compile Include="Win7-Lib\Endpoints.cs" />
     <Compile Include="Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
     </Compile>
@@ -180,11 +186,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AvatarModel.cs" />
-    <Compile Include="Models\AvatarSize.cs" />
-    <Compile Include="Models\CloudModel.cs" />
-    <Compile Include="Models\UDUModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Win7-Lib\Models\UDUModel.cs" />
+    <Compile Include="Win7-Lib\Models\User.cs" />
     <Compile Include="MVVM\ChatColorConverter.cs" />
     <Compile Include="MVVM\DependencyJToken.cs" />
     <Compile Include="MVVM\DeviceIcon.cs" />
@@ -277,7 +280,8 @@
     <Resource Include="Assets\cloudsdale-thin-bright-logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\Cloudsdale_Bots\Lib\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Win7-Lib\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\group.png" />

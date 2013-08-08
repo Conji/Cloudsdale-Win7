@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Cloudsdale;
 using Cloudsdale_Win7.Models;
 using Newtonsoft.Json.Linq;
@@ -68,18 +70,27 @@ namespace Cloudsdale_Win7.Controls {
                         {
                             shortname = match.ToString().Split('/')[4];
                             id = CloudModel.ID(shortname);
-                            FayeConnector.Subscribe(id);
-                            var cloud_json = CloudModel.CloudJson(shortname);
-                            if (!MainWindow.User["user"]["clouds"].ToString().Contains(cloud_json.ToString()))
-                            {
-                                MainWindow.User["user"]["clouds"] = "," +
-                                MainWindow.User["user"]["clouds"].ToString().Insert(
-                                    MainWindow.User["user"]["clouds"].ToString().Length - 3, cloud_json.ToString());
-                            }
-                            MainWindow.CurrentCloud = CloudModel.CloudJson(shortname)["result"];
-                            MainWindow.Instance.CloudList.SelectedItem = MainWindow.CurrentCloud;
-                            MainWindow.Instance.CloudList.ItemsSource = MainWindow.User["user"]["clouds"];
+                            var request =
+                                WebRequest.CreateHttp(Endpoints.CloudUsers.Replace("[:id]",
+                                                                                   id) + "/" + MainWindow.User["user"]["id"].ToString());
+                            request.Headers["X-Auth-Token"] = User.AuthToken();
+                            request.Method = "PUT";
+                            request.Accept = "application/json";
+                            
+                            request.BeginGetRequestStream(ar =>
+                                                              {
+                                                                  try
+                                                                  {
+                                                                      var blank = new byte[0];
+                                                                      var reqs = request.EndGetRequestStream(ar);
+                                                                      reqs.Write(blank , 0, 0);
+                                                                      reqs.Close();
+                                                                  }catch (Exception ex)
+                                                                  {
+                                                                      Console.WriteLine(ex.Message);
+                                                                  }
 
+                                                              }, null);
                             //MainWindow.Instance.CloudList.SelectedItem = newCloud;
                         }
                         else if (match.ToString().StartsWith("www."))

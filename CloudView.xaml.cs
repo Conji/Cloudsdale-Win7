@@ -4,7 +4,7 @@ using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using Cloudsdale_Win7.Assets;
+using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Cloudsdale;
 using Cloudsdale_Win7.MVVM;
 using Newtonsoft.Json.Linq;

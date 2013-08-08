@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Cloudsdale_Win7.Assets;
+using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Cloudsdale;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -116,7 +116,7 @@ namespace Cloudsdale_Win7 {
             dataObject["password"] = PasswordBox.Password;
             var data = Encoding.UTF8.GetBytes(dataObject.ToString(Formatting.None));
 
-            var request = WebRequest.CreateHttp("http://www.cloudsdale.org/v1/sessions");
+            var request = WebRequest.CreateHttp(Endpoints.Session);
             request.Method = "POST";
             request.ContentLength = data.Length;
             request.ContentType = "application/json";
@@ -144,6 +144,7 @@ namespace Cloudsdale_Win7 {
                         responseData = responseStreamReader.ReadToEnd();
                     }
                 }
+                Console.WriteLine(responseData);
                 throw new CouldNotLoginException(responseData);
             }
 

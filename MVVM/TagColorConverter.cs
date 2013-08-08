@@ -10,26 +10,35 @@ namespace Cloudsdale_Win7.MVVM {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             var color = Colors.Transparent;
             switch (value.ToString()) {
+                case "staff":
+                    color = Win7_Lib.Cloudsdale_Source.DevTag;
+                    break;
                 case "developer":
-                    color = Assets.Cloudsdale_Source.DevTag;
+                    color = Win7_Lib.Cloudsdale_Source.DevTag;
                     break;
                 case "verified":
-                    color = Assets.Cloudsdale_Source.VerifiedTag;
+                    color = Win7_Lib.Cloudsdale_Source.VerifiedTag;
                     break;
                 case "founder":
-                    color = Assets.Cloudsdale_Source.FounderTag;
+                    color = Win7_Lib.Cloudsdale_Source.FounderTag;
                     break;
                 case "donor":
-                    color = Assets.Cloudsdale_Source.DonatorTag;
+                    color = Win7_Lib.Cloudsdale_Source.DonatorTag;
                     break;
                 case "admin":
-                    color = Assets.Cloudsdale_Source.AdminTag;
+                    color = Win7_Lib.Cloudsdale_Source.AdminTag;
                     break;
                 case "legacy":
-                    color = Assets.Cloudsdale_Source.LegacyTag;
+                    color = Win7_Lib.Cloudsdale_Source.LegacyTag;
                     break;
                 case "associate":
-                    color = Assets.Cloudsdale_Source.AssociateTag;
+                    color = Win7_Lib.Cloudsdale_Source.AssociateTag;
+                    break;
+                case "normal":
+                    color = Win7_Lib.Cloudsdale_Source.PrimaryBackground;
+                    break;
+                default:
+                    color = Colors.Lavender;
                     break;
             }
             return new SolidColorBrush(color);

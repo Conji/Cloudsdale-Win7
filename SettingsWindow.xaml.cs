@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Cloudsdale_Win7.Assets;
+using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Models;
 using Cloudsdale_Win7.Cloudsdale;
 
@@ -25,13 +15,14 @@ namespace Cloudsdale_Win7
     {
         public static SettingsWindow Instance;
         private static Regex NameRegex = new Regex(@"([A-Za-z0-9_]+)", RegexOptions.IgnoreCase);
+        public bool UpdateClearable = false;
 
         public SettingsWindow()
         {
             InitializeComponent();
             Instance = this;
 
-            if (UserModel.NameChangesAllowed() == 0)
+            if (User.NameChangesAllowed() == 0)
             {
                 username.IsEnabled = false;
             }
@@ -43,28 +34,7 @@ namespace Cloudsdale_Win7
             }
             aka.Text += MainWindow.User["user"]["also_known_as"].ToString().MultiReplace("[", "]", "\"", "");
         }
-        private void name_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (username.IsFocused)
-            {
-                var input = username.Text;
-
-                var hasSymbol = !String.IsNullOrEmpty(input) && !Char.IsLetterOrDigit(input[input.Length - 1]) && !Char.IsPunctuation(input[input.Length - 1]);
-                
-                if (hasSymbol)
-                {
-                    var b = new SolidColorBrush();
-                    b.Color = Cloudsdale_Source.Error_Bright;
-                    username.Background = b;
-                }
-                else
-                {
-                    var b = new SolidColorBrush();
-                    b.Color = Cloudsdale_Source.Success_Bright;
-                    username.Background = b;
-                }
-            }
-        }
+       
         private void Logout(object sender, RoutedEventArgs e)
         {
             MainWindow.User = null;
@@ -90,6 +60,35 @@ namespace Cloudsdale_Win7
                 b.Color = Cloudsdale_Source.Error_Bright;
                 newPassword.Background = b;
             }
+        }
+
+        private void CheckContent(object sender, RoutedEventArgs e)
+        {
+            var input = username.Text;
+            var b_success = new SolidColorBrush(Cloudsdale_Source.Success_Bright);
+            var b_fail = new SolidColorBrush(Cloudsdale_Source.Error_Bright);
+            foreach(var c in input.ToCharArray())
+            {
+                if(Char.IsLetterOrDigit(c) || c == '_')
+                {
+                    username.Background = b_success;
+                    UpdateClearable = true;
+                }else
+                {
+                    username.Background = b_fail;
+                }
+            }
+        }
+
+        private void Default(object sender, RoutedEventArgs e)
+        {
+            var b = new SolidColorBrush(Cloudsdale_Source.PrimaryBackground);
+            username.Background = b;
+        }
+
+        private void Update(object sender, RoutedEventArgs e)
+        {
+            UDUModel.Name(name.Text);
         }
     }
 }

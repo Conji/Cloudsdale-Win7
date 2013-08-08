@@ -4,11 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows.Controls;
-using Cloudsdale_Win7.Assets;
+using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Cloudsdale;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale_Win7.Models
+namespace Cloudsdale_Win7.Win7_Lib.Models
 {
     //User Data Upload Model
     class UDUModel

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Media;
 
-namespace Cloudsdale_Win7.Assets
+namespace Cloudsdale_Win7.Win7_Lib
 {
     class Cloudsdale_Source
     {
@@ -22,7 +21,7 @@ namespace Cloudsdale_Win7.Assets
         public static Color DevTag = Color.FromRgb(142, 60, 255);
         public static Color AdminTag = Color.FromRgb(99, 151, 63);
         public static Color AssociateTag = Color.FromRgb(110, 110, 167);
-        public static Color DonatorTag = Color.FromRgb(220, 206, 70);
+        public static Color DonatorTag = Color.FromRgb(220, 220, 30);
         public static Color LegacyTag = Color.FromRgb(160, 160, 160);
         public static Color VerifiedTag = Color.FromRgb(40, 40, 250);
 
