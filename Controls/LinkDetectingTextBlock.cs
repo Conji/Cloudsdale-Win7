@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Cloudsdale;
+using Cloudsdale_Win7.Cloudsdale_Lib;
 using Cloudsdale_Win7.Models;
 using Newtonsoft.Json.Linq;
 

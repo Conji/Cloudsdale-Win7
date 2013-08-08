@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Cloudsdale_Win7.Cloudsdale {
+namespace Cloudsdale_Win7.Cloudsdale_Lib {
     public static class Helpers {
         private static readonly char[] SpecChars = { '\n', '\r', '\t', '\b', '\\' };
 

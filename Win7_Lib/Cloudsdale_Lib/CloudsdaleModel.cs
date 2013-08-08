@@ -7,17 +7,18 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Cloudsdale_Win7.Win7_Lib.Models;
 using Newtonsoft.Json;
-using Cloudsdale_Win7.Cloudsdale;
+using Cloudsdale_Win7.Cloudsdale_Lib;
 
-namespace Cloudsdale_Win7.Cloudsdale
+namespace Cloudsdale_Win7.Cloudsdale_Lib
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class CloudsdaleModel : INotifyPropertyChanged
     {
         public CloudsdaleModel()
         {
-            UIMetadata = new UIMetaData(this);
+            UIMetadata = new UIMetadata(this);
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Cloudsdale_Win7.Cloudsdale
         /// <summary>
         /// Metadata useful for UI display, provided by a MetadataProvider
         /// </summary>
-        public UIMetaData UIMetadata { get; set; }
+        public UIMetadata UIMetadata { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

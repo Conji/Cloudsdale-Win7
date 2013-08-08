@@ -5,9 +5,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Cloudsdale_Win7.Cloudsdale;
+using Cloudsdale_Win7.Cloudsdale_Lib;
 
-namespace Cloudsdale_Win7.Providers
+namespace Cloudsdale_Win7.Win7_Lib.Helpers
 {
     /// <summary>
     /// Provides metadata objects to models

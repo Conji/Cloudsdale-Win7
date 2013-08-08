@@ -104,22 +104,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Cloudsdale\Cloudsdale.cs" />
-    <Compile Include="Cloudsdale\CloudsdaleModel.cs" />
-    <Compile Include="Cloudsdale\ModelSettings.cs" />
-    <Compile Include="Cloudsdale\UIMetaData.cs" />
+    <Compile Include="Win7_Lib\Annotations.cs" />
+    <Compile Include="Win7_Lib\Cloudsdale_Lib\Cloudsdale.cs" />
+    <Compile Include="Win7_Lib\Cloudsdale_Lib\CloudsdaleModel.cs" />
+    <Compile Include="Win7_Lib\Cloudsdale_Lib\ModelSettings.cs" />
     <Compile Include="Exceptions\NotInstalledCorrectly.cs" />
-    <Compile Include="Win7-Lib\Models\Avatar.cs" />
-    <Compile Include="Win7-Lib\Models\CDUModel.cs" />
-    <Compile Include="Win7-Lib\Models\Cloud.cs" />
+    <Compile Include="Win7_Lib\Helpers\WebResponse.cs" />
+    <Compile Include="Win7_Lib\Models\Avatar.cs" />
+    <Compile Include="Win7_Lib\Models\Ban.cs" />
+    <Compile Include="Win7_Lib\Models\CloudsdaleResource.cs" />
+    <Compile Include="Win7_Lib\Models\Session.cs" />
+    <Compile Include="Win7_Lib\Models\Status.cs" />
+    <Compile Include="Win7_Lib\Models\UIMetadata.cs" />
+    <Compile Include="Win7_Lib\Models\Updaters\CDUModel.cs" />
+    <Compile Include="Win7_Lib\Models\Cloud.cs" />
     <Compile Include="MVVM\AkaConverter.cs" />
     <Compile Include="MVVM\IsUnread.cs" />
     <Compile Include="MVVM\UnreadConverter.cs" />
-    <Compile Include="Win7-Lib\Providers\ICloudProvider.cs" />
-    <Compile Include="Win7-Lib\Providers\IMetadataProvider.cs" />
+    <Compile Include="Win7_Lib\Providers\ICloudProvider.cs" />
+    <Compile Include="Win7_Lib\Providers\ICloudServiceProvider.cs" />
+    <Compile Include="Win7_Lib\Providers\IErrorProvider.cs" />
+    <Compile Include="Win7_Lib\Providers\IMetadataProvider.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Win7_Lib\Providers\ISessionProvider.cs" />
+    <Compile Include="Win7_Lib\Providers\IStatusProvider.cs" />
+    <Compile Include="Win7_Lib\Providers\IUserProvider.cs" />
     <Page Include="Browser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,17 +159,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Win7-Lib\Cloudsdale_Source.cs" />
-    <Compile Include="Win7-Lib\Endpoints.cs" />
+    <Compile Include="Win7_Lib\Cloudsdale_Source.cs" />
+    <Compile Include="Win7_Lib\Endpoints.cs" />
     <Compile Include="Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Cloudsdale\Connection.cs" />
-    <Compile Include="Cloudsdale\CouldNotLoginException.cs" />
-    <Compile Include="Cloudsdale\FayeConnector.cs" />
-    <Compile Include="Cloudsdale\Helpers.cs" />
-    <Compile Include="Cloudsdale\MessageSource.cs" />
-    <Compile Include="Cloudsdale\UserSettings.Designer.cs">
+    <Compile Include="Win7_Lib\Cloudsdale_Lib\Connection.cs" />
+    <Compile Include="Win7_Lib\Cloudsdale_Lib\CouldNotLoginException.cs" />
+    <Compile Include="Win7_Lib\Cloudsdale_Lib\FayeConnector.cs" />
+    <Compile Include="Win7_Lib\Cloudsdale_Lib\Helpers.cs" />
+    <Compile Include="Win7_Lib\Cloudsdale_Lib\MessageSource.cs" />
+    <Compile Include="Win7_Lib\Cloudsdale_Lib\UserSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>UserSettings.settings</DependentUpon>
@@ -186,8 +197,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Win7-Lib\Models\UDUModel.cs" />
-    <Compile Include="Win7-Lib\Models\User.cs" />
+    <Compile Include="Win7_Lib\Models\Updaters\UDUModel.cs" />
+    <Compile Include="Win7_Lib\Models\User.cs" />
     <Compile Include="MVVM\ChatColorConverter.cs" />
     <Compile Include="MVVM\DependencyJToken.cs" />
     <Compile Include="MVVM\DeviceIcon.cs" />
@@ -221,7 +232,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Cloudsdale\UserSettings.settings">
+    <None Include="Win7_Lib\Cloudsdale_Lib\UserSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
     </None>
@@ -279,10 +290,7 @@
   <ItemGroup>
     <Resource Include="Assets\cloudsdale-thin-bright-logo.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Providers\" />
-    <Folder Include="Win7-Lib\Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\group.png" />
   </ItemGroup>

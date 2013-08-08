@@ -1,6 +1,6 @@
-﻿using Cloudsdale_Win7.Models;
+﻿using Cloudsdale_Win7.Win7_Lib.Models;
 
-namespace Cloudsdale_Win7.Providers
+namespace Cloudsdale_Win7.Win7_Lib.Providers
 {
     public interface ICloudProvider
     {

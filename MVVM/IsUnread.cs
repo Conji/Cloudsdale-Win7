@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using Cloudsdale_Win7.Cloudsdale;
+using Cloudsdale_Win7.Cloudsdale_Lib;
 
 namespace Cloudsdale_Win7.MVVM
 {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale_Win7.Cloudsdale {
+namespace Cloudsdale_Win7.Cloudsdale_Lib {
     public class MessageSource {
         private static readonly Dictionary<string, MessageSource> Sources = new Dictionary<string, MessageSource>(); 
         public readonly ObservableCollection<JToken> Messages = new ObservableCollection<JToken>();

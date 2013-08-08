@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cloudsdale_Win7.Cloudsdale {
+namespace Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

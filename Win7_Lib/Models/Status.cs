@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Cloudsdale_Win7.Win7_Lib.Models
 {
-    class Avatar
+    public enum Status
     {
+        Online = 0,
+        Away = 1,
+        Busy = 2,
+        Offline = 3
     }
 }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="Cloudsdale_Win7.MainWindow"
+﻿<Window x:Class="Cloudsdale_Lib_Win7.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:MVVM="clr-namespace:Cloudsdale_Win7.MVVM"
