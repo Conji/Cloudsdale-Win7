@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using Cloudsdale_Win7.Models;
 
 namespace Cloudsdale_Win7 {
     /// <summary>

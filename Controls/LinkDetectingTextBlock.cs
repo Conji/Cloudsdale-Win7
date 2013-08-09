@@ -17,7 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Models;
+using Cloudsdale_Win7.Win7_Lib.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale_Win7.Controls {
@@ -66,42 +66,7 @@ namespace Cloudsdale_Win7.Controls {
                         //Adds the clicked cloud link to the cloud list and subscribes the user to the channel.
                         string shortname;
                         string id;
-                        if (match.ToString().StartsWith("http://"))
-                        {
-                            shortname = match.ToString().Split('/')[4];
-                            id = CloudModel.ID(shortname);
-                            var request =
-                                WebRequest.CreateHttp(Endpoints.CloudUsers.Replace("[:id]",
-                                                                                   id) + "/" + MainWindow.User["user"]["id"].ToString());
-                            request.Headers["X-Auth-Token"] = User.AuthToken();
-                            request.Method = "PUT";
-                            request.Accept = "application/json";
-                            
-                            request.BeginGetRequestStream(ar =>
-                                                              {
-                                                                  try
-                                                                  {
-                                                                      var blank = new byte[0];
-                                                                      var reqs = request.EndGetRequestStream(ar);
-                                                                      reqs.Write(blank , 0, 0);
-                                                                      reqs.Close();
-                                                                  }catch (Exception ex)
-                                                                  {
-                                                                      Console.WriteLine(ex.Message);
-                                                                  }
-
-                                                              }, null);
-                            //MainWindow.Instance.CloudList.SelectedItem = newCloud;
-                        }
-                        else if (match.ToString().StartsWith("www."))
-                        {
-                            shortname = match.ToString().Split('/')[2];
-                            id = CloudModel.ID(shortname);
-                            FayeConnector.Subscribe(id);
-                        }
-                    }
-                    else
-                    {
+                        
                         MainWindow.Instance.CloudList.SelectedIndex = -1;
                         MainWindow.Instance.Frame.Navigate(new Browser());
                         Browser.Instance.Width = MainWindow.Instance.Width;

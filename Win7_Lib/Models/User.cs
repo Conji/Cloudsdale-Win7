@@ -21,6 +21,7 @@ namespace Cloudsdale_Win7.Win7_Lib.Models
         private string _role;
         private Avatar _avatar;
         private string _username;
+        public static int _changesAllowed;
 
         [JsonConstructor]
         public User(string id) : base(id)
@@ -251,7 +252,16 @@ namespace Cloudsdale_Win7.Win7_Lib.Models
         }
 
         [JsonProperty("status")] public Status? Status;
-
+        [JsonProperty("username_changes_allowed")]
+        public static int NameChangesAllowed
+        {
+            get { return _changesAllowed;  }
+            set
+            {
+                if (value.Equals(_changesAllowed)) return;
+                _changesAllowed = value;
+            }
+        }
         #endregion
     }
 }

@@ -12,7 +12,7 @@
 
     <Grid x:Name="LoginBack">
         <Grid.Background>
-            <ImageBrush ImageSource="Assets/Login.gif"/>
+            <ImageBrush ImageSource="/Cloudsdale;component/Assets/Login.gif"/>
         </Grid.Background>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="MainLayout" Margin="164,131,166,184" Height="165">
             <StackPanel Orientation="Horizontal"/>
@@ -38,7 +38,7 @@
             <PasswordBox Margin="150,217,150,96" x:Name="PasswordBox" FontSize="18" />
             <CheckBox x:Name="autoSession" Content="Auto-Login" HorizontalAlignment="Left" Margin="150,245,0,0" VerticalAlignment="Top" FontSize="20" VerticalContentAlignment="Center"/>
             <Button x:Name="LoginButton" Width="141" Margin="0,249,150,56" HorizontalAlignment="Right" Click="LoginClick" Content="Login" IsDefault="True" FontSize="18"/>
-            <Image Height="125" VerticalAlignment="Top" Source="Assets/cloudsdale-thin-bright-logo.png"/>
+            <Image Height="125" VerticalAlignment="Top" Source="/Cloudsdale;component/Assets/cloudsdale-thin-bright-logo.png"/>
         </Grid>
     </Grid>
 </Page>

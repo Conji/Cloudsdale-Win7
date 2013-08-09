@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Helpers;
+using Cloudsdale_Win7.Win7_Lib.Helpers;
+using Cloudsdale_Win7.Win7_Lib.Win7_Lib;
 using Newtonsoft.Json;
 
 namespace Cloudsdale_Win7.Win7_Lib.Models

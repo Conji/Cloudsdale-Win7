@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Win7_Lib;
+using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

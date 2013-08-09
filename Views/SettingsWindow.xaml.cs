@@ -3,8 +3,9 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Models;
-using Cloudsdale_Win7.Win7_Lib;
+using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
+using Cloudsdale_Win7.Win7_Lib.Models;
+using Cloudsdale_Win7.Win7_Lib.Models.Updaters;
 
 namespace Cloudsdale_Win7
 {
@@ -22,7 +23,7 @@ namespace Cloudsdale_Win7
             InitializeComponent();
             Instance = this;
 
-            if (User.NameChangesAllowed() == 0)
+            if (User.NameChangesAllowed == 0)
             {
                 username.IsEnabled = false;
             }

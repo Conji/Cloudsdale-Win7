@@ -55,6 +55,9 @@
     <ApplicationIcon>Resources\Cloudsdale.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net">
+      <HintPath>..\..\References\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\AppData\Local\Cloudsdale\cloudsdale-win7\bin\Newtonsoft.Json.dll</HintPath>
@@ -106,7 +109,6 @@
     </ApplicationDefinition>
     <Compile Include="Win7_Lib\Annotations.cs" />
     <Compile Include="Win7_Lib\Cloudsdale_Lib\Cloudsdale.cs" />
-    <Compile Include="Win7_Lib\Cloudsdale_Lib\CloudsdaleModel.cs" />
     <Compile Include="Win7_Lib\Cloudsdale_Lib\ModelSettings.cs" />
     <Compile Include="Exceptions\NotInstalledCorrectly.cs" />
     <Compile Include="Win7_Lib\Helpers\WebResponse.cs" />

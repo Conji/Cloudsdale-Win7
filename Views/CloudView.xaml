@@ -24,11 +24,10 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Image Grid.Column="1" Margin="787,0,-199,15"/>
-        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" Height="100" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" Height="47" VerticalAlignment="Top">
             <StackPanel.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </StackPanel.Background>
-            <Image Width="64" Source="{Binding [avatar][normal], Converter={StaticResource StringUriConv}}" Margin="10,10,10,26" />
             <StackPanel Width="434">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel x:Name="RateSliderContainer" Margin="2">
@@ -39,12 +38,12 @@
                         <TextBlock/>
                     </StackPanel>
                 </StackPanel>
-                <TextBlock VerticalAlignment="Top" FontSize="28" Margin="10" Text="{Binding [name]}" Height="36" FontFamily="Segoe UI Semibold"/>
             </StackPanel>
+            <Button x:Name="acp" Content="ACP" FontFamily="Aharoni" Width="63"/>
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>
-        <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Margin="0,100,0,0" Grid.RowSpan="2">
-            <ItemsControl x:Name="ChatMessages" Margin="0,0,0,7">
+        <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Margin="0,47,0,0" Grid.RowSpan="2">
+            <ItemsControl x:Name="ChatMessages">
                 <ItemsControl.Background>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </ItemsControl.Background>
@@ -119,27 +118,27 @@
             </ItemsControl>
         </ScrollViewer>
         <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" />
-        <Expander Header="Menu" Margin="0,18,10,0" FontSize="18" Height="97" VerticalAlignment="Top" Grid.Column="1" ExpandDirection="Left" HorizontalAlignment="Right" Width="468" FontFamily="Segoe UI Emoji">
+        <Expander Header="Menu" Margin="0,0,10,0" FontSize="18" Height="97" VerticalAlignment="Top" Grid.Column="1" ExpandDirection="Left" HorizontalAlignment="Right" Width="468" FontFamily="Segoe UI Emoji">
             <Grid Margin="0,0,0,-2" Background="#FF3F85B3">
-                <Image Margin="30,10,0,21" HorizontalAlignment="Left" Width="52" Source="Assets/cloud.png" Cursor="Hand"/>
+                <Image Margin="30,10,0,21" HorizontalAlignment="Left" Width="52" Cursor="Hand" Source="/Cloudsdale;component/Assets/cloud.png"/>
                 <TextBlock TextWrapping="Wrap" Text="Explore" Margin="30,65,336,0" FontSize="14" Height="22" VerticalAlignment="Top" FontWeight="Bold">
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                     </TextBlock.Foreground>
                 </TextBlock>
-                <Image Margin="133,10,0,21" HorizontalAlignment="Left" Width="52" Source="Assets/home.png" Cursor="Hand" MouseDown="DirectHome"/>
+                <Image Margin="133,10,0,21" HorizontalAlignment="Left" Width="52" Cursor="Hand" MouseDown="DirectHome" Source="/Cloudsdale;component/Assets/home.png"/>
                 <TextBlock TextWrapping="Wrap" Text="Home" Margin="140,65,233,0" FontSize="14" Height="22" VerticalAlignment="Top" FontWeight="Bold">
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                     </TextBlock.Foreground>
                 </TextBlock>
-                <Image Margin="253,10,0,21" HorizontalAlignment="Left" Width="52" Source="Assets/computer_service.png" Cursor="Hand" MouseDown="ShowSettings"/>
+                <Image Margin="253,10,0,21" HorizontalAlignment="Left" Width="52" Cursor="Hand" MouseDown="ShowSettings" Source="/Cloudsdale;component/Assets/computer_service.png"/>
                 <TextBlock TextWrapping="Wrap" Text="Settings" Margin="253,65,102,0" FontSize="14" Height="22" VerticalAlignment="Top" FontWeight="Bold">
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                     </TextBlock.Foreground>
                 </TextBlock>
-                <Image Margin="356,10,0,21" HorizontalAlignment="Left" Width="52" Source="Assets/circle_info.png" Cursor="Hand"/>
+                <Image Margin="356,10,0,21" HorizontalAlignment="Left" Width="52" Cursor="Hand" Source="/Cloudsdale;component/Assets/circle_info.png"/>
                 <TextBlock TextWrapping="Wrap" Text="Info" Margin="367,65,19,0" FontSize="14" Height="22" VerticalAlignment="Top" FontWeight="Bold">
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
@@ -147,6 +146,6 @@
                 </TextBlock>
             </Grid>
         </Expander>
-        <Button x:Name="acp" Content="ACP" Margin="10,80,58,15" FontFamily="Aharoni"/>
+        <TextBlock VerticalAlignment="Top" FontSize="16" Margin="10,10,388,0" Text="{Binding [name]}" Height="37" FontFamily="Segoe UI Semibold" Grid.ColumnSpan="2"/>
     </Grid>
 </Page>
