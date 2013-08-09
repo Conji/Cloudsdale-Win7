@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
@@ -21,6 +22,8 @@ namespace Cloudsdale_Win7 {
     public partial class Login
     {
         public static Login Instance;
+        public static bool LoggingOut = false;
+
         public Login()
         {
             Instance = this;
@@ -28,10 +31,21 @@ namespace Cloudsdale_Win7 {
             EmailBox.Text = UserSettings.Default.PreviousEmail;
             PasswordBox.Password = UserSettings.Default.PreviousPassword;
             autoSession.IsChecked = UserSettings.Default.AutoLogin;
-            if (autoSession.IsChecked == true)
+            if (LoggingOut == false)
             {
-                LoginClick(LoginButton, null);
+                if (autoSession.IsChecked == true)
+                {
+                    LoginClick(LoginButton, null);
+                }
             }
+        }
+
+        public static void Logout()
+        {
+            LoggingOut = true;
+            Instance.EmailBox.Text = UserSettings.Default.PreviousEmail;
+            Instance.PasswordBox.Password = UserSettings.Default.PreviousPassword;
+            Instance.autoSession.IsChecked = false;
         }
 
         private static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase | RegexOptions.Compiled);

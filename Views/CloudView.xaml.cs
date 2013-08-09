@@ -41,11 +41,17 @@ namespace Cloudsdale_Win7 {
         }
 
         private void SendBoxEnter(object sender, KeyEventArgs e) {
-            if (e.Key != Key.Enter) return;
-            if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
-            Send(InputBox.Text, (string)Cloud["id"]);
-            InputBox.Text = "";
+            //if (e.Key != Key.Enter) return;
+            //if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
+            //Send(InputBox.Text, (string)Cloud["id"]);
+            //InputBox.Text = "";
 
+            if (e.Key == Key.Enter)
+            {
+                if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
+                Send(InputBox.Text, (string)Cloud["id"]);
+                InputBox.Text = "";
+            }
         }
 
         internal void Send(string message, string cloudId)

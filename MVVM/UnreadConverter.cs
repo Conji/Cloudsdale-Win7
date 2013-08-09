@@ -13,13 +13,17 @@ namespace Cloudsdale_Win7.MVVM
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var newint = (int) value;
-            var source = MessageSource.GetSource(MainWindow.CurrentCloud["id"].ToString());
-            int messageCount = source.Messages.Count;
-            int readMessages = CloudView.Instance.ChatMessages.Items.Count;
-            newint = messageCount - readMessages;
-
-            return newint.ToString();
+            foreach (var cloud in MainWindow.Instance.CloudList.Items)
+            {
+                if (cloud.ToString() != MainWindow.CurrentCloud["name"].ToString())
+                {
+                    var read = CloudView.Instance.ChatMessages.Items.Count;
+                    var total = MessageSource.GetSource(cloud.ToString()).Messages.Count;
+                    return total - read;
+                }
+                return 0;
+            }
+            return 0;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

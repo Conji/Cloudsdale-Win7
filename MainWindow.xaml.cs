@@ -53,5 +53,12 @@ namespace Cloudsdale_Win7
             }
             return Clouds[(string)cloud["id"]] = new CloudView(cloud);
         }
+
+        private void Close(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow.Instance.Close();
+        }
+
+        
     }
 }

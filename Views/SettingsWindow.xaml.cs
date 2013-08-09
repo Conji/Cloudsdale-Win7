@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
 using Cloudsdale_Win7.Win7_Lib.Models;
@@ -23,7 +27,7 @@ namespace Cloudsdale_Win7
             InitializeComponent();
             Instance = this;
 
-            if (User.NameChangesAllowed == 0)
+            if (MainWindow.User["user"]["username_changes_allowed"].ToString() == "0")
             {
                 username.IsEnabled = false;
             }
@@ -34,17 +38,19 @@ namespace Cloudsdale_Win7
                 skype.Text = MainWindow.User["user"]["skype_name"].ToString();
             }
             aka.Text += MainWindow.User["user"]["also_known_as"].ToString().MultiReplace("[", "]", "\"", "");
+
+            avatar.Source = new BitmapImage(new Uri(MainWindow.User["user"]["avatar"]["preview"].ToString(), UriKind.Absolute));
+            avatar.Stretch = Stretch.UniformToFill;
         }
        
         private void Logout(object sender, RoutedEventArgs e)
         {
             MainWindow.User = null;
+            Login.Logout();
             MainWindow.Instance.Frame.Navigate(new Login());
-            Login.Instance.EmailBox.Text = UserSettings.Default.PreviousEmail;
-            Login.Instance.PasswordBox.Password = UserSettings.Default.PreviousPassword;
-            Login.Instance.autoSession.IsChecked = false;
             MainWindow.Instance.CloudList.ItemsSource = null;
-            MainWindow.Instance.CloudList.Width = 5;
+            MainWindow.Instance.CloudList.Width = 4;
+            Close();
         }
 
         private void CheckLength(object sender, RoutedEventArgs e)
