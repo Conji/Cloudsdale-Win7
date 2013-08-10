@@ -1,4 +1,3 @@
 ﻿Add new cloud to the Cloud List and subscribe
-Finish settings panel
 Finish home screen
 Add new loading animation for log in

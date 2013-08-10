@@ -8,7 +8,7 @@
 	Title="Browser" Width="392.226">
 
     <Grid Margin="0,0,0,284">
-        <TextBox x:Name="WebAddress" HorizontalAlignment="Left" Height="23" Margin="78,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="265"/>
+        <TextBox x:Name="WebAddress" HorizontalAlignment="Left" Height="23" Margin="78,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
         <Button Content="&lt;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="22" Height="23" Click="Button_Click_2"/>
         <Button Content="&gt;" HorizontalAlignment="Left" Margin="37,10,0,0" VerticalAlignment="Top" Width="26" Height="23" Click="Button_Click_3"/>
         <Button Content="Go" HorizontalAlignment="Left" Margin="348,10,0,0" VerticalAlignment="Top" Width="34" Height="23" Click="Button_Click_1" IsDefault="True"/>

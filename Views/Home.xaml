@@ -11,7 +11,9 @@
         <FlowDocumentScrollViewer>
             <FlowDocument FontFamily="Segoe UI" FontSize="16">
                 <Paragraph FontSize="36">
-                    Welcome back <Run Text="{Binding Path=[user][name], Converter={StaticResource JTSC}}" />!
+                    <Run Text="Welcome back "/>
+                    <Run Text="{Binding [user][name], Converter={StaticResource JTSC}}" />
+                    <Run Text="!"/>
                 </Paragraph>
                 <Paragraph>
                     <Floater HorizontalAlignment="Left">
@@ -27,6 +29,7 @@
                                     </Image.Clip>
                                 </Image>
                             </InlineUIContainer>
+                            <Run Text=" "/>
                             <InlineUIContainer>
                                 <TextBlock x:Name="JoinDate" TextWrapping="Wrap" Text="User joined on " Width="297"/>
                             </InlineUIContainer>
@@ -35,5 +38,6 @@
                 </Paragraph>
             </FlowDocument>
         </FlowDocumentScrollViewer>
+        <Image Margin="0,0,10,10" HorizontalAlignment="Right" Width="58" Height="52" VerticalAlignment="Bottom" Source="/Cloudsdale;component/Assets/computer_proces.png" MouseDown="ShowConsole"/>
     </Grid>
 </Page>

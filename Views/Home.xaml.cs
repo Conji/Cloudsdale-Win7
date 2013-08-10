@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using Cloudsdale_Win7.Win7_Lib.ErrorConsole;
 
 namespace Cloudsdale_Win7 {
     /// <summary>
@@ -13,6 +15,13 @@ namespace Cloudsdale_Win7 {
             Instance = this;
             MainWindow.Instance.CloudList.Width = 200;
             JoinDate.Text += MainWindow.User["user"]["member_since"].ToString().Split(' ')[0];
+        }
+
+        private void ShowConsole(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var console = new ErrorConsole();
+            console.Visibility = Visibility.Visible;
+            console.Show();
         }
     }
 }

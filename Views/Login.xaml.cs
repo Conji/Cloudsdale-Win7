@@ -8,10 +8,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
+using Cloudsdale_Win7.Win7_Lib.ErrorConsole;
+using Cloudsdale_Win7.Win7_Lib.ErrorConsole.CConsole;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -31,6 +34,17 @@ namespace Cloudsdale_Win7 {
             EmailBox.Text = UserSettings.Default.PreviousEmail;
             PasswordBox.Password = UserSettings.Default.PreviousPassword;
             autoSession.IsChecked = UserSettings.Default.AutoLogin;
+            if ((EmailBox.Text + PasswordBox.Password) == "")
+            {
+                EmailBox.Foreground = new SolidColorBrush(Colors.DarkGray);
+                PasswordBox.Foreground = new SolidColorBrush(Colors.DarkGray);
+                EmailBox.Text = "email";
+                PasswordBox.Password = "password";
+            }else
+            {
+                EmailBox.Foreground = new SolidColorBrush(Colors.Black);
+                PasswordBox.Foreground = new SolidColorBrush(Colors.Black);
+            }
             if (LoggingOut == false)
             {
                 if (autoSession.IsChecked == true)
@@ -143,26 +157,33 @@ namespace Cloudsdale_Win7 {
             }
 
             string responseData;
-            try {
+            try
+            {
                 using (var response = await request.GetResponseAsync())
-                using (var responseStream = response.GetResponseStream()) {
+                using (var responseStream = response.GetResponseStream())
+                {
                     if (responseStream == null) return;
-                    using (var responseStreamReader = new StreamReader(responseStream, Encoding.UTF8)) {
+                    using (var responseStreamReader = new StreamReader(responseStream, Encoding.UTF8))
+                    {
                         responseData = await responseStreamReader.ReadToEndAsync();
                     }
                 }
-            } catch (WebException ex) {
+            }
+            catch (WebException ex)
+            {
                 using (var response = ex.Response)
-                using (var responseStream = response.GetResponseStream()) {
+                using (var responseStream = response.GetResponseStream())
+                {
                     if (responseStream == null) return;
-                    using (var responseStreamReader = new StreamReader(responseStream, Encoding.UTF8)) {
+                    using (var responseStreamReader = new StreamReader(responseStream, Encoding.UTF8))
+                    {
                         responseData = responseStreamReader.ReadToEnd();
+                        var console = new ErrorConsole();
+                        console.Show();
+                        WriteError.Write(responseData);
                     }
                 }
-                Console.WriteLine(responseData);
-                throw new CouldNotLoginException(responseData);
             }
-
             var responseObject = JObject.Parse(responseData);
             MainWindow.User = (JObject)responseObject["result"];
         }
@@ -188,6 +209,38 @@ namespace Cloudsdale_Win7 {
                         FayeConnector.Subscribe("/clouds/" + cloud["id"] + "/chat/messages");
                     }
                 }
+            }
+        }
+
+        private void ColorChange(object sender, TextChangedEventArgs e)
+        {
+            if (EmailBox.Text == "email")
+            {
+                EmailBox.Foreground = new SolidColorBrush(Colors.DarkGray);
+                PasswordBox.Foreground = new SolidColorBrush(Colors.DarkGray);
+            }
+            else
+            {
+                EmailBox.Foreground = new SolidColorBrush(Colors.Black);
+                PasswordBox.Foreground = new SolidColorBrush(Colors.Black);
+            }
+        }
+
+        private void ClearText(object sender, RoutedEventArgs e)
+        {
+            if (EmailBox.Text == "email")
+            {
+                EmailBox.Text = "";
+                PasswordBox.Password = "";
+            }
+        }
+
+        private void AutoFill(object sender, RoutedEventArgs e)
+        {
+            if (EmailBox.Text == "")
+            {
+                EmailBox.Text = "email";
+                PasswordBox.Password = "";
             }
         }
     }

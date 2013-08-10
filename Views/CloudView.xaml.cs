@@ -3,7 +3,9 @@ using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using Cloudsdale_Win7.Views;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.Win7_Lib;
 using Cloudsdale_Win7.MVVM;
@@ -41,11 +43,6 @@ namespace Cloudsdale_Win7 {
         }
 
         private void SendBoxEnter(object sender, KeyEventArgs e) {
-            //if (e.Key != Key.Enter) return;
-            //if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
-            //Send(InputBox.Text, (string)Cloud["id"]);
-            //InputBox.Text = "";
-
             if (e.Key == Key.Enter)
             {
                 if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
@@ -86,7 +83,9 @@ namespace Cloudsdale_Win7 {
         private void DropUp(object sender, MouseButtonEventArgs e) {
             var drop = (JToken)((FrameworkElement)sender).DataContext;
             MainWindow.Instance.Frame.Navigate(new Browser());
+            MainWindow.Instance.CloudList.SelectedIndex = -1;
             Browser.Instance.WebBrowser.Navigate((string)drop["url"]);
+            Browser.Instance.WebAddress.Text = ((string) drop["url"]);
             
             Browser.Instance.BrowserPage.Width = MainWindow.Instance.Width;
         }
@@ -100,6 +99,14 @@ namespace Cloudsdale_Win7 {
         {
             var settings = new SettingsWindow();
             settings.Show();
+        }
+
+        private void ShowUserInfo(object sender, EventArgs e)
+        {
+            var block = (TextBlock) sender;
+            var j = (JObject) block.DataContext;
+            var user = new UserInfo();
+            user.ShowUserInfo((JObject) j["author"]);
         }
     }
 }

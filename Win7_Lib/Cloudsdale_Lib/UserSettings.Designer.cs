@@ -58,5 +58,29 @@ namespace Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib {
                 this["AutoLogin"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("800")]
+        public int AppWidth {
+            get {
+                return ((int)(this["AppWidth"]));
+            }
+            set {
+                this["AppWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("600")]
+        public int AppHeight {
+            get {
+                return ((int)(this["AppHeight"]));
+            }
+            set {
+                this["AppHeight"] = value;
+            }
+        }
     }
 }

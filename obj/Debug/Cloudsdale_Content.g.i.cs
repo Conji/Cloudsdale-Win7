@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("to-do-list.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/warning_sign.png")]
 
 

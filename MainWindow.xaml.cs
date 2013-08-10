@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using Cloudsdale_Win7.Views;
+using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale_Win7
@@ -15,6 +17,9 @@ namespace Cloudsdale_Win7
         public static MainWindow Instance;
         public static JObject User;
         public static JToken CurrentCloud;
+        public static int CloudIndex;
+
+        
         public int MaxCharacters
         {
             get { return (int)GetValue(MaxCharactersProperty); }
@@ -25,6 +30,8 @@ namespace Cloudsdale_Win7
         {
             InitializeComponent();
             Instance = this;
+            Height = UserSettings.Default.AppHeight;
+            Width = UserSettings.Default.AppWidth;
         }
 
         private void CloudListSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -37,7 +44,7 @@ namespace Cloudsdale_Win7
                 {
                     CloudView.Instance.acp.Visibility = Visibility.Collapsed;
                 }
-
+                CloudIndex = CloudList.SelectedIndex;
             }
         }
 
@@ -56,9 +63,30 @@ namespace Cloudsdale_Win7
 
         private void Close(object sender, RoutedEventArgs e)
         {
-            SettingsWindow.Instance.Close();
+            try
+            {
+                SettingsWindow.Instance.Close();
+            }catch
+            {
+            }
+            try
+            {
+                UserInfo.Instance.Close();
+            }catch
+            {
+            }
         }
 
-        
+        private void SaveSettings(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            UserSettings.Default.AppHeight = (int)Height;
+            UserSettings.Default.AppWidth = (int)Width;
+            UserSettings.Default.Save();
+        }
+
+        private void KeepCurrentCloud(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            CloudList.SelectedIndex = CloudIndex;
+        }
     }
 }

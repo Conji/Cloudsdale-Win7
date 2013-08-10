@@ -26,14 +26,17 @@
                     <SolidColorBrush Color="#FF63A8D0"/>
                 </ProgressBar.Background>
                 <ProgressBar.Foreground>
-                    <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="{DynamicResource PrimaryBlue}" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
                 </ProgressBar.Foreground>
             </ProgressBar>
         </StackPanel>
         <Image Height="110" Margin="95,69,95,0" VerticalAlignment="Top"/>
-        <Grid x:Name="LogginContents" HorizontalAlignment="Center" Height="336" Margin="30,49,28,0" VerticalAlignment="Top" Width="582">
+        <Grid x:Name="LogginContents" HorizontalAlignment="Center" Height="336" Margin="30,49,28,0" VerticalAlignment="Top" Width="582" d:IsHidden="True">
             <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="48" Margin="150,192,0,0" Stroke="Black" VerticalAlignment="Top" Width="282" StrokeStartLineCap="Round" StrokeDashCap="Round" StrokeLineJoin="Round" StrokeEndLineCap="Round"/>
-            <TextBox Margin="150,193,150,119" x:Name="EmailBox" FontSize="18" />
+            <TextBox Margin="150,193,150,119" x:Name="EmailBox" FontSize="18" TextChanged="ColorChange" GotFocus="ClearText" LostFocus="AutoFill" />
             <PasswordBox Margin="150,217,150,96" x:Name="PasswordBox" FontSize="18" />
             <CheckBox x:Name="autoSession" Content="Auto-Login" HorizontalAlignment="Left" Margin="150,245,0,0" VerticalAlignment="Top" FontSize="20" VerticalContentAlignment="Center"/>
             <Button x:Name="LoginButton" Width="141" Margin="0,249,150,56" HorizontalAlignment="Right" Click="LoginClick" Content="Login" IsDefault="True" FontSize="18"/>

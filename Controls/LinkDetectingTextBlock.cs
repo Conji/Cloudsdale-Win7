@@ -67,12 +67,13 @@ namespace Cloudsdale_Win7.Controls {
                         string shortname;
                         string id;
                         
-                        MainWindow.Instance.CloudList.SelectedIndex = -1;
-                        MainWindow.Instance.Frame.Navigate(new Browser());
-                        Browser.Instance.Width = MainWindow.Instance.Width;
-                        Browser.Instance.WebBrowser.Navigate(link);
-                        Browser.Instance.WebAddress.Text = link;
+                        
                     }
+                    MainWindow.Instance.CloudList.SelectedIndex = -1;
+                    MainWindow.Instance.Frame.Navigate(new Browser());
+                    Browser.Instance.Width = MainWindow.Instance.Width;
+                    Browser.Instance.WebBrowser.Navigate(link);
+                    Browser.Instance.WebAddress.Text = link;
                 };
                 Inlines.Add(hyperlink);
                 lastIndex = match.Index + match.Length;
