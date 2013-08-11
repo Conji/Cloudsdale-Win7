@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Cloudsdale_Win7.Views;
 using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
+using Cloudsdale_Win7.Win7_Lib.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale_Win7
@@ -19,7 +20,6 @@ namespace Cloudsdale_Win7
         public static JObject User;
         public static JToken CurrentCloud;
         public static int CloudIndex;
-
         
         public int MaxCharacters
         {
@@ -33,6 +33,7 @@ namespace Cloudsdale_Win7
             Instance = this;
             Height = UserSettings.Default.AppHeight;
             Width = UserSettings.Default.AppWidth;
+            Console.WriteLine(ClientVersion.UpdatedVersion());
         }
 
         private void CloudListSelectionChanged(object sender, SelectionChangedEventArgs e)
