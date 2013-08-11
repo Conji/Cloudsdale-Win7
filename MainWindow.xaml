@@ -16,21 +16,7 @@
 
             <ListView Name="CloudList" SelectionChanged="CloudListSelectionChanged"
                       Style="{StaticResource ListBoxStyle}" UseLayoutRounding="False" MouseRightButtonDown="KeepCurrentCloud">
-                <ListView.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Go to cloud"/>
-                        <MenuItem Header="Leave cloud"/>
-                        <MenuItem Header="Copy cloud link"/>
-                        <Separator/>
-                        <MenuItem Header="Cloud information"/>
-                        <MenuItem Header="Cloud rules"/>
-                        <Separator/>
-                        <MenuItem Header="User List...">
-                            
-                        </MenuItem>
-                        <MenuItem Header="Get notifications" IsCheckable="True"/>
-                    </ContextMenu>
-                </ListView.ContextMenu>
+                
                 <ListView.Background>
                     <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                 </ListView.Background>
@@ -41,6 +27,16 @@
                                    Margin="3" Width="24" Height="24"/>
                             <TextBlock Text="{Binding Path=[name]}" Width="200" FontSize="14" Foreground="White" />
                             <TextBlock x:Name="newCount" Text="" FontSize="12" Foreground="WhiteSmoke" HorizontalAlignment="Right"/>
+                            <!--<ContextMenu>
+                                <MenuItem Header="Go to cloud"/>
+                                <MenuItem Header="Leave this cloud"/>
+                                <MenuItem Header="Receive Notifications" IsCheckable="True"/>
+                                <Separator/>
+                                <MenuItem Header="Cloud details..."/>
+                                <MenuItem Header="Cloud rules..."/>
+                                <MenuItem Header="Moderator List..."/>
+                                <MenuItem Header="Online Users..."/>
+                              </ContextMenu>-->
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

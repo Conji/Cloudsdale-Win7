@@ -1,16 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Threading;
+using Cloudsdale_Win7.Win7_Lib;
+using Cloudsdale_Win7.Win7_Lib.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Cloudsdale_Win7.MVVM {
     public class NameColor : IValueConverter {
         #region Implementation of IValueConverter
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+        private static JObject Cloud;
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             var cloud = ((DependencyJToken) parameter).Token;
+            var cloudId = cloud["id"].ToString();
             var user = (JToken) value;
             var ownerId = (string) cloud["owner_id"];
             var moderatorIds = cloud["moderator_ids"].Select(id => (string) id).ToList();
@@ -23,7 +33,8 @@ namespace Cloudsdale_Win7.MVVM {
                           : Color.FromRgb(0x57, 0x57, 0x57));
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             throw new NotImplementedException();
         }
 

@@ -27,6 +27,8 @@
 
         public const string BaseCloudAddress = "http://www.cloudsdale.org/clouds/";
 
+        public const string VersionAddress = "https://raw.github.com/Conji/AppVersions/master/cloudsdale.txt";
+
         #region methods
 
         public const string DESTROY = "DELETE";

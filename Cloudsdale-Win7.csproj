@@ -104,6 +104,7 @@
     <Compile Include="Win7_Lib\Helpers\WebResponse.cs" />
     <Compile Include="Win7_Lib\Models\Avatar.cs" />
     <Compile Include="Win7_Lib\Models\Ban.cs" />
+    <Compile Include="Win7_Lib\Models\ClientVersion.cs" />
     <Compile Include="Win7_Lib\Models\CloudsdaleResource.cs" />
     <Compile Include="Win7_Lib\Models\Session.cs" />
     <Compile Include="Win7_Lib\Models\Status.cs" />

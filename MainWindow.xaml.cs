@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
@@ -87,6 +88,12 @@ namespace Cloudsdale_Win7
         private void KeepCurrentCloud(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             CloudList.SelectedIndex = CloudIndex;
+        }
+
+        private void GetCloudId(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var item = (ListViewItem) sender;
+            Console.WriteLine(item.DataContext.ToString());
         }
     }
 }

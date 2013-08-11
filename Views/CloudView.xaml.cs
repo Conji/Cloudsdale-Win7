@@ -43,12 +43,10 @@ namespace Cloudsdale_Win7 {
         }
 
         private void SendBoxEnter(object sender, KeyEventArgs e) {
-            if (e.Key == Key.Enter)
-            {
-                if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
+            if (e.Key != Key.Enter) return;
+            if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
                 Send(InputBox.Text, (string)Cloud["id"]);
                 InputBox.Text = "";
-            }
         }
 
         internal void Send(string message, string cloudId)
@@ -107,6 +105,23 @@ namespace Cloudsdale_Win7 {
             var j = (JObject) block.DataContext;
             var user = new UserInfo();
             user.ShowUserInfo((JObject) j["author"]);
+        }
+
+        private void Quote(object sender, RoutedEventArgs e)
+        {
+            var obj = (MenuItem) sender;
+            var text = obj.DataContext.ToString();
+            InputBox.Text = "> " + text.Replace(@"\n", Environment.NewLine);
+        }
+
+        private void CheckIfTextIsMultiLine(object sender, TextChangedEventArgs e)
+        {
+            InputBox.Text.Replace(@"\n", Environment.NewLine);
+            if (InputBox.LineCount != 1)
+            {
+                InputBox.MaxHeight *= 4;
+                InputBox.Height *= InputBox.LineCount;
+            }
         }
     }
 }

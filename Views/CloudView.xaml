@@ -68,8 +68,16 @@
                                                    FontSize="12" FontWeight="Bold"  Foreground="White" HorizontalAlignment="Center" />
                                     </Border>
                                 </StackPanel>
-                                <TextBlock Margin="5" FontSize="18" Cursor="Hand" MouseDown="ShowUserInfo" Grid.Column="1" VerticalAlignment="Top" Foreground="DarkSlateGray"><Run Text="{Binding [author][name], Converter={StaticResource JTSC}}" Foreground="{Binding [author], ConverterParameter={StaticResource Cloud}, Converter={StaticResource NameColor}}" /><Run Text=" (@"/><Run Text="{Binding [author][username], Converter={StaticResource JTSC}}" Foreground="{Binding [author][status], Converter={StaticResource StatusConverter}}"/><Run Text=")" DataContext="{Binding [author]}"/><LineBreak/><InlineUIContainer> 
-                                        <ItemsControl ItemsSource="{Binding [content], Converter={StaticResource SLSC}}">
+                                <TextBlock Margin="5" FontSize="18" Cursor="Hand" MouseLeftButtonDown="ShowUserInfo" Grid.Column="1" VerticalAlignment="Top" Foreground="DarkSlateGray"><Run Text="{Binding [author][name], Converter={StaticResource JTSC}}" Foreground="{Binding [author], ConverterParameter={StaticResource Cloud}, Converter={StaticResource NameColor}}" /><Run Text=" (@"/><Run Text="{Binding [author][username], Converter={StaticResource JTSC}}" Foreground="{Binding [author][status], Converter={StaticResource StatusConverter}}"/><Run Text=")" DataContext="{Binding [author]}"/><LineBreak/><InlineUIContainer>   
+                                    <ItemsControl ItemsSource="{Binding [content], Converter={StaticResource SLSC}}">
+                                    	<ItemsControl.ContextMenu>
+                                    		<ContextMenu>
+                                                <MenuItem Header="Quote..." DataContext="{Binding [content]}" Click="Quote"/>
+                                                <MenuItem Header="Copy all text..."/>
+                                                <Separator/>
+                                                <MenuItem Header="View user info"/>
+                                            </ContextMenu>
+                                    	</ItemsControl.ContextMenu>
                                             <ItemsControl.ItemTemplate> 
                                                 <DataTemplate>
                                                     <Grid>
@@ -116,7 +124,7 @@
                 <Controls:LinkDetectingTextBlock TextWrapping="Wrap" Text="LinkDetectingTextBlock"/>
             </ItemsControl>
         </ScrollViewer>
-        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" />
+        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" TextChanged="CheckIfTextIsMultiLine" />
         <Expander Header="Menu" FontSize="14" Height="121" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Right" Width="468" Grid.RowSpan="2" ExpandDirection="Left">
             <Grid Margin="0,0,0,-2" Background="#FF3F85B3" Width="428">
                 <Image Margin="30,10,0,21" HorizontalAlignment="Left" Width="52" Cursor="Hand" Source="/Cloudsdale;component/Assets/cloud.png"/>

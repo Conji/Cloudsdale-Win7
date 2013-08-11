@@ -37,7 +37,9 @@
                 </Button>
             </StackPanel>
             <TextBlock TextWrapping="Wrap" Text="Also Known As:" Padding="110,0,0,0" FontWeight="Bold"/>
-            <ListBox x:Name="akaList" Height="197" IsTextSearchEnabled="False" Focusable="False"/>
+            <ListBox x:Name="akaList" Height="197" IsTextSearchEnabled="False" Focusable="False">
+                
+            </ListBox>
             <StackPanel Height="74">
                 <StackPanel x:Name="BanInfo" Height="0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Margin="0,0,2,0" MaxHeight="70"/>
 
