@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Cloudsdale_Win7.Win7_Lib.ErrorConsole;
+using CloudsdaleWin7.lib.ErrorConsole;
 
-namespace Cloudsdale_Win7 {
+namespace CloudsdaleWin7 {
     /// <summary>
     /// Interaction logic for Home.xaml
     /// </summary>

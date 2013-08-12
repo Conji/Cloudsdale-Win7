@@ -1,26 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Win7_Lib.Models;
-using Newtonsoft.Json.Linq;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 
-namespace Cloudsdale_Win7.Controls {
+namespace CloudsdaleWin7.Controls {
 
     public delegate void TextChangedEventHandler(TextChangedEventArgs args);
     public class TextChangedEventArgs : EventArgs {
@@ -53,7 +38,7 @@ namespace Cloudsdale_Win7.Controls {
         protected virtual void OnLinkedTextChange(TextChangedEventArgs args) {
             if (LinkedTextChanged != null) LinkedTextChanged(args);
 
-            var matches = Cloudsdale_Helpers.LinkRegex.Matches(args.NewText);
+            var matches = CloudsdaleHelpers.LinkRegex.Matches(args.NewText);
             var lastIndex = 0;
             Inlines.Clear();
             foreach (Match match in matches) {

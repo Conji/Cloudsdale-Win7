@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
-using Cloudsdale_Win7.Views;
-using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
-using Cloudsdale_Win7.Win7_Lib.Models;
+using CloudsdaleWin7.Views;
+using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale_Win7
+namespace CloudsdaleWin7
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -29,11 +29,11 @@ namespace Cloudsdale_Win7
 
         public MainWindow()
         {
-            InitializeComponent();
             Instance = this;
+            ClientVersion.CheckVersion();
+            InitializeComponent();
             Height = UserSettings.Default.AppHeight;
             Width = UserSettings.Default.AppWidth;
-            Console.WriteLine(ClientVersion.UpdatedVersion());
         }
 
         private void CloudListSelectionChanged(object sender, SelectionChangedEventArgs e)

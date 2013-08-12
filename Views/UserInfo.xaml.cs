@@ -13,10 +13,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Cloudsdale_Win7.Win7_Lib;
+using CloudsdaleWin7.lib;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale_Win7.Views
+namespace CloudsdaleWin7.Views
 {
     /// <summary>
     /// Interaction logic for UserInfo.xaml

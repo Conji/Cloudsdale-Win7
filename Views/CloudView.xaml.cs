@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Cloudsdale_Win7.Views;
-using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.MVVM;
+using CloudsdaleWin7.Views;
+using CloudsdaleWin7.lib;
+using CloudsdaleWin7.MVVM;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale_Win7 {
+namespace CloudsdaleWin7 {
     /// <summary>
     /// Interaction logic for CloudView.xaml
     /// </summary>

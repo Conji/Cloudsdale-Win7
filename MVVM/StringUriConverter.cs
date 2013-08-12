@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Cloudsdale_Win7.MVVM {
+namespace CloudsdaleWin7.MVVM {
     [ValueConversion(typeof(string), typeof(Uri))]
     public class StringUriConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {

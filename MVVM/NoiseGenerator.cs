@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Cloudsdale_Win7.MVVM {
+namespace CloudsdaleWin7.MVVM {
     public class NoiseGenerator : DependencyObject {
         private static readonly DependencyPropertyKey NoiseImageKey = DependencyProperty.RegisterReadOnly("NoiseImage", typeof(ImageSource), typeof(NoiseGenerator), new PropertyMetadata(null));
 

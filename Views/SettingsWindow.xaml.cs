@@ -4,14 +4,15 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
-using Cloudsdale_Win7.Win7_Lib.Models;
-using Cloudsdale_Win7.Win7_Lib.Models.Updaters;
+using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Models;
+using CloudsdaleWin7.lib.Models.Updaters;
 
-namespace Cloudsdale_Win7
+namespace CloudsdaleWin7
 {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml
@@ -58,13 +59,13 @@ namespace Cloudsdale_Win7
             if (newPassword.Password.Length >= 6)
             {
                 var b = new SolidColorBrush();
-                b.Color = Cloudsdale_Source.Success_Bright;
+                b.Color = CloudsdaleSource.SuccessBright;
                 newPassword.Background = b;
             }
             else
             {
                 var b = new SolidColorBrush();
-                b.Color = Cloudsdale_Source.Error_Bright;
+                b.Color = CloudsdaleSource.ErrorBright;
                 newPassword.Background = b;
             }
         }
@@ -72,8 +73,8 @@ namespace Cloudsdale_Win7
         private void CheckContent(object sender, RoutedEventArgs e)
         {
             var input = username.Text;
-            var b_success = new SolidColorBrush(Cloudsdale_Source.Success_Bright);
-            var b_fail = new SolidColorBrush(Cloudsdale_Source.Error_Bright);
+            var b_success = new SolidColorBrush(CloudsdaleSource.SuccessBright);
+            var b_fail = new SolidColorBrush(CloudsdaleSource.ErrorBright);
             foreach(var c in input.ToCharArray())
             {
                 if(Char.IsLetterOrDigit(c) || c == '_')
@@ -89,13 +90,24 @@ namespace Cloudsdale_Win7
 
         private void Default(object sender, RoutedEventArgs e)
         {
-            var b = new SolidColorBrush(Cloudsdale_Source.PrimaryBackground);
+            var b = new SolidColorBrush(CloudsdaleSource.PrimaryBackground);
             username.Background = b;
         }
 
         private void Update(object sender, RoutedEventArgs e)
         {
             UDUModel.Name(name.Text);
+        }
+
+        private void CheckInput(object sender, TextChangedEventArgs e)
+        {
+            foreach (char letter in name.Text.ToCharArray())
+            {
+                if (!Char.IsLetter(letter))
+                {
+                    name.Text.Replace(letter, ' ');
+                }
+            }
         }
     }
 }

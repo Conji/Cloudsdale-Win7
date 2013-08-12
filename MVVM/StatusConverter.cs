@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using Cloudsdale_Win7.Win7_Lib;
+using CloudsdaleWin7.lib;
 
-namespace Cloudsdale_Win7.MVVM
+namespace CloudsdaleWin7.MVVM
 {
     class StatusConverter : IValueConverter
     {
@@ -16,13 +16,13 @@ namespace Cloudsdale_Win7.MVVM
             switch (value.ToString())
             {
                 case "online":
-                    return Cloudsdale_Source.OnlineStatus;
+                    return CloudsdaleSource.OnlineStatus;
                 case "offline":
-                    return Cloudsdale_Source.OfflineStatus;
+                    return CloudsdaleSource.OfflineStatus;
                 case "busy":
-                    return Cloudsdale_Source.BusyStatus;
+                    return CloudsdaleSource.BusyStatus;
                 case "away":
-                    return Cloudsdale_Source.AwayStatus;
+                    return CloudsdaleSource.AwayStatus;
                 default:
                     return "";
             }

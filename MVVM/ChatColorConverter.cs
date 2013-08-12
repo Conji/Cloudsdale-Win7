@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Cloudsdale_Win7.MVVM {
+namespace CloudsdaleWin7.MVVM {
     public class ChatColorConverter : IValueConverter {
         #region Implementation of IValueConverter
 

@@ -1,6 +1,6 @@
-﻿<Application x:Class="Cloudsdale_Win7.App"
+﻿<Application x:Class="CloudsdaleWin7.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:MVVM="clr-namespace:Cloudsdale_Win7.MVVM"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <MVVM:StringUriConverter x:Key="StringUriConv" />

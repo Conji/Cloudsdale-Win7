@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using Cloudsdale_Win7.Win7_Lib;
+using CloudsdaleWin7.lib;
 
-namespace Cloudsdale_Win7.MVVM
+namespace CloudsdaleWin7.MVVM
 {
     class IsUnread :IValueConverter
     {

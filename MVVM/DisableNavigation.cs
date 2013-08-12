@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace Cloudsdale_Win7.MVVM {
+namespace CloudsdaleWin7.MVVM {
     public static class DisableNavigation {
         public static bool GetDisable(DependencyObject o) {
             return (bool)o.GetValue(DisableProperty);

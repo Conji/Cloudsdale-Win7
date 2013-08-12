@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Cloudsdale_Win7.MVVM {
+namespace CloudsdaleWin7.MVVM {
     public class HasChatTagVis : IValueConverter {
         private static readonly string[] ValidTags = {"developer","verified","donor","admin","founder","legacy","associate"};
 

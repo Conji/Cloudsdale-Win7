@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale_Win7.MVVM {
+namespace CloudsdaleWin7.MVVM {
     class TimeOfDayToString : IValueConverter {
         #region Implementation of IValueConverter
 

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace Cloudsdale_Win7
+namespace CloudsdaleWin7
 {
     /// <summary>
     /// Interaction logic for Browser.xaml

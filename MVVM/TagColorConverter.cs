@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Cloudsdale_Win7.MVVM {
+namespace CloudsdaleWin7.MVVM {
     public class TagColorConverter : IValueConverter {
         #region Implementation of IValueConverter
 
@@ -11,31 +11,31 @@ namespace Cloudsdale_Win7.MVVM {
             var color = Colors.Transparent;
             switch (value.ToString()) {
                 case "staff":
-                    color = Win7_Lib.Cloudsdale_Source.DevTag;
+                    color = lib.CloudsdaleSource.DevTag;
                     break;
                 case "developer":
-                    color = Win7_Lib.Cloudsdale_Source.DevTag;
+                    color = lib.CloudsdaleSource.DevTag;
                     break;
                 case "verified":
-                    color = Win7_Lib.Cloudsdale_Source.VerifiedTag;
+                    color = lib.CloudsdaleSource.VerifiedTag;
                     break;
                 case "founder":
-                    color = Win7_Lib.Cloudsdale_Source.FounderTag;
+                    color = lib.CloudsdaleSource.FounderTag;
                     break;
                 case "donor":
-                    color = Win7_Lib.Cloudsdale_Source.DonatorTag;
+                    color = lib.CloudsdaleSource.DonatorTag;
                     break;
                 case "admin":
-                    color = Win7_Lib.Cloudsdale_Source.AdminTag;
+                    color = lib.CloudsdaleSource.AdminTag;
                     break;
                 case "legacy":
-                    color = Win7_Lib.Cloudsdale_Source.LegacyTag;
+                    color = lib.CloudsdaleSource.LegacyTag;
                     break;
                 case "associate":
-                    color = Win7_Lib.Cloudsdale_Source.AssociateTag;
+                    color = lib.CloudsdaleSource.AssociateTag;
                     break;
                 case "normal":
-                    color = Win7_Lib.Cloudsdale_Source.PrimaryBackground;
+                    color = lib.CloudsdaleSource.PrimaryBackground;
                     break;
                 default:
                     color = Colors.Lavender;

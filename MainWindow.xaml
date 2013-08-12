@@ -1,7 +1,7 @@
-﻿<Window x:Class="Cloudsdale_Win7.MainWindow"
+﻿<Window x:Class="CloudsdaleWin7.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        xmlns:MVVM="clr-namespace:Cloudsdale_Win7.MVVM"
+        xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM"
         Title="Cloudsdale" Height="600" Width="800" Icon="Assets/cloudsdale.ico" Closing="SaveSettings">
     <Grid>
         <Grid.ColumnDefinitions>

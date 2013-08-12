@@ -7,7 +7,7 @@
     <ProjectGuid>{BD7A6938-0345-4AA3-9CBB-18149CA8A41F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cloudsdale_Win7</RootNamespace>
+    <RootNamespace>CloudsdaleWin7</RootNamespace>
     <AssemblyName>Cloudsdale</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -93,37 +93,37 @@
     <Compile Include="Views\UserInfo.xaml.cs">
       <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Win7_Lib\Annotations.cs" />
-    <Compile Include="Win7_Lib\Cloudsdale_Lib\Cloudsdale.cs" />
-    <Compile Include="Win7_Lib\Cloudsdale_Lib\ModelSettings.cs" />
+    <Compile Include="lib\Annotations.cs" />
+    <Compile Include="lib\CloudsdaleLib\Cloudsdale.cs" />
+    <Compile Include="lib\CloudsdaleLib\ModelSettings.cs" />
     <Compile Include="Exceptions\NotInstalledCorrectly.cs" />
-    <Compile Include="Win7_Lib\ErrorConsole\CConsole\WriteError.cs" />
-    <Compile Include="Win7_Lib\ErrorConsole\ErrorConsole.xaml.cs">
+    <Compile Include="lib\ErrorConsole\CConsole\WriteError.cs" />
+    <Compile Include="lib\ErrorConsole\ErrorConsole.xaml.cs">
       <DependentUpon>ErrorConsole.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Win7_Lib\Helpers\WebResponse.cs" />
-    <Compile Include="Win7_Lib\Models\Avatar.cs" />
-    <Compile Include="Win7_Lib\Models\Ban.cs" />
-    <Compile Include="Win7_Lib\Models\ClientVersion.cs" />
-    <Compile Include="Win7_Lib\Models\CloudsdaleResource.cs" />
-    <Compile Include="Win7_Lib\Models\Session.cs" />
-    <Compile Include="Win7_Lib\Models\Status.cs" />
-    <Compile Include="Win7_Lib\Models\UIMetadata.cs" />
-    <Compile Include="Win7_Lib\Models\Updaters\CDUModel.cs" />
-    <Compile Include="Win7_Lib\Models\Cloud.cs" />
+    <Compile Include="lib\Helpers\WebResponse.cs" />
+    <Compile Include="lib\Models\Avatar.cs" />
+    <Compile Include="lib\Models\Ban.cs" />
+    <Compile Include="lib\Models\ClientVersion.cs" />
+    <Compile Include="lib\Models\CloudsdaleResource.cs" />
+    <Compile Include="lib\Models\Session.cs" />
+    <Compile Include="lib\Models\Status.cs" />
+    <Compile Include="lib\Models\UIMetadata.cs" />
+    <Compile Include="lib\Models\Updaters\CDUModel.cs" />
+    <Compile Include="lib\Models\Cloud.cs" />
     <Compile Include="MVVM\AkaConverter.cs" />
     <Compile Include="MVVM\IsUnread.cs" />
     <Compile Include="MVVM\UnreadConverter.cs" />
-    <Compile Include="Win7_Lib\Providers\ICloudProvider.cs" />
-    <Compile Include="Win7_Lib\Providers\ICloudServiceProvider.cs" />
-    <Compile Include="Win7_Lib\Providers\IErrorProvider.cs" />
-    <Compile Include="Win7_Lib\Providers\IMetadataProvider.cs" />
+    <Compile Include="lib\Providers\ICloudProvider.cs" />
+    <Compile Include="lib\Providers\ICloudServiceProvider.cs" />
+    <Compile Include="lib\Providers\IErrorProvider.cs" />
+    <Compile Include="lib\Providers\IMetadataProvider.cs" />
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Win7_Lib\Providers\ISessionProvider.cs" />
-    <Compile Include="Win7_Lib\Providers\IStatusProvider.cs" />
-    <Compile Include="Win7_Lib\Providers\IUserProvider.cs" />
+    <Compile Include="lib\Providers\ISessionProvider.cs" />
+    <Compile Include="lib\Providers\IStatusProvider.cs" />
+    <Compile Include="lib\Providers\IUserProvider.cs" />
     <Page Include="Views\Browser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,17 +152,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Win7_Lib\Cloudsdale_Source.cs" />
-    <Compile Include="Win7_Lib\Endpoints.cs" />
+    <Compile Include="lib\CloudsdaleSource.cs" />
+    <Compile Include="lib\Endpoints.cs" />
     <Compile Include="Views\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Win7_Lib\Cloudsdale_Lib\Connection.cs" />
-    <Compile Include="Win7_Lib\Cloudsdale_Lib\CouldNotLoginException.cs" />
-    <Compile Include="Win7_Lib\Cloudsdale_Lib\FayeConnector.cs" />
-    <Compile Include="Win7_Lib\Cloudsdale_Lib\Helpers.cs" />
-    <Compile Include="Win7_Lib\Cloudsdale_Lib\MessageSource.cs" />
-    <Compile Include="Win7_Lib\Cloudsdale_Lib\UserSettings.Designer.cs">
+    <Compile Include="lib\CloudsdaleLib\Connection.cs" />
+    <Compile Include="lib\CloudsdaleLib\CouldNotLoginException.cs" />
+    <Compile Include="lib\CloudsdaleLib\FayeConnector.cs" />
+    <Compile Include="lib\CloudsdaleLib\Helpers.cs" />
+    <Compile Include="lib\CloudsdaleLib\MessageSource.cs" />
+    <Compile Include="lib\CloudsdaleLib\UserSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>UserSettings.settings</DependentUpon>
@@ -192,14 +192,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Win7_Lib\ErrorConsole\ErrorConsole.xaml">
+    <Page Include="lib\ErrorConsole\ErrorConsole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Win7_Lib\Models\Updaters\UDUModel.cs" />
-    <Compile Include="Win7_Lib\Models\User.cs" />
+    <Compile Include="lib\Models\Updaters\UDUModel.cs" />
+    <Compile Include="lib\Models\User.cs" />
     <Compile Include="MVVM\ChatColorConverter.cs" />
     <Compile Include="MVVM\DependencyJToken.cs" />
     <Compile Include="MVVM\DeviceIcon.cs" />
@@ -233,7 +233,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Win7_Lib\Cloudsdale_Lib\UserSettings.settings">
+    <None Include="lib\CloudsdaleLib\UserSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
     </None>

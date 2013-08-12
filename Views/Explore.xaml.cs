@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Cloudsdale_Win7
+namespace CloudsdaleWin7
 {
     /// <summary>
     /// Interaction logic for Explore.xaml

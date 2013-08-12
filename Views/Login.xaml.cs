@@ -10,15 +10,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Win7_Lib.Cloudsdale_Lib;
-using Cloudsdale_Win7.Win7_Lib.ErrorConsole;
-using Cloudsdale_Win7.Win7_Lib.ErrorConsole.CConsole;
+using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.ErrorConsole;
+using CloudsdaleWin7.lib.ErrorConsole.CConsole;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale_Win7 {
+namespace CloudsdaleWin7 {
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
@@ -94,7 +94,13 @@ namespace Cloudsdale_Win7 {
                 LoadMessageToSource(source, o["data"], cloudId);
             };
             await Connection.InitializeAsync();
-            await PreloadMessages((JArray)MainWindow.User["user"]["clouds"]);
+            try
+            {
+                await PreloadMessages((JArray)MainWindow.User["user"]["clouds"]);
+            }catch(Exception ex)
+            {
+                WriteError.Write(ex.Message);
+            }
             
 
             MainWindow.Instance.CloudList.ItemsSource = MainWindow.User["user"]["clouds"];

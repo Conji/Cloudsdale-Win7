@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Cloudsdale_Win7 {
+namespace CloudsdaleWin7 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

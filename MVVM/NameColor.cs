@@ -7,11 +7,11 @@ using System.Net;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Cloudsdale_Win7.Win7_Lib;
-using Cloudsdale_Win7.Win7_Lib.Models;
+using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json.Linq;
 
-namespace Cloudsdale_Win7.MVVM {
+namespace CloudsdaleWin7.MVVM {
     public class NameColor : IValueConverter {
         #region Implementation of IValueConverter
 
