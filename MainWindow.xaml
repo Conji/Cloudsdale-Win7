@@ -42,5 +42,13 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
+        <Border x:Name="MenuPanel" BorderBrush="Black" BorderThickness="1" Grid.Column="3" HorizontalAlignment="Right" Width="80">
+            <StackPanel HorizontalAlignment="Right" Width="80" Margin="0,0,-2,-2">
+                <StackPanel.Background>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                </StackPanel.Background>
+            </StackPanel>
+        </Border>
+        <Image HorizontalAlignment="Right" Height="24" VerticalAlignment="Top" Width="20" Source="Assets/Arrows-Left-round-icon.png" MouseDown="ShowMenu" Grid.Column="3"/>
     </Grid>
 </Window>

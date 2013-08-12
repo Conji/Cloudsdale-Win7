@@ -32,7 +32,7 @@ namespace CloudsdaleWin7.lib
         #endregion
         #region Folders
 
-        public static string Folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Cloudsdale";
+        public static string Folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Cloudsdale\";
         public static string File = Folder + "Cloudsdale.exe";
 
         #endregion

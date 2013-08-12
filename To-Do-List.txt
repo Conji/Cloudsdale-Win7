@@ -1,3 +1,6 @@
 ﻿Add new cloud to the Cloud List and subscribe
 Finish home screen
 Add new loading animation for log in
+
+IMPORTANT:
+Add buttons the menu including: HOME, EXPLORE, SETTINGS, INFO, and BROWSER

@@ -8,7 +8,7 @@ namespace CloudsdaleWin7.lib.Models
 {
     class ClientVersion
     {
-        public static string CLIENT_VERSION = "1.5 BETA";
+        public static string CLIENT_VERSION = "1.6 BETA";
 
         private static string UpdatedVersion()
         {
@@ -31,9 +31,17 @@ namespace CloudsdaleWin7.lib.Models
         private static void UpdateClient()
         {
             
-            //File.Move(Cloudsdale_Source.File, Cloudsdale_Source.Folder + "old.file");
+            File.Move(CloudsdaleSource.File, CloudsdaleSource.Folder + "old.file");
             var client = new WebClient();
             client.DownloadFile(Endpoints.ClientAddress, CloudsdaleSource.File);
+            Process.Start(CloudsdaleSource.File);
+        }
+        public static void CleanUp()
+        {
+            try
+            {
+                File.Delete(CloudsdaleSource.Folder + "old.file");
+            }catch{}
         }
     }
 }

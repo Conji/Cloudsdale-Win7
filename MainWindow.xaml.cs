@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Models;
@@ -30,6 +31,7 @@ namespace CloudsdaleWin7
         public MainWindow()
         {
             Instance = this;
+            ClientVersion.CleanUp();
             ClientVersion.CheckVersion();
             InitializeComponent();
             Height = UserSettings.Default.AppHeight;
@@ -96,5 +98,28 @@ namespace CloudsdaleWin7
             var item = (ListViewItem) sender;
             Console.WriteLine(item.DataContext.ToString());
         }
+
+        private void ShowMenu(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (MenuPanel.IsVisible)
+            {
+                MenuPanel.Visibility = Visibility.Hidden;
+            }else
+            {
+                MenuPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void DirectHome(object sender, MouseButtonEventArgs e)
+        {
+            Frame.Navigate(new Home());
+        }
+
+        private void ShowSettings(object sender, MouseButtonEventArgs e)
+        {
+            var settings = new SettingsWindow();
+            settings.Show();
+        }
+
     }
 }

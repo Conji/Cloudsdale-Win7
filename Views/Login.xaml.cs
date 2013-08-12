@@ -15,6 +15,7 @@ using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.ErrorConsole;
 using CloudsdaleWin7.lib.ErrorConsole.CConsole;
+using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -64,7 +65,8 @@ namespace CloudsdaleWin7 {
 
         private static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private async void LoginClick(object sender, RoutedEventArgs e) {
+        private async void LoginClick(object sender, RoutedEventArgs e)
+        {
             MainLayout.Visibility = Visibility.Collapsed;
             LoggingInUI.Visibility = Visibility.Visible;
             LoginButton.IsEnabled = false;

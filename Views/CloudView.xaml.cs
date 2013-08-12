@@ -92,12 +92,6 @@ namespace CloudsdaleWin7 {
             MainWindow.Instance.Frame.Navigate(new Home());
         }
 
-        private void ShowSettings(object sender, MouseButtonEventArgs e)
-        {
-            var settings = new SettingsWindow();
-            settings.Show();
-        }
-
         private void ShowUserInfo(object sender, EventArgs e)
         {
             var block = (TextBlock) sender;
