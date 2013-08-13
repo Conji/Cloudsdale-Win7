@@ -7,6 +7,7 @@ namespace CloudsdaleWin7.lib.ErrorConsole.CConsole
         public static void Write(string error)
         {
             var messageFormat = "[" + DateTime.Now.ToString() + "] " + error + Environment.NewLine;
+            ErrorConsole.Instance.Show();
             ErrorConsole.Instance.ConsoleText.Text += messageFormat;
         }
     }

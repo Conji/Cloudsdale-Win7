@@ -8,18 +8,18 @@ namespace CloudsdaleWin7.lib.Models
 {
     class ClientVersion
     {
-        public static string CLIENT_VERSION = "1.6 BETA";
+        public static string VERSION= "1.6.2 BETA";
 
-        private static string UpdatedVersion()
+        public static string UpdatedVersion()
         {
             var request = WebRequest.CreateHttp(Endpoints.VersionAddress);
             var responseStream = request.GetResponse().GetResponseStream();
             var response = new StreamReader(responseStream);
-            return response.ReadToEnd();
+            return response.ReadToEnd().Trim();
         }
         public static void CheckVersion()
         {
-            if (UpdatedVersion() != CLIENT_VERSION)
+            if (UpdatedVersion() != VERSION)
             {
                 if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
                                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
@@ -35,6 +35,7 @@ namespace CloudsdaleWin7.lib.Models
             var client = new WebClient();
             client.DownloadFile(Endpoints.ClientAddress, CloudsdaleSource.File);
             Process.Start(CloudsdaleSource.File);
+            MainWindow.Instance.Close();
         }
         public static void CleanUp()
         {

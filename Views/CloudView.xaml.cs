@@ -28,11 +28,10 @@ namespace CloudsdaleWin7 {
             DataContext = cloud;
             MessageSource.GetSource(Cloud).Messages.CollectionChanged += NewMessage;
             ChatMessages.ItemsSource = MessageSource.GetSource(Cloud).Messages;
-            MaxCharContainer.DataContext = MainWindow.Instance;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             ((DependencyJToken)Resources["Cloud"]).Token = cloud;
         }
-
+        
         ~CloudView() {
             MessageSource.GetSource(Cloud).Messages.CollectionChanged -= NewMessage;
         }
@@ -42,10 +41,24 @@ namespace CloudsdaleWin7 {
         }
 
         private void SendBoxEnter(object sender, KeyEventArgs e) {
-            if (e.Key != Key.Enter) return;
-            if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
-                Send(InputBox.Text, (string)Cloud["id"]);
-                InputBox.Text = "";
+            if (e.Key == Key.Enter)
+            {
+                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+                {
+                    if (InputBox.LineCount != 1)
+                    {
+                        InputBox.MaxHeight *= 4;
+                        InputBox.Height += InputBox.Height;
+                        Console.WriteLine("Success");
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
+                    Send(InputBox.Text, (string)Cloud["id"]);
+                    InputBox.Text = "";
+                }
+            }
         }
 
         internal void Send(string message, string cloudId)
@@ -85,11 +98,6 @@ namespace CloudsdaleWin7 {
             Browser.Instance.WebAddress.Text = ((string) drop["url"]);
             
             Browser.Instance.BrowserPage.Width = MainWindow.Instance.Width;
-        }
-
-        private void DirectHome(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow.Instance.Frame.Navigate(new Home());
         }
 
         private void ShowUserInfo(object sender, EventArgs e)

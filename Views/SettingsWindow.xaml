@@ -34,7 +34,6 @@
             </TextBlock.Foreground>
         </TextBlock>
         <TextBox x:Name="skype" HorizontalAlignment="Left" Height="23" Margin="35,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218"/>
-        <Button Content="Logout" HorizontalAlignment="Left" Margin="0,350,0,0" VerticalAlignment="Top" Width="294" Height="46" FontSize="18" FontStretch="SemiExpanded" FontWeight="ExtraBold" Click="Logout"/>
         <Separator HorizontalAlignment="Left" Height="21" Margin="35,256,0,0" VerticalAlignment="Top" Width="218"/>
         <TextBlock HorizontalAlignment="Left" Margin="35,282,0,0" TextWrapping="Wrap" Text="New Password:" VerticalAlignment="Top">
             <TextBlock.Foreground>

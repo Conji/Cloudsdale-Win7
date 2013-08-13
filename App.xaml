@@ -15,6 +15,7 @@
         <MVVM:NameColor x:Key="NameColor" />
         <MVVM:DeviceIcon x:Key="DeviceIcon" />
         <MVVM:IsCloudOwner x:Key="ICO"/>
+        <MVVM:SlideConverter x:Key="Slide"/>
         <Style x:Key="ListboxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="Margin" Value="1,2,1,1"/>
             <Setter Property="HorizontalAlignment" Value="Stretch" />

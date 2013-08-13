@@ -32,6 +32,7 @@ namespace CloudsdaleWin7
         public MainWindow()
         {
             Instance = this;
+            Console.WriteLine(ClientVersion.UpdatedVersion());
             ClientVersion.CleanUp();
             ClientVersion.CheckVersion();
             InitializeComponent();
@@ -124,5 +125,17 @@ namespace CloudsdaleWin7
             settings.Show();
         }
 
+        private void DirectToBrowser(object sender, MouseButtonEventArgs e)
+        {
+            Frame.Navigate(new Browser());
+        }
+        private void LogOut(object sender, MouseButtonEventArgs e)
+        {
+            User = null;
+            Login.Logout();
+            Instance.Frame.Navigate(new Login());
+            Instance.CloudList.ItemsSource = null;
+            Instance.CloudList.Width = 4;
+        }
     }
 }

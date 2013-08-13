@@ -28,15 +28,6 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </StackPanel.Background>
             <StackPanel Width="434">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel x:Name="RateSliderContainer" Margin="2">
-                        <TextBlock x:Name="RateSliderLabel"  Text="{Binding Rate}" />
-                    </StackPanel>
-                    <StackPanel x:Name="MaxCharContainer" Margin="2"/>
-                    <StackPanel Margin="2">
-                        <TextBlock/>
-                    </StackPanel>
-                </StackPanel>
             </StackPanel>
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>
@@ -67,7 +58,7 @@
                                                    FontSize="12" FontWeight="Bold"  Foreground="White" HorizontalAlignment="Center" />
                                     </Border>
                                 </StackPanel>
-                                <TextBlock Margin="5" FontSize="18" Cursor="Hand" MouseLeftButtonDown="ShowUserInfo" Grid.Column="1" VerticalAlignment="Top" Foreground="DarkSlateGray"><Run Text="{Binding [author][name], Converter={StaticResource JTSC}}" Foreground="{Binding [author], ConverterParameter={StaticResource Cloud}, Converter={StaticResource NameColor}}" /><Run Text=" (@"/><Run Text="{Binding [author][username], Converter={StaticResource JTSC}}" Foreground="{Binding [author][status], Converter={StaticResource StatusConverter}}"/><Run Text=")" DataContext="{Binding [author]}"/><LineBreak/><InlineUIContainer>   
+                                <TextBlock FontFamily="Segoe UI Symbol"  Margin="5" FontSize="15" Cursor="Hand" MouseLeftButtonDown="ShowUserInfo" Grid.Column="1" VerticalAlignment="Top" Foreground="DarkSlateGray"><Run Text="{Binding [author][name], Converter={StaticResource JTSC}}" Foreground="{Binding [author], ConverterParameter={StaticResource Cloud}, Converter={StaticResource NameColor}}" /><Run Text=" (@"/><Run Text="{Binding [author][username], Converter={StaticResource JTSC}}" Foreground="{Binding [author][status], Converter={StaticResource StatusConverter}}"/><Run Text=")" DataContext="{Binding [author]}"/><LineBreak/><InlineUIContainer>   
                                     <ItemsControl ItemsSource="{Binding [content], Converter={StaticResource SLSC}}">
                                     	<ItemsControl.ContextMenu>
                                     		<ContextMenu>
@@ -132,7 +123,10 @@
                 <Controls:LinkDetectingTextBlock TextWrapping="Wrap" Text="LinkDetectingTextBlock"/>
             </ItemsControl>
         </ScrollViewer>
-        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" TextChanged="CheckIfTextIsMultiLine" />
+        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" TextChanged="CheckIfTextIsMultiLine" Padding="27,0,0,0" >
+            
+        </TextBox>
         <TextBlock VerticalAlignment="Top" FontSize="16" Margin="10,10,468,0" Text="{Binding [name]}" Height="37" FontFamily="Segoe UI Semibold" Grid.ColumnSpan="2"/>
+        <Button Content="&#xE15F;" HorizontalAlignment="Left" Grid.Row="2" Width="25" BorderBrush="{x:Null}" Background="{x:Null}" FontFamily="Segoe UI Symbol"/>
     </Grid>
 </Page>
