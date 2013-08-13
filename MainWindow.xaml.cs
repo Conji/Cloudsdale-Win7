@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Models;
@@ -46,8 +47,8 @@ namespace CloudsdaleWin7
                 Frame.Navigate(GetCloudView(CurrentCloud));
                 if (User["user"]["id"].ToString() != CurrentCloud["owner_id"].ToString())
                 {
-                    CloudView.Instance.acp.Visibility = Visibility.Collapsed;
-                }
+                    CloudOwnerItem.Visibility = Visibility.Collapsed;
+                }else{ CloudOwnerItem.Visibility = Visibility.Visible; }
                 CloudIndex = CloudList.SelectedIndex;
             }
         }
@@ -88,24 +89,26 @@ namespace CloudsdaleWin7
             UserSettings.Default.Save();
         }
 
-        private void KeepCurrentCloud(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void KeepCurrentCloud(object sender, MouseButtonEventArgs e)
         {
             CloudList.SelectedIndex = CloudIndex;
         }
 
-        private void GetCloudId(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void GetCloudId(object sender, MouseButtonEventArgs e)
         {
             var item = (ListViewItem) sender;
             Console.WriteLine(item.DataContext.ToString());
         }
 
-        private void ShowMenu(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ShowMenu(object sender, MouseButtonEventArgs e)
         {
             if (MenuPanel.IsVisible)
             {
+                showMenu.Text = "";
                 MenuPanel.Visibility = Visibility.Hidden;
             }else
             {
+                showMenu.Text = "";
                 MenuPanel.Visibility = Visibility.Visible;
             }
         }

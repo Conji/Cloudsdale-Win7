@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MVVM\IsCloudOwner.cs" />
     <Compile Include="Views\UserInfo.xaml.cs">
       <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
@@ -295,21 +296,6 @@
     <Resource Include="Assets\computer_proces.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\group.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\cloud.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\computer_service.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\circle_info.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="To-Do-List.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -317,10 +303,13 @@
     <Resource Include="Assets\Fallback\user.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\warning_sign.png" />
+    <Resource Include="Assets\previous.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Arrows-Left-round-icon.png" />
+    <Folder Include="Assets\Menus\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\next.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

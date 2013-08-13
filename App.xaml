@@ -14,13 +14,7 @@
         <MVVM:TagConverter x:Key="RoleTag" />
         <MVVM:NameColor x:Key="NameColor" />
         <MVVM:DeviceIcon x:Key="DeviceIcon" />
-        <MVVM:NoiseGenerator x:Key="BGNoiseTemplate" Size="128">
-            <MVVM:NoiseGenerator.Colors>
-                <MVVM:ColorFrequency Color="#F4F4F4" Frequency="10" />
-                <MVVM:ColorFrequency Color="#F0F0F0" Frequency="5" />
-                <MVVM:ColorFrequency Color="#EAEAEA" Frequency="5" />
-            </MVVM:NoiseGenerator.Colors>
-        </MVVM:NoiseGenerator>
+        <MVVM:IsCloudOwner x:Key="ICO"/>
         <Style x:Key="ListboxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="Margin" Value="1,2,1,1"/>
             <Setter Property="HorizontalAlignment" Value="Stretch" />

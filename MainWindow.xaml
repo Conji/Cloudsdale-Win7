@@ -47,8 +47,46 @@
                 <StackPanel.Background>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </StackPanel.Background>
+                <TextBlock Height="54" MouseDown="DirectHome" Cursor="Hand" Padding="10" Margin="10,10,10,0" FontFamily="Segoe UI Symbol" Text="&#xE10F;" FontSize="34"/>
+                <TextBlock Height="26" Margin="10,0,10,5" Text="Home" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"/>
+                <TextBlock Height="54" Cursor="Hand" Padding="10" Margin="10,0,10,0" FontFamily="Segoe UI Symbol" Text="" FontSize="34"/>
+                <TextBlock Height="26" Text="Explore" TextAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                <TextBlock Height="49" MouseDown="ShowSettings" Cursor="Hand" Padding="10" Margin="10,0,10,0" FontFamily="Segoe UI Symbol" Text="" FontSize="34"/>
+                <TextBlock Height="26" Text="Settings" TextAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                <TextBlock Height="54" Cursor="Hand" Padding="10" Margin="10,0,10,0" FontFamily="Segoe UI Symbol" Text="" FontSize="34"/>
+                <TextBlock Height="26" Text="Info" TextAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                <Separator FontSize="30" Height="10" Background="Black"/>
+                <TextBlock Height="43" Cursor="Hand" Padding="10" Margin="10,0,10,0" FontFamily="Segoe UI Symbol" Text="" FontSize="34" TextAlignment="Center"/>
+                <TextBlock Height="26" Text="Browser" TextAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                <TextBlock Height="51" Cursor="Hand" Padding="10" Margin="10,0,10,0" FontFamily="Segoe UI Symbol" Text="" FontSize="25" TextAlignment="Center"/>
+                <TextBlock Height="26" Text="Logout" TextAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                <StackPanel x:Name="CloudOwnerItem">
+                    <TextBlock Height="54" Cursor="Hand" Padding="10" Margin="10,0,10,0" FontFamily="Segoe UI Symbol" Text="☁" FontSize="50" TextAlignment="Center"/>
+                    <TextBlock Height="26" Text="Admin" TextAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                </StackPanel>
             </StackPanel>
         </Border>
-        <Image HorizontalAlignment="Right" Height="24" VerticalAlignment="Top" Width="20" Source="Assets/Arrows-Left-round-icon.png" MouseDown="ShowMenu" Grid.Column="3"/>
+        <TextBlock x:Name="showMenu" HorizontalAlignment="Right" Height="16" VerticalAlignment="Top" Width="17" Grid.Column="3" Text="" FontFamily="Segoe UI Symbol">
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="TextBlock.MouseDown">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="MenuPanel">
+                                <EasingDoubleKeyFrame Value="0" KeyTime="00:00:02">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <CubicEase EasingMode="EaseInOut"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                                <EasingDoubleKeyFrame Value="20" KeyTime="00:00:06">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <BounceEase Bounces="5" EasingMode="EaseInOut"/>
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
     </Grid>
 </Window>
