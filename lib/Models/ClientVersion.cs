@@ -8,7 +8,7 @@ namespace CloudsdaleWin7.lib.Models
 {
     class ClientVersion
     {
-        public static string VERSION= "1.6.2 BETA";
+        public static string VERSION= "1.6.3 BETA";
 
         public static string UpdatedVersion()
         {

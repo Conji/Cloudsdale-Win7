@@ -137,5 +137,15 @@ namespace CloudsdaleWin7
             Instance.CloudList.ItemsSource = null;
             Instance.CloudList.Width = 4;
         }
+
+        private void ExpandMenu_Completed(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ShrinkMenu_Completed(object sender, EventArgs e)
+        {
+
+        }
     }
 }

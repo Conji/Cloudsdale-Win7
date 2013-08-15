@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="131" />
+            <ColumnDefinition Width="130" />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" Height="47" VerticalAlignment="Top">
@@ -31,7 +31,7 @@
             </StackPanel>
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>
-        <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Margin="0,47,0,0" Grid.RowSpan="2">
+        <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Grid.Row="1">
             <ItemsControl x:Name="ChatMessages">
                 <ItemsControl.Background>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
@@ -60,6 +60,7 @@
                                 </StackPanel>
                                 <TextBlock FontFamily="Segoe UI Symbol"  Margin="5" FontSize="15" Cursor="Hand" MouseLeftButtonDown="ShowUserInfo" Grid.Column="1" VerticalAlignment="Top" Foreground="DarkSlateGray"><Run Text="{Binding [author][name], Converter={StaticResource JTSC}}" Foreground="{Binding [author], ConverterParameter={StaticResource Cloud}, Converter={StaticResource NameColor}}" /><Run Text=" (@"/><Run Text="{Binding [author][username], Converter={StaticResource JTSC}}" Foreground="{Binding [author][status], Converter={StaticResource StatusConverter}}"/><Run Text=")" DataContext="{Binding [author]}"/><LineBreak/><InlineUIContainer>   
                                     <ItemsControl ItemsSource="{Binding [content], Converter={StaticResource SLSC}}">
+                                        
                                     	<ItemsControl.ContextMenu>
                                     		<ContextMenu>
                                                 <MenuItem Header="Quote..." DataContext="{Binding [content]}" Click="Quote"/>
@@ -77,7 +78,8 @@
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
-                                    </InlineUIContainer></TextBlock>
+                                    </InlineUIContainer>
+                                </TextBlock>
                                 <StackPanel Grid.Column="2">
                                     <TextBlock FontSize="16" HorizontalAlignment="Right" Foreground="Black"><Run Text="{Binding [timestamp], Converter={StaticResource TDTS}}" /><Run Text=" "/><Run Text="{Binding [device], Converter={StaticResource DeviceIcon}}" /></TextBlock>
                                     <ItemsControl ItemsSource="{Binding [drops]}">
@@ -121,12 +123,37 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <Controls:LinkDetectingTextBlock TextWrapping="Wrap" Text="LinkDetectingTextBlock"/>
+                <Rectangle Fill="#FFF4F4F5" Height="100" Stroke="Black" Width="100"/>
             </ItemsControl>
         </ScrollViewer>
         <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" TextChanged="CheckIfTextIsMultiLine" Padding="27,0,0,0" >
             
         </TextBox>
         <TextBlock VerticalAlignment="Top" FontSize="16" Margin="10,10,468,0" Text="{Binding [name]}" Height="37" FontFamily="Segoe UI Semibold" Grid.ColumnSpan="2"/>
-        <Button Content="&#xE15F;" HorizontalAlignment="Left" Grid.Row="2" Width="25" BorderBrush="{x:Null}" Background="{x:Null}" FontFamily="Segoe UI Symbol"/>
+        <Button Content="&#xE15F;" HorizontalAlignment="Left" Grid.Row="2" Width="25" BorderBrush="{x:Null}" Background="{x:Null}" FontFamily="Segoe UI Symbol" Click="Button_Click_1"/>
+        <Border x:Name="SymbolBox" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1" Width="120" Height="131" VerticalAlignment="Bottom" Visibility="Hidden">
+            <WrapPanel Margin="-1">
+                <WrapPanel.Background>
+                    <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                </WrapPanel.Background>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="™"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😄" ToolTip=":)"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😃" ToolTip=":D"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😠" ToolTip=">:("/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😋" ToolTip=":P"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😉" ToolTip=";)"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😒" ToolTip="-.-"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
+            </WrapPanel>
+        </Border>
     </Grid>
 </Page>

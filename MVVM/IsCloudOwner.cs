@@ -12,7 +12,7 @@ namespace CloudsdaleWin7.MVVM
             var cloudOwner = MainWindow.CurrentCloud["owner_id"].ToString();
             var id = MainWindow.User["user"]["id"].ToString();
             if (cloudOwner != id) return Visibility.Collapsed;
-            return Visibility.Collapsed;
+            return Visibility.Visible;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

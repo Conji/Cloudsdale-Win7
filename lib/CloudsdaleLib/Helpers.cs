@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Documents;
+using CloudsdaleWin7.lib.Helpers;
 
 namespace CloudsdaleWin7.lib.CloudsdaleLib {
     public static class CloudsdaleHelpers {
@@ -88,6 +92,23 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
         public static string MultiReplace(this string input, string r1, string r2, string r3, string replacement)
         {
             return input.Replace(r1, replacement).Replace(r2, replacement).Replace(r3, replacement);
+        }
+        public static Hyperlink OnClickLaunch(this Hyperlink link, string uri)
+        {
+            if (!Uri.IsWellFormedUriString(uri, UriKind.Absolute))
+            {
+                uri = "http://" + uri;
+            }
+
+            link.Click += async delegate
+            {
+                if (!Uri.IsWellFormedUriString(uri, UriKind.Absolute))
+                {
+                    MessageBox.Show(uri + " is not a well formed link! Please try another.");
+                }
+                BrowserHelper.ViewInBrowser(uri);
+            };
+            return link;
         }
     }
 }

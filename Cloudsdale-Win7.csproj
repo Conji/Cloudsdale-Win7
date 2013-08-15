@@ -90,7 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="lib\Helpers\BrowserHelper.cs" />
+    <Compile Include="lib\Helpers\UIHelpers.cs" />
     <Compile Include="MVVM\IsCloudOwner.cs" />
+    <Compile Include="MVVM\MessageProcessor.cs" />
     <Compile Include="MVVM\SlideConverter.cs" />
     <Compile Include="Views\UserInfo.xaml.cs">
       <DependentUpon>UserInfo.xaml</DependentUpon>

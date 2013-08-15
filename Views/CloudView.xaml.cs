@@ -41,24 +41,10 @@ namespace CloudsdaleWin7 {
         }
 
         private void SendBoxEnter(object sender, KeyEventArgs e) {
-            if (e.Key == Key.Enter)
-            {
-                if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
-                {
-                    if (InputBox.LineCount != 1)
-                    {
-                        InputBox.MaxHeight *= 4;
-                        InputBox.Height += InputBox.Height;
-                        Console.WriteLine("Success");
-                    }
-                }
-                else
-                {
-                    if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
-                    Send(InputBox.Text, (string)Cloud["id"]);
-                    InputBox.Text = "";
-                }
-            }
+            if (e.Key != Key.Enter) return;
+            if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
+            Send(InputBox.Text, (string)Cloud["id"]);
+            InputBox.Text = "";
         }
 
         internal void Send(string message, string cloudId)
@@ -112,7 +98,8 @@ namespace CloudsdaleWin7 {
         {
             var obj = (MenuItem) sender;
             var text = obj.DataContext.ToString();
-            InputBox.Text = "> " + text.Replace(@"\n", Environment.NewLine);
+            InputBox.Text = "> " + text.Replace(@"\n", Environment.NewLine + "> ");
+            
         }
 
         private void CheckIfTextIsMultiLine(object sender, TextChangedEventArgs e)
@@ -122,6 +109,17 @@ namespace CloudsdaleWin7 {
             {
                 InputBox.MaxHeight *= 4;
                 InputBox.Height *= InputBox.LineCount;
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (SymbolBox.Visibility == Visibility.Visible)
+            {
+                SymbolBox.Visibility = Visibility.Hidden;
+            }else
+            {
+                SymbolBox.Visibility = Visibility.Visible;
             }
         }
     }

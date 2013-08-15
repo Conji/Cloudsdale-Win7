@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Data;
 using CloudsdaleWin7.lib;
+using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.MVVM
 {
@@ -13,7 +11,8 @@ namespace CloudsdaleWin7.MVVM
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value.ToString())
+            var obj = value.ToString();
+            switch (obj)
             {
                 case "online":
                     return CloudsdaleSource.OnlineStatus;

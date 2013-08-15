@@ -13,7 +13,7 @@ namespace CloudsdaleWin7 {
             InitializeComponent();
             RootGrid.DataContext = MainWindow.User;
             Instance = this;
-            MainWindow.Instance.CloudList.Width = 200;
+            MainWindow.Instance.CloudList.Width = 220;
             JoinDate.Text += MainWindow.User["user"]["member_since"].ToString().Split(' ')[0];
         }
 

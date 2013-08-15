@@ -57,7 +57,7 @@ namespace CloudsdaleWin7.Controls {
                     MainWindow.Instance.CloudList.SelectedIndex = -1;
                     MainWindow.Instance.Frame.Navigate(new Browser());
                     Browser.Instance.Width = MainWindow.Instance.Width;
-                    Browser.Instance.WebBrowser.Navigate(link);
+                    Browser.Instance.WebBrowser.Navigate(link.StartsWith("http://") ? link : "http://" + link);
                     Browser.Instance.WebAddress.Text = link;
                 };
                 Inlines.Add(hyperlink);

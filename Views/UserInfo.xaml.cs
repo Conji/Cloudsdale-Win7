@@ -41,8 +41,10 @@ namespace CloudsdaleWin7.Views
                 var skype = userObject["skype_name"].ToString();
                 skypeName.Text = skype;
                 skypePanel.Visibility = Visibility.Visible;
+            }else
+            {
+                skypePanel.Visibility = Visibility.Collapsed;
             }
-            if (skypeName.Text == "") skypePanel.Visibility = Visibility.Collapsed;
             Title = name;
             Name.Text = name;
             Username.Text = username;

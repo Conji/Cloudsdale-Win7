@@ -15,7 +15,30 @@
             <TextBlock Height="51" TextWrapping="Wrap" Margin="50,10,0,0" FontFamily="Segoe UI Symbol" FontSize="20" Text="&#xE11A;" TextAlignment="Center" VerticalAlignment="Bottom"/>
             <TextBox Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="306" Padding="0" Margin="10,20,0,0" FontSize="14" Text="Search for a cloud..."/>
         </DockPanel>
-        <Grid Margin="0,71,0,0"/>
+        <WrapPanel x:Name="ExploreList" Margin="0,71,0,0">
+            <ItemsControl>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <Border Height="150" Width="104">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                                </Border.BorderBrush>
+                                <StackPanel>
+                                    <Image x:Name="CloudAvatar" Source="{Binding [avatar][preview], Converter={StaticResource StringUriConv}}" Margin="2,2,2,2" Height="100" Width="100"/>
+                                    <TextBlock x:Name="CloudName" Text="{Binding [name]}" FontSize="15" TextAlignment="Center" Height="30"/>
+                                    <Button x:Name="JoinCloud" Content="Join Cloud!" FontSize="16">
+                                        <Button.Background>
+                                            <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                                        </Button.Background>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </WrapPanel>
 
     </Grid>
 </Page>

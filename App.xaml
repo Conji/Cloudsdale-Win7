@@ -16,6 +16,8 @@
         <MVVM:DeviceIcon x:Key="DeviceIcon" />
         <MVVM:IsCloudOwner x:Key="ICO"/>
         <MVVM:SlideConverter x:Key="Slide"/>
+        <MVVM:AkaConverter x:Key="Aka"/>
+        <MVVM:UnreadConverter x:Key="NewMessages"/>
         <Style x:Key="ListboxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="Margin" Value="1,2,1,1"/>
             <Setter Property="HorizontalAlignment" Value="Stretch" />

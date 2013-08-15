@@ -13,8 +13,24 @@
         </Grid.ColumnDefinitions>
         <Frame x:Name="Frame" Source="/Views\Login.xaml" NavigationUIVisibility="Hidden" Grid.Column="1" 
 			MVVM:DisableNavigation.Disable="True" Grid.ColumnSpan="3" Unloaded="Close" />
-        <Grid>
-
+        <Grid x:Name="MainGrid">
+            <Grid.Resources>
+                <Storyboard x:Key="Expand" x:Name="ExpandMenu" Completed="ExpandMenu_Completed">
+                    <DoubleAnimation Storyboard.TargetName="MenuPanel" Storyboard.TargetProperty="Width" From="0" To="80" Duration="00:00:00.5">
+                        <DoubleAnimation.EasingFunction>
+                            <ElasticEase Oscillations="2" EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+                <Storyboard x:Key="Shrink" x:Name="ShrinkMenu" Completed="ShrinkMenu_Completed">
+                    <DoubleAnimation Storyboard.TargetName="MenuPanel" Storyboard.TargetProperty="Width" From="80" To="0" Duration="00:00:00.5">
+                        <DoubleAnimation.EasingFunction>
+                            <ElasticEase Oscillations="2" EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+                
+            </Grid.Resources>
             <ListView x:Name="CloudList" SelectionChanged="CloudListSelectionChanged"
 				Style="{StaticResource ListBoxStyle}" UseLayoutRounding="False" MouseRightButtonDown="KeepCurrentCloud">
 
@@ -28,23 +44,27 @@
 								Margin="3" Width="24" Height="24"/>
                             <TextBlock Text="{Binding [name]}" Width="200" FontSize="14" Foreground="White" />
                             <TextBlock x:Name="newCount" Text="" FontSize="12" Foreground="WhiteSmoke" HorizontalAlignment="Right"/>
-                            <!--<ContextMenu>
-                                <MenuItem Header="Go to cloud"/>
-                                <MenuItem Header="Leave this cloud"/>
-                                <MenuItem Header="Receive Notifications" IsCheckable="True"/>
-                                <Separator/>
-                                <MenuItem Header="Cloud details..."/>
-                                <MenuItem Header="Cloud rules..."/>
-                                <MenuItem Header="Moderator List..."/>
-                                <MenuItem Header="Online Users..."/>
-                              </ContextMenu>-->
+                            <StackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Go to cloud"/>
+                                    <MenuItem Header="Leave this cloud"/>
+                                    <MenuItem Header="Receive Notifications" IsCheckable="True"/>
+                                    <Separator/>
+                                    <MenuItem Header="Cloud details..."/>
+                                    <MenuItem Header="Cloud rules..."/>
+                                    <MenuItem Header="Moderator List..."/>
+                                    <MenuItem Header="Online Users..."/>
+                                    <Separator/>
+                                    <MenuItem Header="Delete Cloud" Visibility="{Binding [id], Converter={StaticResource ICO}}"/>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
         <Border x:Name="MenuPanel" BorderBrush="Black" BorderThickness="1" Grid.Column="3" HorizontalAlignment="Right" Width="80" Visibility="Hidden">
-            <StackPanel Margin="0,0,-2,-2">
+                <StackPanel Margin="0,0,-2,-2">
                 <StackPanel.Background>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </StackPanel.Background>
@@ -68,26 +88,21 @@
             </StackPanel>
         </Border>
         <TextBlock x:Name="showMenu" MouseDown="ShowMenu" HorizontalAlignment="Right" Height="16" VerticalAlignment="Top" Width="17" Grid.Column="3" Text="&#xE0D5;" FontFamily="Segoe UI Symbol">
-			<!--<TextBlock.Triggers>
-                <EventTrigger RoutedEvent="TextBlock.MouseDown">
-                    <BeginStoryboard>
-                        <Storyboard Duration="00:00:00.5">
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="MenuPanel">
-                                <EasingDoubleKeyFrame Value="{Binding Converter={StaticResource Slide}}" KeyTime="00:00:00.5">
-                                    <EasingDoubleKeyFrame.EasingFunction>
-                                        <CubicEase EasingMode="EaseOut"/>
-                                    </EasingDoubleKeyFrame.EasingFunction>
-                                </EasingDoubleKeyFrame>
-                                <EasingDoubleKeyFrame Value="{Binding Converter={StaticResource Slide}}" KeyTime="00:00:00.5">
-                                    <EasingDoubleKeyFrame.EasingFunction>
-                                        <BounceEase Bounces="4" EasingMode="EaseOut"/>
-                                    </EasingDoubleKeyFrame.EasingFunction>
-                                </EasingDoubleKeyFrame>
-                            </DoubleAnimationUsingKeyFrames>
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="Mouse.MouseDown">
+                    <!--<BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="MenuPanel" Storyboard.TargetProperty="Width" From="{Binding Converter={StaticResource Slide}}" To="{Binding Converter={StaticResource Slide}}" Duration="00:00:00.5">
+                                <DoubleAnimation.EasingFunction>
+                                    <ElasticEase Oscillations="2" EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                                
+                            </DoubleAnimation>
+                            
                         </Storyboard>
-                    </BeginStoryboard>
+                    </BeginStoryboard>-->
                 </EventTrigger>
-            </TextBlock.Triggers>-->
+            </TextBlock.Triggers>
         </TextBlock>
     </Grid>
 </Window>

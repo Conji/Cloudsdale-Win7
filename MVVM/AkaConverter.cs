@@ -10,8 +10,7 @@ namespace CloudsdaleWin7.MVVM
     {
         public object Convert(object value, Type targetType, object property, CultureInfo culture)
         {
-            var newvalue = value.ToString().MultiReplace("[", "]", "\"", "");
-            return newvalue;
+            return value.ToString().MultiReplace("[", "]", "\"", "");
         }
         public object ConvertBack(object value, Type targetType, object property, CultureInfo culture)
         {

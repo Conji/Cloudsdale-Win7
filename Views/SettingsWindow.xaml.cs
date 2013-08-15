@@ -43,16 +43,6 @@ namespace CloudsdaleWin7
             avatar.Source = new BitmapImage(new Uri(MainWindow.User["user"]["avatar"]["preview"].ToString(), UriKind.Absolute));
             avatar.Stretch = Stretch.UniformToFill;
         }
-       
-        private void Logout(object sender, RoutedEventArgs e)
-        {
-            MainWindow.User = null;
-            Login.Logout();
-            MainWindow.Instance.Frame.Navigate(new Login());
-            MainWindow.Instance.CloudList.ItemsSource = null;
-            MainWindow.Instance.CloudList.Width = 4;
-            Close();
-        }
 
         private void CheckLength(object sender, RoutedEventArgs e)
         {
