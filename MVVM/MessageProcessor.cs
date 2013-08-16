@@ -3,16 +3,32 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 
 namespace CloudsdaleWin7.MVVM
 {
     class MessageProcessor : IValueConverter 
     {
+        public static readonly Regex ItalicsRegex = new Regex(@"\B\/\b([^\/\n]+)\b\/\B");
+        public static readonly Regex RedactedRegex = new Regex(@"\[REDACTED\]", RegexOptions.IgnoreCase);
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var SlashIndices = value.ToString().IndexOfAny(new char['/']);
+            #region Italics
+            Console.WriteLine(targetType.ToString());
+            foreach (string word in ItalicsSplit(value.ToString()))
+            {
+                var content = new TextBlock();
+
+                content.Inlines.Add(new Italic(new Run(word)));
+            }
+
+            #endregion
 
             return value.ToString().Split('\n').Select(line => line.Trim()).ToArray();
         }
@@ -21,22 +37,30 @@ namespace CloudsdaleWin7.MVVM
         {
             return value;
         }
-        public static List<string> ItalicsSplit(string message)
+        public static List<string> ItalicsSplit(string text)
         {
-            var splitItems = new List<string>();
-            if (string.IsNullOrEmpty(message)) return splitItems;
-            var nextPos = 0;
-            var cursorPos = 0;
-            while (nextPos > -1)
+            List<string> splitItems = new List<string>();
+            foreach (Match matches in ItalicsRegex.Matches(text))
             {
-                nextPos = message.IndexOf('/', cursorPos);
-                if (nextPos != -1 && (message.Substring(cursorPos - 1)) == " ")
+                
+                if (string.IsNullOrEmpty(text)) return splitItems;
+                if (string.IsNullOrEmpty("/"))
                 {
-                    splitItems.Add(message.Substring(cursorPos, nextPos - cursorPos));
-                    cursorPos = nextPos + 1;
+                    splitItems.Add(matches.Value);
+                    return splitItems;
                 }
-                splitItems.Add(message.Substring(cursorPos, message.Length - cursorPos));
-
+                int nextPos = 0;
+                int curPos = 0;
+                while (nextPos > -1)
+                {
+                    nextPos = matches.Value.IndexOf('/', curPos);
+                    if (nextPos != -1)
+                    {
+                        splitItems.Add(matches.Value.Substring(curPos, nextPos - curPos));
+                        curPos = nextPos + "/".Length;
+                    }
+                }
+                splitItems.Add(text.Substring(curPos, matches.Value.Length - curPos));
             }
             return splitItems;
         }

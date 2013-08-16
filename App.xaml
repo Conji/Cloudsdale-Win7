@@ -18,6 +18,7 @@
         <MVVM:SlideConverter x:Key="Slide"/>
         <MVVM:AkaConverter x:Key="Aka"/>
         <MVVM:UnreadConverter x:Key="NewMessages"/>
+        <MVVM:MessageProcessor x:Key="MessageControl"/>
         <Style x:Key="ListboxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="Margin" Value="1,2,1,1"/>
             <Setter Property="HorizontalAlignment" Value="Stretch" />

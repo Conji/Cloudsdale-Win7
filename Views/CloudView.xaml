@@ -59,7 +59,7 @@
                                     </Border>
                                 </StackPanel>
                                 <TextBlock FontFamily="Segoe UI Symbol"  Margin="5" FontSize="15" Cursor="Hand" MouseLeftButtonDown="ShowUserInfo" Grid.Column="1" VerticalAlignment="Top" Foreground="DarkSlateGray"><Run Text="{Binding [author][name], Converter={StaticResource JTSC}}" Foreground="{Binding [author], ConverterParameter={StaticResource Cloud}, Converter={StaticResource NameColor}}" /><Run Text=" (@"/><Run Text="{Binding [author][username], Converter={StaticResource JTSC}}" Foreground="{Binding [author][status], Converter={StaticResource StatusConverter}}"/><Run Text=")" DataContext="{Binding [author]}"/><LineBreak/><InlineUIContainer>   
-                                    <ItemsControl ItemsSource="{Binding [content], Converter={StaticResource SLSC}}">
+                                    <ItemsControl x:Name="MessageContent" ItemsSource="{Binding [content], Converter={StaticResource MessageControl}}">
                                         
                                     	<ItemsControl.ContextMenu>
                                     		<ContextMenu>
@@ -78,8 +78,7 @@
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
-                                    </InlineUIContainer>
-                                </TextBlock>
+                                    </InlineUIContainer></TextBlock>
                                 <StackPanel Grid.Column="2">
                                     <TextBlock FontSize="16" HorizontalAlignment="Right" Foreground="Black"><Run Text="{Binding [timestamp], Converter={StaticResource TDTS}}" /><Run Text=" "/><Run Text="{Binding [device], Converter={StaticResource DeviceIcon}}" /></TextBlock>
                                     <ItemsControl ItemsSource="{Binding [drops]}">
@@ -110,20 +109,19 @@
                                            FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="Black"
                                            TextWrapping="Wrap" FontFamily="Segoe UI">
                                     <TextBlock.ContextMenu>
-                                    		<ContextMenu>
-                                                <MenuItem Header="Quote..." DataContext="{Binding [content]}" Click="Quote"/>
-                                                <MenuItem Header="Copy all text..."/>
-                                                <Separator/>
-                                                <MenuItem Header="View user info"/>
-                                            </ContextMenu>
-                                    	</TextBlock.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Quote..." DataContext="{Binding [content]}" Click="Quote"/>
+                                            <MenuItem Header="Copy all text..."/>
+                                            <Separator/>
+                                            <MenuItem Header="View user info"/>
+                                        </ContextMenu>
+                                    </TextBlock.ContextMenu>
                                 </TextBlock>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <Controls:LinkDetectingTextBlock TextWrapping="Wrap" Text="LinkDetectingTextBlock"/>
-                <Rectangle Fill="#FFF4F4F5" Height="100" Stroke="Black" Width="100"/>
             </ItemsControl>
         </ScrollViewer>
         <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" TextChanged="CheckIfTextIsMultiLine" Padding="27,0,0,0" >

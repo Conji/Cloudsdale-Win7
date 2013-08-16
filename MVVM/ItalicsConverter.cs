@@ -9,22 +9,7 @@ namespace CloudsdaleWin7.MVVM
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var newStyle = new FontStyle();
-            foreach (var slash in value.ToString())
-            {
-                var _style = new FontStyle();
-                if(slash == '/')
-                {
-                    if (_style == FontStyles.Italic)
-                    {
-                        newStyle = FontStyles.Normal;
-                    }else
-                    {
-                        newStyle = FontStyles.Italic;
-                    }
-                }
-            }
-            return newStyle;
+            return null;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

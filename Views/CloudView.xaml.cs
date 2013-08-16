@@ -45,6 +45,7 @@ namespace CloudsdaleWin7 {
             if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
             Send(InputBox.Text, (string)Cloud["id"]);
             InputBox.Text = "";
+            
         }
 
         internal void Send(string message, string cloudId)
@@ -121,6 +122,10 @@ namespace CloudsdaleWin7 {
             {
                 SymbolBox.Visibility = Visibility.Visible;
             }
+        }
+        private void ShowCloudInfo(object sender, MouseButtonEventArgs args)
+        {
+            
         }
     }
 }

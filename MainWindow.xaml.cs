@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using CloudsdaleWin7.MVVM;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Models;
@@ -32,7 +33,6 @@ namespace CloudsdaleWin7
         public MainWindow()
         {
             Instance = this;
-            Console.WriteLine(ClientVersion.UpdatedVersion());
             ClientVersion.CleanUp();
             ClientVersion.CheckVersion();
             InitializeComponent();
