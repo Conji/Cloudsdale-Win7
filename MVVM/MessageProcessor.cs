@@ -20,7 +20,6 @@ namespace CloudsdaleWin7.MVVM
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             #region Italics
-            Console.WriteLine(targetType.ToString());
             foreach (string word in ItalicsSplit(value.ToString()))
             {
                 var content = new TextBlock();

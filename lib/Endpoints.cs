@@ -21,6 +21,7 @@
         public const string CloudUsers = Cloud + "/users";
         public const string CloudOnlineUsers = Cloud + "/online" + Json;
 
+        public const string CloudBan = Cloud + "/bans";
         public const string CloudUserBans = Cloud + "/bans?offender_id=[:offender_id]";
         public const string Avatar = AssetSource + "/[:type]/[:id].png?s=[:size]";
         public const string PushAddress = "wss://push.cloudsdale.org/push";

@@ -93,6 +93,14 @@ namespace CloudsdaleWin7 {
             var j = (JObject) block.DataContext;
             var user = new UserInfo();
             user.ShowUserInfo((JObject) j["author"]);
+            if (MainWindow.CurrentCloud["moderator_ids"].ToString().Contains(MainWindow.User["user"]["id"].ToString()) || MainWindow.CurrentCloud["owner_id"].ToString() == MainWindow.User["user"]["id"].ToString())
+            {
+                UserInfo.Instance.ModeratorTools.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                UserInfo.Instance.ModeratorTools.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Quote(object sender, RoutedEventArgs e)

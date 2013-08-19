@@ -104,5 +104,15 @@
                 </EventTrigger>
             </TextBlock.Triggers>
         </TextBlock>
+        <DockPanel x:Name="MessageNotification" Grid.ColumnSpan="2" Grid.Column="2" Height="154" LastChildFill="False" Margin="0,42,24,0" VerticalAlignment="Top" UseLayoutRounding="False" HorizontalAlignment="Right" Width="181" Visibility="Hidden">
+            <DockPanel.Background>
+                <SolidColorBrush Color="#FF4A4A4A"/>
+            </DockPanel.Background>
+            <TextBlock x:Name="Message" TextWrapping="Wrap" Width="181" Padding="5" FontSize="14" FontFamily="Segoe UI Light">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </DockPanel>
     </Grid>
 </Window>

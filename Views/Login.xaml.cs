@@ -194,6 +194,7 @@ namespace CloudsdaleWin7 {
             }
             var responseObject = JObject.Parse(responseData);
             MainWindow.User = (JObject)responseObject["result"];
+            MainWindow.WebMessage = (string) responseObject["flash"];
         }
 
         private async Task PreloadMessages(ICollection<JToken> clouds) {

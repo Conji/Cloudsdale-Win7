@@ -92,6 +92,8 @@
     </ApplicationDefinition>
     <Compile Include="lib\Helpers\BrowserHelper.cs" />
     <Compile Include="lib\Helpers\UIHelpers.cs" />
+    <Compile Include="lib\Notifications\Chat.cs" />
+    <Compile Include="lib\Notifications\Client.cs" />
     <Compile Include="MVVM\IsCloudOwner.cs" />
     <Compile Include="MVVM\MessageProcessor.cs" />
     <Compile Include="MVVM\SlideConverter.cs" />

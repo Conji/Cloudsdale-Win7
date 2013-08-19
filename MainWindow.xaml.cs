@@ -23,6 +23,7 @@ namespace CloudsdaleWin7
         public static JObject User;
         public static JToken CurrentCloud;
         public static int CloudIndex;
+        public static string WebMessage;
         
         public int MaxCharacters
         {
@@ -51,6 +52,7 @@ namespace CloudsdaleWin7
                     CloudOwnerItem.Visibility = Visibility.Collapsed;
                 }else{ CloudOwnerItem.Visibility = Visibility.Visible; }
                 CloudIndex = CloudList.SelectedIndex;
+                
             }
         }
 

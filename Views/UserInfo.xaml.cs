@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.Models;
+using CloudsdaleWin7.lib.Notifications;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.Views
@@ -24,6 +26,7 @@ namespace CloudsdaleWin7.Views
     public partial class UserInfo : Window
     {
         public static UserInfo Instance;
+        public static string _id { get; set; }
         public UserInfo()
         {
             InitializeComponent();
@@ -33,6 +36,7 @@ namespace CloudsdaleWin7.Views
         public void ShowUserInfo(JObject userObject)
         {
             var id = userObject["id"].ToString();
+            _id = id;
             var name = userObject["name"].ToString();
             var username = "@" + userObject["username"].ToString();
             var avatarUri = new Uri(userObject["avatar"]["preview"].ToString(), UriKind.Absolute);
@@ -70,23 +74,55 @@ namespace CloudsdaleWin7.Views
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (BanInfo.Height == 0)
+            if (Reason.Text == null || Reason.Text.Trim() == "")
             {
-                BanInfo.Height = 70;
+                MessageBox.Show("Please state a reason!");
             }else
             {
-                //ban user
-                BanInfo.Height = 0;
+                var BanModel = "{\"offender_id\":\"[:id]\", \"ban\":{\"due\":\"[:date]\", \"reason\":\"[:reason]\"}}".Replace("[:id]", _id).Replace("[:date]", BanDate.DisplayDate.ToShortDateString()).Replace("[:reason]", Reason.Text);
+                var data = Encoding.UTF8.GetBytes(BanModel);
+                var request = WebRequest.CreateHttp(Endpoints.CloudBan.Replace("[:id]", MainWindow.CurrentCloud["id"].ToString()));
+                request.Headers["X-Auth-Token"] = MainWindow.User["user"]["auth_token"].ToString();
+                request.Accept = "application/json";
+                request.ContentType = "application/json";
+                request.Method = "POST";
+                request.ContentLength = data.Length;
+                request.BeginGetRequestStream(ar =>
+                {
+                    var reqs = request.EndGetRequestStream(ar);
+                    reqs.Write(data, 0, data.Length);
+                    reqs.Close();
+                    request.BeginGetResponse(a =>
+                    {
+                        try
+                        {
+                            var response = request.EndGetResponse(a);
+                            response.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine(ex);
+                        }
+                    }, null);
+                }, null);
             }
         }
         private static JObject BaseObject(string id)
         {
-            var request = WebRequest.CreateHttp(Endpoints.UserJson.Replace("[:id]", id));
-            var response = request.GetResponse();
-            var responseStream = response.GetResponseStream();
-            var responseReader = new StreamReader(responseStream);
-            var responseData = JObject.Parse(responseReader.ReadToEnd());
-            return (JObject)responseData["result"];
+            try
+            {
+                var request = WebRequest.CreateHttp(Endpoints.UserJson.Replace("[:id]", id));
+                var response = request.GetResponse();
+                var responseStream = response.GetResponseStream();
+                var responseReader = new StreamReader(responseStream);
+                var responseData = JObject.Parse(responseReader.ReadToEnd());
+                return (JObject)responseData["result"];
+            }catch (Exception ex)
+            {
+                Client.Notify(ex.Message);
+                return null;
+            }
         }
     }
 }
