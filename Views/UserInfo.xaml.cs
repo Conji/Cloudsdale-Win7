@@ -39,7 +39,7 @@ namespace CloudsdaleWin7.Views
             _id = id;
             var name = userObject["name"].ToString();
             var username = "@" + userObject["username"].ToString();
-            var avatarUri = new Uri(userObject["avatar"]["preview"].ToString(), UriKind.Absolute);
+            var avatarUri = new Uri(userObject["avatar"]["normal"].ToString(), UriKind.Absolute);
             if (userObject["skype_name"] != null)
             {
                 var skype = userObject["skype_name"].ToString();
@@ -77,35 +77,14 @@ namespace CloudsdaleWin7.Views
             if (Reason.Text == null || Reason.Text.Trim() == "")
             {
                 MessageBox.Show("Please state a reason!");
-            }else
+            }
+            else
             {
-                var BanModel = "{\"offender_id\":\"[:id]\", \"ban\":{\"due\":\"[:date]\", \"reason\":\"[:reason]\"}}".Replace("[:id]", _id).Replace("[:date]", BanDate.DisplayDate.ToShortDateString()).Replace("[:reason]", Reason.Text);
-                var data = Encoding.UTF8.GetBytes(BanModel);
-                var request = WebRequest.CreateHttp(Endpoints.CloudBan.Replace("[:id]", MainWindow.CurrentCloud["id"].ToString()));
-                request.Headers["X-Auth-Token"] = MainWindow.User["user"]["auth_token"].ToString();
-                request.Accept = "application/json";
-                request.ContentType = "application/json";
-                request.Method = "POST";
-                request.ContentLength = data.Length;
-                request.BeginGetRequestStream(ar =>
-                {
-                    var reqs = request.EndGetRequestStream(ar);
-                    reqs.Write(data, 0, data.Length);
-                    reqs.Close();
-                    request.BeginGetResponse(a =>
-                    {
-                        try
-                        {
-                            var response = request.EndGetResponse(a);
-                            response.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine(ex);
-                        }
-                    }, null);
-                }, null);
+                var _ban = new Ban(MainWindow.CurrentCloud["id"].ToString());
+                _ban.OffenderId = _id;
+                _ban.Due = BanDate.DisplayDate;
+                _ban.Reason = Reason.Text;
+                _ban.Validate(true);
             }
         }
         private static JObject BaseObject(string id)

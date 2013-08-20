@@ -8,12 +8,11 @@
 	Title="Browser" Width="392.226">
 
     <Grid Margin="0,0,0,284">
-        <TextBox x:Name="WebAddress" HorizontalAlignment="Left" Height="23" Margin="78,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
+        <TextBox x:Name="WebAddress" Height="23" Margin="78,10,73,0" TextWrapping="WrapWithOverflow" VerticalAlignment="Top"/>
         <Button Content="&lt;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="22" Height="23" Click="Button_Click_2"/>
         <Button Content="&gt;" HorizontalAlignment="Left" Margin="37,10,0,0" VerticalAlignment="Top" Width="26" Height="23" Click="Button_Click_3"/>
-        <Button Content="Go" HorizontalAlignment="Left" Margin="348,10,0,0" VerticalAlignment="Top" Width="34" Height="23" Click="Button_Click_1" IsDefault="True"/>
-        <WebBrowser x:Name="WebBrowser" Margin="0,38,0,-260" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <Button Content="Go back to Cloudsdale!" Margin="0,0,0,-285" Height="25" VerticalAlignment="Bottom" Click="button4_click"/>
+        <Button Content="Go" Margin="0,10,34,0" VerticalAlignment="Top" Height="23" Click="Button_Click_1" IsDefault="True" HorizontalAlignment="Right" Width="34"/>
+        <WebBrowser x:Name="WebBrowser" Margin="0,38,0,-284" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
     </Grid>
 </Page>

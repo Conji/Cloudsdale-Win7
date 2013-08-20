@@ -16,6 +16,7 @@ namespace CloudsdaleWin7
             InitializeComponent();
             Instance = this;
             WebBrowser.Navigated += webBrowser1_Navigated;
+            Width = MainWindow.Instance.Frame.Width;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
