@@ -85,6 +85,7 @@ namespace CloudsdaleWin7.Views
                 _ban.Due = BanDate.DisplayDate;
                 _ban.Reason = Reason.Text;
                 _ban.Validate(true);
+                Console.WriteLine();
             }
         }
         private static JObject BaseObject(string id)
