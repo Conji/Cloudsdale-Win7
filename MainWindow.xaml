@@ -40,9 +40,9 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="2" Orientation="Horizontal">
-                            <Image Source="{Binding [avatar][mini], Converter={StaticResource StringUriConv}}"
+                            <Image x:Name="CloudAvatar" Source="{Binding [avatar][mini], Converter={StaticResource StringUriConv}}"
 								Margin="3" Width="24" Height="24"/>
-                            <TextBlock Text="{Binding [name]}" Width="200" FontSize="14" Foreground="White" />
+                            <TextBlock x:Name="CloudName" Text="{Binding [name]}" Width="200" FontSize="14" Foreground="White" />
                             <TextBlock x:Name="newCount" Text="" FontSize="12" Foreground="WhiteSmoke" HorizontalAlignment="Right"/>
                             <StackPanel.ContextMenu>
                                 <ContextMenu>
@@ -87,7 +87,7 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-        <TextBlock x:Name="showMenu" MouseDown="ShowMenu" HorizontalAlignment="Right" Height="16" VerticalAlignment="Top" Width="17" Grid.Column="3" Text="&#xE0D5;" FontFamily="Segoe UI Symbol">
+        <TextBlock x:Name="showMenu" MouseDown="ShowMenu" HorizontalAlignment="Right" Height="16" VerticalAlignment="Top" Width="17" Grid.Column="3" Text="&#xE0D5;" FontFamily="Segoe UI Symbol" Visibility="Hidden">
             <TextBlock.Triggers>
                 <EventTrigger RoutedEvent="Mouse.MouseDown">
                     <!--<BeginStoryboard>
@@ -114,5 +114,6 @@
                 </TextBlock.Foreground>
             </TextBlock>
         </DockPanel>
+        <DockPanel Grid.Column="1" HorizontalAlignment="Left" Height="100" LastChildFill="False" Margin="258,164,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

@@ -31,6 +31,7 @@ namespace CloudsdaleWin7 {
         public Login()
         {
             Instance = this;
+            MainWindow.Instance.showMenu.Visibility = Visibility.Hidden;
             InitializeComponent();
             EmailBox.Text = UserSettings.Default.PreviousEmail;
             PasswordBox.Password = UserSettings.Default.PreviousPassword;

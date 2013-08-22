@@ -49,16 +49,18 @@ namespace CloudsdaleWin7.Controls {
                     if (match.ToString().Contains("www.cloudsdale.org/clouds/"))
                     {
                         //Adds the clicked cloud link to the cloud list and subscribes the user to the channel.
-                        string shortname;
-                        string id;
-                        
-                        
+                        var shortLink = link.StartsWith("http://") ? link.Split('/')[4] : link.Split('/')[3];
+                        RestateMap.RestateCloudList(shortLink);
+
+                    }else
+                    {
+                        MainWindow.Instance.CloudList.SelectedIndex = -1;
+                        MainWindow.Instance.Frame.Navigate(new Browser());
+                        Browser.Instance.Width = MainWindow.Instance.Width;
+                        Browser.Instance.WebBrowser.Navigate(link.StartsWith("http://") ? link : "http://" + link);
+                        Browser.Instance.WebAddress.Text = link;
                     }
-                    MainWindow.Instance.CloudList.SelectedIndex = -1;
-                    MainWindow.Instance.Frame.Navigate(new Browser());
-                    Browser.Instance.Width = MainWindow.Instance.Width;
-                    Browser.Instance.WebBrowser.Navigate(link.StartsWith("http://") ? link : "http://" + link);
-                    Browser.Instance.WebAddress.Text = link;
+                    
                 };
                 Inlines.Add(hyperlink);
                 lastIndex = match.Index + match.Length;

@@ -85,7 +85,12 @@ namespace CloudsdaleWin7.Views
                 _ban.Due = BanDate.DisplayDate;
                 _ban.Reason = Reason.Text;
                 _ban.Validate(true);
-                Console.WriteLine();
+                var req = WebRequest.CreateHttp(Endpoints.CloudBan);
+                var data = Encoding.UTF8.GetBytes(_ban.ToString());
+                req.Accept = "application/json";
+                req.Method = "PUT";
+                req.ContentType = "application/json";
+
             }
         }
         private static JObject BaseObject(string id)

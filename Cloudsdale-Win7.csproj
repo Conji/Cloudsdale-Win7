@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="lib\CloudsdaleLib\RestateMap.cs" />
     <Compile Include="lib\Helpers\BrowserHelper.cs" />
     <Compile Include="lib\Helpers\UIHelpers.cs" />
     <Compile Include="lib\Notifications\Chat.cs" />

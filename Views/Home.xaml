@@ -8,6 +8,18 @@
 	Title="Home">
 
     <Grid Name="RootGrid">
+        <StackPanel Margin="0,10,20,-10">
+                    <Image Source="{Binding [user][avatar][normal], Converter={StaticResource StringUriConv}}"
+                        			Width="200" Height="200" Margin="190,80,0,20" HorizontalAlignment="Left">
+                        <Image.Effect>
+                            <DropShadowEffect/>
+                        </Image.Effect>
+                        <Image.Clip>
+                            <RectangleGeometry Rect="0,0,200,200" RadiusX="100" RadiusY="100" />
+                        </Image.Clip>
+                    </Image>
+                    <TextBlock x:Name="JoinDate" TextWrapping="Wrap" Text="User joined on " Width="297" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="142,0,0,0"/>
+        </StackPanel>
         <FlowDocumentScrollViewer>
             <FlowDocument FontFamily="Segoe UI" FontSize="16">
                 <Paragraph FontSize="36">
@@ -17,23 +29,6 @@
                 </Paragraph>
                 <Paragraph>
                     <Floater HorizontalAlignment="Left">
-                        <Paragraph>
-                            <InlineUIContainer>
-                                <Image Source="{Binding [user][avatar][normal], Converter={StaticResource StringUriConv}}"
-                                       Width="200" Height="200">
-                                    <Image.Effect>
-                                        <DropShadowEffect/>
-                                    </Image.Effect>
-                                    <Image.Clip>
-                                        <RectangleGeometry Rect="0,0,200,200" RadiusX="100" RadiusY="100" />
-                                    </Image.Clip>
-                                </Image>
-                            </InlineUIContainer>
-                            <Run Text=" "/>
-                            <InlineUIContainer>
-                                <TextBlock x:Name="JoinDate" TextWrapping="Wrap" Text="User joined on " Width="297"/>
-                            </InlineUIContainer>
-                        </Paragraph>
                     </Floater>
                 </Paragraph>
             </FlowDocument>

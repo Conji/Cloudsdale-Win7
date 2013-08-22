@@ -39,6 +39,7 @@ namespace CloudsdaleWin7
             InitializeComponent();
             Height = UserSettings.Default.AppHeight;
             Width = UserSettings.Default.AppWidth;
+
         }
 
         private void CloudListSelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.ErrorConsole;
 
 namespace CloudsdaleWin7 {
@@ -15,6 +16,8 @@ namespace CloudsdaleWin7 {
             Instance = this;
             MainWindow.Instance.CloudList.Width = 220;
             JoinDate.Text += MainWindow.User["user"]["member_since"].ToString().Split(' ')[0];
+            MainWindow.Instance.showMenu.Visibility = Visibility.Visible;
+            RestateMap.RestateCloudList("aquarium");
         }
 
         private void ShowConsole(object sender, System.Windows.Input.MouseButtonEventArgs e)
