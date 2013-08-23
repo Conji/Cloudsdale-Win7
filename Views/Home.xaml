@@ -8,7 +8,7 @@
 	Title="Home">
 
     <Grid Name="RootGrid">
-        <StackPanel Margin="0,10,20,-10">
+        <StackPanel x:Name="MainPanel" Margin="0,0,20,0">
                     <Image Source="{Binding [user][avatar][normal], Converter={StaticResource StringUriConv}}"
                         			Width="200" Height="200" Margin="190,80,0,20" HorizontalAlignment="Left">
                         <Image.Effect>
@@ -33,6 +33,6 @@
                 </Paragraph>
             </FlowDocument>
         </FlowDocumentScrollViewer>
-        <Image Margin="0,0,10,10" HorizontalAlignment="Right" Width="58" Height="52" VerticalAlignment="Bottom" Source="/Cloudsdale;component/Assets/computer_proces.png" MouseDown="ShowConsole"/>
+        <Image Margin="0,0,20,10" HorizontalAlignment="Right" Width="58" Height="52" VerticalAlignment="Bottom" Source="/Cloudsdale;component/Assets/computer_proces.png" MouseDown="ShowConsole"/>
     </Grid>
 </Page>

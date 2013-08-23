@@ -3,6 +3,7 @@
     class Endpoints
     {
         //Client
+        #region v1
         public const string Base = "http://www.cloudsdale.org/";
         public const string Version = "v1";
         public const string AssetSource = "https://avatar-cloudsdale.netdna-ssl.com/";
@@ -30,6 +31,9 @@
 
         public const string VersionAddress = "https://raw.github.com/Conji/AppVersions/master/cloudsdale.txt";
         public const string ClientAddress = "https://dl.dropbox.com/s/a5nm1dgvn6lrmtm/Cloudsdale.exe";
+        #endregion
+
+        
 
         #region methods
 

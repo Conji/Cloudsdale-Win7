@@ -90,7 +90,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="lib\CloudsdaleLib\API\Cloudsdale\lib\Addresses.cs" />
     <Compile Include="lib\CloudsdaleLib\RestateMap.cs" />
+    <Compile Include="lib\Converters\Tag.cs" />
     <Compile Include="lib\Helpers\BrowserHelper.cs" />
     <Compile Include="lib\Helpers\UIHelpers.cs" />
     <Compile Include="lib\Notifications\Chat.cs" />
@@ -314,6 +316,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Menus\" />
+    <Folder Include="lib\CloudsdaleLib\API\Cloudsdale\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\next.png" />

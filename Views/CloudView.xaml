@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM" xmlns:Controls="clr-namespace:CloudsdaleWin7.Controls"
-      mc:Ignorable="d" 
+      xmlns:Models="clr-namespace:CloudsdaleWin7.lib.Models" mc:Ignorable="d" 
       d:DesignHeight="564.045" d:DesignWidth="819.101" Foreground="White"
 	Title="CloudView">
 
@@ -48,7 +48,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="3">
-                                    <Image Source="{Binding [author][avatar][preview], Converter={StaticResource StringUriConv}}" 
+                                    <Image Source="{Binding Path=Models:User.Avatar.Normal}" 
                                            Width="60" Height="60"
                                            Cursor="Hand"/>
                                     <Border Background="{Binding [author][role], Converter={StaticResource TagColor}}"
