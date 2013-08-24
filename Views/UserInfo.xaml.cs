@@ -33,6 +33,7 @@ namespace CloudsdaleWin7.Views
             Instance = this;
         }
 
+
         public void ShowUserInfo(JObject userObject)
         {
             var id = userObject["id"].ToString();
@@ -40,15 +41,7 @@ namespace CloudsdaleWin7.Views
             var name = userObject["name"].ToString();
             var username = "@" + userObject["username"].ToString();
             var avatarUri = new Uri(userObject["avatar"]["normal"].ToString(), UriKind.Absolute);
-            if (userObject["skype_name"] != null)
-            {
-                var skype = userObject["skype_name"].ToString();
-                skypeName.Text = skype;
-                skypePanel.Visibility = Visibility.Visible;
-            }else
-            {
-                skypePanel.Visibility = Visibility.Collapsed;
-            }
+          
             Title = name;
             Name.Text = name;
             Username.Text = username;
@@ -109,5 +102,6 @@ namespace CloudsdaleWin7.Views
                 return null;
             }
         }
+
     }
 }

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace CloudsdaleWin7.lib.Converters
 {
@@ -41,19 +38,19 @@ namespace CloudsdaleWin7.lib.Converters
             switch (role)
             {
                 case "founder":
-                    return CloudsdaleSource.FounderTag;
+                    return new SolidColorBrush(CloudsdaleSource.FounderTag);
                 case "developer":
-                    return CloudsdaleSource.DevTag;
+                    return new SolidColorBrush(CloudsdaleSource.DevTag);
                 case "admin":
-                    return CloudsdaleSource.AdminTag;
+                    return new SolidColorBrush(CloudsdaleSource.AdminTag);
                 case "donor":
-                    return CloudsdaleSource.DonatorTag;
+                    return new SolidColorBrush(CloudsdaleSource.DonatorTag);
                 case "legacy":
-                    return CloudsdaleSource.LegacyTag;
+                    return new SolidColorBrush(CloudsdaleSource.LegacyTag);
                 case "verified":
-                    return CloudsdaleSource.VerifiedTag;
+                    return new SolidColorBrush(CloudsdaleSource.VerifiedTag);
                 default:
-                    return CloudsdaleSource.LegacyTag;
+                    return new SolidColorBrush(CloudsdaleSource.LegacyTag);
             }
         }
         public Object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
