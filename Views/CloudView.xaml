@@ -53,10 +53,7 @@
                                            Cursor="Hand"/>
                                     <Border Background="{Binding [author][role], Converter={StaticResource TagColor}}"
                                             Visibility="{Binding [author][role], Converter={StaticResource HCT}}"
-                                            Width="60" Margin="0,1" CornerRadius="4" BorderThickness="1">
-                                        <Border.BorderBrush>
-                                            <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
-                                        </Border.BorderBrush>
+                                            Width="60" Margin="0,1" CornerRadius="4" BorderBrush="Black">
                                         <TextBlock Text="{Binding [author][role], Converter={StaticResource RoleTag}}" 
                                                    FontSize="12" FontWeight="Bold"  Foreground="White" HorizontalAlignment="Center" />
                                     </Border>

@@ -90,16 +90,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="lib\CloudsdaleLib\API\Cloudsdale\lib\Addresses.cs" />
     <Compile Include="lib\CloudsdaleLib\RestateMap.cs" />
+    <Compile Include="lib\Controllers\CloudController.cs" />
     <Compile Include="lib\Converters\Tag.cs" />
     <Compile Include="lib\Helpers\BrowserHelper.cs" />
     <Compile Include="lib\Helpers\UIHelpers.cs" />
+    <Compile Include="lib\Models\Drop.cs" />
+    <Compile Include="lib\Models\IMergable.cs" />
+    <Compile Include="lib\Models\IPreProcessable.cs" />
+    <Compile Include="lib\Models\Message.cs" />
     <Compile Include="lib\Notifications\Chat.cs" />
     <Compile Include="lib\Notifications\Client.cs" />
     <Compile Include="MVVM\IsCloudOwner.cs" />
     <Compile Include="MVVM\MessageProcessor.cs" />
     <Compile Include="MVVM\SlideConverter.cs" />
+    <Compile Include="MVVM\UnreadVisibility.cs" />
     <Compile Include="Views\UserInfo.xaml.cs">
       <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
@@ -316,7 +321,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Menus\" />
-    <Folder Include="lib\CloudsdaleLib\API\Cloudsdale\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\next.png" />

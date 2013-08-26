@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using CloudsdaleWin7.lib.API.Cloudsdale.lib;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.CloudsdaleLib
@@ -47,12 +46,12 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
         }
         public static void RestateUserInfo(string token)
         {
-            var req = WebRequest.CreateHttp(Addresses.Self).GetResponse().GetResponseStream();
-            var streamReader = new StreamReader(req).ReadToEnd();
-            var j1 = JObject.Parse(streamReader);
-            var result = (JObject) j1["result"];
+            //var req = WebRequest.CreateHttp(Addresses.Self).GetResponse().GetResponseStream();
+            //var streamReader = new StreamReader(req).ReadToEnd();
+            //var j1 = JObject.Parse(streamReader);
+            //var result = (JObject) j1["result"];
 
-            MainWindow.User = result;
+            //MainWindow.User = result;
         }
     }
 }

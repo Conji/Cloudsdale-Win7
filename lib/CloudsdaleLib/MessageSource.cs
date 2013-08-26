@@ -7,6 +7,12 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
     public class MessageSource {
         private static readonly Dictionary<string, MessageSource> Sources = new Dictionary<string, MessageSource>(); 
         public readonly ObservableCollection<JToken> Messages = new ObservableCollection<JToken>();
+        public int UnreadMessages { get; set; }
+
+        public MessageSource()
+        {
+            Messages.CollectionChanged += OnMessageReceive;
+        }
 
         public static MessageSource GetSource(JToken cloud) {
             if (Sources.ContainsKey((string)cloud["id"])) {
@@ -27,6 +33,10 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
             } else {
                 MainWindow.Instance.Dispatcher.BeginInvoke(new Action(() => Messages.Add(message)));
             }
+        }
+        public void OnMessageReceive(object sender, EventArgs e)
+        {
+            UnreadMessages += 1;
         }
     }
 }

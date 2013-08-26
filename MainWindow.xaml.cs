@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using CloudsdaleWin7.MVVM;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Models;
@@ -39,7 +36,7 @@ namespace CloudsdaleWin7
             InitializeComponent();
             Height = UserSettings.Default.AppHeight;
             Width = UserSettings.Default.AppWidth;
-
+            
         }
 
         private void CloudListSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -48,12 +45,10 @@ namespace CloudsdaleWin7
             {
                 CurrentCloud = (JToken)CloudList.SelectedItem;
                 Frame.Navigate(GetCloudView(CurrentCloud));
-                if (User["user"]["id"].ToString() != CurrentCloud["owner_id"].ToString())
-                {
-                    CloudOwnerItem.Visibility = Visibility.Collapsed;
-                }else{ CloudOwnerItem.Visibility = Visibility.Visible; }
-                CloudIndex = CloudList.SelectedIndex;
-                
+                CloudOwnerItem.Visibility = User["user"]["id"].ToString() != CurrentCloud["owner_id"].ToString()
+                                                ? Visibility.Collapsed
+                                                : Visibility.Visible;
+                MessageSource.GetSource(CurrentCloud).UnreadMessages = 0;
             }
         }
 
@@ -75,15 +70,11 @@ namespace CloudsdaleWin7
             try
             {
                 SettingsWindow.Instance.Close();
-            }catch
-            {
-            }
+            }catch{}
             try
             {
                 UserInfo.Instance.Close();
-            }catch
-            {
-            }
+            }catch{}
         }
 
         private void SaveSettings(object sender, System.ComponentModel.CancelEventArgs e)
@@ -139,16 +130,6 @@ namespace CloudsdaleWin7
             Instance.Frame.Navigate(new Login());
             Instance.CloudList.ItemsSource = null;
             Instance.CloudList.Width = 4;
-        }
-
-        private void ExpandMenu_Completed(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ShrinkMenu_Completed(object sender, EventArgs e)
-        {
-
         }
     }
 }
