@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Models.Updaters;
+using Microsoft.Win32;
 
 namespace CloudsdaleWin7
 {
@@ -32,7 +35,7 @@ namespace CloudsdaleWin7
                 skype.Text = MainWindow.User["user"]["skype_name"].ToString();
             }
 
-            avatar.Source = new BitmapImage(new Uri(MainWindow.User["user"]["avatar"]["preview"].ToString(), UriKind.Absolute));
+            avatar.Source = new BitmapImage(new Uri(MainWindow.User["user"]["avatar"]["normal"].ToString(), UriKind.Absolute));
             avatar.Stretch = Stretch.UniformToFill;
         }
 
@@ -88,6 +91,14 @@ namespace CloudsdaleWin7
                 if (Char.IsLetter(letter)) return;
                 name.Text = name.Text.Replace(letter, Char.Parse(""));
             }
+        }
+        private void UploadAvatar(object sender, EventArgs e)
+        {
+            var self = new User(MainWindow.User["user"]["id"].ToString());
+            var browserDialog = new OpenFileDialog();
+            browserDialog.Filter = "Image Files |*.png";
+            browserDialog.ShowDialog();
+            self.UploadAvatar(new FileStream(browserDialog.FileName, FileMode.Open), null);
         }
     }
 }
