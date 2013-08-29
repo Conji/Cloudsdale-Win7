@@ -1,13 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.CloudsdaleLib {
-    public class MessageSource {
+    public class MessageSource : CloudsdaleModel{
         private static readonly Dictionary<string, MessageSource> Sources = new Dictionary<string, MessageSource>(); 
         public readonly ObservableCollection<JToken> Messages = new ObservableCollection<JToken>();
-        public int UnreadMessages { get; set; }
+        private int _unreadMessages;
+        public int UnreadMessages
+        {
+            get { return _unreadMessages; }
+            set
+            {
+                if (value == _unreadMessages) return;
+                _unreadMessages = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MessageSource()
         {

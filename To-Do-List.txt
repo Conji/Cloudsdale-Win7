@@ -1,6 +1,12 @@
-﻿Add new cloud to the Cloud List and subscribe
-Finish home screen
-Add new loading animation for log in
+﻿USERS:
+Finish banning including: Sending the ban, unbanning, and getting a list of previous bans.
+Make web-browser open up last session.
+Avatar upload.
+Explore
 
-IMPORTANT:
-Add buttons the menu including: HOME, EXPLORE, SETTINGS, INFO, and BROWSER
+CLOUDS:
+User and mod-list. *MUST BE SEARCHABLE*
+
+CLIENT:
+Subscriptions and notifications.
+Make login look better.

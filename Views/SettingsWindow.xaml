@@ -14,7 +14,6 @@
                 <Image x:Name="avatar"
                      />
             </Border>
-            <TextBlock x:Name="aka" Height="110" TextWrapping="Wrap" Text="Also Known As:" VerticalAlignment="Top" Width="164" Margin="0,10,0,0"/>
         </DockPanel>
         <TextBlock HorizontalAlignment="Left" Margin="35,124,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top">
             <TextBlock.Foreground>

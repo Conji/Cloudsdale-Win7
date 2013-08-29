@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Drawing;
-using System.IO;
-using System.IO.IsolatedStorage;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.lib;
-using CloudsdaleWin7.lib.CloudsdaleLib;
-using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Models.Updaters;
 
 namespace CloudsdaleWin7
@@ -20,7 +14,6 @@ namespace CloudsdaleWin7
     public partial class SettingsWindow : Window
     {
         public static SettingsWindow Instance;
-        private static Regex NameRegex = new Regex(@"([A-Za-z0-9_]+)", RegexOptions.IgnoreCase);
         public bool UpdateClearable = false;
 
         public SettingsWindow()
@@ -38,7 +31,6 @@ namespace CloudsdaleWin7
             {
                 skype.Text = MainWindow.User["user"]["skype_name"].ToString();
             }
-            aka.Text += MainWindow.User["user"]["also_known_as"].ToString().MultiReplace("[", "]", "\"", "");
 
             avatar.Source = new BitmapImage(new Uri(MainWindow.User["user"]["avatar"]["preview"].ToString(), UriKind.Absolute));
             avatar.Stretch = Stretch.UniformToFill;
@@ -91,12 +83,10 @@ namespace CloudsdaleWin7
 
         private void CheckInput(object sender, TextChangedEventArgs e)
         {
-            foreach (char letter in name.Text.ToCharArray())
+            foreach (var letter in name.Text.ToCharArray())
             {
-                if (!Char.IsLetter(letter))
-                {
-                    name.Text.Replace(letter, ' ');
-                }
+                if (Char.IsLetter(letter)) return;
+                name.Text = name.Text.Replace(letter, Char.Parse(""));
             }
         }
     }

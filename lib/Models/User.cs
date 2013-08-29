@@ -1,4 +1,11 @@
 ﻿using System;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.lib.Models
@@ -263,6 +270,53 @@ namespace CloudsdaleWin7.lib.Models
             }
         }
         #endregion
+        public async Task UploadAvatar(Stream pictureStream, string mimeType)
+        {
+            HttpContent postData;
+            using (var dataStream = new MemoryStream())
+            {
+                using (pictureStream)
+                {
+                    await pictureStream.CopyToAsync(dataStream);
+                }
+
+                postData = new MultipartFormDataContent("--" + Guid.NewGuid() + "--") {
+                    new ByteArrayContent(dataStream.ToArray()) {
+                        Headers = {
+                            ContentDisposition = new ContentDispositionHeaderValue("form-data") {
+                                Name = "user[avatar]",
+                                FileName = "GenericImage.png"
+                            },
+                            ContentLength = dataStream.Length,
+                        }
+                    }
+                };
+            }
+
+            var request = new HttpClient
+            {
+                DefaultRequestHeaders = {
+                    { "Accept", "application/json" },
+                    { "X-Auth-Token", Cloudsdale.SessionProvider.CurrentSession.AuthToken }
+                }
+            };
+
+            var response = await request.PostAsync(Endpoints.User.Replace("[:id]", Id), postData);
+            var result = await JsonConvert.DeserializeObjectAsync<WebResponse<User>>(await response.Content.ReadAsStringAsync());
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                await Cloudsdale.ModelErrorProvider.OnError(result);
+            }
+            else
+            {
+                result.Result.CopyTo(this);
+            }
+        }
+        public override string ToString()
+        {
+            return Id + " { " + Name + " @" + Username + " [" + Role + "] }";
+        }
     }
 }
     

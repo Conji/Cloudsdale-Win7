@@ -84,17 +84,6 @@ namespace CloudsdaleWin7
             UserSettings.Default.Save();
         }
 
-        private void KeepCurrentCloud(object sender, MouseButtonEventArgs e)
-        {
-            CloudList.SelectedIndex = CloudIndex;
-        }
-
-        private void GetCloudId(object sender, MouseButtonEventArgs e)
-        {
-            var item = (ListViewItem) sender;
-            Console.WriteLine(item.DataContext.ToString());
-        }
-
         private void ShowMenu(object sender, MouseButtonEventArgs e)
         {
             if (MenuPanel.IsVisible)
@@ -129,7 +118,7 @@ namespace CloudsdaleWin7
             Login.Logout();
             Instance.Frame.Navigate(new Login());
             Instance.CloudList.ItemsSource = null;
-            Instance.CloudList.Width = 4;
+            Instance.CloudList.Width = 4;        
         }
     }
 }
