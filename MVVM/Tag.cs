@@ -3,8 +3,9 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using CloudsdaleWin7.lib;
 
-namespace CloudsdaleWin7.lib.Converters
+namespace CloudsdaleWin7.MVVM
 {
     public class TagVisibility : IValueConverter
     {

@@ -57,5 +57,10 @@ namespace CloudsdaleWin7
         {
             MainWindow.Instance.Frame.Navigate(new Home());
         }
+        public void NavigateTo(string uri)
+        {
+            WebAddress.Text = uri;
+            WebBrowser.Navigate(uri);
+        }
     }
 }

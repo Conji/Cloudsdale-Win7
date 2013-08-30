@@ -16,15 +16,11 @@ namespace CloudsdaleWin7.MVVM
             var data = (TextBlock) value;
             var currentCloud = (JToken) MainWindow.Instance.CloudList.SelectedItem;
 
-            for (var i = 0; i < 10; i++)
+            if (currentCloud["id"] != data.DataContext)
             {
-                if (currentCloud["id"] != data.DataContext)
-                {
-                    return MessageSource.GetSource(data.DataContext.ToString()).UnreadMessages == 0
-                               ? ""
-                               : MessageSource.GetSource(data.DataContext.ToString()).UnreadMessages.ToString();
-                }
-                return "";
+                return MessageSource.GetSource(data.DataContext.ToString()).UnreadMessages == 0
+                           ? ""
+                           : MessageSource.GetSource(data.DataContext.ToString()).UnreadMessages.ToString();
             }
             return "";
         }

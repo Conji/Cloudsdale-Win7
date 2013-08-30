@@ -43,26 +43,26 @@ namespace CloudsdaleWin7.Controls {
             Inlines.Clear();
             foreach (Match match in matches) {
                 Inlines.Add(new Run(args.NewText.Substring(lastIndex, match.Index - lastIndex)));
-                var hyperlink = new Hyperlink(new Run(match.Value));
-                var link = match.Value;
-                hyperlink.Click += (sender, eventArgs) => {
-                    if (match.ToString().Contains("www.cloudsdale.org/clouds/"))
-                    {
-                        //Adds the clicked cloud link to the cloud list and subscribes the user to the channel.
-                        var shortLink = link.StartsWith("http://") ? link.Split('/')[4] : link.Split('/')[3];
-                        RestateMap.RestateCloudList(shortLink);
+                //var hyperlink = new Hyperlink(new Run(match.Value));
+                //var link = match.Value;
+                //hyperlink.Click += (sender, eventArgs) => {
+                //    if (match.ToString().Contains("www.cloudsdale.org/clouds/"))
+                //    {
+                //        //Adds the clicked cloud link to the cloud list and subscribes the user to the channel.
+                //        var shortLink = link.StartsWith("http://") ? link.Split('/')[4] : link.Split('/')[3];
+                //        RestateMap.RestateCloudList(shortLink);
 
-                    }else
-                    {
-                        MainWindow.Instance.CloudList.SelectedIndex = -1;
-                        MainWindow.Instance.Frame.Navigate(new Browser());
-                        Browser.Instance.Width = MainWindow.Instance.Width;
-                        Browser.Instance.WebBrowser.Navigate(link.StartsWith("http://") ? link : "http://" + link);
-                        Browser.Instance.WebAddress.Text = link;
-                    }
+                //    }else
+                //    {
+                //        MainWindow.Instance.CloudList.SelectedIndex = -1;
+                //        MainWindow.Instance.Frame.Navigate(new Browser());
+                //        Browser.Instance.Width = MainWindow.Instance.Width;
+                //        Browser.Instance.WebBrowser.Navigate(link.StartsWith("http://") ? link : "http://" + link);
+                //        Browser.Instance.WebAddress.Text = link;
+                //    }
                     
-                };
-                Inlines.Add(hyperlink);
+                //};
+                //Inlines.Add(hyperlink);
                 lastIndex = match.Index + match.Length;
             }
             Inlines.Add(new Run(args.NewText.Substring(lastIndex)));

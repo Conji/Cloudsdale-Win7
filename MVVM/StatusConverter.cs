@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 using CloudsdaleWin7.lib;
-using Newtonsoft.Json.Linq;
+using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.MVVM
 {
@@ -11,20 +11,26 @@ namespace CloudsdaleWin7.MVVM
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var obj = value.ToString();
-            switch (obj)
+            Color color;
+            switch ((Status)value)
             {
-                case "online":
-                    return CloudsdaleSource.OnlineStatus;
-                case "offline":
-                    return CloudsdaleSource.OfflineStatus;
-                case "busy":
-                    return CloudsdaleSource.BusyStatus;
-                case "away":
-                    return CloudsdaleSource.AwayStatus;
+                case Status.Online:
+                    color = CloudsdaleSource.OnlineStatus;
+                    break;
+                case Status.Offline:
+                    color = CloudsdaleSource.OfflineStatus;
+                    break;
+                case Status.Busy:
+                    color = CloudsdaleSource.BusyStatus;
+                    break;
+                case Status.Away:
+                    color = CloudsdaleSource.AwayStatus;
+                    break;
                 default:
-                    return "";
+                    color = CloudsdaleSource.OfflineStatus;
+                    break;
             }
+            return new SolidColorBrush(color);
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

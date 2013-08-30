@@ -7,18 +7,18 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
         public static event Action<JObject> MessageReceived;
 
         public static void Initialize() {
-            FayeConnector.LostConnection += FayeConnector.Connect;
-            FayeConnector.DoneConnecting += delegate {
+            Faye.LostConnection += Faye.Connect;
+            Faye.DoneConnecting += delegate {
                 foreach (var cloud in MainWindow.User["user"]["clouds"]) {
-                    FayeConnector.Subscribe("/clouds/" + cloud["id"] + "/chat/messages");
+                    Faye.Subscribe("/clouds/" + cloud["id"] + "/chat/messages");
                 }
             };
-            FayeConnector.Connect();
+            Faye.Connect();
         }
 
         public static async Task InitializeAsync() {
-            FayeConnector.LostConnection += FayeConnector.Connect;
-            await FayeConnector.ConnectAsync();
+            Faye.LostConnection += Faye.Connect;
+            await Faye.ConnectAsync();
         }
 
         internal static void OnMessageReceived(JObject obj) {

@@ -67,6 +67,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.13\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.13\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -90,9 +97,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ActionMessageView.xaml.cs">
+      <DependentUpon>ActionMessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Hyperlink.cs" />
+    <Compile Include="Controls\MessageTextControl.xaml.cs">
+      <DependentUpon>MessageTextControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StandMessageView.xaml.cs">
+      <DependentUpon>StandMessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ViewboxPanel.cs" />
     <Compile Include="lib\CloudsdaleLib\RestateMap.cs" />
     <Compile Include="lib\Controllers\CloudController.cs" />
-    <Compile Include="lib\Converters\Tag.cs" />
+    <Compile Include="MVVM\Tag.cs" />
     <Compile Include="lib\Helpers\BrowserHelper.cs" />
     <Compile Include="lib\Helpers\UIHelpers.cs" />
     <Compile Include="lib\Models\Drop.cs" />
@@ -101,10 +119,8 @@
     <Compile Include="lib\Models\Message.cs" />
     <Compile Include="lib\Notifications\Chat.cs" />
     <Compile Include="lib\Notifications\Client.cs" />
+    <Compile Include="MVVM\ActionMessagesConverter.cs" />
     <Compile Include="MVVM\IsCloudOwner.cs" />
-    <Compile Include="MVVM\MessageProcessor.cs" />
-    <Compile Include="MVVM\SlideConverter.cs" />
-    <Compile Include="MVVM\UnreadVisibility.cs" />
     <Compile Include="Views\UserInfo.xaml.cs">
       <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
@@ -126,9 +142,7 @@
     <Compile Include="lib\Models\UIMetadata.cs" />
     <Compile Include="lib\Models\Updaters\CDUModel.cs" />
     <Compile Include="lib\Models\Cloud.cs" />
-    <Compile Include="MVVM\AkaConverter.cs" />
     <Compile Include="MVVM\IsUnread.cs" />
-    <Compile Include="MVVM\UnreadConverter.cs" />
     <Compile Include="lib\Providers\ICloudProvider.cs" />
     <Compile Include="lib\Providers\ICloudServiceProvider.cs" />
     <Compile Include="lib\Providers\IErrorProvider.cs" />
@@ -139,6 +153,18 @@
     <Compile Include="lib\Providers\ISessionProvider.cs" />
     <Compile Include="lib\Providers\IStatusProvider.cs" />
     <Compile Include="lib\Providers\IUserProvider.cs" />
+    <Page Include="Controls\ActionMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StandMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Browser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,7 +200,7 @@
     </Compile>
     <Compile Include="lib\CloudsdaleLib\Connection.cs" />
     <Compile Include="lib\CloudsdaleLib\CouldNotLoginException.cs" />
-    <Compile Include="lib\CloudsdaleLib\FayeConnector.cs" />
+    <Compile Include="lib\CloudsdaleLib\Faye.cs" />
     <Compile Include="lib\CloudsdaleLib\Helpers.cs" />
     <Compile Include="lib\CloudsdaleLib\MessageSource.cs" />
     <Compile Include="lib\CloudsdaleLib\UserSettings.Designer.cs">
@@ -216,20 +242,10 @@
     <Compile Include="lib\Models\Updaters\UDUModel.cs" />
     <Compile Include="lib\Models\User.cs" />
     <Compile Include="MVVM\ChatColorConverter.cs" />
-    <Compile Include="MVVM\DependencyJToken.cs" />
     <Compile Include="MVVM\DeviceIcon.cs" />
     <Compile Include="MVVM\DisableNavigation.cs" />
-    <Compile Include="MVVM\HasChatTagVis.cs" />
-    <Compile Include="MVVM\IsSlashMeVis.cs" />
-    <Compile Include="MVVM\ItalicsConverter.cs" />
-    <Compile Include="MVVM\JTokenStringConverter.cs" />
     <Compile Include="MVVM\NameColor.cs" />
-    <Compile Include="MVVM\NoiseGenerator.cs" />
     <Compile Include="MVVM\StatusConverter.cs" />
-    <Compile Include="MVVM\StringLinesplitConverter.cs" />
-    <Compile Include="MVVM\StringUriConverter.cs" />
-    <Compile Include="MVVM\TagColorConverter.cs" />
-    <Compile Include="MVVM\TagConverter.cs" />
     <Compile Include="MVVM\TimeOfDayToString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -321,11 +337,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Menus\" />
+    <Folder Include="lib\Converters\" />
+    <Folder Include="Views\LoadingViews\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\next.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\cd_icon_color_for_mlv.mp4" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

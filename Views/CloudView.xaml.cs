@@ -23,11 +23,11 @@ namespace CloudsdaleWin7 {
             Instance = this;
             Cloud = cloud;
             InitializeComponent();
-            ChatMessages.Items.Clear();
+            //clear items
             Title = (string)cloud["name"];
             DataContext = cloud;
             MessageSource.GetSource(Cloud).Messages.CollectionChanged += NewMessage;
-            ChatMessages.ItemsSource = MessageSource.GetSource(Cloud).Messages;
+            //set new source
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             ((DependencyJToken)Resources["Cloud"]).Token = cloud;
         }
@@ -52,7 +52,7 @@ namespace CloudsdaleWin7 {
         {
             var dataObject = new JObject();
             dataObject["content"] = message;
-            dataObject["client_id"] = FayeConnector.ClientID;
+            dataObject["client_id"] = Faye.ClientID;
             dataObject["device"] = "desktop";
             var data = Encoding.UTF8.GetBytes(dataObject.ToString());
             var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", cloudId));

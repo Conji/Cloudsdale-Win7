@@ -6,16 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows.Threading;
-using CloudsdaleWin7.lib;
-using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.MVVM {
     public class NameColor : IValueConverter {
         #region Implementation of IValueConverter
-
-        private static JObject Cloud;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

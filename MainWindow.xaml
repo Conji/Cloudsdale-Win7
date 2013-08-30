@@ -70,7 +70,7 @@
                 <TextBlock Height="26" Text="Settings" TextAlignment="Center" FontWeight="Bold" FontSize="18"/>
                 <TextBlock Height="54" Cursor="Hand" Padding="10" Margin="10,0,10,0" FontFamily="Segoe UI Symbol" Text="&#xE11B;" FontSize="34"/>
                 <TextBlock Height="26" Text="Info" TextAlignment="Center" FontWeight="Bold" FontSize="18"/>
-                <Separator FontSize="30" Height="10" Background="Black"/>
+                <Separator FontSize="30" Height="10" Background="Black" Margin="4,2"/>
                 <TextBlock Height="43" Cursor="Hand" Padding="10" Margin="10,0,10,0" FontFamily="Segoe UI Symbol" Text="&#xE167;" FontSize="34" TextAlignment="Center" MouseDown="DirectToBrowser"/>
                 <TextBlock Height="26" Text="Browser" TextAlignment="Center" FontWeight="Bold" FontSize="18"/>
                 <TextBlock Height="51" Cursor="Hand" Padding="10" Margin="10,0,10,0" FontFamily="Segoe UI Symbol" Text="&#xE0CA;" FontSize="25" TextAlignment="Center" MouseDown="LogOut"/>

@@ -216,7 +216,7 @@ namespace CloudsdaleWin7 {
                         foreach (var message in responseData["result"]) {
                             LoadMessageToSource(source, message, (string)cloud["id"]);
                         }
-                        FayeConnector.Subscribe("/clouds/" + cloud["id"] + "/chat/messages");
+                        Faye.Subscribe("/clouds/" + cloud["id"] + "/chat/messages");
                     }
                 }
             }

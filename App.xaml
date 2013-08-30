@@ -10,13 +10,9 @@
         <MVVM:TimeOfDayToString x:Key="TDTS" />
         <MVVM:StringLinesplitConverter x:Key="SLSC" />
         <MVVM:HasChatTagVis x:Key="HCT" />
-        <MVVM:TagColorConverter x:Key="TagColor" />
-        <MVVM:TagConverter x:Key="RoleTag" />
         <MVVM:NameColor x:Key="NameColor" />
         <MVVM:DeviceIcon x:Key="DeviceIcon" />
         <MVVM:IsCloudOwner x:Key="ICO"/>
-        <MVVM:SlideConverter x:Key="Slide"/>
-        <MVVM:AkaConverter x:Key="Aka"/>
         <MVVM:UnreadConverter x:Key="NewMessages"/>
         <MVVM:MessageProcessor x:Key="MessageControl"/>
         <MVVM:UnreadConverter x:Key="URC"/>

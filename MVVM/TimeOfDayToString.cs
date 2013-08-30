@@ -8,8 +8,8 @@ namespace CloudsdaleWin7.MVVM {
         #region Implementation of IValueConverter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            var jToken = value as JToken;
-            return (jToken != null ? (jToken.ToObject<DateTime>()) : ((DateTime)value)).TimeOfDay.ToString(@"hh\:mm\:ss");
+            var time = (DateTime)value;
+            return time.ToString(time.Date == DateTime.Today ? "T" : "G");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
