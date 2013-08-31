@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json.Linq;
 
@@ -21,6 +22,8 @@ namespace CloudsdaleWin7
         public static JToken CurrentCloud;
         public static int CloudIndex;
         public static string WebMessage;
+        public static CloudsdaleApp MainApp;
+        
         
         public int MaxCharacters
         {

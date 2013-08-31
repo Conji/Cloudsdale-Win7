@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace CloudsdaleWin7.lib.ErrorConsole.CConsole
 {
     public class WriteError
     {
-        public static void Write(string error)
+        public async static Task ShowError(string error)
         {
             var messageFormat = "[" + DateTime.Now.ToString() + "] " + error + Environment.NewLine;
             ErrorConsole.Instance.Show();

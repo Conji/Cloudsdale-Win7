@@ -1,7 +1,6 @@
 ﻿USERS:
 Finish banning including: Sending the ban, unbanning, and getting a list of previous bans.
 Make web-browser open up last session.
-Avatar upload.
 Explore
 
 CLOUDS:

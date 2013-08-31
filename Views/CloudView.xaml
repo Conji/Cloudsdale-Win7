@@ -10,7 +10,6 @@
 
     <Page.Resources>
         <MVVM:StatusConverter x:Key="StatusConverter"/>
-        <MVVM:DependencyJToken x:Key="Cloud" />
     </Page.Resources>
 
     <Grid Background="#FFFAFAFA">

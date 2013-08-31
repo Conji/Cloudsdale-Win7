@@ -9,7 +9,7 @@
 
     <Grid Name="RootGrid">
         <StackPanel x:Name="MainPanel" Margin="0,0,20,0">
-                    <Image Source="{Binding [user][avatar][normal], Converter={StaticResource StringUriConv}}"
+                    <Image Source="{Binding User.Avatar.Normal}"
                         			Width="200" Height="200" Margin="190,80,0,20" HorizontalAlignment="Left">
                         <Image.Effect>
                             <DropShadowEffect/>
@@ -24,7 +24,7 @@
             <FlowDocument FontFamily="Segoe UI" FontSize="16">
                 <Paragraph FontSize="36">
                     <Run Text="Welcome back "/>
-                    <Run Text="{Binding [user][name], Converter={StaticResource JTSC}}" />
+                    <Run Text="{Binding User.Name}" />
                     <Run Text="!"/>
                 </Paragraph>
                 <Paragraph>

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows;
+using CloudsdaleWin7.lib.ErrorConsole.CConsole;
 
 namespace CloudsdaleWin7.lib.Models
 {
@@ -12,20 +13,27 @@ namespace CloudsdaleWin7.lib.Models
 
         public static string UpdatedVersion()
         {
-            var request = WebRequest.CreateHttp(Endpoints.VersionAddress);
-            var responseStream = request.GetResponse().GetResponseStream();
-            var response = new StreamReader(responseStream);
-            return response.ReadToEnd().Trim();
+            try
+            {
+                var request = WebRequest.CreateHttp(Endpoints.VersionAddress);
+                var responseStream = request.GetResponse().GetResponseStream();
+                var response = new StreamReader(responseStream);
+                return response.ReadToEnd().Trim();
+            }catch (Exception ex)
+            {
+                WriteError.ShowError(ex.Message);
+                return "UPDATED FAILED";
+            }
         }
         public static void CheckVersion()
         {
-            if (UpdatedVersion() != VERSION)
-            {
-                if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
+            //fix this
+            if (UpdatedVersion() == "UPDATE FAILED") return;
+            if (UpdatedVersion() == VERSION && UpdatedVersion() != "UPDATE FAILED") return;
+            if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
                                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
-                {
-                    UpdateClient();
-                }
+            {
+                UpdateClient();
             }
         }
         private static void UpdateClient()

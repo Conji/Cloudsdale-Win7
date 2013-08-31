@@ -1,31 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Windows.Data;
 using System.Windows.Media;
-using Newtonsoft.Json.Linq;
+using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Controllers;
+using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.MVVM {
     public class NameColor : IValueConverter {
         #region Implementation of IValueConverter
 
+        private readonly static CloudsdaleApp App = MainWindow.MainApp;
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var cloud = ((DependencyJToken) parameter).Token;
-            var cloudId = cloud["id"].ToString();
-            var user = (JToken) value;
-            var ownerId = (string) cloud["owner_id"];
-            var moderatorIds = cloud["moderator_ids"].Select(id => (string) id).ToList();
-            var userId = (string) user["id"];
-            return new SolidColorBrush(
-                userId == ownerId
-                    ? Color.FromRgb(0x66, 0x00, 0xcc)
-                    : moderatorIds.Contains(userId)
-                          ? Color.FromRgb(0x00, 0xa5, 0xff)
-                          : Color.FromRgb(0x57, 0x57, 0x57));
+            var user = (User)value;
+            var controller = App.MessageController.CurrentCloud;
+            var cloud = controller.Cloud;
+
+            var color = cloud.OwnerId == user.Id
+                            ? Color.FromArgb(0xFF, 0x80, 0x00, 0xFF)
+                            : cloud.ModeratorIds.Contains(user.Id)
+                                  ? Color.FromArgb(0xFF, 0x33, 0x66, 0xFF)
+                                  : Color.FromArgb(0xFF, 0x5A, 0x5A, 0x5A);
+            return new SolidColorBrush(color);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

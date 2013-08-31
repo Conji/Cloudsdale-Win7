@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
@@ -16,17 +17,17 @@ using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.Controllers
 {
-    public class CloudController : IStatusProvider, IMessageReciever, INotifyPropertyChanged
+    public class CloudController : IStatusProvider, IMessageReceiver, INotifyPropertyChanged
     {
         private int _unreadMessages;
         private readonly Dictionary<string, Status> userStatuses = new Dictionary<string, Status>();
         private readonly ModelCache<Message> messages = new ModelCache<Message>(50);
         private DateTime? _validatedFayeClient;
+        private CloudsdaleApp App = new CloudsdaleApp();
 
         public CloudController(Cloud cloud)
         {
             Cloud = cloud;
-            FixSessionStatus();
         }
 
         public Cloud Cloud { get; private set; }
@@ -40,7 +41,7 @@ namespace CloudsdaleWin7.lib.Controllers
                 var list =
                     userStatuses.Where(kvp => kvp.Value != Status.Offline)
                                 .Where(kvp => Cloud.ModeratorIds.Contains(kvp.Key))
-                                .Select(kvp => App.Connection.ModelController.GetUser(kvp.Key))
+                                .Select(kvp => App.ModelController.GetUser(kvp.Key))
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
                 return list;
@@ -53,7 +54,7 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 var list =
                     Cloud.ModeratorIds
-                                .Select(mid => App.Connection.ModelController.GetUser(mid))
+                                .Select(mid => App.ModelController.GetUser(mid))
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
                 return list;
@@ -65,9 +66,9 @@ namespace CloudsdaleWin7.lib.Controllers
             get
             {
                 var list =
-                    userStatuses.Where(kvp => kvp.Value != Status.offline)
+                    userStatuses.Where(kvp => kvp.Value != Status.Offline)
                                 .Where(kvp => !Cloud.ModeratorIds.Contains(kvp.Key))
-                                .Select(kvp => App.Connection.ModelController.GetUser(kvp.Key))
+                                .Select(kvp => App.ModelController.GetUser(kvp.Key))
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
                 return list;
@@ -79,7 +80,7 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 var list =
                     userStatuses.Where(kvp => !Cloud.ModeratorIds.Contains(kvp.Key))
-                                .Select(kvp => App.Connection.ModelController.GetUser(kvp.Key))
+                                .Select(kvp => App.ModelController.GetUser(kvp.Key))
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
                 return list;
@@ -88,9 +89,9 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public async Task EnsureLoaded()
         {
-            if (_validatedFayeClient == null || _validatedFayeClient < App.Connection.Faye.CreationDate)
+            if (_validatedFayeClient == null || _validatedFayeClient < App.Faye.CreationDate)
             {
-                App.Connection.Faye.Subscribe("/clouds/" + Cloud.Id + "/users/*");
+                App.Faye.Subscribe("/clouds/" + Cloud.Id + "/users/*");
             }
 
             await Cloud.Validate();
@@ -112,7 +113,7 @@ namespace CloudsdaleWin7.lib.Controllers
                     {
                         SetStatus(user.Id, (Status)user.Status);
                     }
-                    users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
+                    users.Add(await App.ModelController.UpdateDataAsync(user));
                 }
 
             }
@@ -136,7 +137,7 @@ namespace CloudsdaleWin7.lib.Controllers
                 }
             }
 
-            _validatedFayeClient = App.Connection.Faye.CreationDate;
+            _validatedFayeClient = App.Faye.CreationDate;
         }
 
         public void OnMessage(JObject message)
@@ -161,32 +162,12 @@ namespace CloudsdaleWin7.lib.Controllers
             AddUnread();
             var message = jMessage.ToObject<Message>();
 
-            if (message.ClientId == App.Connection.Faye.ClientId) return;
+            if (message.ClientId == App.Faye.ClientId) return;
 
-            SendToast(message);
+            //show notification
 
             message.Author.CopyTo(message.User);
             messages.AddToEnd(message);
-        }
-
-        private void SendToast(Message message)
-        {
-            if (!AppSettings.Settings.DisplayNotifications)
-            {
-                return;
-            }
-
-            //if (App.Connection.MessageController.CurrentCloud == this
-            //    && Window.Current.Visible)
-            //{
-            //    return;
-            //}
-
-            //notifier
-            var image = (XmlElement)template.GetElementsByTagName("image")[0];
-            image.SetAttribute("src", message.Author.Avatar.Normal.ToString());
-            image.SetAttribute("alt", message.Author.Name);
-           
         }
 
         private async void OnUserMessage(string id, JToken jUser)
@@ -197,7 +178,7 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 SetStatus(user.Id, (Status)user.Status);
             }
-            await App.Connection.ModelController.UpdateDataAsync(user);
+            await App.ModelController.UpdateDataAsync(user);
         }
 
         private void OnCloudData(JToken cloudData)
@@ -208,11 +189,11 @@ namespace CloudsdaleWin7.lib.Controllers
         private void AddUnread()
         {
             ++UnreadMessages;
-            if (App.Connection.MessageController.CurrentCloud == this)
+            if (App.MessageController.CurrentCloud == this)
             {
                 UnreadMessages = 0;
             }
-            App.Connection.MessageController.UpdateUnread();
+            App.MessageController.UpdateUnread();
         }
 
         public int UnreadMessages
@@ -228,7 +209,6 @@ namespace CloudsdaleWin7.lib.Controllers
 
         private Status SetStatus(string userId, Status status)
         {
-            FixSessionStatus();
             userStatuses[userId] = status;
             OnPropertyChanged("OnlineModerators");
             OnPropertyChanged("AllModerators");
@@ -239,14 +219,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public Status StatusForUser(string userId)
         {
-            FixSessionStatus();
             return userStatuses.ContainsKey(userId) ? userStatuses[userId] : SetStatus(userId, Status.Offline);
-        }
-
-        private void FixSessionStatus()
-        {
-            userStatuses[App.Connection.SessionController.CurrentSession.Id] =
-                App.Connection.SessionController.CurrentSession.PreferredStatus;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

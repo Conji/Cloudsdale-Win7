@@ -67,10 +67,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Extensions">
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.13.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Net.Http.2.2.13\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Primitives">
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.13.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Net.Http.2.2.13\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
@@ -108,8 +110,21 @@
       <DependentUpon>StandMessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ViewboxPanel.cs" />
+    <Compile Include="lib\CloudsdaleLib\CloudsdaleApp.cs" />
+    <Compile Include="lib\CloudsdaleLib\Connection.cs" />
     <Compile Include="lib\CloudsdaleLib\RestateMap.cs" />
     <Compile Include="lib\Controllers\CloudController.cs" />
+    <Compile Include="lib\Controllers\ConnectionController.cs" />
+    <Compile Include="lib\Controllers\ErrorController.cs" />
+    <Compile Include="lib\Controllers\MessageController.cs" />
+    <Compile Include="lib\Controllers\ModelController.cs" />
+    <Compile Include="lib\Controllers\SessionController.cs" />
+    <Compile Include="lib\Models\Client\BooleanMetadataProvider.cs" />
+    <Compile Include="lib\Models\Client\CloudControllerMetadataProvider.cs" />
+    <Compile Include="lib\Models\Client\LastSession.cs" />
+    <Compile Include="lib\Models\Client\UserStatusMetadataProvider.cs" />
+    <Compile Include="lib\Models\IAvatarUploadTarget.cs" />
+    <Compile Include="lib\Models\ModelCache.cs" />
     <Compile Include="MVVM\Tag.cs" />
     <Compile Include="lib\Helpers\BrowserHelper.cs" />
     <Compile Include="lib\Helpers\UIHelpers.cs" />
@@ -121,6 +136,9 @@
     <Compile Include="lib\Notifications\Client.cs" />
     <Compile Include="MVVM\ActionMessagesConverter.cs" />
     <Compile Include="MVVM\IsCloudOwner.cs" />
+    <Compile Include="Views\LoadingViews\LoadLogin.xaml.cs">
+      <DependentUpon>LoadLogin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserInfo.xaml.cs">
       <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
@@ -181,6 +199,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\LoadingViews\LoadLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,7 +220,6 @@
     <Compile Include="Views\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="lib\CloudsdaleLib\Connection.cs" />
     <Compile Include="lib\CloudsdaleLib\CouldNotLoginException.cs" />
     <Compile Include="lib\CloudsdaleLib\Faye.cs" />
     <Compile Include="lib\CloudsdaleLib\Helpers.cs" />
@@ -338,7 +359,6 @@
   <ItemGroup>
     <Folder Include="Assets\Menus\" />
     <Folder Include="lib\Converters\" />
-    <Folder Include="Views\LoadingViews\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\next.png" />
@@ -347,6 +367,11 @@
     <Content Include="Assets\cd_icon_color_for_mlv.mp4" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />

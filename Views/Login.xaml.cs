@@ -4,18 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.ErrorConsole;
 using CloudsdaleWin7.lib.ErrorConsole.CConsole;
-using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -64,8 +60,6 @@ namespace CloudsdaleWin7 {
             Instance.autoSession.IsChecked = false;
         }
 
-        private static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
         private async void LoginClick(object sender, RoutedEventArgs e)
         {
             MainLayout.Visibility = Visibility.Collapsed;
@@ -94,15 +88,15 @@ namespace CloudsdaleWin7 {
                 if (o["data"] == null) return;
                 var cloudId = ((string)o["channel"]).Split('/')[2];
                 var source = MessageSource.GetSource(cloudId);
-                LoadMessageToSource(source, o["data"], cloudId);
+                LoadMessageToSource(source, o["data"]);
             };
-            await Connection.InitializeAsync();
+            Connection.Initialize();
             try
             {
                 await PreloadMessages((JArray)MainWindow.User["user"]["clouds"]);
             }catch(Exception ex)
             {
-                WriteError.Write(ex.Message);
+                WriteError.ShowError(ex.Message);
             }
             
 
@@ -111,7 +105,7 @@ namespace CloudsdaleWin7 {
             MainWindow.Instance.Frame.Navigate(new Home());
         }
 
-        private void LoadMessageToSource(MessageSource source, JToken message, string cloudId) {
+        private void LoadMessageToSource(MessageSource source, JToken message) {
             message["orgcontent"] = message["content"] =
                 message["content"].ToString().UnescapeLiteral().RegexReplace(@"[ ]+", " ");
             lock (source) {
@@ -189,7 +183,7 @@ namespace CloudsdaleWin7 {
                         responseData = responseStreamReader.ReadToEnd();
                         var console = new ErrorConsole();
                         console.Show();
-                        WriteError.Write(responseData);
+                        WriteError.ShowError(responseData);
                     }
                 }
             }
@@ -214,9 +208,9 @@ namespace CloudsdaleWin7 {
                         var responseData = JObject.Parse(await responseReader.ReadToEndAsync());
                         var source = MessageSource.GetSource(cloud);
                         foreach (var message in responseData["result"]) {
-                            LoadMessageToSource(source, message, (string)cloud["id"]);
+                            LoadMessageToSource(source, message);
                         }
-                        Faye.Subscribe("/clouds/" + cloud["id"] + "/chat/messages");
+                        Faye.CreateClient(new Uri("/clouds/" + cloud["id"] + "/chat/messages"));
                     }
                 }
             }

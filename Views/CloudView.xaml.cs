@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib;
-using CloudsdaleWin7.MVVM;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using Newtonsoft.Json.Linq;
 
@@ -29,7 +28,6 @@ namespace CloudsdaleWin7 {
             MessageSource.GetSource(Cloud).Messages.CollectionChanged += NewMessage;
             //set new source
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
-            ((DependencyJToken)Resources["Cloud"]).Token = cloud;
         }
         
         ~CloudView() {
@@ -52,7 +50,7 @@ namespace CloudsdaleWin7 {
         {
             var dataObject = new JObject();
             dataObject["content"] = message;
-            dataObject["client_id"] = Faye.ClientID;
+            dataObject["client_id"] = MainWindow.MainApp.Faye.ClientId;
             dataObject["device"] = "desktop";
             var data = Encoding.UTF8.GetBytes(dataObject.ToString());
             var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", cloudId));
