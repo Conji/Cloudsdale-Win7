@@ -8,31 +8,12 @@
 	Title="Home">
 
     <Grid Name="RootGrid">
-        <StackPanel x:Name="MainPanel" Margin="0,0,20,0">
-                    <Image Source="{Binding User.Avatar.Normal}"
-                        			Width="200" Height="200" Margin="190,80,0,20" HorizontalAlignment="Left">
-                        <Image.Effect>
-                            <DropShadowEffect/>
-                        </Image.Effect>
-                        <Image.Clip>
-                            <RectangleGeometry Rect="0,0,200,200" RadiusX="100" RadiusY="100" />
-                        </Image.Clip>
-                    </Image>
-                    <TextBlock x:Name="JoinDate" TextWrapping="Wrap" Text="User joined on " Width="297" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="142,0,0,0"/>
-        </StackPanel>
-        <FlowDocumentScrollViewer>
-            <FlowDocument FontFamily="Segoe UI" FontSize="16">
-                <Paragraph FontSize="36">
-                    <Run Text="Welcome back "/>
-                    <Run Text="{Binding User.Name}" />
-                    <Run Text="!"/>
-                </Paragraph>
-                <Paragraph>
-                    <Floater HorizontalAlignment="Left">
-                    </Floater>
-                </Paragraph>
-            </FlowDocument>
-        </FlowDocumentScrollViewer>
-        <Image Margin="0,0,20,10" HorizontalAlignment="Right" Width="58" Height="52" VerticalAlignment="Bottom" Source="/Cloudsdale;component/Assets/computer_proces.png" MouseDown="ShowConsole"/>
+        <TextBlock Margin="64,44,80,0" TextWrapping="Wrap" Text="Welcome message" VerticalAlignment="Top" Height="39" FontSize="27"/>
+        <Separator Height="12" Margin="64,83,80,0" VerticalAlignment="Top">
+            <Separator.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+            </Separator.Background>
+        </Separator>
+
     </Grid>
 </Page>

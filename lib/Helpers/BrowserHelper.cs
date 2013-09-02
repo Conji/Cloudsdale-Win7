@@ -20,7 +20,7 @@ namespace CloudsdaleWin7.lib.Helpers
         {
             if (!IsCloudLink(uri))
             {
-                MainWindow.Instance.Frame.Navigate(new Browser());
+                MainWindow.Instance.MainFrame.Navigate(new Browser());
                 Browser.Instance.WebAddress.Text = uri;
                 Browser.Instance.WebBrowser.Navigate(uri);
             }else

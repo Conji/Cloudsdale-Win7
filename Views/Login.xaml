@@ -3,44 +3,51 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
+      xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM" mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="640"
 	Title="Login">
     <Page.Resources>
         <Color x:Key="PrimaryBlue">#FF63A0D0</Color>
+        <MVVM:LoginScreen x:Key="ScreenColor"/>
     </Page.Resources>
 
-    <Grid x:Name="LoginBack">
+    <Grid x:Name="Grid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="264"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="/Cloudsdale;component/Assets/Login.gif"/>
+            <SolidColorBrush Color="{Binding Converter={StaticResource ScreenColor}}"/>
         </Grid.Background>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="MainLayout" Margin="164,131,166,184" Height="165">
-            <StackPanel Orientation="Horizontal"/>
-            <StackPanel Orientation="Horizontal"/>
-            <StackPanel Orientation="Horizontal"/>
-        </StackPanel>
-        <StackPanel x:Name="LoggingInUI" VerticalAlignment="Center" Visibility="Collapsed">
-            <TextBlock FontSize="18" HorizontalAlignment="Center"><Run x:Name="LoadStatus" /></TextBlock>
-            <ProgressBar Height="30" x:Name="LoadProgress" BorderBrush="{x:Null}" >
-                <ProgressBar.Background>
-                    <SolidColorBrush Color="#FF63A8D0"/>
-                </ProgressBar.Background>
-                <ProgressBar.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="{DynamicResource PrimaryBlue}" Offset="0"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </ProgressBar.Foreground>
-            </ProgressBar>
-        </StackPanel>
-        <Image Height="110" Margin="95,69,95,0" VerticalAlignment="Top"/>
-        <Grid x:Name="LogginContents" HorizontalAlignment="Center" Height="336" Margin="30,49,28,0" VerticalAlignment="Top" Width="582" d:IsHidden="True">
-            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="48" Margin="150,192,0,0" Stroke="Black" VerticalAlignment="Top" Width="282" StrokeStartLineCap="Round" StrokeDashCap="Round" StrokeLineJoin="Round" StrokeEndLineCap="Round"/>
-            <TextBox Margin="150,193,150,119" x:Name="EmailBox" FontSize="18" TextChanged="ColorChange" GotFocus="ClearText" LostFocus="AutoFill" />
-            <PasswordBox Margin="150,217,150,96" x:Name="PasswordBox" FontSize="18" />
-            <CheckBox x:Name="autoSession" Content="Auto-Login" HorizontalAlignment="Left" Margin="150,245,0,0" VerticalAlignment="Top" FontSize="20" VerticalContentAlignment="Center"/>
-            <Button x:Name="LoginButton" Width="141" Margin="0,249,150,56" HorizontalAlignment="Right" Click="LoginClick" Content="Login" IsDefault="True" FontSize="18"/>
-            <Image Height="125" VerticalAlignment="Top" Source="/Cloudsdale;component/Assets/cloudsdale-thin-bright-logo.png"/>
-        </Grid>
+        <Border BorderThickness="1" Height="65" Margin="1,231,0,0" VerticalAlignment="Top" CornerRadius="8" Grid.Column="1">
+            <Border.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Border.Background>
+            
+            <TextBox x:Name="EmailBox" TextWrapping="Wrap" Text="Email" Margin="9,9,9,36" BorderBrush="{x:Null}" MouseDown="ClearText">
+                <TextBox.Background>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                </TextBox.Background>
+
+            </TextBox>
+        </Border>
+        <PasswordBox x:Name="PasswordBox" Margin="12,267,10,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Password="password" Height="18" Grid.Column="1">
+            <PasswordBox.Background>
+                <SolidColorBrush Color="{DynamicResource LightText}"/>
+            </PasswordBox.Background>
+        </PasswordBox>
+        <Separator Height="8" Margin="12,259,10,0" VerticalAlignment="Top" Grid.Column="1">
+            <Separator.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+            </Separator.Background>
+        </Separator>
+        <Button x:Name="LoginButton" Content="Login!" Grid.Column="1" Margin="1,312,125,0" VerticalAlignment="Top" Height="30" FontWeight="SemiBold" IsDefault="True" Click="LoginClick"/>
+        <Image Grid.Column="1" Height="58" Margin="1,149,0,0" VerticalAlignment="Top" Source="/Cloudsdale;component/Assets/cloudsdale-thin-bright-logo.png"/>
+        <CheckBox x:Name="autoLogin" Content="Auto-Login" Grid.Column="1" HorizontalAlignment="Left" Margin="144,312,0,0" VerticalAlignment="Top" Width="110" Height="30" FontSize="18" VerticalContentAlignment="Center"/>
+
     </Grid>
 </Page>

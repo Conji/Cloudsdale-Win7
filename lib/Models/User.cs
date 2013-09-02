@@ -302,7 +302,7 @@ namespace CloudsdaleWin7.lib.Models
             };
 
             var response = await request.PostAsync(Endpoints.User.Replace("[:id]", Id), postData);
-            var result = await JsonConvert.DeserializeObjectAsync<WebResponse<User>>(await response.Content.ReadAsStringAsync());
+            var result = JsonConvert.DeserializeObject<WebResponse<User>>(await response.Content.ReadAsStringAsync());
 
             if (response.StatusCode != HttpStatusCode.OK)
             {

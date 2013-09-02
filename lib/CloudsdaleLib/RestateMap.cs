@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using CloudsdaleWin7.Views;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.CloudsdaleLib
@@ -39,7 +40,7 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
             if (foundMatch == false)
             {
                 MainWindow.User.Add("clouds", result);
-                MainWindow.Instance.CloudList.ItemsSource = MainWindow.User["use"]["clouds"];
+                Main.Instance.Clouds.ItemsSource = MainWindow.User["use"]["clouds"];
             }
             r2.Dispose();
             

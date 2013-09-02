@@ -211,7 +211,7 @@ namespace CloudsdaleWin7.lib.Models
             };
 
             var response = await request.PostAsync(Endpoints.Cloud.Replace("[:id]", Id), postData);
-            var result = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(await response.Content.ReadAsStringAsync());
+            var result = JsonConvert.DeserializeObject<WebResponse<Cloud>>(await response.Content.ReadAsStringAsync());
 
             if (response.StatusCode != HttpStatusCode.OK)
             {

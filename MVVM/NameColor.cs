@@ -11,12 +11,11 @@ namespace CloudsdaleWin7.MVVM {
     public class NameColor : IValueConverter {
         #region Implementation of IValueConverter
 
-        private readonly static CloudsdaleApp App = MainWindow.MainApp;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var user = (User)value;
-            var controller = App.MessageController.CurrentCloud;
+            var controller = App.Connection.MessageController.CurrentCloud;
             var cloud = controller.Cloud;
 
             var color = cloud.OwnerId == user.Id

@@ -5,10 +5,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Xml;
-using System.Xml.Linq;
 using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
@@ -23,7 +21,6 @@ namespace CloudsdaleWin7.lib.Controllers
         private readonly Dictionary<string, Status> userStatuses = new Dictionary<string, Status>();
         private readonly ModelCache<Message> messages = new ModelCache<Message>(50);
         private DateTime? _validatedFayeClient;
-        private CloudsdaleApp App = new CloudsdaleApp();
 
         public CloudController(Cloud cloud)
         {
@@ -41,7 +38,7 @@ namespace CloudsdaleWin7.lib.Controllers
                 var list =
                     userStatuses.Where(kvp => kvp.Value != Status.Offline)
                                 .Where(kvp => Cloud.ModeratorIds.Contains(kvp.Key))
-                                .Select(kvp => App.ModelController.GetUser(kvp.Key))
+                                .Select(kvp => App.Connection.ModelController.GetUser(kvp.Key))
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
                 return list;
@@ -54,7 +51,7 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 var list =
                     Cloud.ModeratorIds
-                                .Select(mid => App.ModelController.GetUser(mid))
+                                .Select(mid => App.Connection.ModelController.GetUser(mid))
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
                 return list;
@@ -68,7 +65,7 @@ namespace CloudsdaleWin7.lib.Controllers
                 var list =
                     userStatuses.Where(kvp => kvp.Value != Status.Offline)
                                 .Where(kvp => !Cloud.ModeratorIds.Contains(kvp.Key))
-                                .Select(kvp => App.ModelController.GetUser(kvp.Key))
+                                .Select(kvp => App.Connection.ModelController.GetUser(kvp.Key))
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
                 return list;
@@ -80,7 +77,7 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 var list =
                     userStatuses.Where(kvp => !Cloud.ModeratorIds.Contains(kvp.Key))
-                                .Select(kvp => App.ModelController.GetUser(kvp.Key))
+                                .Select(kvp => App.Connection.ModelController.GetUser(kvp.Key))
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
                 return list;
@@ -89,9 +86,9 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public async Task EnsureLoaded()
         {
-            if (_validatedFayeClient == null || _validatedFayeClient < App.Faye.CreationDate)
+            if (_validatedFayeClient == null || _validatedFayeClient < App.Connection.Faye.CreationDate)
             {
-                App.Faye.Subscribe("/clouds/" + Cloud.Id + "/users/*");
+                App.Connection.Faye.Subscribe("/clouds/" + Cloud.Id + "/users/*");
             }
 
             await Cloud.Validate();
@@ -105,7 +102,7 @@ namespace CloudsdaleWin7.lib.Controllers
                     ? Endpoints.CloudOnlineUsers
                     : Endpoints.CloudUsers)
                     .Replace("[:id]", Cloud.Id));
-                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
+                var userData = JsonConvert.DeserializeObject<WebResponse<User[]>>(response);
                 var users = new List<User>();
                 foreach (var user in userData.Result)
                 {
@@ -113,7 +110,7 @@ namespace CloudsdaleWin7.lib.Controllers
                     {
                         SetStatus(user.Id, (Status)user.Status);
                     }
-                    users.Add(await App.ModelController.UpdateDataAsync(user));
+                    users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
                 }
 
             }
@@ -121,7 +118,7 @@ namespace CloudsdaleWin7.lib.Controllers
             // Load messages
             {
                 var response = await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id));
-                var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(response);
+                var responseMessages = JsonConvert.DeserializeObject<WebResponse<Message[]>>(response);
                 var newMessages = new List<Message>(messages
                     .Where(message => message.Timestamp > responseMessages.Result.Last().Timestamp));
                 messages.Clear();
@@ -137,7 +134,7 @@ namespace CloudsdaleWin7.lib.Controllers
                 }
             }
 
-            _validatedFayeClient = App.Faye.CreationDate;
+            _validatedFayeClient = App.Connection.Faye.CreationDate;
         }
 
         public void OnMessage(JObject message)
@@ -162,7 +159,7 @@ namespace CloudsdaleWin7.lib.Controllers
             AddUnread();
             var message = jMessage.ToObject<Message>();
 
-            if (message.ClientId == App.Faye.ClientId) return;
+            if (message.ClientId == App.Connection.Faye.ClientId) return;
 
             //show notification
 
@@ -178,7 +175,7 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 SetStatus(user.Id, (Status)user.Status);
             }
-            await App.ModelController.UpdateDataAsync(user);
+            await App.Connection.ModelController.UpdateDataAsync(user);
         }
 
         private void OnCloudData(JToken cloudData)
@@ -189,11 +186,11 @@ namespace CloudsdaleWin7.lib.Controllers
         private void AddUnread()
         {
             ++UnreadMessages;
-            if (App.MessageController.CurrentCloud == this)
+            if (App.Connection.MessageController.CurrentCloud == this)
             {
                 UnreadMessages = 0;
             }
-            App.MessageController.UpdateUnread();
+            App.Connection.MessageController.UpdateUnread();
         }
 
         public int UnreadMessages

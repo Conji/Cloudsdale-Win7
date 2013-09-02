@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/cd_icon_color_for_mlv.mp4")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/cd_icon_color_for_mlv%20(1).mp4")]
 
 

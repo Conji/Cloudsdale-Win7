@@ -6,5 +6,11 @@ namespace CloudsdaleWin7 {
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application {
+        public readonly ConnectionController ConnectionController = new ConnectionController();
+
+        public static ConnectionController Connection
+        {
+            get { return ((App)Current).ConnectionController; }
+        }
     }
 }

@@ -30,12 +30,12 @@ namespace CloudsdaleWin7.lib.Models.Client
             void CorrectController()
             {
 
-                if (controller == MainWindow.MainApp.MessageController.CurrentCloud) return;
+                if (controller == App.Connection.MessageController.CurrentCloud) return;
                 if (controller != null)
                 {
                     controller.PropertyChanged -= ControllerOnPropertyChanged;
                 }
-                controller = MainWindow.MainApp.MessageController.CurrentCloud;
+                controller = App.Connection.MessageController.CurrentCloud;
                 controller.PropertyChanged += ControllerOnPropertyChanged;
             }
 
@@ -52,7 +52,7 @@ namespace CloudsdaleWin7.lib.Models.Client
                     {
                         return (Model as Session).PreferredStatus;
                     }
-                    return MainWindow.MainApp.MessageController.CurrentCloud.StatusForUser(((User)Model).Id);
+                    return App.Connection.MessageController.CurrentCloud.StatusForUser(((User)Model).Id);
                 }
                 set { throw new NotSupportedException(); }
             }
@@ -87,12 +87,12 @@ namespace CloudsdaleWin7.lib.Models.Client
 
             void CorrectController()
             {
-                if (controller == MainWindow.MainApp.MessageController.CurrentCloud) return;
+                if (controller == App.Connection.MessageController.CurrentCloud) return;
                 if (controller != null)
                 {
 
                 }
-                controller = MainWindow.MainApp.MessageController.CurrentCloud;
+                controller = App.Connection.MessageController.CurrentCloud;
                 controller.PropertyChanged += ControllerOnPropertyChanged;
             }
 

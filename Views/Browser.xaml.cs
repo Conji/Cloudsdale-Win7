@@ -16,7 +16,7 @@ namespace CloudsdaleWin7
             InitializeComponent();
             Instance = this;
             WebBrowser.Navigated += webBrowser1_Navigated;
-            Width = MainWindow.Instance.Frame.Width;
+            Width = MainWindow.Instance.MainFrame.Width;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -52,15 +52,10 @@ namespace CloudsdaleWin7
             HideScriptErrors(WebBrowser,
             true);
         }
-
-        private void button4_click(object sender, RoutedEventArgs e)
+        public void NavigateTo(string address)
         {
-            MainWindow.Instance.Frame.Navigate(new Home());
-        }
-        public void NavigateTo(string uri)
-        {
-            WebAddress.Text = uri;
-            WebBrowser.Navigate(uri);
+            WebAddress.Text = address;
+            WebBrowser.Navigate(address);
         }
     }
 }

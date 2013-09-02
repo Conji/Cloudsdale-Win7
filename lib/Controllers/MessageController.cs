@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
+using CloudsdaleWin7.lib.Faye;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.Controllers

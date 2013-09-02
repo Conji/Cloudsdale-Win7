@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using CloudsdaleWin7.lib;
+using CloudsdaleWin7.Views.LoadingViews;
 using CloudsdaleWin7.lib.CloudsdaleLib;
-using CloudsdaleWin7.lib.ErrorConsole;
-using CloudsdaleWin7.lib.ErrorConsole.CConsole;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7 {
     /// <summary>
@@ -26,26 +14,15 @@ namespace CloudsdaleWin7 {
 
         public Login()
         {
+           
             Instance = this;
-            MainWindow.Instance.showMenu.Visibility = Visibility.Hidden;
             InitializeComponent();
             EmailBox.Text = UserSettings.Default.PreviousEmail;
             PasswordBox.Password = UserSettings.Default.PreviousPassword;
-            autoSession.IsChecked = UserSettings.Default.AutoLogin;
-            if ((EmailBox.Text + PasswordBox.Password) == "")
-            {
-                EmailBox.Foreground = new SolidColorBrush(Colors.DarkGray);
-                PasswordBox.Foreground = new SolidColorBrush(Colors.DarkGray);
-                EmailBox.Text = "email";
-                PasswordBox.Password = "password";
-            }else
-            {
-                EmailBox.Foreground = new SolidColorBrush(Colors.Black);
-                PasswordBox.Foreground = new SolidColorBrush(Colors.Black);
-            }
+            autoLogin.IsChecked = UserSettings.Default.AutoLogin;
             if (LoggingOut == false)
             {
-                if (autoSession.IsChecked == true)
+                if (autoLogin.IsChecked == true)
                 {
                     LoginClick(LoginButton, null);
                 }
@@ -57,193 +34,30 @@ namespace CloudsdaleWin7 {
             LoggingOut = true;
             Instance.EmailBox.Text = UserSettings.Default.PreviousEmail;
             Instance.PasswordBox.Password = UserSettings.Default.PreviousPassword;
-            Instance.autoSession.IsChecked = false;
+            Instance.autoLogin.IsChecked = false;
         }
 
         private async void LoginClick(object sender, RoutedEventArgs e)
         {
-            MainLayout.Visibility = Visibility.Collapsed;
-            LoggingInUI.Visibility = Visibility.Visible;
-            LoginButton.IsEnabled = false;
-            LogginContents.Visibility = Visibility.Collapsed;
 
             try {
-                await EmailLogin();
-                LoginButton.IsDefault = false;
+                await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
                 UserSettings.Default.PreviousEmail = EmailBox.Text;
                 UserSettings.Default.PreviousPassword = PasswordBox.Password;
-                UserSettings.Default.AutoLogin = autoSession.IsChecked.Value;
+                UserSettings.Default.AutoLogin = autoLogin.IsChecked.Value;
                 UserSettings.Default.Save();
-                
-            } catch (Exception ex) {
-                LoginButton.IsEnabled = true;
-                MainLayout.Visibility = Visibility.Visible;
-                LoggingInUI.Visibility = Visibility.Collapsed;
-                LogginContents.Visibility = Visibility.Visible;
-                MessageBox.Show(ex.ToString());
-                return;
-            }
-
-            Connection.MessageReceived += o => {
-                if (o["data"] == null) return;
-                var cloudId = ((string)o["channel"]).Split('/')[2];
-                var source = MessageSource.GetSource(cloudId);
-                LoadMessageToSource(source, o["data"]);
-            };
-            Connection.Initialize();
-            try
+                MainWindow.Instance.MainFrame.Navigate(new LoadLogin());
+            } catch (Exception ex)
             {
-                await PreloadMessages((JArray)MainWindow.User["user"]["clouds"]);
-            }catch(Exception ex)
-            {
-                WriteError.ShowError(ex.Message);
-            }
-            
-
-            MainWindow.Instance.CloudList.ItemsSource = MainWindow.User["user"]["clouds"];
-            MainWindow.Instance.Frame.Navigated += NavToHomeCallback;
-            MainWindow.Instance.Frame.Navigate(new Home());
-        }
-
-        private void LoadMessageToSource(MessageSource source, JToken message) {
-            message["orgcontent"] = message["content"] =
-                message["content"].ToString().UnescapeLiteral().RegexReplace(@"[ ]+", " ");
-            lock (source) {
-                JToken lastMsg;
-                if (source.Messages.Any()
-                    && (string)(lastMsg = source.Messages.Last())["author"]["id"] == (string)message["author"]["id"]
-                    && !lastMsg["orgcontent"].ToString().StartsWith("/me")
-                    && !message["content"].ToString().StartsWith("/me")) {
-                    lastMsg["content"] += "\n" + message["content"];
-                    lastMsg["drops"] = new JArray(lastMsg["drops"].Concat(message["drops"]));
-                    Dispatcher.Invoke(() => {
-                        source.Messages.RemoveAt(source.Messages.Count - 1);
-                        source.Messages.Add(lastMsg);
-                    });
-                } else {
-                    message["content"] = message["content"]
-                        .ToString().RegexReplace("^/me", (string)message["author"]["name"]);
-                    source.AddMessage(message);
-                }
+                Console.WriteLine(ex.Message);
             }
         }
 
-        private static void NavToHomeCallback(object o, EventArgs e) {
-            MainWindow.Instance.Frame.Navigated -= NavToHomeCallback;
-            MainWindow.Instance.Frame.RemoveBackEntry();
-        }
-
-        private void SetStatus(string text) {
-            Dispatcher.Invoke(() => LoadStatus.Text = text);
-        }
-        private void SetProgress(double progress) {
-            Dispatcher.Invoke(() => LoadProgress.Value = progress);
-        }
-
-        private async Task EmailLogin() {
-            SetStatus("Logging in...");
-
-            var dataObject = new JObject();
-            dataObject["email"] = EmailBox.Text;
-            dataObject["password"] = PasswordBox.Password;
-            var data = Encoding.UTF8.GetBytes(dataObject.ToString(Formatting.None));
-
-            var request = WebRequest.CreateHttp(Endpoints.Session);
-            request.Method = "POST";
-            request.ContentLength = data.Length;
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-            using (var requestStream = await request.GetRequestStreamAsync()) {
-                await requestStream.WriteAsync(data, 0, data.Length);
-                await requestStream.FlushAsync();
-                requestStream.Close();
-            }
-
-            string responseData;
-            try
-            {
-                using (var response = await request.GetResponseAsync())
-                using (var responseStream = response.GetResponseStream())
-                {
-                    if (responseStream == null) return;
-                    using (var responseStreamReader = new StreamReader(responseStream, Encoding.UTF8))
-                    {
-                        responseData = await responseStreamReader.ReadToEndAsync();
-                    }
-                }
-            }
-            catch (WebException ex)
-            {
-                using (var response = ex.Response)
-                using (var responseStream = response.GetResponseStream())
-                {
-                    if (responseStream == null) return;
-                    using (var responseStreamReader = new StreamReader(responseStream, Encoding.UTF8))
-                    {
-                        responseData = responseStreamReader.ReadToEnd();
-                        var console = new ErrorConsole();
-                        console.Show();
-                        WriteError.ShowError(responseData);
-                    }
-                }
-            }
-            var responseObject = JObject.Parse(responseData);
-            MainWindow.User = (JObject)responseObject["result"];
-            MainWindow.WebMessage = (string) responseObject["flash"];
-        }
-
-        private async Task PreloadMessages(ICollection<JToken> clouds) {
-            SetStatus("Loading cloud messages...");
-            double i = 0;
-            var cloudCount = clouds.Count;
-            foreach (var cloud in clouds) {
-                SetProgress(100 * ++i / cloudCount);
-                SetStatus("Loading cloud messages for " + cloud["name"] + "...");
-                var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", (string)cloud["id"]));
-                request.Accept = "application/json";
-                using (var response = await request.GetResponseAsync())
-                using (var responseStream = response.GetResponseStream()) {
-                    if (responseStream == null) continue;
-                    using (var responseReader = new StreamReader(responseStream)) {
-                        var responseData = JObject.Parse(await responseReader.ReadToEndAsync());
-                        var source = MessageSource.GetSource(cloud);
-                        foreach (var message in responseData["result"]) {
-                            LoadMessageToSource(source, message);
-                        }
-                        Faye.CreateClient(new Uri("/clouds/" + cloud["id"] + "/chat/messages"));
-                    }
-                }
-            }
-        }
-
-        private void ColorChange(object sender, TextChangedEventArgs e)
+        private void ClearText(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (EmailBox.Text == "email")
-            {
-                EmailBox.Foreground = new SolidColorBrush(Colors.DarkGray);
-                PasswordBox.Foreground = new SolidColorBrush(Colors.DarkGray);
-            }
-            else
-            {
-                EmailBox.Foreground = new SolidColorBrush(Colors.Black);
-                PasswordBox.Foreground = new SolidColorBrush(Colors.Black);
-            }
-        }
-
-        private void ClearText(object sender, RoutedEventArgs e)
-        {
-            if (EmailBox.Text == "email")
+            if (EmailBox.Text.Trim().Contains(" "))
             {
                 EmailBox.Text = "";
-                PasswordBox.Password = "";
-            }
-        }
-
-        private void AutoFill(object sender, RoutedEventArgs e)
-        {
-            if (EmailBox.Text == "")
-            {
-                EmailBox.Text = "email";
                 PasswordBox.Password = "";
             }
         }

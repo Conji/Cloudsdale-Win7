@@ -14,8 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.ErrorConsole.CConsole;
 using CloudsdaleWin7.lib.Models;
-using CloudsdaleWin7.lib.Notifications;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.Views
@@ -98,7 +98,7 @@ namespace CloudsdaleWin7.Views
                 return (JObject)responseData["result"];
             }catch (Exception ex)
             {
-                Client.Notify(ex.Message);
+                WriteError.ShowError(ex.Message);
                 return null;
             }
         }

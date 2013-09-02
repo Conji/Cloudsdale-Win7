@@ -50,7 +50,7 @@ namespace CloudsdaleWin7 {
         {
             var dataObject = new JObject();
             dataObject["content"] = message;
-            dataObject["client_id"] = MainWindow.MainApp.Faye.ClientId;
+            dataObject["client_id"] = App.Connection.Faye.ClientId;
             dataObject["device"] = "desktop";
             var data = Encoding.UTF8.GetBytes(dataObject.ToString());
             var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", cloudId));
@@ -77,8 +77,8 @@ namespace CloudsdaleWin7 {
 
         private void DropUp(object sender, MouseButtonEventArgs e) {
             var drop = (JToken)((FrameworkElement)sender).DataContext;
-            MainWindow.Instance.Frame.Navigate(new Browser());
-            MainWindow.Instance.CloudList.SelectedIndex = -1;
+            MainWindow.Instance.MainFrame.Navigate(new Browser());
+            Main.Instance.Clouds.SelectedIndex = -1;
             Browser.Instance.WebBrowser.Navigate((string)drop["url"]);
             Browser.Instance.WebAddress.Text = ((string) drop["url"]);
             

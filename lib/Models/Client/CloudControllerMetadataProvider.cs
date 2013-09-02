@@ -19,7 +19,7 @@ namespace CloudsdaleWin7.lib.Models.Client
 
             public object Value
             {
-                get { return MainWindow.MainApp.MessageController[(Cloud)Model]; }
+                get { return App.Connection.MessageController[(Cloud)Model]; }
                 set { throw new InvalidOperationException("Cannot set a cloud controller to an instance of a cloud!"); }
             }
             public CloudsdaleModel Model { get; private set; }

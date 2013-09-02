@@ -202,52 +202,6 @@ namespace CloudsdaleWin7.lib.Models
             base.CopyTo(other);
             LastUpdated = DateTime.Now;
         }
-
-        /// <summary>
-        /// Updates the current model on the server end
-        /// </summary>
-        /// <typeparam name="T">The derived type of model being updated</typeparam>
-        /// <param name="cancelError">Whether to block sending errors to the standard error processor</param>
-        /// <param name="properties">An array of Key-Value pairs containing the properties to update</param>
-        /// <returns>A web response containing the result of the update</returns>
-        public async Task<WebResponse<T>> UpdateProperty<T>(
-            bool cancelError,
-            params KeyValuePair<string, JToken>[] properties)
-            where T : CloudsdaleResource
-        {
-
-            var endpoint = GetType().GetTypeInfo().GetCustomAttribute<ResourceEndpointAttribute>();
-            var model = new JObject();
-            model[endpoint.RestModelType] = new JObject();
-            model[endpoint.RestModelType]["id"] = Id;
-            foreach (var property in properties)
-            {
-                model[endpoint.RestModelType][property.Key] = property.Value;
-            }
-
-            var requestUrl = endpoint.UpdateEndpoint.Replace("[:id]", Id);
-            var client = new HttpClient
-            {
-                DefaultRequestHeaders = {
-                    {"Accept", "application/json"},
-                    {"X-Auth-Token", Cloudsdale.SessionProvider.CurrentSession.AuthToken}
-                }
-            };
-
-            var responseMessage = await client.PutAsync(requestUrl, new JsonContent(model));
-            var responseData = await responseMessage.Content.ReadAsStringAsync();
-            var response = await JsonConvert.DeserializeObjectAsync<WebResponse<T>>(responseData);
-
-            if (responseMessage.StatusCode != HttpStatusCode.OK)
-            {
-                if (!cancelError)
-                    Cloudsdale.ModelErrorProvider.OnError(response);
-                return response;
-            }
-
-            response.Result.CopyTo(this);
-            return response;
-        }
     }
 
     /// <summary>

@@ -172,7 +172,7 @@ namespace CloudsdaleWin7.lib.Models
 
         protected override async Task<HttpResponseMessage> ValidationRequest(HttpClient client, string requestUrl)
         {
-            var requestModel = await JsonConvert.SerializeObjectAsync(new
+            var requestModel = JsonConvert.SerializeObject(new
             {
                 oauth = new
                 {
