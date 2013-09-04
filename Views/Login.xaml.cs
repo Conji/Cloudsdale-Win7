@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.LoadingViews;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 
@@ -9,7 +10,7 @@ namespace CloudsdaleWin7 {
     /// </summary>
     public partial class Login
     {
-        public static Login Instance;
+        public Login Instance;
         public static bool LoggingOut = false;
 
         public Login()
@@ -29,33 +30,37 @@ namespace CloudsdaleWin7 {
             }
         }
 
-        public static void Logout()
+        public void Logout()
         {
             LoggingOut = true;
-            Instance.EmailBox.Text = UserSettings.Default.PreviousEmail;
-            Instance.PasswordBox.Password = UserSettings.Default.PreviousPassword;
-            Instance.autoLogin.IsChecked = false;
+            EmailBox.Text = UserSettings.Default.PreviousEmail;
+            PasswordBox.Password = UserSettings.Default.PreviousPassword;
+            autoLogin.IsChecked = false;
         }
 
         private async void LoginClick(object sender, RoutedEventArgs e)
         {
-
-            try {
-                await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
-                UserSettings.Default.PreviousEmail = EmailBox.Text;
-                UserSettings.Default.PreviousPassword = PasswordBox.Password;
-                UserSettings.Default.AutoLogin = autoLogin.IsChecked.Value;
-                UserSettings.Default.Save();
-                MainWindow.Instance.MainFrame.Navigate(new LoadLogin());
-            } catch (Exception ex)
+            ErrorMessage.Text = "";
+            await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
+            MainWindow.Instance.MainFrame.Navigate(new LoadLogin());
+            UserSettings.Default.PreviousEmail = EmailBox.Text;
+            UserSettings.Default.PreviousPassword = PasswordBox.Password;
+            UserSettings.Default.AutoLogin = autoLogin.IsChecked.Value;
+            UserSettings.Default.Save();
+            if (App.Connection.SessionController.CurrentSession != null)
             {
-                Console.WriteLine(ex.Message);
+                MainWindow.Instance.MainFrame.Navigate(new Main());
+            }
+            else
+            {
+                MainWindow.Instance.MainFrame.Navigate(new Login());
+                ErrorMessage.Text = "Could not log in! Be sure to check if your credentials are correct.";
             }
         }
 
         private void ClearText(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (EmailBox.Text.Trim().Contains(" "))
+            if (EmailBox.Text == "Email")
             {
                 EmailBox.Text = "";
                 PasswordBox.Password = "";

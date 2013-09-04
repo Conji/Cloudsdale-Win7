@@ -34,7 +34,7 @@
         <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" TextChanged="CheckIfTextIsMultiLine" Padding="27,0,0,0" >
             
         </TextBox>
-        <TextBlock VerticalAlignment="Top" FontSize="16" Margin="10,10,10,0" Text="{Binding [name]}" Height="27" FontFamily="Segoe UI Semibold" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="Name" VerticalAlignment="Top" FontSize="16" Margin="10,10,10,0" Height="27" FontFamily="Segoe UI Semibold" Grid.ColumnSpan="2"/>
         <Button Content="&#xE15F;" HorizontalAlignment="Left" Grid.Row="2" Width="25" BorderBrush="{x:Null}" Background="{x:Null}" FontFamily="Segoe UI Symbol" Click="Button_Click_1"/>
         <Border x:Name="SymbolBox" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1" Width="120" Height="131" VerticalAlignment="Bottom" Visibility="Hidden">
             <WrapPanel Margin="-1">

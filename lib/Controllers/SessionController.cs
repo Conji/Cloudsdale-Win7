@@ -7,6 +7,7 @@ using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
+using CloudsdaleWin7.Views;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -16,7 +17,7 @@ namespace CloudsdaleWin7.lib.Controllers
     {
         private readonly List<Session> _pastSessions = new List<Session>();
 
-        public Session CurrentSession { get; private set; }
+        public Session CurrentSession { get; set; }
 
         public IReadOnlyList<Session> PastSessions
         {
@@ -28,21 +29,15 @@ namespace CloudsdaleWin7.lib.Controllers
             var user = message["data"].ToObject<Session>();
             user.CopyTo(CurrentSession);
         }
-        public async Task Login(string Email, string Password)
+        public async Task Login(string email, string password)
         {
 
-            var requestModel = new
-                                   {
-                                       email = Email,
-                                       password = Password
-                                   };
+            var requestModel = @"{""email"":""[:email]"", ""password"":""[:password]""".Replace("[:email]", email).Replace("[:password]", password);
             var request = new HttpClient().AcceptsJson();
             var result = request.PostAsync(Endpoints.Session, new JsonContent(requestModel));
             var resultString = await result.Result.Content.ReadAsStringAsync();
             var response = await JsonConvert.DeserializeObjectAsync<WebResponse<SessionWrapper>>(resultString);
-
             CurrentSession = response.Result.User;
-            App.Connection.Faye.ExtensionData["auth_token"] = CurrentSession.AuthToken;
         }
 
         public async Task Logout()

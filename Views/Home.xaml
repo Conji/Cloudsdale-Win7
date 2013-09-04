@@ -8,7 +8,7 @@
 	Title="Home">
 
     <Grid Name="RootGrid">
-        <TextBlock Margin="64,44,80,0" TextWrapping="Wrap" Text="Welcome message" VerticalAlignment="Top" Height="39" FontSize="27"/>
+        <TextBlock x:Name="Welcome" Margin="64,44,80,0" TextWrapping="Wrap" Text="Welcome message" VerticalAlignment="Top" Height="39" FontSize="27"/>
         <Separator Height="12" Margin="64,83,80,0" VerticalAlignment="Top">
             <Separator.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>

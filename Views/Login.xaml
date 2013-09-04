@@ -48,6 +48,7 @@
         <Button x:Name="LoginButton" Content="Login!" Grid.Column="1" Margin="1,312,125,0" VerticalAlignment="Top" Height="30" FontWeight="SemiBold" IsDefault="True" Click="LoginClick"/>
         <Image Grid.Column="1" Height="58" Margin="1,149,0,0" VerticalAlignment="Top" Source="/Cloudsdale;component/Assets/cloudsdale-thin-bright-logo.png"/>
         <CheckBox x:Name="autoLogin" Content="Auto-Login" Grid.Column="1" HorizontalAlignment="Left" Margin="144,312,0,0" VerticalAlignment="Top" Width="110" Height="30" FontSize="18" VerticalContentAlignment="Center"/>
+        <TextBlock x:Name="ErrorMessage" Grid.Column="1" Margin="1,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="72" Foreground="Red" FontSize="14"/>
 
     </Grid>
 </Page>

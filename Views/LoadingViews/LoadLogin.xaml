@@ -9,7 +9,7 @@
 
     <Grid Background="Black">
         <MediaElement x:Name="LoadingMovie" Margin="67,186,67,0" Source="../../Assets/cd_icon_color_for_mlv (1).mp4" Height="169" VerticalAlignment="Top" LoadedBehavior="Manual" MediaEnded="Loop"/>
-        <TextBlock x:Name="LoadingMessage" Margin="128,355,129,0" Text="Loading clouds..." TextWrapping="Wrap" HorizontalAlignment="Center" Height="16" VerticalAlignment="Top">
+        <TextBlock x:Name="LoadingMessage" Margin="128,355,129,0" Text="Logging in..." TextWrapping="Wrap" HorizontalAlignment="Center" Height="16" VerticalAlignment="Top">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </TextBlock.Foreground>

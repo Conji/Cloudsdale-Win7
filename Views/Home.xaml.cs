@@ -12,18 +12,20 @@ namespace CloudsdaleWin7 {
     /// </summary>
     public partial class Home : Page
     {
+        private string Name = App.Connection.SessionController.CurrentSession.Name;
         public static Home Instance;
         public Home()
         {
             InitializeComponent();
             RootGrid.DataContext = MainWindow.User;
             Instance = this;
-            //foreach (var cloud in MainWindow.Instance.CloudList.Items)
-            //{
-            //    var cloudObject = (JObject) cloud;
-            //    MessageSource.GetSource(cloudObject["id"].ToString()).UnreadMessages = 0;
-            //}
-            //Console.WriteLine(new User(MainWindow.User["user"]["id"].ToString()).Name);
+            WelcomeMessage(Name);
+        }
+        private void WelcomeMessage(string name)
+        {
+            //add random message generation
+            var message = "Hi, [:name]!";
+            Welcome.Text = message.Replace("[:name]", name);
         }
     }
 }

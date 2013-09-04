@@ -139,6 +139,18 @@
     <Compile Include="lib\Models\Message.cs" />
     <Compile Include="MVVM\ActionMessagesConverter.cs" />
     <Compile Include="MVVM\IsCloudOwner.cs" />
+    <Compile Include="Views\Cloud\CloudView.xaml.cs">
+      <DependentUpon>CloudView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cloud\OwnedCloud.xaml.cs">
+      <DependentUpon>OwnedCloud.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Flyouts\Info.xaml.cs">
+      <DependentUpon>Info.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Flyouts\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoadingViews\LoadLogin.xaml.cs">
       <DependentUpon>LoadLogin.xaml</DependentUpon>
     </Compile>
@@ -197,7 +209,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Cloud\CloudView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Cloud\OwnedCloud.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Explore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Flyouts\Info.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Flyouts\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

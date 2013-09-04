@@ -177,7 +177,7 @@ namespace CloudsdaleWin7.lib.Models
                 oauth = new
                 {
                     token = BCrypt.Net.BCrypt.HashPassword(Id + "cloudsdale", Endpoints.InternalToken),
-                    client_type = "WinRT",
+                    client_type = "Win7",
                     provider = "cloudsdale",
                     uid = Id,
                 }
