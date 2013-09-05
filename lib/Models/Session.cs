@@ -13,6 +13,7 @@ namespace CloudsdaleWin7.lib.Models
     {
         private string _authToken;
         private string _email;
+        private int _nameChangeAllowed;
         private Status _preferredStatus;
         private bool? _needsToConfirmRegistration;
         private bool? _needsPasswordChange;
@@ -24,6 +25,25 @@ namespace CloudsdaleWin7.lib.Models
         [JsonConstructor]
         public Session(string id) : base(id) { }
 
+        /// <summary>
+        /// Checks how many times the user
+        /// can change their username
+        /// </summary>
+        [JsonProperty("name_changes_allowed")]
+        public int NameChanges
+        {
+            get { return _nameChangeAllowed; }
+            set
+            {
+                if (value == _nameChangeAllowed) return;
+                _nameChangeAllowed = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool CanChangeName()
+        {
+            return NameChanges == 1 ? true : false;
+        }
         /// <summary>
         /// The Authentication Token used to
         /// authenticate this user at API endpoints
@@ -177,7 +197,7 @@ namespace CloudsdaleWin7.lib.Models
                 oauth = new
                 {
                     token = BCrypt.Net.BCrypt.HashPassword(Id + "cloudsdale", Endpoints.InternalToken),
-                    client_type = "Win7",
+                    client_type = "desktop",
                     provider = "cloudsdale",
                     uid = Id,
                 }

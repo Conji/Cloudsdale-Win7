@@ -47,33 +47,6 @@ namespace CloudsdaleWin7
 
         private static readonly Dictionary<string, object> Clouds = new Dictionary<string, object>();
 
-        private static object GetCloudView(JToken cloud)
-        {
-            if (Clouds.ContainsKey((string) cloud["id"]))
-            {
-                return Clouds[(string) cloud["id"]];
-            }
-            return Clouds[(string) cloud["id"]] = new CloudView(cloud);
-        }
-
-        private void Close(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                SettingsWindow.Instance.Close();
-            }
-            catch
-            {
-            }
-            try
-            {
-                UserInfo.Instance.Close();
-            }
-            catch
-            {
-            }
-        }
-
         private void SaveSettings(object sender, System.ComponentModel.CancelEventArgs e)
         {
             UserSettings.Default.AppHeight = (int) Height;

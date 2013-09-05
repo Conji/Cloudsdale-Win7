@@ -13,10 +13,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="419*"/>
+            <RowDefinition Height="31*"/>
+            <RowDefinition Height="388*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Left" Width="226" Grid.RowSpan="2">
+        <StackPanel HorizontalAlignment="Left" Width="226" Grid.RowSpan="3">
         <StackPanel.Background>
             <SolidColorBrush Color="{DynamicResource Panels}"/>
         </StackPanel.Background>
@@ -24,7 +25,7 @@
             <StackPanel.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </StackPanel.Background>
-            <TextBlock x:Name="SelfName" TextWrapping="Wrap" Margin="95,25,0,0" FontFamily="Meiryo UI" FontWeight="SemiBold" Height="22" Cursor="Hand">
+            <TextBlock x:Name="SelfName" TextWrapping="Wrap" Margin="95,25,0,0" FontFamily="Meiryo UI" FontWeight="SemiBold" Height="22" Cursor="Hand" MouseDown="DirectHome">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </TextBlock.Foreground>
@@ -42,7 +43,7 @@
                 </Button.BorderBrush>
             </Button>
         </StackPanel>
-        <ListView x:Name="Clouds" Margin="0,126,0,0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Width="226">
+        <ListView x:Name="Clouds" Margin="0,95,0,0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Width="226" SelectionChanged="Clouds_SelectionChanged" Grid.Row="1">
             <ListView.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </ListView.Foreground>
@@ -77,7 +78,7 @@
                 Margin="10,24,0,0"
                 VerticalAlignment="Top"
                 Width="80" 
-                CornerRadius="70">
+                CornerRadius="70" Grid.RowSpan="2">
             <Border.BorderBrush>
             <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
         </Border.BorderBrush>
@@ -87,8 +88,8 @@
             </Image.Clip>
         </Image>
     </Border>
-    <Frame x:Name="Frame" Content="" Margin="226,0,0,0" Background="#FFFAFAFA" Grid.RowSpan="2"/>
-        <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="155" Visibility="Collapsed">
+    <Frame x:Name="Frame" Content="" Margin="226,0,0,0" Background="#FFFAFAFA" Grid.RowSpan="3"/>
+        <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="150" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
             <Frame.Background>
                 <SolidColorBrush Color="{DynamicResource Panels}"/>
             </Frame.Background>

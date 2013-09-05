@@ -3,11 +3,33 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-	Title="Settings">
+      mc:Ignorable="d"
+	Title="Settings" Width="150" d:DesignHeight="413.774">
 
     <Grid>
-        
+        <TextBlock HorizontalAlignment="Left" Margin="10,51,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" Width="82">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBox x:Name="NameBlock" Height="23" Margin="10,72,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Settings" VerticalAlignment="Top" Height="36" Width="130" FontSize="18" FontWeight="SemiBold">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,111,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBox x:Name="UsernameBlock" Height="23" Margin="10,132,10,0" TextWrapping="Wrap" VerticalAlignment="Top" KeyDown="ChangeName"/>
+        <Separator HorizontalAlignment="Left" Height="28" Margin="10,217,0,0" VerticalAlignment="Top" Width="130"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,173,0,0" TextWrapping="Wrap" Text="Skype Name:" VerticalAlignment="Top">
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBox x:Name="SkypeBlock" HorizontalAlignment="Left" Height="23" Margin="10,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
     </Grid>
 </Page>

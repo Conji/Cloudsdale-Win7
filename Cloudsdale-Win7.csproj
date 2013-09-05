@@ -123,6 +123,7 @@
     <Compile Include="lib\Faye\IMessageReceiver.cs" />
     <Compile Include="lib\Faye\MessageHandler.cs" />
     <Compile Include="lib\Faye\WebsocketHandler.cs" />
+    <Compile Include="lib\Helpers\CloudsdaleEscaper.cs" />
     <Compile Include="lib\Models\Client\BooleanMetadataProvider.cs" />
     <Compile Include="lib\Models\Client\CloudControllerMetadataProvider.cs" />
     <Compile Include="lib\Models\Client\LastSession.cs" />
@@ -139,11 +140,14 @@
     <Compile Include="lib\Models\Message.cs" />
     <Compile Include="MVVM\ActionMessagesConverter.cs" />
     <Compile Include="MVVM\IsCloudOwner.cs" />
-    <Compile Include="Views\Cloud\CloudView.xaml.cs">
-      <DependentUpon>CloudView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Cloud\OwnedCloud.xaml.cs">
       <DependentUpon>OwnedCloud.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Flyouts\Cloud\QuickView.xaml.cs">
+      <DependentUpon>QuickView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Flyouts\Cloud\UserList.xaml.cs">
+      <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Flyouts\Info.xaml.cs">
       <DependentUpon>Info.xaml</DependentUpon>
@@ -151,14 +155,17 @@
     <Compile Include="Views\Flyouts\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Initial\TermsAndConditions.xaml.cs">
+      <DependentUpon>TermsAndConditions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Initial\UploadUserPic.xaml.cs">
+      <DependentUpon>UploadUserPic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoadingViews\LoadLogin.xaml.cs">
       <DependentUpon>LoadLogin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserInfo.xaml.cs">
-      <DependentUpon>UserInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="lib\Annotations.cs" />
     <Compile Include="lib\CloudsdaleLib\Cloudsdale.cs" />
@@ -209,15 +216,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Cloud\CloudView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Cloud\OwnedCloud.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Explore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Flyouts\Cloud\QuickView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Flyouts\Cloud\UserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -230,6 +241,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Initial\TermsAndConditions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Initial\UploadUserPic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,10 +303,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

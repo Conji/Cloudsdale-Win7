@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CloudsdaleWin7.Views.Cloud
+namespace CloudsdaleWin7.Views.Initial
 {
     /// <summary>
-    /// Interaction logic for CloudView.xaml
+    /// Interaction logic for TermsAndConditions.xaml
     /// </summary>
-    public partial class CloudView : Page
+    public partial class TermsAndConditions : Page
     {
-        public CloudView()
+        public TermsAndConditions()
         {
             InitializeComponent();
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Views.Flyouts
 {
@@ -20,9 +22,28 @@ namespace CloudsdaleWin7.Views.Flyouts
     /// </summary>
     public partial class Settings : Page
     {
+        private Session Current = App.Connection.SessionController.CurrentSession;
+        private Regex UsernameRegex = new Regex(@"\b[a-z]", RegexOptions.IgnoreCase);
+        private Regex NameRegex = new Regex(@"\b[a-z0-9_]", RegexOptions.IgnoreCase);
+
         public Settings()
         {
             InitializeComponent();
+            NameBlock.Text = Current.Name;
+            UsernameBlock.Text = Current.Username;
+            CheckChanges();
+            SkypeBlock.Text = Current.SkypeName;
+        }
+        private void CheckChanges()
+        {
+            if (Current.CanChangeName()) return;
+            UsernameBlock.IsReadOnly = true;
+        }
+
+        private void ChangeName(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            //if (NameRegex.Match()) return;
         }
     }
 }

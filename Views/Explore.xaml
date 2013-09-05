@@ -16,6 +16,9 @@
             <TextBox Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="306" Padding="0" Margin="10,20,0,0" FontSize="14" Text="Search for a cloud..."/>
         </DockPanel>
         <WrapPanel x:Name="ExploreList" Margin="0,71,0,0">
+            <WrapPanel.Background>
+                <SolidColorBrush Color="#FF222222"/>
+            </WrapPanel.Background>
             <ItemsControl>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

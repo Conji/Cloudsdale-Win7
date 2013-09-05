@@ -25,6 +25,8 @@ namespace CloudsdaleWin7 {
             {
                 if (autoLogin.IsChecked == true)
                 {
+                    if (String.IsNullOrWhiteSpace(EmailBox.Text) || String.IsNullOrWhiteSpace(PasswordBox.Password))
+                        return;
                     LoginClick(LoginButton, null);
                 }
             }

@@ -13,7 +13,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CloudsdaleWin7.Views.Flyouts;
 using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.Views
 {
@@ -37,14 +39,33 @@ namespace CloudsdaleWin7.Views
 
         private void ToggleMenu(object sender, RoutedEventArgs e)
         {
+            ShowFlyoutMenu(new Settings());
+        }
+
+        public void ShowFlyoutMenu(Page view)
+        {
             if (FlyoutFrame.Visibility == Visibility.Collapsed)
             {
                 FlyoutFrame.Visibility = Visibility.Visible;
+                FlyoutFrame.Navigate(view);
             }
             else
             {
                 FlyoutFrame.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void Clouds_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var cloud = (ListView) sender;
+            var item = (lib.Models.Cloud) cloud.SelectedItem;
+            Frame.Navigate(new CloudView(item));
+            
+        }
+
+        private void DirectHome(object sender, MouseButtonEventArgs e)
+        {
+            Frame.Navigate(new Home());
         }
     }
 }
