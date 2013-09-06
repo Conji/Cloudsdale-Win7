@@ -43,7 +43,7 @@
                 </Button.BorderBrush>
             </Button>
         </StackPanel>
-        <ListView x:Name="Clouds" Margin="0,95,0,0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Width="226" SelectionChanged="Clouds_SelectionChanged" Grid.Row="1">
+        <ListView x:Name="Clouds" Margin="0,73,0,0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Width="226" SelectionChanged="CloudsSelectionChanged" Grid.Row="1">
             <ListView.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </ListView.Foreground>
@@ -53,6 +53,15 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="2" Orientation="Horizontal">
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <!--<MenuItem Command="Visit this cloud"/>
+                                <MenuItem Command="Check the info"/>
+                                <MenuItem Command="Check the rules"/>
+                                <Separator/>-->
+                                
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
                         <!-- Unread Count-->
                         <TextBlock Margin="5" Text="{Binding UnreadMessages}">
                             <TextBlock.Foreground>
@@ -89,7 +98,7 @@
         </Image>
     </Border>
     <Frame x:Name="Frame" Content="" Margin="226,0,0,0" Background="#FFFAFAFA" Grid.RowSpan="3"/>
-        <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="150" ScrollViewer.VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+        <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <Frame.Background>
                 <SolidColorBrush Color="{DynamicResource Panels}"/>
             </Frame.Background>

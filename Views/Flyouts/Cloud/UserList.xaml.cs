@@ -1,41 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CloudsdaleWin7.lib.Controllers;
-using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Views.Flyouts.Cloud
 {
     /// <summary>
     /// Interaction logic for UserList.xaml
     /// </summary>
-    public partial class UserList : Page
+    public partial class UserList
     {
         public static UserList Instance;
-        private static lib.Models.Cloud _Cloud;
-        private static readonly CloudController _controller = new CloudController(_Cloud);
+        private static CloudController Controller { get; set; }
 
-        public UserList(lib.Models.Cloud cloud)
+        public UserList(CloudController cloud)
         {
             InitializeComponent();
             Instance = this;
-            _Cloud = cloud;
-            var test = new CloudController(cloud);
-            OwnerList.Items.Add(new User(test.Cloud.OwnerId));
-            Console.WriteLine(test.Cloud.OwnerId);
+            Controller = cloud;
+            ModeratorList.ItemsSource = cloud.OnlineModerators;
+            OnlineUserList.ItemsSource = cloud.OnlineUsers;
         }
 
+        /// <summary>
+        /// Updates the search box object according to text.
+        /// It will organize itself by:
+        /// - online users that match the criteria
+        /// - online users that contain the text
+        /// - offline users that match the criteria
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateSearch(object sender, TextChangedEventArgs e)
         {
             if (SearchBox.Text == "")
@@ -48,7 +43,7 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
                 SearchUI.Visibility = Visibility.Visible;
                 OnlineUI.Visibility = Visibility.Collapsed;
                 SearchResults.Items.Clear();
-                foreach (var user in _controller.AllUsers)
+                foreach (var user in Controller.AllUsers)
                 {
                     if (user.Name.StartsWith(SearchBox.Text))
                     {

@@ -14,6 +14,5 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
             </Separator.Background>
         </Separator>
-
     </Grid>
 </Page>

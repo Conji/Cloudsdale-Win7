@@ -24,7 +24,7 @@
                 <TextBlock TextWrapping="Wrap" Text="Owner:" Margin="5,0,0,0"/>
                 <ListView x:Name="OwnerList">
                     <ListView.Foreground>
-                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                        <SolidColorBrush Color="#FF8000FF"/>
                     </ListView.Foreground>
                     <ListView.Background>
                         <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
@@ -32,7 +32,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
-                                <Image Source="{Binding Path=Models:Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
+                                <Image Source="{Binding Path=Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
                                 <TextBlock Text="{Binding Path=Name}" FontSize="14" Margin="0,0,4,0">
                                     <TextBlock.Foreground>
                                         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
@@ -47,7 +47,7 @@
                 <TextBlock TextWrapping="Wrap" Text="Online Moderators:" Margin="5,0,0,0"/>
                 <ListView x:Name="ModeratorList">
                     <ListView.Foreground>
-                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                     </ListView.Foreground>
                     <ListView.Background>
                         <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>

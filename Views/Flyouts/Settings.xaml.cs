@@ -43,7 +43,8 @@ namespace CloudsdaleWin7.Views.Flyouts
         private void ChangeName(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            //if (NameRegex.Match()) return;
+            if (NameRegex.IsMatch(NameBlock.Text)) return;
+            NameBlock.Text = Current.Name;
         }
     }
 }

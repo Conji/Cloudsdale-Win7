@@ -19,7 +19,7 @@ namespace CloudsdaleWin7 {
     /// </summary>
     public partial class CloudView {
         public static CloudView Instance;
-        private static Cloud _cloud;
+        private static Cloud _cloud { get; set; }
         private static CloudController CloudInstance = new CloudController(_cloud);
 
         public CloudView(Cloud cloud)
@@ -27,7 +27,7 @@ namespace CloudsdaleWin7 {
             _cloud = cloud;
             Instance = this;
             InitializeComponent();
-            Name.Text = cloud.Name;
+            Name.Text = _cloud.Name;
 
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
         }
@@ -91,7 +91,7 @@ namespace CloudsdaleWin7 {
 
         private void ShowUserList(object sender, MouseButtonEventArgs e)
         {
-            Main.Instance.ShowFlyoutMenu(new UserList(_cloud));
+           
         }
     }
     public class MessageTemplateSelector : DataTemplateSelector

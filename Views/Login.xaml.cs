@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Animation;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.LoadingViews;
 using CloudsdaleWin7.lib.CloudsdaleLib;
@@ -10,7 +14,7 @@ namespace CloudsdaleWin7 {
     /// </summary>
     public partial class Login
     {
-        public Login Instance;
+        public static Login Instance;
         public static bool LoggingOut = false;
 
         public Login()
@@ -20,53 +24,63 @@ namespace CloudsdaleWin7 {
             InitializeComponent();
             EmailBox.Text = UserSettings.Default.PreviousEmail;
             PasswordBox.Password = UserSettings.Default.PreviousPassword;
-            autoLogin.IsChecked = UserSettings.Default.AutoLogin;
-            if (LoggingOut == false)
-            {
-                if (autoLogin.IsChecked == true)
-                {
-                    if (String.IsNullOrWhiteSpace(EmailBox.Text) || String.IsNullOrWhiteSpace(PasswordBox.Password))
-                        return;
-                    LoginClick(LoginButton, null);
-                }
-            }
         }
 
         public void Logout()
         {
             LoggingOut = true;
             EmailBox.Text = UserSettings.Default.PreviousEmail;
-            PasswordBox.Password = UserSettings.Default.PreviousPassword;
-            autoLogin.IsChecked = false;
         }
 
-        private async void LoginClick(object sender, RoutedEventArgs e)
-        {
-            ErrorMessage.Text = "";
-            await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
-            MainWindow.Instance.MainFrame.Navigate(new LoadLogin());
-            UserSettings.Default.PreviousEmail = EmailBox.Text;
-            UserSettings.Default.PreviousPassword = PasswordBox.Password;
-            UserSettings.Default.AutoLogin = autoLogin.IsChecked.Value;
-            UserSettings.Default.Save();
-            if (App.Connection.SessionController.CurrentSession != null)
-            {
-                MainWindow.Instance.MainFrame.Navigate(new Main());
-            }
-            else
-            {
-                MainWindow.Instance.MainFrame.Navigate(new Login());
-                ErrorMessage.Text = "Could not log in! Be sure to check if your credentials are correct.";
-            }
-        }
-
-        private void ClearText(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ClearText(object sender, MouseButtonEventArgs e)
         {
             if (EmailBox.Text == "Email")
             {
                 EmailBox.Text = "";
                 PasswordBox.Password = "";
             }
+        }
+
+        private async void LoginAttempt(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            if (String.IsNullOrEmpty(EmailBox.Text) || String.IsNullOrEmpty(PasswordBox.Password))
+            {
+                ShowMessage("You can't have empty fields, silly. Try again.");
+                return;
+            }
+            ErrorMessage.Text = "";
+            LoginUi.Visibility = Visibility.Hidden;
+            LoggingInUi.Visibility = Visibility.Visible;
+            await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
+            UserSettings.Default.PreviousEmail = EmailBox.Text;
+            UserSettings.Default.Save();
+        }
+
+        public void ShowMessage(string message)
+        {
+            #region Show Message
+
+            var board = new Storyboard();
+            var animation = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(200000000)));
+            board.Children.Add(animation);
+            Storyboard.SetTargetName(animation, ErrorMessage.Name);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(OpacityProperty));
+            ErrorMessage.Text = message;
+            board.Begin(this);
+
+            #endregion
+            #region Hide Message
+
+            //var leavingBoard = new Storyboard();
+            //var leavingAnimation = new DoubleAnimation(100.0, 0.0, new Duration(new TimeSpan(1000000000)));
+            //leavingBoard.Children.Add(leavingAnimation);
+            //Storyboard.SetTargetName(leavingAnimation, ErrorMessage.Name);
+            //Storyboard.SetTargetProperty(leavingAnimation, new PropertyPath(OpacityProperty));
+            //leavingBoard.Begin(this);
+
+            #endregion
+
         }
     }
 }

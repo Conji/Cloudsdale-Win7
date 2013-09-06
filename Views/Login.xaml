@@ -1,15 +1,22 @@
-﻿<Page x:Class="CloudsdaleWin7.Login"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM" mc:Ignorable="d" 
+      xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM" 
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
+      x:Class="CloudsdaleWin7.Login"
+      mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="640"
 	Title="Login">
     <Page.Resources>
-        <Color x:Key="PrimaryBlue">#FF63A0D0</Color>
         <MVVM:LoginScreen x:Key="ScreenColor"/>
+        <MVVM:LoginShades x:Key="Shades"/>
+        <Color x:Key="DarkerBlue">#FF3F85B3</Color>
     </Page.Resources>
+    <Page.Background>
+        <SolidColorBrush Color="{DynamicResource DarkerBlue}"/>
+    </Page.Background>
 
     <Grid x:Name="Grid">
         <Grid.RowDefinitions>
@@ -23,32 +30,75 @@
         <Grid.Background>
             <SolidColorBrush Color="{Binding Converter={StaticResource ScreenColor}}"/>
         </Grid.Background>
-        <Border BorderThickness="1" Height="65" Margin="1,231,0,0" VerticalAlignment="Top" CornerRadius="8" Grid.Column="1">
-            <Border.Background>
+        <StackPanel x:Name="LoggingInUi" Grid.Column="1" Margin="0,0,0,0" Visibility="Hidden">
+            <Image gif:ImageBehavior.AnimatedSource="/Cloudsdale;component/Assets/cd_icon_animation.gif"  gif:ImageBehavior.RepeatBehavior="3x" gif:ImageBehavior.AutoStart="True" Grid.Column="1" Margin="57,192,57,0" Width="150" Height="150" VerticalAlignment="Top"/>
+            <TextBlock Text="Logging in..." HorizontalAlignment="Center" FontWeight="SemiBold"/>
+        </StackPanel>
+        <TextBlock x:Name="ErrorMessage" Margin="176,295,175,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="72" Opacity="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontFamily="Nirmala UI">
+            <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-            </Border.Background>
-            
-            <TextBox x:Name="EmailBox" TextWrapping="Wrap" Text="Email" Margin="9,9,9,36" BorderBrush="{x:Null}" MouseDown="ClearText">
-                <TextBox.Background>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <StackPanel x:Name="LoginUi" Grid.Column="1" Height="117" Margin="1,178,0,0" VerticalAlignment="Top">
+            <RichTextBox Height="31" RenderTransformOrigin="0.5,0.5" Margin="46,0" BorderBrush="{x:Null}" Background="{x:Null}" IsReadOnly="True" IsTabStop="False" IsHitTestVisible="False">
+                <RichTextBox.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                </TextBox.Background>
-
-            </TextBox>
-        </Border>
-        <PasswordBox x:Name="PasswordBox" Margin="12,267,10,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Password="password" Height="18" Grid.Column="1">
-            <PasswordBox.Background>
-                <SolidColorBrush Color="{DynamicResource LightText}"/>
-            </PasswordBox.Background>
-        </PasswordBox>
-        <Separator Height="8" Margin="12,259,10,0" VerticalAlignment="Top" Grid.Column="1">
-            <Separator.Background>
-                <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
-            </Separator.Background>
-        </Separator>
-        <Button x:Name="LoginButton" Content="Login!" Grid.Column="1" Margin="1,312,125,0" VerticalAlignment="Top" Height="30" FontWeight="SemiBold" IsDefault="True" Click="LoginClick"/>
-        <Image Grid.Column="1" Height="58" Margin="1,149,0,0" VerticalAlignment="Top" Source="/Cloudsdale;component/Assets/cloudsdale-thin-bright-logo.png"/>
-        <CheckBox x:Name="autoLogin" Content="Auto-Login" Grid.Column="1" HorizontalAlignment="Left" Margin="144,312,0,0" VerticalAlignment="Top" Width="110" Height="30" FontSize="18" VerticalContentAlignment="Center"/>
-        <TextBlock x:Name="ErrorMessage" Grid.Column="1" Margin="1,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="72" Foreground="Red" FontSize="14"/>
+                </RichTextBox.Foreground>
+                <RichTextBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.227"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </RichTextBox.RenderTransform>
+                <FlowDocument>
+                    <FlowDocument.Blocks>
+                        <Paragraph>
+                            <Run Text="Welcome to" FontFamily="Nirmala UI" FontWeight="Light"/>
+                            <Run Text="Cloudsdale." FontSize="18" FontFamily="Nirmala UI" FontWeight="Medium"/>
+                        </Paragraph>
+                    </FlowDocument.Blocks>
+                </FlowDocument>
+            </RichTextBox>
+            <Border BorderThickness="1" Height="62" Margin="20,0">
+                <Border.Background>
+                    <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                </Border.Background>
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                </Border.BorderBrush>
+                <StackPanel Margin="-1,0,0,-1">
+                    <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" MouseDown="ClearText" FontFamily="Nirmala UI">
+                        <TextBox.Foreground>
+                            <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                        </TextBox.Foreground>
+                        <TextBox.BorderBrush>
+                            <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                        </TextBox.BorderBrush>
+                        <TextBox.Background>
+                            <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                        </TextBox.Background>
+                    </TextBox>
+                    <Separator Height="4" Margin="0,0,-10,0">
+                        <Separator.Background>
+                            <SolidColorBrush Color="{Binding Converter={StaticResource ScreenColor}}"/>
+                        </Separator.Background>
+                    </Separator>
+                    <PasswordBox x:Name="PasswordBox" Margin="10,0" KeyDown="LoginAttempt" Height="21">
+                        <PasswordBox.Foreground>
+                            <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                        </PasswordBox.Foreground>
+                        <PasswordBox.Background>
+                            <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                        </PasswordBox.Background>
+                        <PasswordBox.BorderBrush>
+                            <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                        </PasswordBox.BorderBrush>
+                    </PasswordBox>
+                </StackPanel>
+            </Border>
+        </StackPanel>
 
     </Grid>
 </Page>

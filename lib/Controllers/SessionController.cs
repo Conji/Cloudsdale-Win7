@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -37,7 +38,19 @@ namespace CloudsdaleWin7.lib.Controllers
             var result = request.PostAsync(Endpoints.Session, new JsonContent(requestModel));
             var resultString = await result.Result.Content.ReadAsStringAsync();
             var response = await JsonConvert.DeserializeObjectAsync<WebResponse<SessionWrapper>>(resultString);
-            CurrentSession = response.Result.User;
+            Console.WriteLine(response.Flash);
+            try
+            {
+                CurrentSession = response.Result.User;
+                MainWindow.Instance.MainFrame.Navigate(new Main());
+            }
+            catch
+            {
+                CloudsdaleWin7.Login.Instance.LoggingInUi.Visibility = Visibility.Hidden;
+                CloudsdaleWin7.Login.Instance.LoginUi.Visibility = Visibility.Visible;
+                CloudsdaleWin7.Login.Instance.ShowMessage(response.Flash.Message);
+            }
+            
         }
 
         public async Task Logout()

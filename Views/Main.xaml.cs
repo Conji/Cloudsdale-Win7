@@ -1,31 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CloudsdaleWin7.Views.Flyouts;
-using CloudsdaleWin7.lib.Models;
-using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.Views
 {
     /// <summary>
     /// Interaction logic for Main.xaml
     /// </summary>
-    public partial class Main : Page
+    public partial class Main
     {
         public static Main Instance;
-        private static bool MenuVisible = false;
 
         public Main()
         {
@@ -44,18 +32,20 @@ namespace CloudsdaleWin7.Views
 
         public void ShowFlyoutMenu(Page view)
         {
-            if (FlyoutFrame.Visibility == Visibility.Collapsed)
-            {
-                FlyoutFrame.Visibility = Visibility.Visible;
-                FlyoutFrame.Navigate(view);
-            }
-            else
-            {
-                FlyoutFrame.Visibility = Visibility.Collapsed;
-            }
+            var board = new Storyboard();
+            var animation = (FlyoutFrame.Width > 0
+                                 ? new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)))
+                                 : new DoubleAnimation(0.0, 150.0, new Duration(new TimeSpan(2000000))));
+            //var animation = new DoubleAnimation(0.0, 150.0, new Duration(new TimeSpan(200000000)));
+            board.Children.Add(animation);
+            animation.EasingFunction = new ExponentialEase();
+            Storyboard.SetTargetName(animation, FlyoutFrame.Name);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(WidthProperty));
+            FlyoutFrame.Navigate(view);
+            board.Begin(this);
         }
 
-        private void Clouds_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CloudsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var cloud = (ListView) sender;
             var item = (lib.Models.Cloud) cloud.SelectedItem;

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using CloudsdaleWin7.Views;
+using CloudsdaleWin7.Views.Flyouts.Cloud;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
@@ -21,6 +23,12 @@ namespace CloudsdaleWin7.lib.Controllers
         private readonly Dictionary<string, Status> userStatuses = new Dictionary<string, Status>();
         private readonly ModelCache<Message> messages = new ModelCache<Message>(50);
         private DateTime? _validatedFayeClient;
+        private readonly UserList _userList;
+
+        public void ShowUserList()
+        {
+            Main.Instance.FlyoutFrame.Navigate(new UserList(this));
+        }
 
         public CloudController(Cloud cloud)
         {
