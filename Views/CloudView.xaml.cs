@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Text;
 using System.Windows;
@@ -20,16 +21,27 @@ namespace CloudsdaleWin7 {
     public partial class CloudView {
         public static CloudView Instance;
         private static Cloud _cloud { get; set; }
-        private static CloudController CloudInstance = new CloudController(_cloud);
+        private readonly static CloudController CloudInstance = new CloudController(_cloud);
+        private ObservableCollection<Message> Items = new ObservableCollection<Message>();
 
         public CloudView(Cloud cloud)
         {
             _cloud = cloud;
             Instance = this;
             InitializeComponent();
+            CloudInstance.UnreadMessages = 0;
             Name.Text = _cloud.Name;
-
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
+            CloudMessages.ItemsSource = MessageSource.GetSource(cloud.Id).Messages;
+            MessageSource.GetSource(cloud.Id).Messages.CollectionChanged += OnMessage;
+        }
+
+        private static void OnMessage(object sender, EventArgs e)
+        {
+            foreach (var message in CloudInstance.Messages)
+            {
+                Console.WriteLine(message.Content);
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -41,10 +53,6 @@ namespace CloudsdaleWin7 {
             {
                 SymbolBox.Visibility = Visibility.Visible;
             }
-        }
-        private void ShowCloudInfo(object sender, MouseButtonEventArgs args)
-        {
-            
         }
 
         private void SendBoxEnter(object sender, KeyEventArgs e)
@@ -91,7 +99,7 @@ namespace CloudsdaleWin7 {
 
         private void ShowUserList(object sender, MouseButtonEventArgs e)
         {
-           
+           Main.Instance.ShowFlyoutMenu(new UserList(CloudInstance));
         }
     }
     public class MessageTemplateSelector : DataTemplateSelector

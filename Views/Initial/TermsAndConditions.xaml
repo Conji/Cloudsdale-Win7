@@ -19,7 +19,7 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <RichTextBox Margin="25,91,27,26" BorderBrush="{x:Null}" Background="{x:Null}" ScrollViewer.CanContentScroll="True" IsReadOnly="True" VerticalScrollBarVisibility="Visible">
+        <RichTextBox Margin="25,91,27,50" BorderBrush="{x:Null}" Background="{x:Null}" ScrollViewer.CanContentScroll="True" IsReadOnly="True" VerticalScrollBarVisibility="Visible">
             <FlowDocument>
                 <Paragraph FontWeight="Bold" FontFamily="Times New Roman" Margin="0,6.67">
                     <Span>
@@ -181,5 +181,6 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
+        <Button Content="I Agree!" HorizontalAlignment="Left" Margin="25,270,0,0" VerticalAlignment="Top" Width="114"/>
     </Grid>
 </Page>

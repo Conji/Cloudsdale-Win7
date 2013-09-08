@@ -23,6 +23,7 @@ namespace CloudsdaleWin7.Views
             SelfAvatar.Source = new BitmapImage(App.Connection.SessionController.CurrentSession.Avatar.Preview);
             Clouds.ItemsSource = App.Connection.SessionController.CurrentSession.Clouds;
             Frame.Navigate(new Home());
+            SubscribeToFaye();
         }
 
         private void ToggleMenu(object sender, RoutedEventArgs e)
@@ -35,12 +36,12 @@ namespace CloudsdaleWin7.Views
             var board = new Storyboard();
             var animation = (FlyoutFrame.Width > 0
                                  ? new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)))
-                                 : new DoubleAnimation(0.0, 150.0, new Duration(new TimeSpan(2000000))));
-            //var animation = new DoubleAnimation(0.0, 150.0, new Duration(new TimeSpan(200000000)));
+                                 : new DoubleAnimation(FlyoutFrame.Width, 150.0, new Duration(new TimeSpan(2000000))));
             board.Children.Add(animation);
             animation.EasingFunction = new ExponentialEase();
             Storyboard.SetTargetName(animation, FlyoutFrame.Name);
             Storyboard.SetTargetProperty(animation, new PropertyPath(WidthProperty));
+            if (FlyoutFrame.Content.Equals(view)) return;
             FlyoutFrame.Navigate(view);
             board.Begin(this);
         }
@@ -56,6 +57,14 @@ namespace CloudsdaleWin7.Views
         private void DirectHome(object sender, MouseButtonEventArgs e)
         {
             Frame.Navigate(new Home());
+        }
+
+        private void SubscribeToFaye()
+        {
+            foreach (var sub in App.Connection.SessionController.CurrentSession.Clouds)
+            {
+                App.Connection.Faye.Subscribe(sub.Id);
+            }
         }
     }
 }

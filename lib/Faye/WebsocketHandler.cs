@@ -90,12 +90,23 @@ namespace CloudsdaleWin7.lib.Faye
         }
 
         public static void Subscribe(string channel) {
-            var message = new JObject();
-            message["channel"] = "/meta/subscribe";
-            message["clientId"] = clientID;
-            message["subscription"] = channel;
-            message["ext"] = new JObject();
-            message["ext"]["auth_token"] = App.Connection.SessionController.CurrentSession.AuthToken;
+            //var message = new JObject();
+            //message["channel"] = "/meta/subscribe";
+            //message["clientId"] = clientID;
+            //message["subscription"] = channel;
+            //message["ext"] = new JObject();
+            //message["ext"]["auth_token"] = App.Connection.SessionController.CurrentSession.AuthToken;
+            //socket.Send(message.ToString());
+            var message = new
+                              {
+                                  channel = "/meta/subscribe",
+                                  clientId = clientID,
+                                  subscription = channel,
+                                  ext = new
+                                            {
+                                                auth_token = App.Connection.SessionController.CurrentSession.AuthToken
+                                            }
+                              };
             socket.Send(message.ToString());
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,15 +47,23 @@ namespace CloudsdaleWin7 {
             if (e.Key != Key.Enter) return;
             if (String.IsNullOrEmpty(EmailBox.Text) || String.IsNullOrEmpty(PasswordBox.Password))
             {
-                ShowMessage("You can't have empty fields, silly. Try again.");
+                ShowMessage("You can't have empty fields, silly filly. Try again.");
                 return;
             }
             ErrorMessage.Text = "";
             LoginUi.Visibility = Visibility.Hidden;
             LoggingInUi.Visibility = Visibility.Visible;
-            await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
-            UserSettings.Default.PreviousEmail = EmailBox.Text;
-            UserSettings.Default.Save();
+           try
+           {
+               await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
+               UserSettings.Default.PreviousEmail = EmailBox.Text;
+               UserSettings.Default.Save();
+           }catch (Exception ex)
+           {
+               ShowMessage(ex.Message);
+               LoginUi.Visibility = Visibility.Visible;
+               LoggingInUi.Visibility = Visibility.Hidden;
+           }
         }
 
         public void ShowMessage(string message)

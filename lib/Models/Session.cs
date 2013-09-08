@@ -42,7 +42,13 @@ namespace CloudsdaleWin7.lib.Models
         }
         public bool CanChangeName()
         {
-            return NameChanges == 1 ? true : false;
+            switch (NameChanges)
+            {
+                case 0:
+                    return false;
+                default:
+                    return true;
+            }
         }
         /// <summary>
         /// The Authentication Token used to

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.lib.Models
@@ -222,6 +223,7 @@ namespace CloudsdaleWin7.lib.Models
             OnPropertyChanged("Messages");
             OnPropertyChanged("AllDrops");
             OnPropertyChanged("FinalTimestamp");
+            
 
             other.PropertyChanged += (sender, args) => OnPropertyChanged(args.PropertyName);
         }
@@ -234,7 +236,7 @@ namespace CloudsdaleWin7.lib.Models
 
         public void PreProcess()
         {
-           // Content = Content.ParseMessage();
+           Content = Content.ParseMessage();
         }
     }
 }

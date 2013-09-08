@@ -29,12 +29,17 @@ namespace CloudsdaleWin7.lib.Models
         {
             //fix this
             if (UpdatedVersion() == "UPDATE FAILED") return;
-            if (UpdatedVersion() == VERSION && UpdatedVersion() != "UPDATE FAILED") return;
+            if (UpdatedVersion() == VERSION) return;
             if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
                                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
                 UpdateClient();
             }
+        }
+        public static void Validate()
+        {
+            CheckVersion();
+            CleanUp();
         }
         private static void UpdateClient()
         {

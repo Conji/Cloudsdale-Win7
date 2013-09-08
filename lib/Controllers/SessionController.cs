@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using CloudsdaleWin7.Views.Initial;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -63,6 +64,17 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             public string ClientID { get; set; }
             public Session User { get; set; }
+        }
+        private void CheckForCompletedRegistration()
+        {
+            if (CurrentSession.HasReadTnc == false)
+            {
+                MainWindow.Instance.MainFrame.Navigate(new TermsAndConditions());
+            }
+            if (CurrentSession.NeedsToConfirmRegistration == true)
+            {
+                
+            }
         }
     }
 }

@@ -4,14 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:views="clr-namespace:CloudsdaleWin7" mc:Ignorable="d" 
-      d:DesignHeight="564.045" d:DesignWidth="819.101" Foreground="White"
+      d:DesignHeight="553.545" d:DesignWidth="810.101" Foreground="White"
 	Title="CloudView">
 
     <Page.Resources>
         <views:MessageTemplateSelector x:Key="MessageTemplateSelector" />
         <CollectionViewSource
             x:Key="ItemsViewSource"
-            Source="{Binding Items}"/>
+            Source="{Binding Path=Items}"/>
     </Page.Resources>
 
     <Grid Background="#FFFAFAFA">

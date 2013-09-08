@@ -164,11 +164,11 @@
     <Compile Include="Views\Flyouts\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Initial\Confirm.xaml.cs">
+      <DependentUpon>Confirm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Initial\TermsAndConditions.xaml.cs">
       <DependentUpon>TermsAndConditions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Initial\UploadUserPic.xaml.cs">
-      <DependentUpon>UploadUserPic.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoadingViews\LoadLogin.xaml.cs">
       <DependentUpon>LoadLogin.xaml</DependentUpon>
@@ -253,11 +253,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Initial\TermsAndConditions.xaml">
+    <Page Include="Views\Initial\Confirm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Initial\UploadUserPic.xaml">
+    <Page Include="Views\Initial\TermsAndConditions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -419,7 +419,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Menus\" />
-    <Folder Include="lib\Converters\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\next.png" />

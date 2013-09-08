@@ -17,7 +17,7 @@
             <RowDefinition Height="388*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Left" Width="226" Grid.RowSpan="3">
+        <StackPanel x:Name="SidePanel" HorizontalAlignment="Left" Width="226" Grid.RowSpan="3">
         <StackPanel.Background>
             <SolidColorBrush Color="{DynamicResource Panels}"/>
         </StackPanel.Background>
@@ -31,7 +31,7 @@
                 </TextBlock.Foreground>
             </TextBlock>
         </StackPanel>
-            <Button Content="Settings" BorderThickness="0,0,0,3" Margin="52,0,0,0" Height="39" FontWeight="SemiBold" Click="ToggleMenu">
+            <Button Content="Settings" BorderThickness="0" Margin="54,0,0,0" Height="39" FontWeight="SemiBold" Click="ToggleMenu">
                 <Button.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </Button.Foreground>

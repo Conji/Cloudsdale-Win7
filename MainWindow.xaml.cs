@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using CloudsdaleWin7.Views;
+﻿using System.Windows;
 using CloudsdaleWin7.lib.CloudsdaleLib;
-using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Models;
-using CloudsdaleWin7.lib.Models.Client;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7
@@ -33,19 +26,14 @@ namespace CloudsdaleWin7
         public MainWindow()
         {
             Instance = this;
-            ClientVersion.CleanUp();
-            ClientVersion.CheckVersion();
+            ClientVersion.Validate();
             InitializeComponent();
-            Height = UserSettings.Default.AppHeight;
-            Width = UserSettings.Default.AppWidth;
             MainFrame.Navigate(new Login());
         }
 
         public static DependencyProperty MaxCharactersProperty =
             DependencyProperty.Register("MaxCharacters", typeof (int), typeof (MainWindow),
                                         new FrameworkPropertyMetadata(200));
-
-        private static readonly Dictionary<string, object> Clouds = new Dictionary<string, object>();
 
         private void SaveSettings(object sender, System.ComponentModel.CancelEventArgs e)
         {
