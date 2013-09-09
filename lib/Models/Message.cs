@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.Models
 {
@@ -21,7 +22,7 @@ namespace CloudsdaleWin7.lib.Models
             _drops = new Drop[0];
             _timestamp = DateTime.Now;
         }
-
+        
         private string _id;
         private User _author;
         private Drop[] _drops;

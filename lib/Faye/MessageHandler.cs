@@ -25,7 +25,7 @@ namespace CloudsdaleWin7.lib.Faye
 
         public JObject ExtensionData { get { return extensionData; } }
         public string Token { get; set; }
-        public abstract string ClientId { get; }
+        public string ClientId = WebsocketHandler.ClientID;
         public abstract bool IsConnecting { get; }
         public abstract bool IsConnected { get; }
         public IMessageReceiver PrimaryReciever { get; set; }

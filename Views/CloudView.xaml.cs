@@ -10,6 +10,7 @@ using CloudsdaleWin7.Views.Flyouts.Cloud;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Controllers;
+using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json.Linq;
@@ -21,8 +22,7 @@ namespace CloudsdaleWin7 {
     public partial class CloudView {
         public static CloudView Instance;
         private static Cloud _cloud { get; set; }
-        private readonly static CloudController CloudInstance = new CloudController(_cloud);
-        private ObservableCollection<Message> Items = new ObservableCollection<Message>();
+        private static readonly CloudController CloudInstance = new CloudController(_cloud);
 
         public CloudView(Cloud cloud)
         {
@@ -30,29 +30,22 @@ namespace CloudsdaleWin7 {
             Instance = this;
             InitializeComponent();
             CloudInstance.UnreadMessages = 0;
+            CloudMessages.Items.Clear();
+            CloudMessages.ItemsSource = CloudInstance.Messages;
             Name.Text = _cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
-            CloudMessages.ItemsSource = MessageSource.GetSource(cloud.Id).Messages;
-            MessageSource.GetSource(cloud.Id).Messages.CollectionChanged += OnMessage;
+            CloudInstance.EnsureLoaded();
+
+            App.Connection.MessageController.CurrentCloud = CloudInstance;
         }
 
-        private static void OnMessage(object sender, EventArgs e)
-        {
-            foreach (var message in CloudInstance.Messages)
-            {
-                Console.WriteLine(message.Content);
-            }
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonClick1(object sender, RoutedEventArgs e)
         {
             if (SymbolBox.Visibility == Visibility.Visible)
             {
                 SymbolBox.Visibility = Visibility.Hidden;
-            }else
-            {
-                SymbolBox.Visibility = Visibility.Visible;
-            }
+                return;
+            } SymbolBox.Visibility = Visibility.Visible;
         }
 
         private void SendBoxEnter(object sender, KeyEventArgs e)
@@ -67,7 +60,7 @@ namespace CloudsdaleWin7 {
         {
             var dataObject = new JObject();
             dataObject["content"] = message.EscapeMessage();
-            dataObject["client_id"] = App.Connection.Faye.ClientId;
+            dataObject["client_id"] = WebsocketHandler.ClientID;
             dataObject["device"] = "desktop";
             var data = Encoding.UTF8.GetBytes(dataObject.ToString());
             var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", _cloud.Id));
@@ -95,6 +88,7 @@ namespace CloudsdaleWin7 {
                     }
                 }, null);
             }, null);
+            InputBox.Text = "";
         }
 
         private void ShowUserList(object sender, MouseButtonEventArgs e)

@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 namespace CloudsdaleWin7.lib.CloudsdaleLib {
     public class MessageSource : CloudsdaleModel{
         private static readonly Dictionary<string, MessageSource> Sources = new Dictionary<string, MessageSource>(); 
-        public readonly ObservableCollection<JToken> Messages = new ObservableCollection<JToken>();
+        public readonly ObservableCollection<Message> Messages = new ObservableCollection<Message>();
         private int _unreadMessages;
         public int UnreadMessages
         {
@@ -25,11 +25,11 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
             Messages.CollectionChanged += OnMessageReceive;
         }
 
-        public static MessageSource GetSource(JToken cloud) {
-            if (Sources.ContainsKey((string)cloud["id"])) {
-                return Sources[(string) cloud["id"]];
+        public static MessageSource GetSource(Cloud cloud) {
+            if (Sources.ContainsKey(cloud.Id)) {
+                return Sources[cloud.Id];
             }
-            return Sources[(string) cloud["id"]] = new MessageSource();
+            return Sources[cloud.Id] = new MessageSource();
         }
         public static MessageSource GetSource(string cloudId) {
             if (Sources.ContainsKey(cloudId)) {
@@ -40,14 +40,15 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
 
         public void AddMessage(JToken message) {
             if (MainWindow.Instance.Dispatcher.CheckAccess()) {
-                Messages.Add(message);
+                Messages.Add(message.ToObject<Message>());
             } else {
-                MainWindow.Instance.Dispatcher.BeginInvoke(new Action(() => Messages.Add(message)));
+                MainWindow.Instance.Dispatcher.BeginInvoke(new Action(() => Messages.Add(message.ToObject<Message>())));
             }
         }
         public void OnMessageReceive(object sender, EventArgs e)
         {
             UnreadMessages += 1;
+            Console.WriteLine(UnreadMessages);
         }
     }
 }

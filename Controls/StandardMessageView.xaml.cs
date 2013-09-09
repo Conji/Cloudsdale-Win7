@@ -18,9 +18,9 @@ namespace CloudsdaleWin7.Controls
     /// <summary>
     /// Interaction logic for StandMessageView.xaml
     /// </summary>
-    public partial class StandMessageView : UserControl
+    public partial class StandardMessageView : UserControl
     {
-        public StandMessageView()
+        public StandardMessageView()
         {
             InitializeComponent();
         }

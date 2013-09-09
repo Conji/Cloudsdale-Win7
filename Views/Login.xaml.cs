@@ -79,17 +79,10 @@ namespace CloudsdaleWin7 {
             board.Begin(this);
 
             #endregion
-            #region Hide Message
-
-            //var leavingBoard = new Storyboard();
-            //var leavingAnimation = new DoubleAnimation(100.0, 0.0, new Duration(new TimeSpan(1000000000)));
-            //leavingBoard.Children.Add(leavingAnimation);
-            //Storyboard.SetTargetName(leavingAnimation, ErrorMessage.Name);
-            //Storyboard.SetTargetProperty(leavingAnimation, new PropertyPath(OpacityProperty));
-            //leavingBoard.Begin(this);
-
-            #endregion
-
+        }
+        private static void PreloadClouds()
+        {
+            
         }
     }
 }

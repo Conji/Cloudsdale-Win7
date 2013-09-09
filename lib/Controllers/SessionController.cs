@@ -39,7 +39,6 @@ namespace CloudsdaleWin7.lib.Controllers
             var result = request.PostAsync(Endpoints.Session, new JsonContent(requestModel));
             var resultString = await result.Result.Content.ReadAsStringAsync();
             var response = await JsonConvert.DeserializeObjectAsync<WebResponse<SessionWrapper>>(resultString);
-            Console.WriteLine(response.Flash);
             try
             {
                 CurrentSession = response.Result.User;

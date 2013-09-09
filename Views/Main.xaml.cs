@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views.Flyouts;
+using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Controllers;
+using CloudsdaleWin7.lib.Faye;
+using CloudsdaleWin7.lib.Helpers;
+using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.Views
 {
@@ -14,6 +21,7 @@ namespace CloudsdaleWin7.Views
     public partial class Main
     {
         public static Main Instance;
+        private static Session Current = App.Connection.SessionController.CurrentSession;
 
         public Main()
         {
@@ -48,22 +56,24 @@ namespace CloudsdaleWin7.Views
 
         private void CloudsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var cloud = (ListView) sender;
-            var item = (lib.Models.Cloud) cloud.SelectedItem;
+            if (Clouds.SelectedIndex == -1) return;
+            var cloud = (ListView)sender;
+            var item = (lib.Models.Cloud)cloud.SelectedItem;
             Frame.Navigate(new CloudView(item));
-            
         }
 
         private void DirectHome(object sender, MouseButtonEventArgs e)
         {
             Frame.Navigate(new Home());
+            Clouds.SelectedIndex = -1;
         }
 
-        private void SubscribeToFaye()
+        private static void SubscribeToFaye()
         {
-            foreach (var sub in App.Connection.SessionController.CurrentSession.Clouds)
+            WebsocketHandler.Subscribe("/users/" + Current.Id + "/private");
+            foreach (var cloud in Current.Clouds)
             {
-                App.Connection.Faye.Subscribe(sub.Id);
+                WebsocketHandler.Subscribe("/clouds/" + cloud.Id + "/messages");
             }
         }
     }

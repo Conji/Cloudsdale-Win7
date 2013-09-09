@@ -118,8 +118,8 @@
     <Compile Include="Controls\MessageTextControl.xaml.cs">
       <DependentUpon>MessageTextControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\StandMessageView.xaml.cs">
-      <DependentUpon>StandMessageView.xaml</DependentUpon>
+    <Compile Include="Controls\StandardMessageView.xaml.cs">
+      <DependentUpon>StandardMessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ViewboxPanel.cs" />
     <Compile Include="lib\CloudsdaleLib\RestateMap.cs" />
@@ -213,7 +213,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\StandMessageView.xaml">
+    <Page Include="Controls\StandardMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

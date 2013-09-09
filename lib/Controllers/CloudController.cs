@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
@@ -21,7 +22,7 @@ namespace CloudsdaleWin7.lib.Controllers
     {
         private int _unreadMessages;
         private readonly Dictionary<string, Status> userStatuses = new Dictionary<string, Status>();
-        private readonly ModelCache<Message> messages = new ModelCache<Message>(50);
+        private readonly ObservableCollection<Message> messages = new ModelCache<Message>(50);
         private DateTime? _validatedFayeClient;
         private readonly UserList _userList;
 
@@ -37,7 +38,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public Cloud Cloud { get; private set; }
 
-        public ModelCache<Message> Messages { get { return messages; } }
+        public ObservableCollection<Message> Messages { get { return messages; } }
 
         public List<User> OnlineModerators
         {
@@ -133,12 +134,12 @@ namespace CloudsdaleWin7.lib.Controllers
                 foreach (var message in responseMessages.Result)
                 {
                     StatusForUser(message.Author.Id);
-                    messages.AddToEnd(message);
+                    messages.Add(message);
                 }
                 foreach (var message in newMessages)
                 {
                     StatusForUser(message.Author.Id);
-                    messages.AddToEnd(message);
+                    messages.Add(message);
                 }
             }
 
@@ -166,13 +167,10 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             AddUnread();
             var message = jMessage.ToObject<Message>();
-
-            if (message.ClientId == App.Connection.Faye.ClientId) return;
-
             //show notification
 
             message.Author.CopyTo(message.User);
-            messages.AddToEnd(message);
+            messages.Add(message);
         }
 
         private async void OnUserMessage(string id, JToken jUser)
