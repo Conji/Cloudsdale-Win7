@@ -31,21 +31,20 @@ namespace CloudsdaleWin7.lib.Controllers
             Cloudsdale.MetadataProviders["IsOnline"] = new UserOnlineMetadataProvider();
         }
 
-        public MessageHandler Faye;
 
         public void Navigate(Type pageType)
         {
             MainFrame.Navigate(pageType);
         }
 
-        public void ConnectSession(Session session)
+        public void ConnectSession()
         {
-            Faye.Subscribe("/users/" + session.Id + "/private");
+            FayeConnector.Subscribe("/users/" + App.Connection.SessionController.CurrentSession.Id + "/private");
 
-            foreach (var cloud in session.Clouds)
+            foreach (var cloud in App.Connection.SessionController.CurrentSession.Clouds)
             {
-                Faye.Subscribe("/clouds/" + cloud.Id);
-                Faye.Subscribe("/clouds/" + cloud.Id + "/chat/messages");
+                FayeConnector.Subscribe("/clouds/" + cloud.Id);
+                FayeConnector.Subscribe("/clouds/" + cloud.Id + "/chat/messages");
             }
         }
     }

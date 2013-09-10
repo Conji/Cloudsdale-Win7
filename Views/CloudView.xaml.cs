@@ -26,16 +26,15 @@ namespace CloudsdaleWin7 {
 
         public CloudView(Cloud cloud)
         {
-            _cloud = cloud;
-            Instance = this;
             InitializeComponent();
+            _cloud = cloud;
+            CloudInstance.EnsureLoaded();
+            Instance = this;
             CloudInstance.UnreadMessages = 0;
             CloudMessages.Items.Clear();
             CloudMessages.ItemsSource = CloudInstance.Messages;
             Name.Text = _cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
-            CloudInstance.EnsureLoaded();
-
             App.Connection.MessageController.CurrentCloud = CloudInstance;
         }
 
@@ -60,7 +59,7 @@ namespace CloudsdaleWin7 {
         {
             var dataObject = new JObject();
             dataObject["content"] = message.EscapeMessage();
-            dataObject["client_id"] = WebsocketHandler.ClientID;
+            dataObject["client_id"] = FayeConnector.ClientID;
             dataObject["device"] = "desktop";
             var data = Encoding.UTF8.GetBytes(dataObject.ToString());
             var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", _cloud.Id));

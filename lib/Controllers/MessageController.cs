@@ -5,12 +5,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
-using CloudsdaleWin7.lib.Faye;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.Controllers
 {
-    public class MessageController : IMessageReceiver, ICloudServicesProvider, INotifyPropertyChanged
+    public class MessageController :  ICloudServicesProvider, INotifyPropertyChanged
     {
         private readonly Dictionary<string, CloudController> _cloudControllers = new Dictionary<string, CloudController>();
         public CloudController CurrentCloud { get; set; }

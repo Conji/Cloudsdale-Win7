@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Windows;
@@ -8,6 +9,10 @@ using System.Windows.Media.Animation;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.LoadingViews;
 using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Controllers;
+using CloudsdaleWin7.lib.Models;
+using CloudsdaleWin7.lib.Faye;
+using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7 {
     /// <summary>
@@ -79,10 +84,6 @@ namespace CloudsdaleWin7 {
             board.Begin(this);
 
             #endregion
-        }
-        private static void PreloadClouds()
-        {
-            
         }
     }
 }

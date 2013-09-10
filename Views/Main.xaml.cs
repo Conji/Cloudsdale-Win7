@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views.Flyouts;
-using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
-using CloudsdaleWin7.lib.Helpers;
-using CloudsdaleWin7.lib.Models;
-using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.Views
 {
@@ -21,7 +16,6 @@ namespace CloudsdaleWin7.Views
     public partial class Main
     {
         public static Main Instance;
-        private static Session Current = App.Connection.SessionController.CurrentSession;
 
         public Main()
         {
@@ -31,8 +25,43 @@ namespace CloudsdaleWin7.Views
             SelfAvatar.Source = new BitmapImage(App.Connection.SessionController.CurrentSession.Avatar.Preview);
             Clouds.ItemsSource = App.Connection.SessionController.CurrentSession.Clouds;
             Frame.Navigate(new Home());
-            SubscribeToFaye();
+            InitializeConnection();
         }
+
+        private static void InitializeConnection()
+        {
+            Connection.Initialize();
+        }
+
+        //private void LoadMessageToSource(MessageSource source, JToken message)
+        //{
+        //    message["orgcontent"] = message["content"] =
+        //        message["content"].ToString().UnescapeLiteral().RegexReplace(@"[ ]+", " ");
+        //    lock (source)
+        //    {
+        //        JToken lastMsg;
+        //        if (source.Messages.Any()
+        //            && (string)(lastMsg = source.Messages.Last())["author"]["id"] == (string)message["author"]["id"]
+        //            && !lastMsg["orgcontent"].ToString().StartsWith("/me")
+        //            && !message["content"].ToString().StartsWith("/me"))
+        //        {
+        //            lastMsg["content"] += "\n" + message["content"];
+        //            lastMsg["drops"] = new JArray(lastMsg["drops"].Concat(message["drops"]));
+        //            Dispatcher.Invoke(() =>
+        //            {
+        //                source.Messages.RemoveAt(source.Messages.Count - 1);
+        //                source.Messages.Add(lastMsg);
+
+        //            });
+        //        }
+        //        else
+        //        {
+        //            message["content"] = message["content"]
+        //                .ToString().RegexReplace("^/me", (string)message["author"]["name"]);
+        //            source.AddMessage(message);
+        //        }
+        //    }
+        //}
 
         private void ToggleMenu(object sender, RoutedEventArgs e)
         {
@@ -60,21 +89,13 @@ namespace CloudsdaleWin7.Views
             var cloud = (ListView)sender;
             var item = (lib.Models.Cloud)cloud.SelectedItem;
             Frame.Navigate(new CloudView(item));
+            App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
         }
 
         private void DirectHome(object sender, MouseButtonEventArgs e)
         {
             Frame.Navigate(new Home());
             Clouds.SelectedIndex = -1;
-        }
-
-        private static void SubscribeToFaye()
-        {
-            WebsocketHandler.Subscribe("/users/" + Current.Id + "/private");
-            foreach (var cloud in Current.Clouds)
-            {
-                WebsocketHandler.Subscribe("/clouds/" + cloud.Id + "/messages");
-            }
         }
     }
 }

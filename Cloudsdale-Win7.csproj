@@ -129,9 +129,8 @@
     <Compile Include="lib\Controllers\MessageController.cs" />
     <Compile Include="lib\Controllers\ModelController.cs" />
     <Compile Include="lib\Controllers\SessionController.cs" />
-    <Compile Include="lib\Faye\IMessageReceiver.cs" />
-    <Compile Include="lib\Faye\MessageHandler.cs" />
-    <Compile Include="lib\Faye\WebsocketHandler.cs" />
+    <Compile Include="lib\Faye\Connection.cs" />
+    <Compile Include="lib\Faye\FayeConnector.cs" />
     <Compile Include="lib\Helpers\CloudsdaleEscaper.cs" />
     <Compile Include="lib\Models\Client\BooleanMetadataProvider.cs" />
     <Compile Include="lib\Models\Client\CloudControllerMetadataProvider.cs" />

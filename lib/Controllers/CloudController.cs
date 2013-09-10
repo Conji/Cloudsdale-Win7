@@ -18,11 +18,11 @@ using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.Controllers
 {
-    public class CloudController : IStatusProvider, IMessageReceiver, INotifyPropertyChanged
+    public class CloudController : IStatusProvider,  INotifyPropertyChanged
     {
         private int _unreadMessages;
         private readonly Dictionary<string, Status> userStatuses = new Dictionary<string, Status>();
-        private readonly ObservableCollection<Message> messages = new ModelCache<Message>(50);
+        private readonly ModelCache<Message> messages = new ModelCache<Message>(50);
         private DateTime? _validatedFayeClient;
         private readonly UserList _userList;
 
@@ -38,7 +38,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public Cloud Cloud { get; private set; }
 
-        public ObservableCollection<Message> Messages { get { return messages; } }
+        public ModelCache<Message> Messages { get { return messages; } }
 
         public List<User> OnlineModerators
         {
@@ -95,10 +95,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public async Task EnsureLoaded()
         {
-            if (_validatedFayeClient == null || _validatedFayeClient < App.Connection.Faye.CreationDate)
-            {
-                App.Connection.Faye.Subscribe("/clouds/" + Cloud.Id + "/users/*");
-            }
+            FayeConnector.Subscribe("/clouds/" + Cloud.Id + "/users/*");
 
             await Cloud.Validate();
 
@@ -139,11 +136,9 @@ namespace CloudsdaleWin7.lib.Controllers
                 foreach (var message in newMessages)
                 {
                     StatusForUser(message.Author.Id);
-                    messages.Add(message);
+                    messages.AddToEnd(message);
                 }
             }
-
-            _validatedFayeClient = App.Connection.Faye.CreationDate;
         }
 
         public void OnMessage(JObject message)
@@ -161,6 +156,7 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 OnCloudData(message["data"]);
             }
+            Console.WriteLine("Was added to cloudcontroller onmessage");
         }
 
         private void OnChatMessage(JToken jMessage)

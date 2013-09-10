@@ -1,20 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json.Linq;
 using WebSocket4Net;
 
 namespace CloudsdaleWin7.lib.Faye
 {
-    class WebsocketHandler
+    static class FayeConnector
     {
         public static WebSocket socket;
         private static string clientID;
         public static event Action DoneConnecting;
         public static event Action LostConnection;
-        private readonly DateTime creationDate = new DateTime();
-        public DateTime CreationDate { get { return creationDate; } }
 
         public static string ClientID
         {
@@ -66,10 +66,11 @@ namespace CloudsdaleWin7.lib.Faye
                         ConnectRequest();
                         break;
                     default:
-                        if (((string)message["channel"]).StartsWith("/cloud"))
+                        if (((string)message["channel"]).StartsWith("/cloud") || ((string)message["channel"]).StartsWith("/cloud"))
                         {
                             Connection.OnMessageReceived(message);
                         }
+                        
                         break;
                 }
             }
@@ -127,50 +128,6 @@ namespace CloudsdaleWin7.lib.Faye
             connect["clientId"] = clientID;
             connect["connectionType"] = "websocket";
             socket.Send(connect.ToString());
-        }
-    }
-    public static class Connection
-    {
-        public static event Action<JToken> MessageReceived;
-
-        public static void Initialize()
-        {
-            try
-            {
-                WebsocketHandler.LostConnection += WebsocketHandler.Connect;
-                WebsocketHandler.DoneConnecting += delegate
-                {
-                    foreach (var cloud in App.Connection.SessionController.CurrentSession.Clouds)
-                    {
-                        WebsocketHandler.Subscribe("/clouds/" + cloud.Id + "/chat/messages");
-                    }
-                };
-                WebsocketHandler.Connect();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                InitializeAsync();
-            }
-        }
-
-        public static async Task InitializeAsync()
-        {
-            try
-            {
-                WebsocketHandler.LostConnection += WebsocketHandler.Connect;
-                await WebsocketHandler.ConnectAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Initialize();
-            }
-        }
-
-        internal static void OnMessageReceived(JObject obj)
-        {
-            if (MessageReceived != null) MessageReceived(obj);
         }
     }
 }

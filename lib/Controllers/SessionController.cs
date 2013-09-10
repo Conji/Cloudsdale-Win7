@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using CloudsdaleWin7.Views.Initial;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -15,7 +18,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.Controllers
 {
-    public class SessionController : ISessionProvider, IMessageReceiver
+    public class SessionController : ISessionProvider
     {
         private readonly List<Session> _pastSessions = new List<Session>();
 
@@ -50,7 +53,6 @@ namespace CloudsdaleWin7.lib.Controllers
                 CloudsdaleWin7.Login.Instance.LoginUi.Visibility = Visibility.Visible;
                 CloudsdaleWin7.Login.Instance.ShowMessage(response.Flash.Message);
             }
-            
         }
 
         public async Task Logout()
@@ -64,7 +66,7 @@ namespace CloudsdaleWin7.lib.Controllers
             public string ClientID { get; set; }
             public Session User { get; set; }
         }
-        private void CheckForCompletedRegistration()
+        private void RegistrationCheck()
         {
             if (CurrentSession.HasReadTnc == false)
             {
