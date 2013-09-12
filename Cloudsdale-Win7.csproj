@@ -122,7 +122,6 @@
       <DependentUpon>StandardMessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ViewboxPanel.cs" />
-    <Compile Include="lib\CloudsdaleLib\RestateMap.cs" />
     <Compile Include="lib\Controllers\CloudController.cs" />
     <Compile Include="lib\Controllers\ConnectionController.cs" />
     <Compile Include="lib\Controllers\ErrorController.cs" />
@@ -147,7 +146,6 @@
     <Compile Include="lib\Models\IPreProcessable.cs" />
     <Compile Include="lib\Models\Message.cs" />
     <Compile Include="MVVM\ActionMessagesConverter.cs" />
-    <Compile Include="MVVM\IsCloudOwner.cs" />
     <Compile Include="Views\Cloud\OwnedCloud.xaml.cs">
       <DependentUpon>OwnedCloud.xaml</DependentUpon>
     </Compile>
@@ -193,14 +191,10 @@
     <Compile Include="lib\Models\UIMetadata.cs" />
     <Compile Include="lib\Models\Updaters\CDUModel.cs" />
     <Compile Include="lib\Models\Cloud.cs" />
-    <Compile Include="MVVM\IsUnread.cs" />
     <Compile Include="lib\Providers\ICloudProvider.cs" />
     <Compile Include="lib\Providers\ICloudServiceProvider.cs" />
     <Compile Include="lib\Providers\IErrorProvider.cs" />
     <Compile Include="lib\Providers\IMetadataProvider.cs" />
-    <Compile Include="Views\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="lib\Providers\ISessionProvider.cs" />
     <Compile Include="lib\Providers\IStatusProvider.cs" />
     <Compile Include="lib\Providers\IUserProvider.cs" />
@@ -310,10 +304,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="lib\ErrorConsole\ErrorConsole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -324,7 +314,6 @@
     <Compile Include="lib\Models\User.cs" />
     <Compile Include="MVVM\ChatColorConverter.cs" />
     <Compile Include="MVVM\DeviceIcon.cs" />
-    <Compile Include="MVVM\DisableNavigation.cs" />
     <Compile Include="MVVM\NameColor.cs" />
     <Compile Include="MVVM\StatusConverter.cs" />
     <Compile Include="MVVM\TimeOfDayToString.cs" />

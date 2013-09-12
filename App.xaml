@@ -7,7 +7,6 @@
         <MVVM:TimeOfDayToString x:Key="TDTS" />
         <MVVM:NameColor x:Key="NameColor" />
         <MVVM:DeviceIcon x:Key="DeviceIcon" />
-        <MVVM:IsCloudOwner x:Key="ICO"/>
         <Style x:Key="ListboxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="Margin" Value="1,2,1,1"/>
             <Setter Property="HorizontalAlignment" Value="Stretch" />

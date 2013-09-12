@@ -30,6 +30,11 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
             }
         }
 
+        public MessageSource()
+        {
+            Messages.CollectionChanged += OnMessageReceived;
+        }
+
         public static MessageSource GetSource(Cloud cloud) {
             if (Sources.ContainsKey(cloud.Id)) {
                 return Sources[cloud.Id];
@@ -47,13 +52,13 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
 
         public void AddMessage(JToken message) {
             if (MainWindow.Instance.Dispatcher.CheckAccess()) {
-                Messages.Add(message.ToObject<Message>());
+                ProcessMessage(message);
             } else {
-                MainWindow.Instance.Dispatcher.BeginInvoke(new Action(() => Messages.Add(message.ToObject<Message>())));
+                MainWindow.Instance.Dispatcher.BeginInvoke(new Action(() => ProcessMessage(message)));
             }
         }
         #region Message Process
-        public void ProcessMessage(JToken message)
+        private void ProcessMessage(JToken message)
         {
             var chanSplit = ((string)message["channel"]).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             if (chanSplit.Length == 4 && chanSplit[2] == "chat" && chanSplit[3] == "messages")
@@ -72,15 +77,19 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
         private void OnChatMessage(JToken jMessage)
         {
             ++UnreadMessages;
-            if (App.Connection.MessageController.CurrentCloud.CloudMessages == this)
+            if (App.Connection.MessageController.CurrentCloud != null)
             {
-                UnreadMessages = 0;
+                if (App.Connection.MessageController.CurrentCloud.CloudMessages == this)
+                {
+                    UnreadMessages = 0;
+                }
             }
             App.Connection.MessageController.UpdateUnread();
             var message = UpdateSource(this, jMessage);
             //show notification
 
             message.Author.CopyTo(message.User);
+            
         }
         private async void OnUserMessage(string id, JToken jUser)
         {
@@ -129,11 +138,15 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
                 else
                 {
                     message["content"] = message["content"]
-                        .ToString().RegexReplace("^/me", (string)message["author"]["name"]);
+                        .ToString().RegexReplace("^/me ", (string)message["author"]["name"]);
                 }
             }
-            return (message.ToObject<Message>());
+            return message.ToObject<Message>();
         }
         #endregion
+        private void OnMessageReceived(object sender, EventArgs e)
+        {
+            Console.WriteLine("New message addded!");
+        }
     }
 }

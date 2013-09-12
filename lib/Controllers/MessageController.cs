@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
 using Newtonsoft.Json.Linq;
@@ -24,15 +25,13 @@ namespace CloudsdaleWin7.lib.Controllers
         private void InternalOnMessage(JObject message)
         {
             var chanSplit = ((string)message["channel"]).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            var chanId = chanSplit[1];
             if (chanSplit.Length < 2) return;
 
             switch (chanSplit[0])
             {
                 case "clouds":
-                    if (_cloudControllers.ContainsKey(chanSplit[1]))
-                    {
-                        _cloudControllers[chanSplit[1]].OnMessage(message);
-                    }
+                    MessageSource.GetSource(chanId).AddMessage(message);
                     break;
                 case "users":
                     _sessionController.OnMessage(message);
@@ -84,6 +83,10 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private void LoadToSource(MessageSource source, JToken message)
+        {
+            
         }
     }
 }

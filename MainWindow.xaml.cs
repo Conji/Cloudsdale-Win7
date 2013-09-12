@@ -1,7 +1,9 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Models;
-using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7
 {
@@ -12,10 +14,6 @@ namespace CloudsdaleWin7
     {
 
         public static MainWindow Instance;
-        public static JObject User;
-        public static JToken CurrentCloud;
-        public static int CloudIndex;
-        public static string WebMessage;
 
         public int MaxCharacters
         {
@@ -29,6 +27,7 @@ namespace CloudsdaleWin7
             ClientVersion.Validate();
             InitializeComponent();
             MainFrame.Navigate(new Login());
+            
         }
 
         public static DependencyProperty MaxCharactersProperty =
