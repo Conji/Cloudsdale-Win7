@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Controllers;
 
 namespace CloudsdaleWin7 {
@@ -7,6 +8,7 @@ namespace CloudsdaleWin7 {
     /// </summary>
     public partial class App : Application {
         public readonly ConnectionController ConnectionController = new ConnectionController();
+        public static Settings Settings = new Settings();
 
         public static ConnectionController Connection
         {

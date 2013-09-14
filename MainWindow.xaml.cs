@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
@@ -14,7 +15,7 @@ namespace CloudsdaleWin7
     {
 
         public static MainWindow Instance;
-
+        
         public int MaxCharacters
         {
             get { return (int) GetValue(MaxCharactersProperty); }
@@ -27,7 +28,7 @@ namespace CloudsdaleWin7
             ClientVersion.Validate();
             InitializeComponent();
             MainFrame.Navigate(new Login());
-            
+            App.Connection.MainFrame = MainFrame;
         }
 
         public static DependencyProperty MaxCharactersProperty =
@@ -36,9 +37,7 @@ namespace CloudsdaleWin7
 
         private void SaveSettings(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            UserSettings.Default.AppHeight = (int) Height;
-            UserSettings.Default.AppWidth = (int) Width;
-            UserSettings.Default.Save();
+            App.Settings.Save();
         }
 
     }

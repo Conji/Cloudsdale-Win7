@@ -25,17 +25,16 @@ namespace CloudsdaleWin7 {
 
         public Login()
         {
-           
             Instance = this;
             InitializeComponent();
-            EmailBox.Text = UserSettings.Default.PreviousEmail;
-            PasswordBox.Password = UserSettings.Default.PreviousPassword;
+            EmailBox.Text = App.Settings["email"];
+            PasswordBox.Password = App.Settings["password"];
+            
         }
 
         public void Logout()
         {
             LoggingOut = true;
-            EmailBox.Text = UserSettings.Default.PreviousEmail;
         }
 
         private void ClearText(object sender, MouseButtonEventArgs e)
@@ -60,9 +59,10 @@ namespace CloudsdaleWin7 {
             LoggingInUi.Visibility = Visibility.Visible;
            try
            {
+               App.Settings.AddSetting("email", EmailBox.Text);
                await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
-               UserSettings.Default.PreviousEmail = EmailBox.Text;
-               UserSettings.Default.Save();
+               
+               
            }catch (Exception ex)
            {
                ShowMessage(ex.Message);

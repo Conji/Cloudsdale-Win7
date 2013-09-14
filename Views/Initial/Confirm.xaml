@@ -26,7 +26,7 @@
         </RichTextBox>
         <Image x:Name="Waiting" gif:ImageBehavior.AnimatedSource="/Cloudsdale;component/Assets/cd_icon_animation.gif" gif:ImageBehavior.AutoStart="True" Margin="152,151,150,0" Width="92" Height="94" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Hidden"/>
 
-        <Button Content="Confirmed!" HorizontalAlignment="Center" Margin="133,260,129,0" VerticalAlignment="Top" Width="132" HorizontalContentAlignment="Center" Click="Button_Click_1"/>
+        <Button Content="Confirmed!" HorizontalAlignment="Center" Margin="133,260,129,0" VerticalAlignment="Top" Width="132" HorizontalContentAlignment="Center" Click="ButtonClick1"/>
 
     </Grid>
 </Page>

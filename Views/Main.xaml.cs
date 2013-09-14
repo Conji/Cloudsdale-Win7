@@ -5,7 +5,6 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views.Flyouts;
-using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
 
 namespace CloudsdaleWin7.Views
@@ -33,36 +32,6 @@ namespace CloudsdaleWin7.Views
             Connection.Initialize();
         }
 
-        //private void LoadMessageToSource(MessageSource source, JToken message)
-        //{
-        //    message["orgcontent"] = message["content"] =
-        //        message["content"].ToString().UnescapeLiteral().RegexReplace(@"[ ]+", " ");
-        //    lock (source)
-        //    {
-        //        JToken lastMsg;
-        //        if (source.Messages.Any()
-        //            && (string)(lastMsg = source.Messages.Last())["author"]["id"] == (string)message["author"]["id"]
-        //            && !lastMsg["orgcontent"].ToString().StartsWith("/me")
-        //            && !message["content"].ToString().StartsWith("/me"))
-        //        {
-        //            lastMsg["content"] += "\n" + message["content"];
-        //            lastMsg["drops"] = new JArray(lastMsg["drops"].Concat(message["drops"]));
-        //            Dispatcher.Invoke(() =>
-        //            {
-        //                source.Messages.RemoveAt(source.Messages.Count - 1);
-        //                source.Messages.Add(lastMsg);
-
-        //            });
-        //        }
-        //        else
-        //        {
-        //            message["content"] = message["content"]
-        //                .ToString().RegexReplace("^/me", (string)message["author"]["name"]);
-        //            source.AddMessage(message);
-        //        }
-        //    }
-        //}
-
         private void ToggleMenu(object sender, RoutedEventArgs e)
         {
             ShowFlyoutMenu(new Settings());
@@ -73,7 +42,7 @@ namespace CloudsdaleWin7.Views
             var board = new Storyboard();
             var animation = (FlyoutFrame.Width > 0
                                  ? new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)))
-                                 : new DoubleAnimation(FlyoutFrame.Width, 150.0, new Duration(new TimeSpan(2000000))));
+                                 : new DoubleAnimation(FlyoutFrame.Width, 200.0, new Duration(new TimeSpan(2000000))));
             board.Children.Add(animation);
             animation.EasingFunction = new ExponentialEase();
             Storyboard.SetTargetName(animation, FlyoutFrame.Name);

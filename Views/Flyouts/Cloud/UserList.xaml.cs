@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using CloudsdaleWin7.lib.Controllers;
+using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Views.Flyouts.Cloud
 {
@@ -11,6 +13,7 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
     public partial class UserList
     {
         public static UserList Instance;
+        private readonly static ObservableCollection<User> SearchList = new ObservableCollection<User>(); 
         private static CloudController Controller { get; set; }
 
         public UserList(CloudController cloud)
@@ -20,6 +23,7 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             Controller = cloud;
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
+            SearchResults.ItemsSource = SearchList;
         }
 
         /// <summary>
@@ -37,19 +41,20 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             {
                 SearchUI.Visibility = Visibility.Collapsed;
                 OnlineUI.Visibility = Visibility.Visible;
+                SearchList.Clear();
             }
             else
             {
                 SearchUI.Visibility = Visibility.Visible;
                 OnlineUI.Visibility = Visibility.Collapsed;
-                SearchResults.Items.Clear();
-                foreach (var user in Controller.AllUsers)
-                {
-                    if (user.Name.StartsWith(SearchBox.Text))
-                    {
-                        SearchResults.Items.Add(user);
-                    }
-                }
+                SearchList.Clear();
+                //foreach (var user in Controller.OnlineUsers)
+                //{
+                //    if (user.Name.StartsWith(SearchBox.Text))
+                //    {
+                //        SearchList.Add(user);
+                //    }
+                //}
             }
             
         }

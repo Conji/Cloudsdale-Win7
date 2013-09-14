@@ -58,9 +58,6 @@
     <Reference Include="BCrypt.Net">
       <HintPath>..\..\References\BCrypt.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Caliburn.Micro">
-      <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net45\Caliburn.Micro.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -122,6 +119,7 @@
       <DependentUpon>StandardMessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ViewboxPanel.cs" />
+    <Compile Include="lib\CloudsdaleLib\Settings.cs" />
     <Compile Include="lib\Controllers\CloudController.cs" />
     <Compile Include="lib\Controllers\ConnectionController.cs" />
     <Compile Include="lib\Controllers\ErrorController.cs" />
@@ -277,12 +275,6 @@
     </Compile>
     <Compile Include="lib\CloudsdaleLib\CouldNotLoginException.cs" />
     <Compile Include="lib\CloudsdaleLib\Helpers.cs" />
-    <Compile Include="lib\CloudsdaleLib\MessageSource.cs" />
-    <Compile Include="lib\CloudsdaleLib\UserSettings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>UserSettings.settings</DependentUpon>
-    </Compile>
     <Compile Include="Views\CloudView.xaml.cs">
       <DependentUpon>CloudView.xaml</DependentUpon>
     </Compile>
@@ -334,10 +326,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="lib\CloudsdaleLib\UserSettings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

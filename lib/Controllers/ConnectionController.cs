@@ -9,7 +9,7 @@ namespace CloudsdaleWin7.lib.Controllers
 {
     public class ConnectionController
     {
-
+        public Frame MainFrame = new Frame();
         public readonly SessionController SessionController = new SessionController();
         public readonly ErrorController ErrorController = new ErrorController();
         public readonly MessageController MessageController = new MessageController();

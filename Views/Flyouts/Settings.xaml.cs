@@ -22,9 +22,9 @@ namespace CloudsdaleWin7.Views.Flyouts
     /// </summary>
     public partial class Settings : Page
     {
-        private Session Current = App.Connection.SessionController.CurrentSession;
-        private Regex UsernameRegex = new Regex(@"\b[a-z]", RegexOptions.IgnoreCase);
-        private Regex NameRegex = new Regex(@"\b[a-z0-9_]", RegexOptions.IgnoreCase);
+        private readonly Session Current = App.Connection.SessionController.CurrentSession;
+        private readonly Regex UsernameRegex = new Regex(@"\b[a-z]", RegexOptions.IgnoreCase);
+        private readonly Regex NameRegex = new Regex(@"\b[a-z0-9_]", RegexOptions.IgnoreCase);
 
         public Settings()
         {
@@ -33,6 +33,7 @@ namespace CloudsdaleWin7.Views.Flyouts
             UsernameBlock.Text = Current.Username;
             CheckChanges();
             SkypeBlock.Text = Current.SkypeName;
+            AvatarImage.Source = new BitmapImage(Current.Avatar.Normal);
         }
         private void CheckChanges()
         {

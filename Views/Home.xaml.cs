@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace CloudsdaleWin7 {
     /// <summary>
@@ -14,6 +16,7 @@ namespace CloudsdaleWin7 {
             InitializeComponent();
             Instance = this;
             Welcome.Text = WelcomeMessage(Name);
+            Animate();
         }
         private static string WelcomeMessage(string name)
         {
@@ -35,6 +38,27 @@ namespace CloudsdaleWin7 {
                     break;
             }
             return message.Replace("[:name]", name);
+        }
+        private void Animate()
+        {
+            #region Welcome Message
+            var board = new Storyboard();
+            var animation = new DoubleAnimation(0, 100, new Duration(new TimeSpan(2000000000)));
+            board.Children.Add(animation);
+            Storyboard.SetTargetName(animation, Welcome.Name);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(OpacityProperty));
+            animation.EasingFunction = new ExponentialEase();
+            board.Begin(this);
+
+            var b1 = new Storyboard();
+            var a1 = new DoubleAnimation(0, 450, new Duration(new TimeSpan(0,0,1)), FillBehavior.HoldEnd);
+            b1.Children.Add(a1);
+            Storyboard.SetTargetName(a1, line1.Name);
+            Storyboard.SetTargetProperty(a1, new PropertyPath(WidthProperty));
+            a1.EasingFunction = new ExponentialEase();
+            b1.Begin(this);
+
+            #endregion
         }
     }
 }

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:Models="clr-namespace:CloudsdaleWin7.lib.Models" mc:Ignorable="d" 
       d:DesignHeight="300"
-	Title="UserList" Width="150">
+	Title="UserList" Width="200">
     <Page.Foreground>
         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
     </Page.Foreground>
@@ -33,13 +33,14 @@
                         <DataTemplate>
                             <DockPanel>
                                 <Image Source="{Binding Path=Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
-                                <TextBlock Text="{Binding Path=Name}" FontSize="14" Margin="0,0,4,0">
-                                    <TextBlock.Foreground>
-                                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                                    </TextBlock.Foreground>
-                                </TextBlock>
-
-                                <TextBlock Foreground="#FFA0A0A0"><Run Text="   @"/><Run Text=" "/><Run Text="{Binding Path=Username}"/></TextBlock>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=Name}" FontSize="14" Margin="0,0,4,0">
+                                        <TextBlock.Foreground>
+                                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                    <TextBlock Foreground="#FFA0A0A0"><Run Text="   @"/><Run Text=" "/><Run Text="{Binding Path=Username}"/></TextBlock>
+                                </StackPanel>
                             </DockPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

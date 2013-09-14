@@ -181,6 +181,6 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Button Content="I Agree!" HorizontalAlignment="Left" Margin="25,270,0,0" VerticalAlignment="Top" Width="114"/>
+        <Button Content="I Agree!" HorizontalAlignment="Center" Margin="96,270,90,0" VerticalAlignment="Top" Width="114"/>
     </Grid>
 </Page>

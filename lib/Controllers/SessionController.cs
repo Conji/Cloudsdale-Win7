@@ -45,7 +45,7 @@ namespace CloudsdaleWin7.lib.Controllers
             try
             {
                 CurrentSession = response.Result.User;
-                MainWindow.Instance.MainFrame.Navigate(new Main());
+                RegistrationCheck();
             }
             catch
             {
@@ -66,16 +66,27 @@ namespace CloudsdaleWin7.lib.Controllers
             public string ClientID { get; set; }
             public Session User { get; set; }
         }
-        private void RegistrationCheck()
+        private void InitializeClouds()
         {
-            if (CurrentSession.HasReadTnc == false)
+            foreach (var cloud in CurrentSession.Clouds)
             {
-                MainWindow.Instance.MainFrame.Navigate(new TermsAndConditions());
-            }
-            if (CurrentSession.NeedsToConfirmRegistration == true)
-            {
+
+                App.Connection.MessageController.CloudControllers.Add(cloud.Id, new CloudController(cloud));
                 
             }
+        }
+        private void RegistrationCheck()
+        {
+            if (CurrentSession.NeedsToConfirmRegistration == true)
+            {
+                MainWindow.Instance.MainFrame.Navigate(new Confirm());
+            }
+            else
+            {
+                MainWindow.Instance.MainFrame.Navigate(new Main());
+                InitializeClouds();
+            }
+
         }
     }
 }

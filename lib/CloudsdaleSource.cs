@@ -35,7 +35,7 @@ namespace CloudsdaleWin7.lib
 
         public static string Folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Cloudsdale\";
         public static string File = Folder + "Cloudsdale.exe";
-        public static string SessionFile = Folder + "session.json";
+        public static string SettingsFile = Folder + "settings.json";
 
         #endregion
     }

@@ -21,22 +21,21 @@ namespace CloudsdaleWin7 {
     /// </summary>
     public partial class CloudView {
         public static CloudView Instance;
-        private static Cloud _cloud { get; set; }
-        private static CloudController CloudInstance;
+        private static CloudController CloudInstance { get; set; }
 
         public CloudView(Cloud cloud)
         {
             InitializeComponent();
-            _cloud = cloud;
-            CloudInstance = new CloudController(_cloud);
-            Console.WriteLine(CloudInstance.Cloud.OwnerId);
+            CloudInstance = new CloudController(cloud);
             Instance = this;
             CloudInstance.UnreadMessages = 0;
             CloudMessages.Items.Clear();
-            CloudMessages.ItemsSource = CloudInstance.CloudMessages.Messages;
-            Name.Text = _cloud.Name;
+            Name.Text = cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             App.Connection.MessageController.CurrentCloud = CloudInstance;
+            CloudInstance.EnsureLoaded();
+            CloudMessages.ItemsSource = CloudInstance.Messages;
+            Main.Instance.FlyoutFrame.Navigate(new UserList(CloudInstance));
         }
 
         private void ButtonClick1(object sender, RoutedEventArgs e)
@@ -63,7 +62,7 @@ namespace CloudsdaleWin7 {
             dataObject["client_id"] = FayeConnector.ClientID;
             dataObject["device"] = "desktop";
             var data = Encoding.UTF8.GetBytes(dataObject.ToString());
-            var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", _cloud.Id));
+            var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", CloudInstance.Cloud.Id));
             request.Accept = "application/json";
             request.Method = "POST";
             request.ContentType = "application/json";
@@ -83,7 +82,6 @@ namespace CloudsdaleWin7 {
                     }
                     catch (Exception ex)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(ex);
                     }
                 }, null);

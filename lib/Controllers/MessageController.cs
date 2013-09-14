@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Threading;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
@@ -12,29 +13,31 @@ namespace CloudsdaleWin7.lib.Controllers
 {
     public class MessageController :  ICloudServicesProvider, INotifyPropertyChanged
     {
-        private readonly Dictionary<string, CloudController> _cloudControllers = new Dictionary<string, CloudController>();
+        public Dictionary<string, CloudController> CloudControllers = new Dictionary<string, CloudController>();
         public CloudController CurrentCloud { get; set; }
-        private readonly SessionController _sessionController = new SessionController();
-        private readonly ModelController _modelController = new ModelController();
 
-        public void OnMessage(JObject message)
+        public async void OnMessage(JObject message)
         {
-            InternalOnMessage(message);
+            await App.Connection.MainFrame.Dispatcher.InvokeAsync((() => InternalOnMessage(message)));
         }
 
         private void InternalOnMessage(JObject message)
         {
             var chanSplit = ((string)message["channel"]).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-            var chanId = chanSplit[1];
             if (chanSplit.Length < 2) return;
 
             switch (chanSplit[0])
             {
                 case "clouds":
-                    MessageSource.GetSource(chanId).AddMessage(message);
+                    CloudControllers[chanSplit[1]].OnMessage(message);
                     break;
                 case "users":
-                    _sessionController.OnMessage(message);
+                    var sessionController = App.Connection.SessionController;
+                    if (sessionController.CurrentSession == null) break;
+                    if (chanSplit[1] == sessionController.CurrentSession.Id)
+                    {
+                        App.Connection.SessionController.OnMessage(message);
+                    }
                     break;
             }
         }
@@ -43,12 +46,12 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             get
             {
-                if (!_cloudControllers.ContainsKey(cloud.Id))
+                if (!CloudControllers.ContainsKey(cloud.Id))
                 {
-                    _cloudControllers[cloud.Id] = new CloudController(cloud);
+                    CloudControllers[cloud.Id] = new CloudController(cloud);
                 }
 
-                return _cloudControllers[cloud.Id];
+                return CloudControllers[cloud.Id];
             }
         }
 
@@ -61,19 +64,20 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             get
             {
-                return _cloudControllers.Select(controller => controller.Value.UnreadMessages)
+                return CloudControllers.Select(controller => 
+                    controller.Value.UnreadMessages)
                                        .Aggregate(0, (total, i) => total + i);
             }
         }
 
         public IStatusProvider StatusProvider(string cloudId)
         {
-            return _cloudControllers[cloudId];
+            return CloudControllers[cloudId];
         }
 
         public User GetBackedUser(string userId)
         {
-            return _modelController.GetUser(userId);
+            return App.Connection.ModelController.GetUser(userId);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -83,10 +87,6 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-        private void LoadToSource(MessageSource source, JToken message)
-        {
-            
         }
     }
 }
