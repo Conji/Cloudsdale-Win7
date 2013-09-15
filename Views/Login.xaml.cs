@@ -28,8 +28,6 @@ namespace CloudsdaleWin7 {
             Instance = this;
             InitializeComponent();
             EmailBox.Text = App.Settings["email"];
-            PasswordBox.Password = App.Settings["password"];
-            
         }
 
         public void Logout()
@@ -59,7 +57,7 @@ namespace CloudsdaleWin7 {
             LoggingInUi.Visibility = Visibility.Visible;
            try
            {
-               App.Settings.AddSetting("email", EmailBox.Text);
+               App.Settings.ChangeSetting("email", EmailBox.Text);
                await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
                
                

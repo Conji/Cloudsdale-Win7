@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.CloudsdaleLib
@@ -8,34 +7,38 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
     public class Settings
     {
         private static readonly string SettingsFile = CloudsdaleSource.SettingsFile;
-        private static JObject _settings { get; set; }
+        private static JObject _settings = new JObject();
         public Settings()
         {
             Initialize();
-            var reader = new StreamReader(SettingsFile);
-            _settings = new JObject(reader.ReadToEnd());
-            reader.Close();
+            _settings = new JObject(SettingsObject);
         }
         public string this[string key]
         {
             get
             {
-                if (_settings[key] == null) return (String)_settings[key];
-                AddSetting(key, "empty");
-                return (String)_settings[key];
+                //return (String)_settings["settings"][key];
+                if (_settings[key] != null) return (String) _settings[key];
+                _settings.Add(key, key);
+                return (String) _settings[key];
             }
         }
         
         private static void Initialize()
         {
             if (File.Exists(SettingsFile)) return;
-            File.AppendAllText(SettingsFile, "{" + Environment.NewLine + 
-                                             "}");
+            var jo = new JObject();
+            jo["settings"] = new JObject();
+            File.WriteAllText(SettingsFile, jo.ToString());
         }
 
-        public void AddSetting(string tokenKey, object value)
+        public void AddSetting(string tokenKey, string value)
         {
-            _settings.Add(tokenKey, (JToken)value);
+            _settings.Add(tokenKey, value);
+        }
+        public void AddSetting(string tokenKey, bool value)
+        {
+            _settings.Add(tokenKey, value);
         }
         public void ChangeSetting(string tokenKey, object value)
         {
@@ -47,7 +50,17 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
         }
         public void Save()
         {
-            File.WriteAllText(SettingsFile, _settings.ToString());
+            var saveObject = new JObject();
+            saveObject["settings"] = new JObject(_settings);
+            File.WriteAllText(SettingsFile, saveObject.ToString());
+        }
+        private static JObject SettingsObject
+        {
+            get
+            {
+                var o = JObject.Parse(File.ReadAllText(SettingsFile));
+                return (JObject)o["settings"];
+            }
         }
     }
 }
