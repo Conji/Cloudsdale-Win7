@@ -33,7 +33,11 @@
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>
         <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Grid.Row="1">
-            <ItemsControl x:Name="CloudMessages" ItemTemplateSelector="{StaticResource MessageTemplateSelector}"/>
+            <ItemsControl x:Name="CloudMessages" ItemTemplateSelector="{StaticResource MessageTemplateSelector}">
+                <ItemsControl.Foreground>
+                    <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                </ItemsControl.Foreground>
+            </ItemsControl>
         </ScrollViewer>
         <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" Padding="27,0,0,0" >
             

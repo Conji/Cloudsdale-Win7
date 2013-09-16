@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Linq;
-using System.Net;
-using System.Reflection;
+
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using CloudsdaleWin7.Views;
-using CloudsdaleWin7.Views.LoadingViews;
-using CloudsdaleWin7.lib.CloudsdaleLib;
-using CloudsdaleWin7.lib.Controllers;
-using CloudsdaleWin7.lib.Models;
-using CloudsdaleWin7.lib.Faye;
-using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7 {
     /// <summary>
@@ -28,20 +18,6 @@ namespace CloudsdaleWin7 {
             Instance = this;
             InitializeComponent();
             EmailBox.Text = App.Settings["email"];
-        }
-
-        public void Logout()
-        {
-            LoggingOut = true;
-        }
-
-        private void ClearText(object sender, MouseButtonEventArgs e)
-        {
-            if (EmailBox.Text == "Email")
-            {
-                EmailBox.Text = "";
-                PasswordBox.Password = "";
-            }
         }
 
         private async void LoginAttempt(object sender, KeyEventArgs e)

@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views.Flyouts;
+using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
 
 namespace CloudsdaleWin7.Views
@@ -57,8 +58,8 @@ namespace CloudsdaleWin7.Views
             if (Clouds.SelectedIndex == -1) return;
             var cloud = (ListView)sender;
             var item = (lib.Models.Cloud)cloud.SelectedItem;
-            Frame.Navigate(new CloudView(item));
-            App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
+            Frame.Navigate(new CloudView(new CloudController(item)));
+            App.Connection.MessageController.CurrentCloud = new CloudController(item);
         }
 
         private void DirectHome(object sender, MouseButtonEventArgs e)

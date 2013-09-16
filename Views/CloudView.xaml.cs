@@ -23,14 +23,13 @@ namespace CloudsdaleWin7 {
         public static CloudView Instance;
         private static CloudController CloudInstance { get; set; }
 
-        public CloudView(Cloud cloud)
+        public CloudView(CloudController cloud)
         {
             InitializeComponent();
-            CloudInstance = new CloudController(cloud);
+            CloudInstance = cloud;
             Instance = this;
             CloudInstance.UnreadMessages = 0;
-            CloudMessages.Items.Clear();
-            Name.Text = cloud.Name;
+            Name.Text = cloud.Cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             App.Connection.MessageController.CurrentCloud = CloudInstance;
             CloudInstance.EnsureLoaded();

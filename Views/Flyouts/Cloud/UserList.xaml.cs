@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using CloudsdaleWin7.lib.Controllers;
@@ -21,6 +20,8 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             InitializeComponent();
             Instance = this;
             Controller = cloud;
+            OwnerList.Items.Clear();
+            OwnerList.Items.Add(new User(cloud.Cloud.OwnerId));
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
             SearchResults.ItemsSource = SearchList;
@@ -48,13 +49,13 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
                 SearchUI.Visibility = Visibility.Visible;
                 OnlineUI.Visibility = Visibility.Collapsed;
                 SearchList.Clear();
-                //foreach (var user in Controller.OnlineUsers)
-                //{
-                //    if (user.Name.StartsWith(SearchBox.Text))
-                //    {
-                //        SearchList.Add(user);
-                //    }
-                //}
+                foreach (var user in Controller.OnlineUsers)
+                {
+                    if (user.Name.StartsWith(SearchBox.Text))
+                    {
+                        SearchList.Add(user);
+                    }
+                }
             }
             
         }

@@ -69,7 +69,7 @@
                     <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
                 </Border.BorderBrush>
                 <StackPanel Margin="-1,0,0,-1">
-                    <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" MouseDown="ClearText" FontFamily="Nirmala UI" IsHitTestVisible="True" IsInactiveSelectionHighlightEnabled="True">
+                    <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" FontFamily="Nirmala UI" IsHitTestVisible="True" IsInactiveSelectionHighlightEnabled="True">
                         <TextBox.Foreground>
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                         </TextBox.Foreground>
@@ -80,12 +80,12 @@
                             <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
                         </TextBox.Background>
                     </TextBox>
-                    <Separator Height="4" Margin="0,0,-10,0">
+                    <Separator Height="4" Margin="0,0,-10,0" IsTabStop="False">
                         <Separator.Background>
                             <SolidColorBrush Color="{Binding Converter={StaticResource ScreenColor}}"/>
                         </Separator.Background>
                     </Separator>
-                    <PasswordBox x:Name="PasswordBox" Margin="10,0" KeyDown="LoginAttempt" Height="21" IsHitTestVisible="True">
+                    <PasswordBox x:Name="PasswordBox" Margin="10,0" KeyDown="LoginAttempt" Height="21" IsHitTestVisible="True" TabIndex="0">
                         <PasswordBox.SelectionBrush>
                             <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                         </PasswordBox.SelectionBrush>

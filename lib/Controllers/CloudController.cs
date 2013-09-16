@@ -17,7 +17,7 @@ namespace CloudsdaleWin7.lib.Controllers
 {
     public class CloudController : IStatusProvider,  INotifyPropertyChanged
     {
-        private int _unreadMessages;
+        private int _unreadMessages = 0;
         private readonly Dictionary<string, Status> userStatuses = new Dictionary<string, Status>();
         private readonly ModelCache<Message> messages = new ModelCache<Message>(50);
         private DateTime? _validatedFayeClient;

@@ -6,6 +6,11 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
 {
     public class Settings
     {
+        /// <summary>
+        /// The settings class fetches the settings.json from the local installation folder.
+        /// It only reads the file on startup and writes on close. 
+        /// If you plan on editing the Settings file, edit '_settings' directly.
+        /// </summary>
         private static readonly string SettingsFile = CloudsdaleSource.SettingsFile;
         private static JObject _settings = new JObject();
         public Settings()
@@ -17,13 +22,15 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
         {
             get
             {
-                //return (String)_settings["settings"][key];
                 if (_settings[key] != null) return (String) _settings[key];
                 _settings.Add(key, key);
                 return (String) _settings[key];
             }
         }
         
+        /// <summary>
+        /// Creates the .JSON file if it doesn't exist already.
+        /// </summary>
         private static void Initialize()
         {
             if (File.Exists(SettingsFile)) return;
@@ -32,28 +39,56 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
             File.WriteAllText(SettingsFile, jo.ToString());
         }
 
+        /// <summary>
+        /// Adds the specified key to the settings JObject.
+        /// </summary>
+        /// <param name="tokenKey"></param>
+        /// <param name="value"></param>
         public void AddSetting(string tokenKey, string value)
         {
             _settings.Add(tokenKey, value);
         }
+        /// <summary>
+        /// Adds the specified bool value to the settings JObject.
+        /// </summary>
+        /// <param name="tokenKey"></param>
+        /// <param name="value"></param>
         public void AddSetting(string tokenKey, bool value)
         {
             _settings.Add(tokenKey, value);
         }
+        /// <summary>
+        /// Changes the key value of the specified key.
+        /// If the key doesn't exist, it will create it.
+        /// </summary>
+        /// <param name="tokenKey"></param>
+        /// <param name="value"></param>
         public void ChangeSetting(string tokenKey, object value)
         {
             _settings[tokenKey].Replace((String)value);
         }
+        /// <summary>
+        /// Removes the setting from the settings JObject.
+        /// </summary>
+        /// <param name="tokenKey"></param>
         public void RemoveSetting(string tokenKey)
         {
             _settings[tokenKey].Remove();
         }
+
+        /// <summary>
+        /// Saves the settings JObject to the file.
+        /// </summary>
         public void Save()
         {
             var saveObject = new JObject();
             saveObject["settings"] = new JObject(_settings);
             File.WriteAllText(SettingsFile, saveObject.ToString());
         }
+        /// <summary>
+        /// Fetches the text from the JSON file and parses it to 
+        /// the settings JObject.
+        /// </summary>
         private static JObject SettingsObject
         {
             get
