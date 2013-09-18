@@ -21,10 +21,11 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             Instance = this;
             Controller = cloud;
             OwnerList.Items.Clear();
-            OwnerList.Items.Add(new User(cloud.Cloud.OwnerId));
+            OwnerList.Items.Add(App.Connection.ModelController.GetUser(cloud.Cloud.OwnerId));
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
             SearchResults.ItemsSource = SearchList;
+            App.Connection.MessageController[cloud.Cloud].EnsureLoaded();
         }
 
         /// <summary>

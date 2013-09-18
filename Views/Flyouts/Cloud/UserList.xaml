@@ -36,7 +36,7 @@
                                         </RichTextBox.Foreground>
                                         <FlowDocument>
                                             <Paragraph>
-                                                <Run Text="{Binding Path=Name}" FontSize="14"/>
+                                                <Run Text="{Binding Path=Name}" FontSize="14" Foreground="#FF9D2DFB"/>
                                             </Paragraph>
                                             <Paragraph>
                                                 @
@@ -67,7 +67,7 @@
                                     </RichTextBox.Foreground>
                                     <FlowDocument>
                                         <Paragraph>
-                                            <Run Text="{Binding Path=Name}" FontSize="14"/>
+                                            <Run Text="{Binding Path=Name}" FontSize="14" Foreground="Blue"/>
                                         </Paragraph>
                                         <Paragraph>
                                             @

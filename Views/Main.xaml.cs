@@ -58,8 +58,7 @@ namespace CloudsdaleWin7.Views
             if (Clouds.SelectedIndex == -1) return;
             var cloud = (ListView)sender;
             var item = (lib.Models.Cloud)cloud.SelectedItem;
-            Frame.Navigate(new CloudView(new CloudController(item)));
-            App.Connection.MessageController.CurrentCloud = new CloudController(item);
+            Frame.Navigate(new CloudView(item));
         }
 
         private void DirectHome(object sender, MouseButtonEventArgs e)

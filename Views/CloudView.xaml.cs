@@ -19,20 +19,19 @@ namespace CloudsdaleWin7 {
     /// <summary>
     /// Interaction logic for CloudView.xaml
     /// </summary>
-    public partial class CloudView {
+    public partial class CloudView
+    {
         public static CloudView Instance;
         private static CloudController CloudInstance { get; set; }
 
-        public CloudView(CloudController cloud)
+        public CloudView(Cloud cloud)
         {
             InitializeComponent();
-            CloudInstance = cloud;
             Instance = this;
+            CloudInstance = App.Connection.MessageController[cloud];
             CloudInstance.UnreadMessages = 0;
-            Name.Text = cloud.Cloud.Name;
+            Name.Text = CloudInstance.Cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
-            App.Connection.MessageController.CurrentCloud = CloudInstance;
-            CloudInstance.EnsureLoaded();
             CloudMessages.ItemsSource = CloudInstance.Messages;
             Main.Instance.FlyoutFrame.Navigate(new UserList(CloudInstance));
         }
@@ -61,7 +60,7 @@ namespace CloudsdaleWin7 {
             dataObject["client_id"] = FayeConnector.ClientID;
             dataObject["device"] = "desktop";
             var data = Encoding.UTF8.GetBytes(dataObject.ToString());
-            var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", CloudInstance.Cloud.Id));
+            var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", App.Connection.MessageController.CurrentCloud.Cloud.Id));
             request.Accept = "application/json";
             request.Method = "POST";
             request.ContentType = "application/json";
@@ -88,9 +87,10 @@ namespace CloudsdaleWin7 {
             InputBox.Text = "";
         }
 
-        private void ShowUserList(object sender, MouseButtonEventArgs e)
+        private async void ShowUserList(object sender, MouseButtonEventArgs e)
         {
-           Main.Instance.ShowFlyoutMenu(new UserList(CloudInstance));
+            Main.Instance.ShowFlyoutMenu(new UserList(CloudInstance));
+            await CloudInstance.LoadUsers();
         }
     }
     public class MessageTemplateSelector : DataTemplateSelector

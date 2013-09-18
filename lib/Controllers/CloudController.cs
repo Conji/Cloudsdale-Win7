@@ -17,10 +17,9 @@ namespace CloudsdaleWin7.lib.Controllers
 {
     public class CloudController : IStatusProvider,  INotifyPropertyChanged
     {
-        private int _unreadMessages = 0;
+        private int _unreadMessages;
         private readonly Dictionary<string, Status> userStatuses = new Dictionary<string, Status>();
         private readonly ModelCache<Message> messages = new ModelCache<Message>(50);
-        private DateTime? _validatedFayeClient;
 
         public CloudController(Cloud cloud)
         {
@@ -30,7 +29,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public Cloud Cloud { get; private set; }
 
-        public ObservableCollection<Message> Messages { get { return messages; } }
+        public ModelCache<Message> Messages { get { return messages; } }
 
         public List<User> OnlineModerators
         {
@@ -82,6 +81,25 @@ namespace CloudsdaleWin7.lib.Controllers
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
                 return list;
+            }
+        }
+        public async Task LoadUsers()
+        {
+            var client = new HttpClient().AcceptsJson();
+            {
+                var response = await client.GetStringAsync((Endpoints.CloudOnlineUsers
+                    .Replace("[:id]", Cloud.Id)));
+                Console.WriteLine(response);
+                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
+                var users = new List<User>();
+                foreach (var user in userData.Result)
+                {
+                    if (user.Status != null)
+                    {
+                        SetStatus(user.Id, (Status)user.Status);
+                    }
+                    users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
+                }
             }
         }
 

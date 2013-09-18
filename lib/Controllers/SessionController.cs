@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 using CloudsdaleWin7.Views.Initial;
-using CloudsdaleWin7.lib.CloudsdaleLib;
-using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
@@ -20,14 +13,8 @@ namespace CloudsdaleWin7.lib.Controllers
 {
     public class SessionController : ISessionProvider
     {
-        private readonly List<Session> _pastSessions = new List<Session>();
 
         public Session CurrentSession { get; set; }
-
-        public IReadOnlyList<Session> PastSessions
-        {
-            get { return new ReadOnlyCollection<Session>(_pastSessions); }
-        }
 
         public void OnMessage(JObject message)
         {
@@ -55,7 +42,7 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
-        public async Task Logout()
+        public void Logout()
         {
             MainWindow.Instance.MainFrame.Navigate(new Login());
             CurrentSession = null;
@@ -63,7 +50,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public class SessionWrapper
         {
-            public string ClientID { get; set; }
+            public string ClientId { get; set; }
             public Session User { get; set; }
         }
         private void InitializeClouds()
@@ -72,7 +59,7 @@ namespace CloudsdaleWin7.lib.Controllers
             {
 
                 App.Connection.MessageController.CloudControllers.Add(cloud.Id, new CloudController(cloud));
-                
+                App.Connection.MessageController[cloud].EnsureLoaded();
             }
         }
         private void RegistrationCheck()
