@@ -18,8 +18,9 @@ namespace CloudsdaleWin7.lib.Controllers
     public class CloudController : IStatusProvider,  INotifyPropertyChanged
     {
         private int _unreadMessages;
-        private readonly Dictionary<string, Status> userStatuses = new Dictionary<string, Status>();
-        private readonly ModelCache<Message> messages = new ModelCache<Message>(50);
+        private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
+        private readonly List<Message> _messages = new List<Message>();
+        private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
 
         public CloudController(Cloud cloud)
         {
@@ -29,14 +30,23 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public Cloud Cloud { get; private set; }
 
-        public ModelCache<Message> Messages { get { return messages; } }
+        public List<Message> Messages { get { return _messages; } }
+
+        public ObservableCollection<Ban> Bans
+        {
+            get 
+            { 
+                LoadBans();
+                return _bans;
+            }
+        } 
 
         public List<User> OnlineModerators
         {
             get
             {
                 var list =
-                    userStatuses.Where(kvp => kvp.Value != Status.Offline)
+                    _userStatuses.Where(kvp => kvp.Value != Status.Offline)
                                 .Where(kvp => Cloud.ModeratorIds.Contains(kvp.Key))
                                 .Select(kvp => App.Connection.ModelController.GetUser(kvp.Key))
                                 .ToList();
@@ -63,7 +73,7 @@ namespace CloudsdaleWin7.lib.Controllers
             get
             {
                 var list =
-                    userStatuses.Where(kvp => kvp.Value != Status.Offline)
+                    _userStatuses.Where(kvp => kvp.Value != Status.Offline)
                                 .Where(kvp => !Cloud.ModeratorIds.Contains(kvp.Key))
                                 .Select(kvp => App.Connection.ModelController.GetUser(kvp.Key))
                                 .ToList();
@@ -76,7 +86,7 @@ namespace CloudsdaleWin7.lib.Controllers
             get
             {
                 var list =
-                    userStatuses.Where(kvp => !Cloud.ModeratorIds.Contains(kvp.Key))
+                    _userStatuses.Where(kvp => !Cloud.ModeratorIds.Contains(kvp.Key))
                                 .Select(kvp => App.Connection.ModelController.GetUser(kvp.Key))
                                 .ToList();
                 list.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
@@ -85,20 +95,45 @@ namespace CloudsdaleWin7.lib.Controllers
         }
         public async Task LoadUsers()
         {
+            try
+            {
+                var client = new HttpClient().AcceptsJson();
+                {
+                    var response = await client.GetStringAsync((
+                        Cloud.UserIds.Length > 100
+                        ? Endpoints.CloudOnlineUsers
+                        : Endpoints.CloudUsers)
+                        .Replace("[:id]", Cloud.Id));
+                    var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
+                    var users = new List<User>();
+                    foreach (var user in userData.Result)
+                    {
+                        if (user.Status != null)
+                        {
+                            SetStatus(user.Id, (Status)user.Status);
+                        }
+                        users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
+                    }
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public async Task LoadBans()
+        {
             var client = new HttpClient().AcceptsJson();
             {
-                var response = await client.GetStringAsync((Endpoints.CloudOnlineUsers
-                    .Replace("[:id]", Cloud.Id)));
-                Console.WriteLine(response);
-                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
-                var users = new List<User>();
-                foreach (var user in userData.Result)
+                _bans.Clear();
+                var response = await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id));
+                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
+                foreach (var ban in userData.Result)
                 {
-                    if (user.Status != null)
-                    {
-                        SetStatus(user.Id, (Status)user.Status);
-                    }
-                    users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
+                    if (ban.Revoked == true) return;
+                    if (ban.Active == false) return;
+                    if (ban.Expired == true) return;
+                    _bans.Add(ban);
                 }
             }
         }
@@ -135,18 +170,20 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 var response = await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id));
                 var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(response);
-                var newMessages = new List<Message>(messages
+                var newMessages = new List<Message>(_messages
                     .Where(message => message.Timestamp > responseMessages.Result.Last().Timestamp));
-                messages.Clear();
+                _messages.Clear();
                 foreach (var message in responseMessages.Result)
                 {
                     StatusForUser(message.Author.Id);
-                    messages.AddToEnd(message);
+                    _messages.Add(message);
                 }
                 foreach (var message in newMessages)
                 {
                     StatusForUser(message.Author.Id);
-                    messages.AddToEnd(message);
+                    _messages.Add(message);
+                    if (_messages.Count <= 50) return;
+                    _messages.RemoveAt(50);
                 }
             }
 
@@ -179,7 +216,9 @@ namespace CloudsdaleWin7.lib.Controllers
             
 
             message.Author.CopyTo(message.User);
-            messages.AddToEnd(message);
+            _messages.Add(message);
+            if (_messages.Count <= 50) return;
+            _messages.RemoveAt(50);
         }
 
         
@@ -223,7 +262,7 @@ namespace CloudsdaleWin7.lib.Controllers
         private Status SetStatus(string userId, Status status)
         {
             FixSessionStatus();
-            userStatuses[userId] = status;
+            _userStatuses[userId] = status;
             OnPropertyChanged("OnlineModerators");
             OnPropertyChanged("AllModerators");
             OnPropertyChanged("OnlineUsers");
@@ -234,12 +273,12 @@ namespace CloudsdaleWin7.lib.Controllers
         public Status StatusForUser(string userId)
         {
             FixSessionStatus();
-            return userStatuses.ContainsKey(userId) ? userStatuses[userId] : SetStatus(userId, Status.Offline);
+            return _userStatuses.ContainsKey(userId) ? _userStatuses[userId] : SetStatus(userId, Status.Offline);
         }
 
         private void FixSessionStatus()
         {
-            userStatuses[App.Connection.SessionController.CurrentSession.Id] =
+            _userStatuses[App.Connection.SessionController.CurrentSession.Id] =
                 App.Connection.SessionController.CurrentSession.PreferredStatus;
         }
 

@@ -59,5 +59,10 @@ namespace CloudsdaleWin7 {
 
             #endregion
         }
+
+        private void BeginRegister(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

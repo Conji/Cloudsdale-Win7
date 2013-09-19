@@ -34,7 +34,7 @@
             <Image gif:ImageBehavior.AnimatedSource="/Cloudsdale;component/Assets/cd_icon_animation.gif" gif:ImageBehavior.AutoStart="True" Grid.Column="1" Margin="57,192,57,0" Width="150" Height="150" VerticalAlignment="Top"/>
             <TextBlock Text="Logging in..." HorizontalAlignment="Center" FontWeight="SemiBold"/>
         </StackPanel>
-        <TextBlock x:Name="ErrorMessage" Margin="176,295,175,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="72" Opacity="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontFamily="Nirmala UI">
+        <TextBlock x:Name="ErrorMessage" Margin="176,295,175,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="72" Opacity="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontFamily="Nirmala UI" MouseDown="BeginRegister">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>

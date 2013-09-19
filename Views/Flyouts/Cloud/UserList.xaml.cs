@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using CloudsdaleWin7.lib.Controllers;
@@ -20,7 +21,6 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             InitializeComponent();
             Instance = this;
             Controller = cloud;
-            OwnerList.Items.Clear();
             OwnerList.Items.Add(App.Connection.ModelController.GetUser(cloud.Cloud.OwnerId));
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
@@ -41,19 +41,36 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
         {
             if (SearchBox.Text == "")
             {
-                SearchUI.Visibility = Visibility.Collapsed;
-                OnlineUI.Visibility = Visibility.Visible;
+                SearchScroll.Visibility = Visibility.Collapsed;
+                UserScroll.Visibility = Visibility.Visible;
                 SearchList.Clear();
             }
             else
             {
-                SearchUI.Visibility = Visibility.Visible;
-                OnlineUI.Visibility = Visibility.Collapsed;
+                SearchScroll.Visibility = Visibility.Visible;
+                UserScroll.Visibility = Visibility.Collapsed;
                 SearchList.Clear();
+                // Collects the online users list first.
                 foreach (var user in Controller.OnlineUsers)
                 {
-                    if (user.Name.StartsWith(SearchBox.Text))
+                    if (user.Name == null) return;
+                    if (user.Name.ToLower().StartsWith(SearchBox.Text.ToLower()))
                     {
+                        SearchList.Add(user);
+                    }
+                }
+                //Collects the offline users list next.
+                foreach (var user in Controller.AllUsers)
+                {
+                    if (user.Name == null) return;
+                    if (SearchBox.Text.Trim() == "[all]")
+                    {
+                        
+                    }
+                    if (user.Name.ToLower().StartsWith(SearchBox.Text.ToLower()))
+                    {
+                        //SearchList.Add(user);
+                        if (SearchList.Contains(user)) return;
                         SearchList.Add(user);
                     }
                 }

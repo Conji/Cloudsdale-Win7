@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d"
-	Title="Settings" Width="200" d:DesignHeight="413.774" FontFamily="Nirmala UI">
+	Title="Settings" Width="250" d:DesignHeight="413.774" FontFamily="Nirmala UI">
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="10,127,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" Width="82">

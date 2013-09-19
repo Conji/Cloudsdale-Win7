@@ -28,12 +28,17 @@ namespace CloudsdaleWin7 {
         {
             InitializeComponent();
             Instance = this;
+            CloudMessages.Items.Clear();
             CloudInstance = App.Connection.MessageController[cloud];
             CloudInstance.UnreadMessages = 0;
             Name.Text = CloudInstance.Cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             CloudMessages.ItemsSource = CloudInstance.Messages;
             Main.Instance.FlyoutFrame.Navigate(new UserList(CloudInstance));
+            foreach(var ban in CloudInstance.Bans)
+            {
+                Console.WriteLine(ban.Id);
+            }
         }
 
         private void ButtonClick1(object sender, RoutedEventArgs e)

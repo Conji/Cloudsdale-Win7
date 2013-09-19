@@ -40,16 +40,18 @@ namespace CloudsdaleWin7.Views
 
         public void ShowFlyoutMenu(Page view)
         {
+            FlyoutFrame.Navigate(view);
+
             var board = new Storyboard();
             var animation = (FlyoutFrame.Width > 0
                                  ? new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)))
-                                 : new DoubleAnimation(FlyoutFrame.Width, 200.0, new Duration(new TimeSpan(2000000))));
+                                 : new DoubleAnimation(FlyoutFrame.Width, 250.0, new Duration(new TimeSpan(2000000))));
             board.Children.Add(animation);
             animation.EasingFunction = new ExponentialEase();
             Storyboard.SetTargetName(animation, FlyoutFrame.Name);
             Storyboard.SetTargetProperty(animation, new PropertyPath(WidthProperty));
             if (FlyoutFrame.Content.Equals(view)) return;
-            FlyoutFrame.Navigate(view);
+            
             board.Begin(this);
         }
 
@@ -65,6 +67,11 @@ namespace CloudsdaleWin7.Views
         {
             Frame.Navigate(new Home());
             Clouds.SelectedIndex = -1;
+        }
+        public void NavigateToCloud(CloudController cloud)
+        {
+            Frame.Navigate(new CloudView(cloud.Cloud));
+
         }
     }
 }

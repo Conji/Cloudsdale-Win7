@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
       d:DesignHeight="300"
-	Title="UserList" Width="200">
+	Title="UserList" Width="250">
     <Page.Foreground>
         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
     </Page.Foreground>
@@ -14,107 +14,15 @@
     </Page.Resources>
 
     <Grid Margin="0,0,0,0">
-        <StackPanel x:Name="MainPanel">
-            <TextBox x:Name="SearchBox" Margin="5,10" TextChanged="UpdateSearch" />
-            <StackPanel x:Name="OnlineUI">
-                <TextBlock TextWrapping="Wrap" Text="Owner:" Margin="5,0,0,0"/>
-                <ListView x:Name="OwnerList">
-                    <ListView.Foreground>
-                        <SolidColorBrush Color="#FF8000FF"/>
-                    </ListView.Foreground>
-                    <ListView.Background>
-                        <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
-                    </ListView.Background>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel>
-                                <Image Source="{Binding Path=Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
-                                <StackPanel>
-                                    <RichTextBox Width="120" BorderBrush="{x:Null}" Background="{x:Null}" IsTabStop="False" IsReadOnly="True" IsHitTestVisible="False">
-                                        <RichTextBox.Foreground>
-                                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                                        </RichTextBox.Foreground>
-                                        <FlowDocument>
-                                            <Paragraph>
-                                                <Run Text="{Binding Path=Name}" FontSize="14" Foreground="#FF9D2DFB"/>
-                                            </Paragraph>
-                                            <Paragraph>
-                                                @
-                                                <Run Text="{Binding Path=Username}"/>
-                                            </Paragraph>
-                                        </FlowDocument>
-                                    </RichTextBox>
-                                </StackPanel>
-                            </DockPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <TextBlock TextWrapping="Wrap" Text="Online Moderators:" Margin="5,0,0,0"/>
-                <ListView x:Name="ModeratorList">
-                    <ListView.Foreground>
-                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
-                    </ListView.Foreground>
-                    <ListView.Background>
-                        <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
-                    </ListView.Background>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel>
-                                <Image Source="{Binding Path=Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
-                                <RichTextBox Width="120" IsReadOnly="True" IsTabStop="False" BorderBrush="{x:Null}" Background="{x:Null}" IsHitTestVisible="False">
-                                    <RichTextBox.Foreground>
-                                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                                    </RichTextBox.Foreground>
-                                    <FlowDocument>
-                                        <Paragraph>
-                                            <Run Text="{Binding Path=Name}" FontSize="14" Foreground="Blue"/>
-                                        </Paragraph>
-                                        <Paragraph>
-                                            @
-                                            <Run Text="{Binding Path=Username}"/>
-                                        </Paragraph>
-                                    </FlowDocument>
-                                </RichTextBox>
-                            </DockPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <TextBlock TextWrapping="Wrap" Text="Onlines Users:" Margin="5,0,0,0"/>
-                <ListView x:Name="OnlineUserList" VerticalAlignment="Top">
-                    <ListView.Foreground>
-                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                    </ListView.Foreground>
-                    <ListView.Background>
-                        <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
-                    </ListView.Background>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel>
-                                <Image Source="{Binding Path=Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
-                                <RichTextBox Width="120" BorderBrush="{x:Null}" Background="{x:Null}" IsReadOnly="True" IsTabStop="False" IsHitTestVisible="False">
-                                    <RichTextBox.Foreground>
-                                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                                    </RichTextBox.Foreground>
-                                    <FlowDocument>
-                                        <Paragraph>
-                                            <Run Text="{Binding Path=Name}" FontSize="14"/>
-                                        </Paragraph>
-                                        <Paragraph>
-                                            @
-                                            <Run Text="{Binding Path=Username}"/>
-                                        </Paragraph>
-                                    </FlowDocument>
-                                </RichTextBox>
-                            </DockPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
-            <StackPanel x:Name="SearchUI" Visibility="Collapsed">
-
-                <TextBlock Text="Results..." Margin="4,0,-150,0"/>
-
-                <ListView x:Name="SearchResults">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="SearchBox" Margin="5,10,44,0" TextChanged="UpdateSearch" Height="18" VerticalAlignment="Top" />
+        <ScrollViewer x:Name="SearchScroll" Margin="0,2,0,0" Grid.Row="1" Visibility="Collapsed">
+            <StackPanel x:Name="SearchUI" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="250">
+                <TextBlock Text="Results..." Margin="4,0,0,0"/>
+                <ListView x:Name="SearchResults" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,24,0" SelectionMode="Single">
                     <ListView.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                     </ListView.Foreground>
@@ -125,25 +33,139 @@
                         <DataTemplate>
                             <DockPanel>
                                 <Image Source="{Binding Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
-                                <RichTextBox Width="120" IsReadOnly="True" IsTabStop="False" BorderBrush="{x:Null}" Background="{x:Null}" IsHitTestVisible="False">
-                                    <RichTextBox.Foreground>
-                                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                                    </RichTextBox.Foreground>
-                                    <FlowDocument>
-                                        <Paragraph>
-                                            <Run Text="{Binding Path=Name}" FontSize="14"/>
-                                        </Paragraph>
-                                        <Paragraph>
-                                            @
-                                            <Run Text="{Binding Path=Username}"/>
-                                        </Paragraph>
-                                    </FlowDocument>
-                                </RichTextBox>
+                                <StackPanel>
+                                    <RichTextBox Width="120" BorderBrush="{x:Null}" Background="{x:Null}" IsTabStop="False" IsReadOnly="True" IsHitTestVisible="False">
+                                        <RichTextBox.Foreground>
+                                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                                        </RichTextBox.Foreground>
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="{Binding Name}" FontSize="14">
+                                                    <Run.Foreground>
+                                                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                                                    </Run.Foreground>
+                                                </Run>
+                                            </Paragraph>
+                                            <Paragraph>
+                                                <Run Text="@"/>
+                                                <Run Text="{Binding Username}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                    <Separator/>
+                                </StackPanel>
                             </DockPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
-        </StackPanel>
+        </ScrollViewer>
+        <ScrollViewer x:Name="UserScroll" PanningMode="VerticalOnly" Margin="0,2,0,0" Grid.Row="1">
+            <StackPanel x:Name="OnlineUI" Width="224">
+                <TextBlock TextWrapping="Wrap" Text="Owner:" Margin="5,0,22,0"/>
+                <ListView x:Name="OwnerList" Foreground="#FF8000FF">
+                    <ListView.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                    </ListView.Background>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Image Source="{Binding Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
+                                <StackPanel>
+                                    <RichTextBox Width="120" BorderBrush="{x:Null}" Background="{x:Null}" IsTabStop="False" IsReadOnly="True" IsHitTestVisible="False">
+                                        <RichTextBox.Foreground>
+                                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                                        </RichTextBox.Foreground>
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="{Binding Name}" FontSize="14" Foreground="#FF9D2DFB"/>
+                                            </Paragraph>
+                                            <Paragraph>
+                                                <Run Text="@"/>
+                                                <Run Text="{Binding Username}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                </StackPanel>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <TextBlock TextWrapping="Wrap" Text="Online Moderators:" Margin="5,0,22,0"/>
+                <ListView x:Name="ModeratorList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    </ListView.Foreground>
+                    <ListView.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                    </ListView.Background>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Image Source="{Binding Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
+                                <StackPanel>
+                                    <RichTextBox Width="120" BorderBrush="{x:Null}" Background="{x:Null}" IsTabStop="False" IsReadOnly="True" IsHitTestVisible="False">
+                                        <RichTextBox.Foreground>
+                                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                                        </RichTextBox.Foreground>
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="{Binding Name}" FontSize="14" Foreground="#FF2D5CFB"/>
+                                            </Paragraph>
+                                            <Paragraph>
+                                                <Run Text="@"/>
+                                                <Run Text="{Binding Username}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                    <Separator Width="150">
+                                        <Separator.Foreground>
+                                            <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                                        </Separator.Foreground>
+                                    </Separator>
+                                </StackPanel>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <TextBlock TextWrapping="Wrap" Text="Onlines Users:" Margin="5,0,22,0"/>
+                <ListView x:Name="OnlineUserList" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                    <ListView.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </ListView.Foreground>
+                    <ListView.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                    </ListView.Background>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Image Source="{Binding Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
+                                <StackPanel>
+                                    <RichTextBox Width="120" BorderBrush="{x:Null}" Background="{x:Null}" IsTabStop="False" IsReadOnly="True" IsHitTestVisible="False">
+                                        <RichTextBox.Foreground>
+                                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                                        </RichTextBox.Foreground>
+                                        <FlowDocument>
+                                            <Paragraph>
+                                                <Run Text="{Binding Name}" FontSize="14">
+                                                    <Run.Foreground>
+                                                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                                                    </Run.Foreground>
+                                                </Run>
+                                            </Paragraph>
+                                            <Paragraph>
+                                                <Run Text="@"/>
+                                                <Run Text="{Binding Username}"/>
+                                            </Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                    <Separator Width="150" Opacity="0.5"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

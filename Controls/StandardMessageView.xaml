@@ -121,7 +121,11 @@
                     </Grid.ColumnDefinitions>
                     <Controls:MessageTextControl x:Name="MessageControl" 
                                               Messages="{Binding Path=Messages}" 
-                                              FontSize="15" FontFamily="Segoe UI" />
+                                              FontSize="15" FontFamily="Segoe UI" >
+                        <Controls:MessageTextControl.Background>
+                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                        </Controls:MessageTextControl.Background>
+                    </Controls:MessageTextControl>
                     <Grid Grid.Column="1" x:Name="DropGrid">
                         <!--
                         insert the gridview for all the drops 

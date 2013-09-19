@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7
@@ -29,6 +31,7 @@ namespace CloudsdaleWin7
             InitializeComponent();
             MainFrame.Navigate(new Login());
             App.Connection.MainFrame = MainFrame;
+            Testvoid();
         }
 
         public static DependencyProperty MaxCharactersProperty =
@@ -40,5 +43,8 @@ namespace CloudsdaleWin7
             App.Settings.Save();
         }
 
+        private static void Testvoid()
+        {
+        }
     }
 }

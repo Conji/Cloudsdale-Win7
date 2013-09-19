@@ -136,6 +136,7 @@
     <Compile Include="lib\Models\IAvatarUploadTarget.cs" />
     <Compile Include="lib\Models\ModelCache.cs" />
     <Compile Include="MVVM\LoginScreen.cs" />
+    <Compile Include="MVVM\MessageViewConverter.cs" />
     <Compile Include="MVVM\Tag.cs" />
     <Compile Include="lib\Helpers\BrowserHelper.cs" />
     <Compile Include="lib\Helpers\UIHelpers.cs" />
@@ -395,6 +396,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Menus\" />
+    <Folder Include="Views\ExploreViews\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\next.png" />
