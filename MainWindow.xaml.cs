@@ -45,6 +45,14 @@ namespace CloudsdaleWin7
 
         private static void Testvoid()
         {
+            foreach (var slash in "this is a /test/ message".Split(' '))
+            {
+                if (slash.StartsWith("/") && slash.EndsWith("/"))
+                {
+                    
+                    Console.WriteLine(slash.Replace("/", ""));
+                }
+            }
         }
     }
 }

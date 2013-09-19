@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -38,10 +39,11 @@ namespace CloudsdaleWin7.Views
             ShowFlyoutMenu(new Settings());
         }
 
-        public void ShowFlyoutMenu(Page view)
+        public async void ShowFlyoutMenu(Page view)
         {
             FlyoutFrame.Navigate(view);
 
+            await Task.Delay(1000);
             var board = new Storyboard();
             var animation = (FlyoutFrame.Width > 0
                                  ? new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)))
