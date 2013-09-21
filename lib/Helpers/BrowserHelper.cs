@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,23 +12,20 @@ namespace CloudsdaleWin7.lib.Helpers
     {
         private static bool IsCloudLink(string link)
         {
-            if (link.StartsWith("http://www.cloudsdale.org/clouds/") || link.StartsWith("www.cloudsdale.org/clouds/"))
-            {
-                return true;
-            }
+            if (link.Contains("cloudsdale.org/clouds")) return true;
             return false;
         }
-        public static void ViewInBrowser(string uri)
+        public static void FollowLink(string uri)
         {
             if (!IsCloudLink(uri))
             {
-                MainWindow.Instance.MainFrame.Navigate(new Browser());
-                Browser.Instance.WebAddress.Text = uri;
-                Browser.Instance.WebBrowser.Navigate(uri);
-            }else
-            {
-                //add cloud to list
+                Process.Start(uri);
+                return;
             }
+            var client = new HttpClient().AcceptsJson();
+            var cloudId = uri.StartsWith("http:") ? uri.Split('/')[4] : uri.Split('/')[2];
+            var response = client.GetStringAsync(Endpoints.Cloud.Replace("[:id]", cloudId));
+            
         }
     }
 }

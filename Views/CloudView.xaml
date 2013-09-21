@@ -3,7 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:views="clr-namespace:CloudsdaleWin7" mc:Ignorable="d" 
+      xmlns:views="clr-namespace:CloudsdaleWin7" xmlns:controls="clr-namespace:CloudsdaleWin7.Controls"
+      xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM"
+      mc:Ignorable="d" 
       d:DesignHeight="553.545" d:DesignWidth="810.101" Foreground="White" DataContext="{Binding RelativeSource={RelativeSource Self}}"
 	Title="CloudView">
 
@@ -11,7 +13,19 @@
         <views:MessageTemplateSelector x:Key="MessageTemplateSelector" />
         <CollectionViewSource
             x:Key="ItemsViewSource"
-            Source="{Binding Source=Items}"/>
+            Source="{Binding Items}"/>
+        <DataTemplate x:Key="StandardChatTemplate">
+            <controls:StandardMessageView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate x:Key="ActionChatTemplate">
+            <controls:ActionMessageView DataContext="{Binding}" />
+        </DataTemplate>
+        <MVVM:SlashMe x:Key="IsSlashMe"/>
+        <MVVM:TagColor x:Key="TagColor"/>
+        <MVVM:TagText x:Key="TagText"/>
+        <MVVM:TimeOfDayToString x:Key="TimestampConverter"/>
+        <MVVM:TagVisibility x:Key="TagVisibility"/>
+        <Color x:Key="UsernameText">#FF878787</Color>
     </Page.Resources>
 
     <Grid Background="#FFFAFAFA">
@@ -39,7 +53,7 @@
                 </ItemsControl.Foreground>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        
+                        <controls:StandardMessageView/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

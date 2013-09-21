@@ -100,13 +100,13 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
                 uri = "http://" + uri;
             }
 
-            link.Click += async delegate
+            link.Click += delegate
             {
                 if (!Uri.IsWellFormedUriString(uri, UriKind.Absolute))
                 {
                     MessageBox.Show(uri + " is not a well formed link! Please try another.");
                 }
-                BrowserHelper.ViewInBrowser(uri);
+                BrowserHelper.FollowLink(uri);
             };
             return link;
         }

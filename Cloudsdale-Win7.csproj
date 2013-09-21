@@ -151,11 +151,11 @@
     <Compile Include="Views\Flyouts\Cloud\QuickView.xaml.cs">
       <DependentUpon>QuickView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Flyouts\Cloud\UserFlyout.xaml.cs">
+      <DependentUpon>UserFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Flyouts\Cloud\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Flyouts\Info.xaml.cs">
-      <DependentUpon>Info.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Flyouts\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -229,11 +229,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Flyouts\Cloud\UserList.xaml">
+    <Page Include="Views\Flyouts\Cloud\UserFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Flyouts\Info.xaml">
+    <Page Include="Views\Flyouts\Cloud\UserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

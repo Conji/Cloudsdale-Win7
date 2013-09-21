@@ -105,7 +105,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="14" Foreground="Gray" Margin="3" Grid.Column="1">
-                        <Run Text="{Binding Path=FinalTimestamp, Converter={StaticResource TimeStampConverter}}" />
+                        <Run Text="{Binding Path=FinalTimestamp, Mode=OneWay}" />
                         <Run Text="{Binding Path=Device, Converter={StaticResource DeviceIcon}}" />
                     </TextBlock>
                 </Grid>

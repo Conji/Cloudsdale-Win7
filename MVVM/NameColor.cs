@@ -3,8 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
-using CloudsdaleWin7.lib.CloudsdaleLib;
-using CloudsdaleWin7.lib.Controllers;
+using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.MVVM {
@@ -15,8 +14,7 @@ namespace CloudsdaleWin7.MVVM {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var user = (User)value;
-            var controller = App.Connection.MessageController.CurrentCloud;
-            var cloud = controller.Cloud;
+            var cloud = (Cloud) Main.Instance.Clouds.SelectedItem;
 
             var color = cloud.OwnerId == user.Id
                             ? Color.FromArgb(0xFF, 0x80, 0x00, 0xFF)

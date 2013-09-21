@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json.Linq;
-
 namespace CloudsdaleWin7.lib.CloudsdaleLib
 {
     public class Settings

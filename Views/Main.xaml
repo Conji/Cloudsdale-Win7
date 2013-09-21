@@ -100,7 +100,7 @@
     <Frame x:Name="Frame" Content="" Margin="226,0,0,0" Background="#FFFAFAFA" Grid.RowSpan="3"/>
         <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <Frame.Background>
-                <SolidColorBrush Color="{DynamicResource Panels}"/>
+                <SolidColorBrush Color="#FF4C4C5A"/>
             </Frame.Background>
         </Frame>
     </Grid>

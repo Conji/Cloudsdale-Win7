@@ -1,8 +1,16 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.MVVM
@@ -11,13 +19,9 @@ namespace CloudsdaleWin7.MVVM
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var message = (Message) value;
-            var content = message.Content;
-            if (content.StartsWith("/me "))
-            {
-                content = content.Replace("/me", message.Author.Name);
-            }
-            return content;
+            if (parameter != null && parameter.ToString() == "Inverse")
+                return value.ToString().StartsWith("/me ") ? Visibility.Collapsed : Visibility.Visible;
+            return value.ToString().StartsWith("/me ") ? Visibility.Visible : Visibility.Collapsed;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -26,17 +30,74 @@ namespace CloudsdaleWin7.MVVM
     }
     class ContentConverter : IValueConverter
     {
+        private static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var rtb = (RichTextBox) value;
-            var message = rtb.DataContext;
-            var newDoc = new FlowDocument();
-            var blocks = message.ToString().Split('/');
-            return blocks;
+            var message = (Message) rtb.DataContext;
+            var rGraph = new Paragraph();
+
+            #region slashme
+            if (message.Content.StartsWith("/me "))
+                message.Content = message.Content.Replace("/me", message.Author.Name);
+            #endregion
+            foreach (var word in message.Content.Split(' '))
+            {
+                #region italics
+
+                if (word.StartsWith("/") && word.EndsWith("/") && word != "//")
+                {
+                    rGraph.Inlines.Add(new Italic(new Run(word.Replace("/", "") + " ")));
+                }
+                    #endregion
+                #region redacted
+                else if (word.ToLower() == "[redacted]")
+                {
+                    var redacted = new Run("[REDACTED] ");
+                    redacted.Foreground = new SolidColorBrush(Colors.Red);
+                    rGraph.Inlines.Add(new Bold(redacted));
+                }
+                #endregion
+                #region link
+                else if (LinkRegex.IsMatch(word))
+                {
+                    var newLink = new Hyperlink();
+                    newLink.IsEnabled = true;
+                    newLink.Inlines.Add(word);
+                    newLink.NavigateUri = new Uri(word, UriKind.RelativeOrAbsolute);
+                    newLink.RequestNavigate += (sender, args) => BrowserHelper.FollowLink(args.Uri.ToString());
+                    newLink.Cursor = Cursors.Hand;
+                    rGraph.Inlines.Add(newLink);
+                    rGraph.Inlines.Add(" ");
+                }
+                #endregion
+                #region normal
+                else
+                {
+                    rGraph.Inlines.Add(new Run(word + " "));
+                }
+                #endregion
+            }
+
+            return rGraph;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+    public class ChatColors : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.ToString().StartsWith("/me")) return Colors.Green;
+            if (value.ToString().StartsWith("//")) return Colors.CadetBlue;
+            return CloudsdaleSource.PrimaryText;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return CloudsdaleSource.PrimaryText;
         }
     }
 }

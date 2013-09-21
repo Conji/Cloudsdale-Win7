@@ -18,7 +18,7 @@
             <RowDefinition Height="33"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="SearchBox" Margin="5,10,44,0" TextChanged="UpdateSearch" Height="18" VerticalAlignment="Top" />
+        <TextBox x:Name="SearchBox" Margin="5,10,37,0" TextChanged="UpdateSearch" Height="18" VerticalAlignment="Top" />
         <ScrollViewer x:Name="SearchScroll" Margin="0,2,0,0" Grid.Row="1" Visibility="Collapsed">
             <StackPanel x:Name="SearchUI" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="250">
                 <TextBlock Text="Results..." Margin="4,0,0,0"/>
@@ -32,7 +32,6 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
-                                <Image Source="{Binding Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
                                 <StackPanel>
                                     <RichTextBox Width="120" BorderBrush="{x:Null}" Background="{x:Null}" IsTabStop="False" IsReadOnly="True" IsHitTestVisible="False">
                                         <RichTextBox.Foreground>
@@ -63,7 +62,7 @@
         <ScrollViewer x:Name="UserScroll" PanningMode="VerticalOnly" Margin="0,2,0,0" Grid.Row="1">
             <StackPanel x:Name="OnlineUI" Width="224">
                 <TextBlock TextWrapping="Wrap" Text="Owner:" Margin="5,0,22,0"/>
-                <ListView x:Name="OwnerList" Foreground="#FF8000FF">
+                <ListView x:Name="OwnerList" Foreground="#FF8000FF" SelectionChanged="FlyoutUser">
                     <ListView.Background>
                         <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                     </ListView.Background>
@@ -72,7 +71,7 @@
                             <DockPanel>
                                 <Image Source="{Binding Avatar.Preview}" Height="40" Width="40" Margin="8,0,3,0"/>
                                 <StackPanel>
-                                    <RichTextBox Width="120" BorderBrush="{x:Null}" Background="{x:Null}" IsTabStop="False" IsReadOnly="True" IsHitTestVisible="False">
+                                    <RichTextBox Width="120" BorderBrush="{x:Null}" Background="{x:Null}" IsTabStop="False" IsReadOnly="True" IsHitTestVisible="False" Cursor="Hand">
                                         <RichTextBox.Foreground>
                                             <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                                         </RichTextBox.Foreground>
@@ -92,7 +91,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <TextBlock TextWrapping="Wrap" Text="Online Moderators:" Margin="5,0,22,0"/>
-                <ListView x:Name="ModeratorList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView x:Name="ModeratorList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="FlyoutUser">
                     <ListView.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                     </ListView.Foreground>
@@ -129,7 +128,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <TextBlock TextWrapping="Wrap" Text="Onlines Users:" Margin="5,0,22,0"/>
-                <ListView x:Name="OnlineUserList" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListView x:Name="OnlineUserList" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="FlyoutUser">
                     <ListView.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                     </ListView.Foreground>

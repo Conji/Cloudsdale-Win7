@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Text;
@@ -28,7 +29,7 @@ namespace CloudsdaleWin7 {
         {
             InitializeComponent();
             Instance = this;
-            CloudMessages.Items.Clear();
+
             CloudInstance = App.Connection.MessageController[cloud];
             CloudInstance.UnreadMessages = 0;
             Name.Text = CloudInstance.Cloud.Name;
