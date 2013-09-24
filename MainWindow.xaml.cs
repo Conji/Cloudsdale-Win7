@@ -13,9 +13,7 @@ namespace CloudsdaleWin7
     {
 
         public static MainWindow Instance;
-        private static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
 
-        
         public int MaxCharacters
         {
             get { return (int) GetValue(MaxCharactersProperty); }
@@ -41,7 +39,7 @@ namespace CloudsdaleWin7
             App.Settings.Save();
         }
 
-        private static void Testvoid()
+        private void Testvoid()
         {
             
         }

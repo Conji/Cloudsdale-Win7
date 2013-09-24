@@ -57,14 +57,35 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
             _settings.Add(tokenKey, value);
         }
         /// <summary>
-        /// Changes the key value of the specified key.
+        /// Changes the string value of the specified key.
         /// If the key doesn't exist, it will create it.
         /// </summary>
         /// <param name="tokenKey"></param>
         /// <param name="value"></param>
-        public void ChangeSetting(string tokenKey, object value)
+        public void ChangeSetting(string tokenKey, string value)
         {
-            _settings[tokenKey].Replace((String)value);
+            if (_settings[tokenKey] != null)
+            {
+                _settings[tokenKey].Replace(value);
+                return;
+            }
+            _settings.Add(tokenKey, value);
+        }
+
+        /// <summary>
+        /// Changes the bool value of the specified key.
+        /// If the key doesn't exist, it will create it.
+        /// </summary>
+        /// <param name="tokenKey"></param>
+        /// <param name="value"></param>
+        public void ChangeSetting(string tokenKey, bool value)
+        {
+            if (_settings[tokenKey] != null)
+            {
+                _settings[tokenKey].Replace(value);
+                return;
+            }
+            _settings.Add(tokenKey, value);
         }
         /// <summary>
         /// Removes the setting from the settings JObject.

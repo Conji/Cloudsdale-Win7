@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CloudsdaleWin7.Controls;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.Flyouts.Cloud;
 using CloudsdaleWin7.lib;
-using CloudsdaleWin7.lib.CloudsdaleLib;
-using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7 {
@@ -23,23 +23,19 @@ namespace CloudsdaleWin7 {
     public partial class CloudView
     {
         public static CloudView Instance;
-        private static CloudController CloudInstance { get; set; }
+        private static Cloud Cloud { get; set; }
 
         public CloudView(Cloud cloud)
         {
             InitializeComponent();
             Instance = this;
-
-            CloudInstance = App.Connection.MessageController[cloud];
-            CloudInstance.UnreadMessages = 0;
-            Name.Text = CloudInstance.Cloud.Name;
+            Cloud = cloud;
+            App.Connection.MessageController[cloud].EnsureLoaded();
+            App.Connection.MessageController[cloud].UnreadMessages = 0;
+            Name.Text = cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
-            CloudMessages.ItemsSource = CloudInstance.Messages;
-            Main.Instance.FlyoutFrame.Navigate(new UserList(CloudInstance));
-            foreach(var ban in CloudInstance.Bans)
-            {
-                Console.WriteLine(ban.Id);
-            }
+            CloudMessages.ItemsSource = App.Connection.MessageController[cloud].Messages;
+            Main.Instance.FlyoutFrame.Navigate(new UserList(App.Connection.MessageController[cloud]));
         }
 
         private void ButtonClick1(object sender, RoutedEventArgs e)
@@ -59,44 +55,74 @@ namespace CloudsdaleWin7 {
             if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
             Send(InputBox.Text);
         }
-        internal void Send(string message)
+        internal async void Send(string message)
         {
-            var dataObject = new JObject();
-            dataObject["content"] = message.EscapeMessage();
-            dataObject["client_id"] = FayeConnector.ClientID;
-            dataObject["device"] = "desktop";
-            var data = Encoding.UTF8.GetBytes(dataObject.ToString());
-            var request = WebRequest.CreateHttp(Endpoints.CloudMessages.Replace("[:id]", App.Connection.MessageController.CurrentCloud.Cloud.Id));
-            request.Accept = "application/json";
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.ContentLength = data.Length;
-            request.Headers["X-Auth-Token"] = App.Connection.SessionController.CurrentSession.AuthToken;
-            request.BeginGetRequestStream(ar =>
+            if (string.IsNullOrWhiteSpace(message)) return;
+
+            InputBox.IsEnabled = false;
+            message = message.TrimEnd();
+
+
+            var messageModel = new Message
             {
-                var reqs = request.EndGetRequestStream(ar);
-                reqs.Write(data, 0, data.Length);
-                reqs.Close();
-                request.BeginGetResponse(a =>
+                Content = message.EscapeMessage(),
+                Device = "desktop",
+                ClientId = FayeConnector.ClientID
+            };
+
+            var messageData = await JsonConvert.SerializeObjectAsync(messageModel);
+
+            messageModel.Id = Guid.NewGuid().ToString();
+            messageModel.Author = App.Connection.SessionController.CurrentSession;
+
+
+            var client = new HttpClient
+            {
+                DefaultRequestHeaders = {
+                    { "Accept", "application/json" }, 
+                    { "X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken }
+                }
+            };
+            var response = await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
+                new StringContent(messageData)
                 {
-                    try
+                    Headers =
                     {
-                        var response = request.EndGetResponse(a);
-                        response.Close();
+                        ContentType = new MediaTypeHeaderValue("application/json")
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex);
-                    }
-                }, null);
-            }, null);
+                }
+            );
+
+
+            try
+            {
+                var responseText = await response.Content.ReadAsStringAsync();
+                var fullMessage = await JsonConvert.DeserializeObjectAsync<WebResponse<Message>>(responseText);
+
+
+                if (fullMessage == null) return;
+                if (fullMessage.Flash != null)
+                {
+                    await App.Connection.ErrorController.OnError(fullMessage);
+                    return;
+                }
+
+
+                fullMessage.Result.PreProcess();
+                fullMessage.Result.CopyTo(messageModel);
+                App.Connection.MessageController[Cloud].AddMessageToSource(messageModel);
+            }
+            catch (JsonException e) { Console.WriteLine(e.Message);}
+
             InputBox.Text = "";
+            InputBox.IsEnabled = true;
+            InputBox.Focus();
         }
 
         private async void ShowUserList(object sender, MouseButtonEventArgs e)
         {
-            Main.Instance.ShowFlyoutMenu(new UserList(CloudInstance));
-            await CloudInstance.LoadUsers();
+            Main.Instance.ShowFlyoutMenu(new UserList(App.Connection.MessageController.CurrentCloud));
+            await App.Connection.MessageController.CurrentCloud.LoadUsers();
         }
     }
     public class MessageTemplateSelector : DataTemplateSelector
@@ -104,12 +130,15 @@ namespace CloudsdaleWin7 {
         protected DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
             var message = (Message)item;
-            var element = (FrameworkElement)container;
+
+            var actionTemplate = new DataTemplate(new ActionMessageView());
+            var standardTemplate = new DataTemplate(new StandardMessageView());
+
             if (Message.SlashMeFormat.IsMatch(message.Content))
             {
-                return (DataTemplate)element.Resources["ActionChatTemplate"];
+                return actionTemplate;
             }
-            return (DataTemplate)element.Resources["StandardChatTemplate"];
+            return standardTemplate;
         }
     }
 }

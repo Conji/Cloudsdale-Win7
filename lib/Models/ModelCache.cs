@@ -56,7 +56,7 @@ namespace CloudsdaleWin7.lib.Models
             }
             else
             {
-                base.Add(item);
+                App.Connection.MainFrame.Dispatcher.Invoke((() =>base.Add(item)));
             }
 
             while (Count > Capacity)

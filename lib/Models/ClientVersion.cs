@@ -9,7 +9,7 @@ namespace CloudsdaleWin7.lib.Models
 {
     class ClientVersion
     {
-        public static string VERSION= "1.6.3 BETA";
+        private const string VERSION= "2.0.1 BETA";
 
         public static string UpdatedVersion()
         {
@@ -28,12 +28,13 @@ namespace CloudsdaleWin7.lib.Models
         public static void CheckVersion()
         {
             //fix this
-            if (UpdatedVersion() == "UPDATE FAILED") return;
-            if (UpdatedVersion() == VERSION) return;
-            if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
-                                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            if (UpdatedVersion() != "UPDATE FAILED" && UpdatedVersion() != VERSION)
             {
-                UpdateClient();
+                if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
+                                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+                {
+                    UpdateClient();
+                }
             }
         }
         public static void Validate()
@@ -55,7 +56,7 @@ namespace CloudsdaleWin7.lib.Models
             try
             {
                 File.Delete(CloudsdaleSource.Folder + "old.file");
-            }catch{}
+            }catch(Exception e){}
         }
     }
 }

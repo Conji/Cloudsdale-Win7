@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CloudsdaleWin7.Views;
+using CloudsdaleWin7.Views.Flyouts.Cloud;
+using CloudsdaleWin7.lib.Helpers;
+using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Controls
 {
@@ -24,5 +29,26 @@ namespace CloudsdaleWin7.Controls
         {
             InitializeComponent();
         }
+
+        private void Mention(object sender, MouseButtonEventArgs e)
+        {
+            Main.CurrentView.InputBox.Text = "@" + ((Run) sender).Text + " ";
+            Main.CurrentView.InputBox.Focus();
+        }
+
+        private void UserInfo(object sender, MouseButtonEventArgs e)
+        {
+            var user = ((User) ((Run) sender).DataContext);
+            if (Main.Instance.FlyoutFrame.Width.Equals(250))
+            {
+                Main.Instance.FlyoutFrame.Navigate(new UserFlyout(user,
+                                                                  App.Connection.MessageController.CurrentCloud.Cloud));
+            }
+            else
+            {
+                Main.Instance.ShowFlyoutMenu(new UserFlyout(user, App.Connection.MessageController.CurrentCloud.Cloud));
+            }
+        }
+        
     }
 }

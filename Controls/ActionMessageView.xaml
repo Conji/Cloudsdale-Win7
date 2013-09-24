@@ -27,14 +27,14 @@
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-        <TextBlock FontSize="18" Margin="5" HorizontalAlignment="Center">
-            <Run Text="{Binding Path=FinalTimeStamp, Mode=OneWay}"/>
+        <TextBlock FontSize="14" Margin="3" HorizontalAlignment="Center">
+            <Run Text="{Binding Path=FinalTimeStamp, Converter={StaticResource TimeStamp},Mode=OneWay}"/>
             <Run Text="{Binding Path=Device, Converter={StaticResource MessageDevice}}"/>
         </TextBlock>
         <local:MessageTextControl Grid.Row="1" FontSize="20" LinebreakHandling="Ignore" Messages="{Binding Path=Messages, Converter={StaticResource ActionMessages}}"
                                   HorizontalAlignment="Stretch" TextAlignment="Center">
             <local:MessageTextControl.PrefixInline>
-                <Run Text="{Binding Path=User.Name}" Foreground="{Binding Path=User, Converter={StaticResource NameColor}}"/>
+                <Run Text="{Binding Path=Author.Name}" Foreground="{Binding Path=Author, Converter={StaticResource NameColor}}"/>
             </local:MessageTextControl.PrefixInline>
         </local:MessageTextControl>
     </Grid>

@@ -7,7 +7,7 @@ namespace CloudsdaleWin7.lib
     class CloudsdaleSource
     {
         #region Color list
-        public static Color PrimaryBlue = Color.FromRgb(99, 168, 208);
+        public static Color PrimaryBlue = Color.FromRgb(99, 160, 208);
         public static Color PrimaryBlueDark = Color.FromRgb(63, 133, 179);
         public static Color PrimaryText = Color.FromRgb(77, 77, 77);
         public static Color PrimaryBackground = Color.FromRgb(250, 250, 250);
@@ -26,7 +26,7 @@ namespace CloudsdaleWin7.lib
         public static Color LegacyTag = Color.FromRgb(160, 160, 160);
         public static Color VerifiedTag = Color.FromRgb(40, 40, 250);
 
-        public static Color OnlineStatus = Colors.LightGreen;
+        public static Color OnlineStatus = Colors.LimeGreen;
         public static Color OfflineStatus = Colors.LightGray;
         public static Color AwayStatus = Colors.Yellow;
         public static Color BusyStatus = Colors.Red;

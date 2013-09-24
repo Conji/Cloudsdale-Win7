@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace CloudsdaleWin7.Controls
@@ -32,7 +33,11 @@ namespace CloudsdaleWin7.Controls
                 new List<Func<string, IEnumerable<TextGroup>>> {
                     Processor(LinkRegex, link => new Hyperlink {
                         FontSize = FontSize,
-                        Target = link
+                        NavigateUri = new Uri(link),
+                        Cursor = Cursors.Hand,
+                        IsEnabled = true,
+                        Foreground = new SolidColorBrush(Colors.Blue),
+                        Inlines = { new Run { Text = link } }
                     }),
                     Processor(ItalicsRegex, italics => new Italic {
                         Inlines = { new Run { Text = italics.Substring(1, italics.Length - 2) } }
@@ -61,7 +66,7 @@ namespace CloudsdaleWin7.Controls
             control.UpdateContents();
         }
 
-        public string[] Messages
+        public IList<string> Messages
         {
             get { return (string[])GetValue(MessagesProperty); }
             set { SetValue(MessagesProperty, value); }

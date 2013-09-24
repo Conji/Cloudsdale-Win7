@@ -11,13 +11,10 @@
 
     <Page.Resources>
         <views:MessageTemplateSelector x:Key="MessageTemplateSelector" />
-        <CollectionViewSource
-            x:Key="ItemsViewSource"
-            Source="{Binding Items}"/>
-        <DataTemplate x:Key="StandardChatTemplate">
+        <DataTemplate x:Key="StandardChatTemplate" x:Name="StandardChatTemplate">
             <controls:StandardMessageView DataContext="{Binding}" />
         </DataTemplate>
-        <DataTemplate x:Key="ActionChatTemplate">
+        <DataTemplate x:Key="ActionChatTemplate" x:Name="ActionChatTemplate">
             <controls:ActionMessageView DataContext="{Binding}" />
         </DataTemplate>
         <MVVM:SlashMe x:Key="IsSlashMe"/>
@@ -55,65 +52,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <Separator VerticalAlignment="Top" Opacity=".5" />
-                            <Grid Visibility="{Binding Content, ConverterParameter=Inverse, Converter={StaticResource IsSlashMe}}"
-                                  Margin="4,6,4,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Margin="3">
-                                    <Image Source="{Binding Path=Author.Avatar.Preview}" 
-                                           Width="60" Height="60"
-                                           Cursor="Hand"/>
-                                    <Border CornerRadius="3" Background="{Binding Path=Author.Role, Converter={StaticResource TagColor}}"
-                                            Visibility="{Binding Path=Author.Role, Converter={StaticResource TagVisibility}}"
-                                            Width="60" Margin="0,1">
-                                        <TextBlock Text="{Binding Path=Author.Role, Converter={StaticResource TagText}}" 
-                                                   FontSize="12" FontWeight="Bold"  Foreground="White" HorizontalAlignment="Center" />
-                                    </Border>
-                                </StackPanel>
-                                <controls:MessageTextControl/>
-                                <StackPanel Grid.Column="2">
-                                    <TextBlock FontSize="16" HorizontalAlignment="Right" Foreground="Black"><Run Text="{Binding Path=FinalTimeStamp, Converter={StaticResource TimestampConverter}}" /><Run Text=" "/><Run Text="{Binding Path=Device, Converter={StaticResource DeviceIcon}}" /></TextBlock>
-                                    <ItemsControl ItemsSource="{Binding Path=Drops}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel MaxWidth="500" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Border BorderBrush="DarkGray" BorderThickness="3" Margin="10">
-                                                    <Image Width="120" Height="90" Cursor="Hand"
-                                                       Source="{Binding Path=Preview}" />
-                                                </Border>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                            </Grid>
-                            <StackPanel Visibility="{Binding Path=Content, Converter={StaticResource IsSlashMe}}" Margin="5">
-                                <Grid>
-                                    <TextBlock Text="{Binding Path=FinalTimeStamp, Converter={StaticResource TDTS}}" 
-                                               FontSize="14" HorizontalAlignment="Center" Foreground="Black" />
-                                    <TextBlock Text="{Binding Path=Device, Converter={StaticResource DeviceIcon}}"
-                                               FontSize="14" HorizontalAlignment="Right" Foreground="Black" />
-                                </Grid>
-                                <TextBlock Text="{Binding Path=Content, Converter={StaticResource ContentProcessor}}" 
-                                           FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,10" Foreground="Black"
-                                           TextWrapping="Wrap" FontFamily="Segoe UI">
-                                    <TextBlock.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Header="Quote..." DataContext="{Binding Path=Content}"/>
-                                            <MenuItem Header="Copy all text..."/>
-                                            <Separator/>
-                                            <MenuItem Header="View user info"/>
-                                        </ContextMenu>
-                                    </TextBlock.ContextMenu>
-                                </TextBlock>
-                            </StackPanel>
+                            <controls:StandardMessageView Visibility="{Binding Path=Content, Converter={StaticResource IsSlashMe}, ConverterParameter=Inverse}"/>
+                            <controls:ActionMessageView Visibility="{Binding Path=Content, Converter={StaticResource IsSlashMe}}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

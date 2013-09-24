@@ -14,6 +14,8 @@
         <MVVM:TagColor x:Key="TagColor"/>
         <MVVM:TagText x:Key="TagText"/>
         <MVVM:TimeOfDayToString x:Key="TimeStampConverter"/>
+        <MVVM:NameFromMessage x:Key="MessageAuthorName"/>
+        <MVVM:ContentConverter x:Key="MessageProcessor"/>
         <MVVM:DeviceIcon x:Key="Device"/>
         <DataTemplate x:Key="DropTemplate">
             <Border Background="White" BorderBrush="Gray"
@@ -57,9 +59,9 @@
             <Grid Margin="0,0,5,5" x:Name="TagGrid" Width="60">
                 <StackPanel>
                     <Border BorderBrush="#3a3a3a" BorderThickness="1" VerticalAlignment="Top" >
-                        <Image Source="{Binding Path=User.Avatar.Normal}" Width="60" Height="60" />
+                        <Image Source="{Binding Path=Author.Avatar.Normal}" Width="60" Height="60" />
                     </Border>
-                    <Border DataContext="{Binding Path=User.Role}" BorderBrush="Gray"
+                    <Border DataContext="{Binding Path=Author.Role}" BorderBrush="Gray"
                             BorderThickness="1" CornerRadius="2" Height="16" Margin="0,5,0,0"
                             Visibility="{Binding Converter={StaticResource ShowTag}}"
                             Background="{Binding Converter={StaticResource TagColor}}">
@@ -82,20 +84,20 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <DockPanel Height="32">
-                        <TextBlock Foreground="#4d4d4d" FontSize="16">
+                        <TextBlock Foreground="#4d4d4d" FontSize="16" DataContext="{Binding Path=Author}">
                                 <Run Text="&#x25CF;" FontFamily="Segoe UI Symbol" FontSize="14"
-                                     Foreground="{Binding Path=User.UIMetadata[Status].Value, 
+                                     Foreground="{Binding Path=UIMetadata[Status].Value, 
                                      Converter={StaticResource StatusColor}}"/>
-                                <Run Text="{Binding Path=User.Name}" FontSize="18" FontWeight="SemiBold"
-                                     Foreground="{Binding Path=User, Converter={StaticResource NameColor}}"/>
+                                <Run Text="{Binding Path=Name}" FontSize="18" FontWeight="SemiBold"
+                                     Foreground="{Binding Path=RawUser, Converter={StaticResource NameColor}}" MouseDown="UserInfo" Cursor="Hand"/>
                                 <Span Foreground="DarkGray">
-                                     @
-                                    <Run Text="{Binding Path=User.Username}" FontSize="14" FontWeight="Normal"/>
+                                     <Run Text=" @"/>
+                                    <Run Text="{Binding Path=Username}" FontSize="14" FontWeight="Normal" MouseDown="Mention" Cursor="Hand"/>
                                 </Span>
                         </TextBlock>
                     </DockPanel>
-                    <TextBlock FontSize="18" Foreground="Gray" Margin="3" Grid.Column="1">
-                        <Run Text="{Binding Path=FinalTimestamp, Converter={StaticResource TimeStampConverter}}" />
+                    <TextBlock FontSize="16" Foreground="Gray" Margin="3" Grid.Column="1">
+                        <!--<Run Text="{Binding Path=FinalTimestamp, Converter={StaticResource TimeStampConverter}, Mode=OneTime}"/>-->
                         <Run Text="{Binding Path=Device, Converter={StaticResource DeviceIcon}}" />
                     </TextBlock>
                 </Grid>
@@ -105,7 +107,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="14" Foreground="Gray" Margin="3" Grid.Column="1">
-                        <Run Text="{Binding Path=FinalTimestamp, Converter={StaticResource TimeStampConverter},Mode=OneWay}" />
+                        <Run Text="{Binding Path=FinalTimestamp, Converter={StaticResource TimeStampConverter}, Mode=OneTime}" />
                         <Run Text="{Binding Path=Device, Converter={StaticResource DeviceIcon}}" />
                     </TextBlock>
                 </Grid>
@@ -119,12 +121,12 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Controls:MessageTextControl x:Name="MessageControl" 
-                                              Messages="{Binding Path=Messages}" 
-                                              FontSize="15" FontFamily="Segoe UI" >
-                        <Controls:MessageTextControl.Background>
-                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                        </Controls:MessageTextControl.Background>
+                    <Controls:MessageTextControl Messages="{Binding Path=Messages}" FontSize="16">
+                        <Controls:MessageTextControl.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command=""/>
+                            </ContextMenu>
+                        </Controls:MessageTextControl.ContextMenu>
                     </Controls:MessageTextControl>
                     <Grid Grid.Column="1" x:Name="DropGrid">
                         <!--

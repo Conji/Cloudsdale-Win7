@@ -37,6 +37,11 @@ namespace CloudsdaleWin7.lib.Models
 
         #region Visual information
 
+        public User RawUser
+        {
+            get { return this; }
+        }
+
         /// <summary>
         /// This user's unique username
         /// </summary>

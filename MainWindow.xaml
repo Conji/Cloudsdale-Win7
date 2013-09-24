@@ -4,9 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" x:Class="CloudsdaleWin7.MainWindow"
+        xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM"
         Title="Cloudsdale" Height="600" Width="800" Icon="Assets/cloudsdale.ico" Closing="SaveSettings">
+    <Window.Resources>
+        <MVVM:ContentConverter x:Key="MessageProcessor"/>
+    </Window.Resources>
     <Grid>
         
         <Frame x:Name="MainFrame" Content="Frame" NavigationUIVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="1" Grid.RowSpan="3" />
+        
     </Grid>
 </Window>

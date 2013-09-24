@@ -111,7 +111,7 @@
     <Compile Include="Controls\ActionMessageView.xaml.cs">
       <DependentUpon>ActionMessageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Hyperlink.cs" />
+    <Compile Include="Controls\BindableRichTextBox.cs" />
     <Compile Include="Controls\MessageTextControl.xaml.cs">
       <DependentUpon>MessageTextControl.xaml</DependentUpon>
     </Compile>
@@ -147,6 +147,18 @@
     <Compile Include="MVVM\ActionMessagesConverter.cs" />
     <Compile Include="Views\Cloud\OwnedCloud.xaml.cs">
       <DependentUpon>OwnedCloud.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExploreViews\ExplorePopular.xaml.cs">
+      <DependentUpon>ExplorePopular.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExploreViews\ExploreRecent.xaml.cs">
+      <DependentUpon>ExploreRecent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExploreViews\ExploreRoulette.xaml.cs">
+      <DependentUpon>ExploreRoulette.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExploreViews\ExploreTop.xaml.cs">
+      <DependentUpon>ExploreTop.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Flyouts\Cloud\QuickView.xaml.cs">
       <DependentUpon>QuickView.xaml</DependentUpon>
@@ -222,6 +234,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Explore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExploreViews\ExplorePopular.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExploreViews\ExploreRecent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExploreViews\ExploreRoulette.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExploreViews\ExploreTop.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -396,7 +424,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Menus\" />
-    <Folder Include="Views\ExploreViews\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\next.png" />

@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <RichTextBox x:Name="RichText" BorderBrush="{x:Null}" IsReadOnly="True" IsHitTestVisible="False" IsTabStop="False" IsUndoEnabled="False" >
+        <RichTextBox x:Name="RichText" BorderBrush="{x:Null}" IsHitTestVisible="False" IsTabStop="False" IsUndoEnabled="False" IsReadOnly="True" >
             <RichTextBox.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </RichTextBox.Background>

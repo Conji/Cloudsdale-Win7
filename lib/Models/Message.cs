@@ -32,6 +32,11 @@ namespace CloudsdaleWin7.lib.Models
         private string _content;
         private DateTime _timestamp;
 
+        public Message RawMessage
+        {
+            get { return this; }
+        }
+
         private readonly List<Message> _messages = new List<Message>();
 
         /// <summary>

@@ -34,59 +34,79 @@ namespace CloudsdaleWin7.MVVM
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var rtb = (RichTextBox) value;
-            var message = (Message) rtb.DataContext;
+            var message = (Message) value;
             var rGraph = new Paragraph();
 
             #region slashme
+
             if (message.Content.StartsWith("/me "))
                 message.Content = message.Content.Replace("/me", message.Author.Name);
+
             #endregion
+
             foreach (var word in message.Content.Split(' '))
             {
-                #region italics
-
-                if (word.StartsWith("/") && word.EndsWith("/") && word != "//")
-                {
-                    rGraph.Inlines.Add(new Italic(new Run(word.Replace("/", "") + " ")));
-                }
-                    #endregion
-                #region redacted
-                else if (word.ToLower() == "[redacted]")
-                {
-                    var redacted = new Run("[REDACTED] ");
-                    redacted.Foreground = new SolidColorBrush(Colors.Red);
-                    rGraph.Inlines.Add(new Bold(redacted));
-                }
-                #endregion
-                #region link
-                else if (LinkRegex.IsMatch(word))
-                {
-                    var newLink = new Hyperlink();
-                    newLink.IsEnabled = true;
-                    newLink.Inlines.Add(word);
-                    newLink.NavigateUri = new Uri(word, UriKind.RelativeOrAbsolute);
-                    newLink.RequestNavigate += (sender, args) => BrowserHelper.FollowLink(args.Uri.ToString());
-                    newLink.Cursor = Cursors.Hand;
-                    rGraph.Inlines.Add(newLink);
-                    rGraph.Inlines.Add(" ");
-                }
-                #endregion
-                #region normal
-                else
-                {
-                    rGraph.Inlines.Add(new Run(word + " "));
-                }
-                #endregion
+                rGraph = ProcessContent(word, rGraph);
             }
 
-            return rGraph;
+            return new FlowDocument(rGraph);
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
+
+        private static Paragraph ProcessContent(string word, Paragraph rGraph)
+        {
+            #region italics
+
+            if (word.StartsWith("/") && word.EndsWith("/") && word != "//")
+            {
+                rGraph.Inlines.Add(new Italic(new Run(word.Replace("/", "") + " ")));
+            }
+            #endregion
+            #region redacted
+            else if (word.ToLower() == "[redacted]")
+            {
+                var redacted = new Run("[REDACTED] ");
+                redacted.Foreground = new SolidColorBrush(Colors.Red);
+                rGraph.Inlines.Add(new Bold(redacted));
+            }
+            #endregion
+            #region link
+            else if (LinkRegex.IsMatch(word))
+            {
+                var newLink = new Hyperlink();
+                newLink.IsEnabled = true;
+                newLink.Inlines.Add(word);
+                newLink.Foreground = new SolidColorBrush(Colors.Blue);
+                newLink.NavigateUri = new Uri(word, UriKind.RelativeOrAbsolute);
+                newLink.RequestNavigate += (sender, args) => BrowserHelper.FollowLink(args.Uri.ToString());
+                newLink.Cursor = Cursors.Hand;
+                rGraph.Inlines.Add(newLink);
+                rGraph.Inlines.Add(" ");
+            }
+            #endregion
+            else
+            {
+                rGraph.Inlines.Add(word + " ");
+            }
+            return rGraph;
+        }
     }
+
+    public class NameFromMessage : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((User) value).Name;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new Exception("Could not convert back!");
+        }
+    }
+
     public class ChatColors : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

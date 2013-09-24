@@ -16,9 +16,9 @@ namespace CloudsdaleWin7.lib.Controllers
         public Dictionary<string, CloudController> CloudControllers = new Dictionary<string, CloudController>();
         public CloudController CurrentCloud { get; set; }
 
-        public async void OnMessage(JObject message)
+        public void OnMessage(JObject message)
         {
-            await App.Connection.MainFrame.Dispatcher.InvokeAsync((() => InternalOnMessage(message)));
+            App.Connection.MainFrame.Dispatcher.Invoke(()=>InternalOnMessage(message));
         }
 
         private void InternalOnMessage(JObject message)

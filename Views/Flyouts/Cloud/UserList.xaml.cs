@@ -30,7 +30,6 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
             SearchResults.ItemsSource = SearchList;
             App.Connection.MessageController[cloud.Cloud].EnsureLoaded();
-            Console.WriteLine(GetOwner().Id);
         }
 
         /// <summary>
@@ -83,9 +82,7 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
         }
         private static User GetOwner()
         {
-            var client = new HttpClient().AcceptsJson();
-            var response = JsonConvert.DeserializeObject<User>(client.GetStringAsync(Endpoints.UserJson.Replace("[:id]", Controller.Cloud.OwnerId)).Result);
-            return response;
+            return App.Connection.ModelController.GetUser(Controller.Cloud.OwnerId);
         }
 
         private void FlyoutUser(object sender, SelectionChangedEventArgs e)

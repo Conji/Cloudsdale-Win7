@@ -4,44 +4,67 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:Models="clr-namespace:CloudsdaleWin7.lib.Models" mc:Ignorable="d" 
-      d:DesignHeight="436.466" d:DesignWidth="534.586"
+      d:DesignHeight="436.466" d:DesignWidth="598.586"
 	Title="Explore">
+    <Page.Resources>
+        <Color x:Key="DarkBlue">#FF3F85B3</Color>
+    </Page.Resources>
 
     <Grid>
         <DockPanel Height="71" LastChildFill="False" VerticalAlignment="Top">
             <DockPanel.Background>
-                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                <SolidColorBrush Color="#FF63A0D0"/>
             </DockPanel.Background>
             <TextBlock Height="51" TextWrapping="Wrap" Margin="50,10,0,0" FontFamily="Segoe UI Symbol" FontSize="20" Text="&#xE11A;" TextAlignment="Center" VerticalAlignment="Bottom"/>
-            <TextBox Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="306" Padding="0" Margin="10,20,0,0" FontSize="14" Text="Search for a cloud..."/>
+            <TextBox Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" Padding="0" Margin="10,20,0,0" FontSize="14" Text="Search for a cloud..."/>
+            <DockPanel x:Name="ViewPanel" Height="25" LastChildFill="False" VerticalAlignment="Top" Width="240" Margin="30,20,0,0">
+                <Button x:Name="CmdPopular" Content="Popular" Width="60" DockPanel.Dock="Left" Click="ChangeExploreSource" BorderThickness="3">
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    </Button.BorderBrush>
+                    <Button.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </Button.Foreground>
+                    <Button.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="CmdRecent" Content="Recent" Width="60" Click="ChangeExploreSource" BorderThickness="3">
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    </Button.BorderBrush>
+                    <Button.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </Button.Foreground>
+                    <Button.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="CmdTop" Content="Top 10" Width="60" Click="ChangeExploreSource" BorderThickness="3">
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    </Button.BorderBrush>
+                    <Button.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </Button.Foreground>
+                    <Button.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="CmdRoulette" Content="Roulette™" Width="60" Click="ChangeExploreSource" BorderThickness="3">
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    </Button.BorderBrush>
+                    <Button.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </Button.Foreground>
+                    <Button.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                    </Button.Background>
+                </Button>
+            </DockPanel>
         </DockPanel>
-        <WrapPanel x:Name="ExploreList" Margin="0,71,0,0">
-            <WrapPanel.Background>
-                <SolidColorBrush Color="#FF222222"/>
-            </WrapPanel.Background>
-            <ItemsControl>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel>
-                            <Border Height="150" Width="104">
-                                <Border.BorderBrush>
-                                    <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
-                                </Border.BorderBrush>
-                                <StackPanel>
-                                    <Image x:Name="CloudAvatar" Source="{Binding Path=Models:Cloud.Avatar.Normal}" Margin="2,2,2,2" Height="100" Width="100"/>
-                                    <TextBlock x:Name="CloudName" Text="{Binding Path=Models:Cloud.Name}" FontSize="15" TextAlignment="Center" Height="30"/>
-                                    <Button x:Name="JoinCloud" Content="Join Cloud!" FontSize="16">
-                                        <Button.Background>
-                                            <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
-                                        </Button.Background>
-                                    </Button>
-                                </StackPanel>
-                            </Border>
-                        </WrapPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </WrapPanel>
+        <Frame x:Name="ExploreFrame" Content="Frame" Margin="0,71,0,0"/>
 
     </Grid>
 </Page>

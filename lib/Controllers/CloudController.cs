@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -19,7 +20,7 @@ namespace CloudsdaleWin7.lib.Controllers
     {
         private int _unreadMessages;
         private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
-        private readonly List<Message> _messages = new List<Message>();
+        private readonly ObservableCollection<Message> _messages = new ModelCache<Message>(50);
         private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
 
         public CloudController(Cloud cloud)
@@ -30,7 +31,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public Cloud Cloud { get; private set; }
 
-        public List<Message> Messages { get { return _messages; } }
+        public ObservableCollection<Message> Messages { get { return _messages; } }
 
         public ObservableCollection<Ban> Bans
         {
@@ -176,17 +177,32 @@ namespace CloudsdaleWin7.lib.Controllers
                 foreach (var message in responseMessages.Result)
                 {
                     StatusForUser(message.Author.Id);
-                    _messages.Add(message);
+                    AddMessageToSource(message);
                 }
                 foreach (var message in newMessages)
                 {
                     StatusForUser(message.Author.Id);
-                    _messages.Add(message);
-                    if (_messages.Count <= 50) return;
-                    _messages.RemoveAt(50);
+                    AddMessageToSource(message);
                 }
             }
 
+        }
+
+        public void AddMessageToSource(Message message)
+        {
+            if (_messages.Count > 0)
+            {
+                if (_messages.Last().Content == message.Content) return;
+                if (_messages.Last().AuthorId == message.AuthorId && !message.Content.StartsWith("/me") &&
+                    !Messages.Last().Content.StartsWith("/me"))
+                {
+                    _messages.Last().Content += "\n" + message.Content;
+                    _messages.Last().Timestamp = message.FinalTimestamp;
+                }
+            else _messages.Add(message);
+            }
+            else _messages.Add(message);
+            if (_messages.Count > 50) _messages.RemoveAt(50);
         }
 
         public void OnMessage(JObject message)
@@ -213,12 +229,9 @@ namespace CloudsdaleWin7.lib.Controllers
 
             if (message.ClientId == FayeConnector.ClientID) return;
 
-            
-
             message.Author.CopyTo(message.User);
-            _messages.Add(message);
-            if (_messages.Count <= 50) return;
-            _messages.RemoveAt(50);
+            AddMessageToSource(message);
+            if (Main.CurrentView != null) Main.CurrentView.ChatScroll.ScrollToBottom();
         }
 
         

@@ -17,6 +17,7 @@ namespace CloudsdaleWin7.Views
     public partial class Main
     {
         public static Main Instance;
+        public static CloudView CurrentView { get; set; }
 
         public Main()
         {
@@ -39,11 +40,18 @@ namespace CloudsdaleWin7.Views
             ShowFlyoutMenu(new Settings());
         }
 
+        public static void ScrollChat()
+        {
+            if (CurrentView != null)
+            {
+                
+            }
+        }
+
         public void ShowFlyoutMenu(Page view)
         {
             FlyoutFrame.Navigate(view);
 
-            Task.Delay(1000);
             var board = new Storyboard();
             var animation = (FlyoutFrame.Width > 0
                                  ? new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)))
@@ -52,7 +60,6 @@ namespace CloudsdaleWin7.Views
             animation.EasingFunction = new ExponentialEase();
             Storyboard.SetTargetName(animation, FlyoutFrame.Name);
             Storyboard.SetTargetProperty(animation, new PropertyPath(WidthProperty));
-            if (FlyoutFrame.Content.Equals(view)) return;
             
             board.Begin(this);
         }
@@ -63,7 +70,9 @@ namespace CloudsdaleWin7.Views
             var cloud = (ListView)sender;
             var item = (lib.Models.Cloud)cloud.SelectedItem;
             App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
-            Frame.Navigate(new CloudView(item));
+            var cloudView = new CloudView(item);
+            Frame.Navigate(cloudView);
+            CurrentView = cloudView;
         }
 
         private void DirectHome(object sender, MouseButtonEventArgs e)

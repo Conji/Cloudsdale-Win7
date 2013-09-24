@@ -18,6 +18,8 @@ namespace CloudsdaleWin7 {
             Instance = this;
             InitializeComponent();
             EmailBox.Text = App.Settings["email"];
+            if (String.IsNullOrEmpty(EmailBox.Text)) EmailBox.Focus();
+            if (!String.IsNullOrEmpty(EmailBox.Text) && String.IsNullOrEmpty(PasswordBox.Password)) PasswordBox.Focus();
         }
 
         private async void LoginAttempt(object sender, KeyEventArgs e)
