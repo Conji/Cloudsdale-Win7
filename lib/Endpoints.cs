@@ -69,6 +69,10 @@
         /// Retrieves the ban list.
         /// </summary>
         public const string CloudBan = Cloud + "/bans";
+        /// <summary>
+        /// Checks a ban on a specific user.
+        /// Use 
+        /// </summary>
         public const string CloudUserBans = Cloud + "/bans?offender_id=[:offender_id]";
         public const string Avatar = AssetSource + "/[:type]/[:id].png?s=[:size]";
         public const string PushAddress = "wss://push.cloudsdale.org/push";
@@ -83,9 +87,9 @@
 
         #region methods
 
-        public const string DESTROY = "DELETE";
-        public const string UPDATE = "PUT";
-        public const string INDEX = "POST";
+        public const string Destroy = "DELETE";
+        public const string Update = "PUT";
+        public const string Index = "POST";
 
         #endregion
     }

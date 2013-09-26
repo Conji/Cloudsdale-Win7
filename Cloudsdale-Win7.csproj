@@ -111,7 +111,7 @@
     <Compile Include="Controls\ActionMessageView.xaml.cs">
       <DependentUpon>ActionMessageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\BindableRichTextBox.cs" />
+    <Compile Include="Controls\BindableLink.cs" />
     <Compile Include="Controls\MessageTextControl.xaml.cs">
       <DependentUpon>MessageTextControl.xaml</DependentUpon>
     </Compile>
@@ -135,8 +135,9 @@
     <Compile Include="lib\Models\Client\UserStatusMetadataProvider.cs" />
     <Compile Include="lib\Models\IAvatarUploadTarget.cs" />
     <Compile Include="lib\Models\ModelCache.cs" />
+    <Compile Include="lib\Models\Subscription.cs" />
+    <Compile Include="MVVM\ChatHelpers.cs" />
     <Compile Include="MVVM\LoginScreen.cs" />
-    <Compile Include="MVVM\MessageViewConverter.cs" />
     <Compile Include="MVVM\Tag.cs" />
     <Compile Include="lib\Helpers\BrowserHelper.cs" />
     <Compile Include="lib\Helpers\UIHelpers.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="lib\Models\IPreProcessable.cs" />
     <Compile Include="lib\Models\Message.cs" />
     <Compile Include="MVVM\ActionMessagesConverter.cs" />
+    <Compile Include="MVVM\UnreadConverter.cs" />
     <Compile Include="Views\Cloud\OwnedCloud.xaml.cs">
       <DependentUpon>OwnedCloud.xaml</DependentUpon>
     </Compile>
@@ -159,6 +161,12 @@
     </Compile>
     <Compile Include="Views\ExploreViews\ExploreTop.xaml.cs">
       <DependentUpon>ExploreTop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExploreViews\ItemViews\ItemBasic.xaml.cs">
+      <DependentUpon>ItemBasic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExploreViews\ItemViews\ItemTop.xaml.cs">
+      <DependentUpon>ItemTop.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Flyouts\Cloud\QuickView.xaml.cs">
       <DependentUpon>QuickView.xaml</DependentUpon>
@@ -253,6 +261,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ExploreViews\ItemViews\ItemBasic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExploreViews\ItemViews\ItemTop.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Flyouts\Cloud\QuickView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -333,7 +349,6 @@
   <ItemGroup>
     <Compile Include="lib\Models\Updaters\UDUModel.cs" />
     <Compile Include="lib\Models\User.cs" />
-    <Compile Include="MVVM\ChatColorConverter.cs" />
     <Compile Include="MVVM\DeviceIcon.cs" />
     <Compile Include="MVVM\NameColor.cs" />
     <Compile Include="MVVM\StatusConverter.cs" />

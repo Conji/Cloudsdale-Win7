@@ -31,6 +31,11 @@ namespace CloudsdaleWin7.lib.Models
         [JsonConstructor]
         public Cloud(string id) : base(id) { }
 
+        public Cloud RawCloud
+        {
+            get { return this; }
+        }
+
         /// <summary>
         /// The name of the cloud
         /// </summary>

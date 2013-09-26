@@ -16,6 +16,7 @@ namespace CloudsdaleWin7.Controls
     public sealed partial class MessageTextControl
     {
         public static readonly Regex GreentextRegex = new Regex(@"^\>");
+        public static readonly Regex OocRegex = new Regex(@"^\//");
         public static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
         public static readonly Regex ItalicsRegex = new Regex(@"\B\/\b([^\/\n]+)\b\/\B");
         public static readonly Regex RedactedRegex = new Regex(@"\[REDACTED\]", RegexOptions.IgnoreCase);
@@ -29,11 +30,12 @@ namespace CloudsdaleWin7.Controls
         public MessageTextControl()
         {
             InitializeComponent();
+
             Parsers =
                 new List<Func<string, IEnumerable<TextGroup>>> {
-                    Processor(LinkRegex, link => new Hyperlink {
+                    Processor(LinkRegex, link => new BindableLink{
                         FontSize = FontSize,
-                        NavigateUri = new Uri(link),
+                        NavigateOnClick = link,
                         Cursor = Cursors.Hand,
                         IsEnabled = true,
                         Foreground = new SolidColorBrush(Colors.Blue),
@@ -156,12 +158,25 @@ namespace CloudsdaleWin7.Controls
                     yield return new LineBreak();
                 }
 
+                Color lineColor;
+                if (GreentextRegex.IsMatch(line))
+                {
+                    lineColor = Colors.LimeGreen;
+                }
+                else if (OocRegex.IsMatch(line))
+                {
+                    lineColor = Colors.CadetBlue;
+                }
+                else
+                {
+                    lineColor = Colors.Black;
+                }
+                
+
                 var span = new Span
                 {
-                    Foreground = new SolidColorBrush(
-                        GreentextRegex.IsMatch(line)
-                            ? Colors.MediumSeaGreen
-                            : Colors.Black)
+                    Foreground = new SolidColorBrush(lineColor)
+                            
                 };
                 foreach (var inline in BuildLine(line))
                 {

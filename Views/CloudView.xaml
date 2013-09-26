@@ -22,7 +22,6 @@
         <MVVM:TagText x:Key="TagText"/>
         <MVVM:TimeOfDayToString x:Key="TimestampConverter"/>
         <MVVM:TagVisibility x:Key="TagVisibility"/>
-        <MVVM:ContentConverter x:Key="ContentProcessor"/>
         <Color x:Key="UsernameText">#FF878787</Color>
     </Page.Resources>
 
@@ -69,13 +68,13 @@
                 <WrapPanel.Background>
                     <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                 </WrapPanel.Background>
-                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="™"/>
-                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😄" ToolTip=":)"/>
-                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😃" ToolTip=":D"/>
-                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😠" ToolTip=">:("/>
-                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😋" ToolTip=":P"/>
-                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😉" ToolTip=";)"/>
-                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😒" ToolTip="-.-"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="™" MouseDown="AddEmoji"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😄" ToolTip=":)" MouseDown="AddEmoji"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😃" ToolTip=":D" MouseDown="AddEmoji"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😠" ToolTip=">:(" MouseDown="AddEmoji"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😋" ToolTip=":P" MouseDown="AddEmoji"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😉" ToolTip=";)" MouseDown="AddEmoji"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😒" ToolTip="-.-" MouseDown="AddEmoji"/>
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>

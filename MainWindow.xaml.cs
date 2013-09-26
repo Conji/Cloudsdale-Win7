@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Input;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 
@@ -41,7 +44,6 @@ namespace CloudsdaleWin7
 
         private void Testvoid()
         {
-            
         }
     }
 }

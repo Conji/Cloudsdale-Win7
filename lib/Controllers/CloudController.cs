@@ -231,7 +231,10 @@ namespace CloudsdaleWin7.lib.Controllers
 
             message.Author.CopyTo(message.User);
             AddMessageToSource(message);
-            if (Main.CurrentView != null) Main.CurrentView.ChatScroll.ScrollToBottom();
+            if (App.Connection.MessageController.CurrentCloud == this && Main.CurrentView != null)
+            {
+                Main.ScrollChat();
+            }
         }
 
         

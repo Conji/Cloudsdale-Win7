@@ -110,5 +110,13 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib {
             };
             return link;
         }
+        public static string AssuredLink(this string link)
+        {
+            if (!Uri.IsWellFormedUriString(link, UriKind.Absolute))
+            {
+                link = "http://" + link;
+            }
+            return link;
+        }
     }
 }

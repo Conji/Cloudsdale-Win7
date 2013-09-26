@@ -14,8 +14,6 @@
         <MVVM:TagColor x:Key="TagColor"/>
         <MVVM:TagText x:Key="TagText"/>
         <MVVM:TimeOfDayToString x:Key="TimeStampConverter"/>
-        <MVVM:NameFromMessage x:Key="MessageAuthorName"/>
-        <MVVM:ContentConverter x:Key="MessageProcessor"/>
         <MVVM:DeviceIcon x:Key="Device"/>
         <DataTemplate x:Key="DropTemplate">
             <Border Background="White" BorderBrush="Gray"

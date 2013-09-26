@@ -8,16 +8,14 @@
 	Title="UserFlyout" Width="250" FontFamily="Nirmala UI">
 
     <Grid>
+        <CheckBox Content="Subscribed" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="134,79,10,335" Checked="CheckBox_Checked_1"/>
         <StackPanel>
             <TextBlock x:Name="Username" TextWrapping="Wrap" Text="Username" FontSize="16" Margin="10,5,45,0">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </TextBlock.Foreground>
             </TextBlock>
-            <Separator Height="25" Margin="10,0,26,0" BorderThickness="0" BorderBrush="Black">
-                <Separator.Background>
-                    <SolidColorBrush Color="Black"/>
-                </Separator.Background>
+            <Separator Height="25" Margin="10,0,26,0" BorderThickness="0" BorderBrush="Black" Background="Black">
                 <Separator.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </Separator.Foreground>
@@ -44,7 +42,7 @@
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </ListView.Foreground>
             </ListView>
-            <Button Content="Add on Skype™!" Height="31" FontWeight="SemiBold" FontSize="14" Margin="0,5,0,0">
+            <Button x:Name="SkypeUI" Content="Add on Skype™!" Height="31" FontWeight="SemiBold" FontSize="14" Margin="0,5,0,0" Click="AddOnSkype">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                 </Button.BorderBrush>

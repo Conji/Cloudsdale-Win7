@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <MVVM:ChatColorConverter x:Key="ChatColor" />
         <MVVM:TimeOfDayToString x:Key="TDTS" />
         <MVVM:NameColor x:Key="NameColor" />
         <MVVM:DeviceIcon x:Key="DeviceIcon" />

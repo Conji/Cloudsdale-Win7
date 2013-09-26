@@ -44,7 +44,7 @@ namespace CloudsdaleWin7.Views
         {
             if (CurrentView != null)
             {
-                
+                CurrentView.ChatScroll.ScrollToBottom();
             }
         }
 
@@ -84,6 +84,12 @@ namespace CloudsdaleWin7.Views
         {
             Frame.Navigate(new CloudView(cloud.Cloud));
 
+        }
+
+        private void LaunchExplore(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(new Explore());
+            Clouds.SelectedIndex = -1;
         }
     }
 }

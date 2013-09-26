@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,7 +12,6 @@ using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7 {
     /// <summary>
@@ -23,7 +20,8 @@ namespace CloudsdaleWin7 {
     public partial class CloudView
     {
         public static CloudView Instance;
-        private static Cloud Cloud { get; set; }
+        public Cloud Cloud { get; set; }
+        
 
         public CloudView(Cloud cloud)
         {
@@ -93,12 +91,10 @@ namespace CloudsdaleWin7 {
                 }
             );
 
-
             try
             {
                 var responseText = await response.Content.ReadAsStringAsync();
                 var fullMessage = await JsonConvert.DeserializeObjectAsync<WebResponse<Message>>(responseText);
-
 
                 if (fullMessage == null) return;
                 if (fullMessage.Flash != null)
@@ -106,7 +102,6 @@ namespace CloudsdaleWin7 {
                     await App.Connection.ErrorController.OnError(fullMessage);
                     return;
                 }
-
 
                 fullMessage.Result.PreProcess();
                 fullMessage.Result.CopyTo(messageModel);
@@ -123,6 +118,12 @@ namespace CloudsdaleWin7 {
         {
             Main.Instance.ShowFlyoutMenu(new UserList(App.Connection.MessageController.CurrentCloud));
             await App.Connection.MessageController.CurrentCloud.LoadUsers();
+        }
+
+        private void AddEmoji(object sender, MouseButtonEventArgs e)
+        {
+            var block = (TextBlock) sender;
+            InputBox.Text += block.Text;
         }
     }
     public class MessageTemplateSelector : DataTemplateSelector

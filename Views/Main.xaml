@@ -3,10 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM"
       mc:Ignorable="d"
 	Title="Main" d:DesignWidth="518" d:DesignHeight="420" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Page.Resources>
         <Color x:Key="Panels">#FF4C4C5A</Color>
+        <MVVM:UnreadConverter x:Key="Unread"/>
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -42,7 +44,7 @@
                     <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                 </Button.BorderBrush>
             </Button>
-            <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,40,1" Height="51" BorderBrush="{x:Null}" FontWeight="SemiBold">
+            <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,40,1" Height="51" BorderBrush="{x:Null}" FontWeight="SemiBold" Click="LaunchExplore">
                 <Button.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </Button.Foreground>
@@ -71,7 +73,7 @@
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                         <!-- Unread Count-->
-                        <TextBlock Margin="5" Text="{Binding UnreadMessages}">
+                        <TextBlock Margin="5" Text="{Binding RawCloud, Converter={StaticResource Unread}}">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                             </TextBlock.Foreground>

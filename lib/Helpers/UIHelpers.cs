@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 using CloudsdaleWin7.Views;
@@ -29,6 +30,10 @@ namespace CloudsdaleWin7.lib.Helpers
         public static void ShowFlyout(this User user, Cloud cloud)
         {
             Main.Instance.FlyoutFrame.Navigate(new UserFlyout(user, cloud));
+        }
+        public static void MessageOnSkype(string user)
+        {
+            Process.Start("skype:[:name]?chat".Replace("[:name]", user));
         }
     }
 }

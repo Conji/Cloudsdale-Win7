@@ -1,30 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using CloudsdaleWin7.Views.ExploreViews;
 using CloudsdaleWin7.lib;
-using CloudsdaleWin7.lib.CloudsdaleLib;
 
 namespace CloudsdaleWin7
 {
     /// <summary>
     /// Interaction logic for Explore.xaml
     /// </summary>
-    public partial class Explore : Page
+    public partial class Explore
     {
         public Explore()
         {
             InitializeComponent();
+            LoadPreviousSource();
         }
 
         private void LoadPreviousSource()
@@ -32,20 +23,24 @@ namespace CloudsdaleWin7
             switch (App.Settings["selected_source"])
             {
                 case "popular":
-                    // nav to popular view
-                    
+                    ExploreFrame.Navigate(new ExplorePopular());
+                    CmdPopular.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
                     break;
                 case "recent":
-                    // nav to recent view
+                    ExploreFrame.Navigate(new ExploreRecent());
+                    CmdRecent.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
                     break;
                 case "top":
-                    // nav to top view
+                    ExploreFrame.Navigate(new ExploreTop());
+                    CmdTop.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
                     break;
                 case "roulette":
-                    // nav to roulette view
+                    ExploreFrame.Navigate(new ExploreRoulette());
+                    CmdRoulette.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
                     break;
                 default:
-                    //nav to popular view
+                    ExploreFrame.Navigate(new ExplorePopular());
+                    CmdPopular.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
                     break;
             }
         }

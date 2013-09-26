@@ -15,6 +15,13 @@ namespace CloudsdaleWin7.lib.Controllers
     {
         public Dictionary<string, CloudController> CloudControllers = new Dictionary<string, CloudController>();
         public CloudController CurrentCloud { get; set; }
+        public Array SubscribedUsers { get; set; }
+        public Array SubscribedClouds { get; set; }
+
+        /// <summary>
+        /// Replace [:type] with USER or CLOUD and [:id] with Id
+        /// </summary>
+        private const string SubscribedFormat = "/[:type]:[:id]";
 
         public void OnMessage(JObject message)
         {
@@ -78,6 +85,11 @@ namespace CloudsdaleWin7.lib.Controllers
         public User GetBackedUser(string userId)
         {
             return App.Connection.ModelController.GetUser(userId);
+        }
+
+        public void InitializeSubscriptions()
+        {
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

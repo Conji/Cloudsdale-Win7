@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
@@ -136,6 +137,19 @@ namespace CloudsdaleWin7.lib.Models
                 if (Equals(value, _alsoKnownAs)) return;
                 _alsoKnownAs = value;
                 OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Returns a List object of the names the user has been known to go by
+        /// </summary>
+        public List AlsoKnownAsList
+        {
+            get 
+            { 
+                var list = new List();
+                list.ListItems.AddRange(AlsoKnownAs);
+                return list;
             }
         }
 

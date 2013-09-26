@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Views.Flyouts.Cloud
@@ -25,6 +27,7 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             Username.Text = "@" + user.Username;
             Name.Text = user.Name;
             AviImage.Source = new BitmapImage(user.Avatar.Normal);
+            
         }
 
         private void AvatarBounce()
@@ -41,6 +44,16 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
         private void GoBack(object sender, MouseButtonEventArgs e)
         {
             Main.Instance.ShowFlyoutMenu(this);
+        }
+
+        private void AddOnSkype(object sender, RoutedEventArgs e)
+        {
+            UIHelpers.MessageOnSkype(Self.SkypeName ?? Self.SkypeName);
+        }
+
+        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
