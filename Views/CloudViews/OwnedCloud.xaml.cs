@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CloudsdaleWin7.Views.Flyouts.Cloud
+namespace CloudsdaleWin7.Views.CloudViews
 {
     /// <summary>
-    /// Interaction logic for QuickView.xaml
+    /// Interaction logic for OwnedCloud.xaml
     /// </summary>
-    public partial class QuickView : Page
+    public partial class OwnedCloud : Page
     {
-        public QuickView()
+        public OwnedCloud()
         {
             InitializeComponent();
         }

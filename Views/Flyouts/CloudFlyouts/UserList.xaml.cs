@@ -9,7 +9,7 @@ using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
 
-namespace CloudsdaleWin7.Views.Flyouts.Cloud
+namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 {
     /// <summary>
     /// Interaction logic for UserList.xaml
@@ -25,7 +25,7 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             InitializeComponent();
             Instance = this;
             Controller = cloud;
-            OwnerList.Items.Add(App.Connection.ModelController.GetUser(cloud.Cloud.OwnerId));
+            OwnerList.Items.Add(cloud.Owner);
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
             SearchResults.ItemsSource = SearchList;
@@ -79,10 +79,6 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
                     }
                 }
             }
-        }
-        private static User GetOwner()
-        {
-            return App.Connection.ModelController.GetUser(Controller.Cloud.OwnerId);
         }
 
         private void FlyoutUser(object sender, SelectionChangedEventArgs e)

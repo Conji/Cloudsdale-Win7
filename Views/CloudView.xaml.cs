@@ -6,8 +6,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CloudsdaleWin7.Controls;
 using CloudsdaleWin7.Views;
-using CloudsdaleWin7.Views.Flyouts.Cloud;
+using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
 using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -63,7 +64,7 @@ namespace CloudsdaleWin7 {
 
             var messageModel = new Message
             {
-                Content = message.EscapeMessage(),
+                Content = message.EscapeLiteral(),
                 Device = "desktop",
                 ClientId = FayeConnector.ClientID
             };
@@ -81,18 +82,19 @@ namespace CloudsdaleWin7 {
                     { "X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken }
                 }
             };
-            var response = await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
-                new StringContent(messageData)
-                {
-                    Headers =
-                    {
-                        ContentType = new MediaTypeHeaderValue("application/json")
-                    }
-                }
-            );
+            
 
             try
             {
+                var response = await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
+                new StringContent(messageData)
+                {
+                    Headers =
+                        {
+                        ContentType = new MediaTypeHeaderValue("application/json")
+                        }
+                    }
+                );
                 var responseText = await response.Content.ReadAsStringAsync();
                 var fullMessage = await JsonConvert.DeserializeObjectAsync<WebResponse<Message>>(responseText);
 

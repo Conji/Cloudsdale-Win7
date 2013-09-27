@@ -15,8 +15,6 @@ namespace CloudsdaleWin7.lib.Controllers
     {
         public Dictionary<string, CloudController> CloudControllers = new Dictionary<string, CloudController>();
         public CloudController CurrentCloud { get; set; }
-        public Array SubscribedUsers { get; set; }
-        public Array SubscribedClouds { get; set; }
 
         /// <summary>
         /// Replace [:type] with USER or CLOUD and [:id] with Id
@@ -87,11 +85,7 @@ namespace CloudsdaleWin7.lib.Controllers
             return App.Connection.ModelController.GetUser(userId);
         }
 
-        public void InitializeSubscriptions()
-        {
-            
-        }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

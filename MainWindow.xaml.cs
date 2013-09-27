@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7
 {
@@ -39,10 +43,10 @@ namespace CloudsdaleWin7
 
         private void SaveSettings(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            App.Settings.Save();
+            App.Close();
         }
 
-        private void Testvoid()
+        private async void Testvoid()
         {
         }
     }

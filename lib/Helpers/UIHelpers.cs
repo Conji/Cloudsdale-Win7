@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 using CloudsdaleWin7.Views;
-using CloudsdaleWin7.Views.Flyouts.Cloud;
+using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
 using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.lib.Helpers

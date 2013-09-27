@@ -1,4 +1,4 @@
-﻿<Page x:Class="CloudsdaleWin7.Views.Flyouts.Cloud.UserFlyout"
+﻿<Page x:Class="CloudsdaleWin7.Views.Flyouts.CloudFlyouts.UserFlyout"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,7 @@
 	Title="UserFlyout" Width="250" FontFamily="Nirmala UI">
 
     <Grid>
-        <CheckBox Content="Subscribed" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="134,79,10,335" Checked="CheckBox_Checked_1"/>
+        <CheckBox x:Name="SubscriptionCheck" Content="Subscribed" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="134,79,10,0" Checked="UpdateSubscription" Height="41" VerticalAlignment="Top" Unchecked="Unsubscribe"/>
         <StackPanel>
             <TextBlock x:Name="Username" TextWrapping="Wrap" Text="Username" FontSize="16" Margin="10,5,45,0">
                 <TextBlock.Foreground>

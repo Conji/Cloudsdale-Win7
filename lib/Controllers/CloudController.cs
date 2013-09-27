@@ -22,11 +22,15 @@ namespace CloudsdaleWin7.lib.Controllers
         private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
         private readonly ObservableCollection<Message> _messages = new ModelCache<Message>(50);
         private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
+        public User Owner { get; private set; }
 
         public CloudController(Cloud cloud)
         {
             Cloud = cloud;
             FixSessionStatus();
+            var client = new HttpClient().AcceptsJson();
+            var response = client.GetStringAsync(Endpoints.User.Replace("[:id]", cloud.OwnerId)).Result;
+            Owner = JsonConvert.DeserializeObject<WebResponse<User>>(response).Result;
         }
 
         public Cloud Cloud { get; private set; }

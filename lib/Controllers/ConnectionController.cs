@@ -14,6 +14,7 @@ namespace CloudsdaleWin7.lib.Controllers
         public readonly ErrorController ErrorController = new ErrorController();
         public readonly MessageController MessageController = new MessageController();
         public readonly ModelController ModelController = new ModelController();
+        public readonly SubscriptionController SubscriptionController = new SubscriptionController();
 
         public ConnectionController()
         {

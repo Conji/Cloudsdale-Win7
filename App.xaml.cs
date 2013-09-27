@@ -14,5 +14,11 @@ namespace CloudsdaleWin7 {
         {
             get { return ((App)Current).ConnectionController; }
         }
+
+        public static void Close()
+        {
+            Settings.Save();
+            Connection.SubscriptionController.SaveSubscriptions();
+        }
     }
 }

@@ -3,11 +3,10 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 
-namespace CloudsdaleWin7.Views.Flyouts.Cloud
+namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 {
     /// <summary>
     /// Interaction logic for UserFlyout.xaml
@@ -16,9 +15,9 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
     {
 
         private static User Self { get; set; }
-        private static lib.Models.Cloud FoundOn { get; set; }
+        private static Cloud FoundOn { get; set; }
 
-        public UserFlyout(User user, lib.Models.Cloud cloud)
+        public UserFlyout(User user, Cloud cloud)
         {
             InitializeComponent();
             Self = user;
@@ -27,7 +26,7 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             Username.Text = "@" + user.Username;
             Name.Text = user.Name;
             AviImage.Source = new BitmapImage(user.Avatar.Normal);
-            
+            CheckIfSubbed();
         }
 
         private void AvatarBounce()
@@ -51,9 +50,26 @@ namespace CloudsdaleWin7.Views.Flyouts.Cloud
             UIHelpers.MessageOnSkype(Self.SkypeName ?? Self.SkypeName);
         }
 
-        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        private void UpdateSubscription(object sender, RoutedEventArgs e)
         {
-            
+            var subModel = new Subscription(SubscriptionType.User, Self.Id);
+            App.Connection.SubscriptionController.AddSubscription(subModel);
+        }
+        private void CheckIfSubbed()
+        {
+            if (App.Connection.SubscriptionController.SubscribedUsers.Contains(new Subscription{SubscriptionType = SubscriptionType.User, ModelId = Self.Id}))
+            {
+                SubscriptionCheck.IsChecked = true;
+            }
+        }
+
+        private void Unsubscribe(object sender, RoutedEventArgs e)
+        {
+            App.Connection.SubscriptionController.RemoveSubscription(new Subscription
+            {
+                ModelId = Self.Id,
+                SubscriptionType = SubscriptionType.User
+            });
         }
     }
 }

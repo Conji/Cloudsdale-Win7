@@ -15,7 +15,7 @@ namespace CloudsdaleWin7.Controls
     /// </summary>
     public sealed partial class MessageTextControl
     {
-        public static readonly Regex GreentextRegex = new Regex(@"^\>");
+        public static readonly Regex GreentextRegex = new Regex(@"^\> ");
         public static readonly Regex OocRegex = new Regex(@"^\//");
         public static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
         public static readonly Regex ItalicsRegex = new Regex(@"\B\/\b([^\/\n]+)\b\/\B");

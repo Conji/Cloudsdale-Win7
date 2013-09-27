@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudsdaleWin7.lib.Models
+﻿namespace CloudsdaleWin7.lib.Models
 {
-    class Subscription
+    public class Subscription
     {
         private static string _modelId { get; set; }
         private static string _subId { get; set; }
+
+        private const string CloudType = "CLOUD";
+        private const string UserType = "USER";
 
         /// <summary>
         /// Gets the subscription type of the model.
@@ -17,18 +14,41 @@ namespace CloudsdaleWin7.lib.Models
         public SubscriptionType SubscriptionType { get; set; }
 
         /// <summary>
+        /// Initializes a new subscription model.
+        /// </summary>
+        public Subscription(){}
+
+        /// <summary>
+        /// Initializes a new subscription model with a subId.
+        /// </summary>
+        /// <param name="subId"></param>
+        public Subscription(string subId)
+        {
+            _subId = subId;
+            SubscriptionType = subId.StartsWith(CloudType) ? SubscriptionType.Cloud : SubscriptionType.User;
+        }
+
+        /// <summary>
+        /// Initializes a new subscription model with a SubscriptionType and modelId.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="modelId"></param>
+        public Subscription(SubscriptionType type, string modelId)
+        {
+            _modelId = modelId;
+            SubscriptionType = type;
+            SubscriptionId = SubscriptionType == SubscriptionType.Cloud
+                             ? "CLOUD:" + modelId
+                             : "USER:" + modelId;
+        }
+
+        /// <summary>
         /// Sets the subscription Id of the model.
         /// </summary>
         public string SubscriptionId
         {
             get { return _subId; }
-            set
-            {
-                if (_subId == value) return;
-                _subId = SubscriptionType == SubscriptionType.Cloud
-                             ? "CLOUD:" + _modelId
-                             : "USER:" + _modelId;
-            }
+            set { _subId = value; }
         }
 
         /// <summary>
@@ -41,9 +61,9 @@ namespace CloudsdaleWin7.lib.Models
         }
         
     }
-    enum SubscriptionType
+    public enum SubscriptionType
     {
-        User = 0, 
-        Cloud = 1
+        User,
+        Cloud
     }
 }

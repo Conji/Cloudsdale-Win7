@@ -74,12 +74,33 @@
         /// Use 
         /// </summary>
         public const string CloudUserBans = Cloud + "/bans?offender_id=[:offender_id]";
+        /// <summary>
+        /// Endpoint for popular clouds.
+        /// </summary>
+        public const string ExplorePopular = Api + "/clouds/popular.json";
+        /// <summary>
+        /// Endpoint for recently made clouds.
+        /// </summary>
+        public const string ExploreRecent = Api + "/clouds/recent.json";
+        /// <summary>
+        /// Endpoint to retrieve avatars.
+        /// </summary>
         public const string Avatar = AssetSource + "/[:type]/[:id].png?s=[:size]";
+        /// <summary>
+        /// Server push address.
+        /// </summary>
         public const string PushAddress = "wss://push.cloudsdale.org/push";
-
+        /// <summary>
+        /// Base endpoint for cloud links.
+        /// </summary>
         public const string BaseCloudAddress = "http://www.cloudsdale.org/clouds/";
-
+        /// <summary>
+        /// Endpoint to retrieve the launcher version.
+        /// </summary>
         public const string VersionAddress = "https://raw.github.com/Conji/AppVersions/master/cloudsdale.txt";
+        /// <summary>
+        /// Endpoint to retrieve the client.
+        /// </summary>
         public const string ClientAddress = "https://dl.dropbox.com/s/a5nm1dgvn6lrmtm/Cloudsdale.exe";
         #endregion
 

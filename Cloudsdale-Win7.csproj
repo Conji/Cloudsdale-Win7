@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -52,7 +52,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Cloudsdale.ico</ApplicationIcon>
+    <ApplicationIcon>icon_black.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BCrypt.Net">
@@ -126,6 +126,7 @@
     <Compile Include="lib\Controllers\MessageController.cs" />
     <Compile Include="lib\Controllers\ModelController.cs" />
     <Compile Include="lib\Controllers\SessionController.cs" />
+    <Compile Include="lib\Controllers\SubscriptionController.cs" />
     <Compile Include="lib\Faye\Connection.cs" />
     <Compile Include="lib\Faye\FayeConnector.cs" />
     <Compile Include="lib\Helpers\CloudsdaleEscaper.cs" />
@@ -147,7 +148,7 @@
     <Compile Include="lib\Models\Message.cs" />
     <Compile Include="MVVM\ActionMessagesConverter.cs" />
     <Compile Include="MVVM\UnreadConverter.cs" />
-    <Compile Include="Views\Cloud\OwnedCloud.xaml.cs">
+    <Compile Include="Views\CloudViews\OwnedCloud.xaml.cs">
       <DependentUpon>OwnedCloud.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExploreViews\ExplorePopular.xaml.cs">
@@ -168,13 +169,13 @@
     <Compile Include="Views\ExploreViews\ItemViews\ItemTop.xaml.cs">
       <DependentUpon>ItemTop.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Flyouts\Cloud\QuickView.xaml.cs">
+    <Compile Include="Views\Flyouts\CloudFlyouts\QuickView.xaml.cs">
       <DependentUpon>QuickView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Flyouts\Cloud\UserFlyout.xaml.cs">
+    <Compile Include="Views\Flyouts\CloudFlyouts\UserFlyout.xaml.cs">
       <DependentUpon>UserFlyout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Flyouts\Cloud\UserList.xaml.cs">
+    <Compile Include="Views\Flyouts\CloudFlyouts\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Flyouts\Settings.xaml.cs">
@@ -237,7 +238,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Cloud\OwnedCloud.xaml">
+    <Page Include="Views\CloudViews\OwnedCloud.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,15 +270,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Flyouts\Cloud\QuickView.xaml">
+    <Page Include="Views\Flyouts\CloudFlyouts\QuickView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Flyouts\Cloud\UserFlyout.xaml">
+    <Page Include="Views\Flyouts\CloudFlyouts\UserFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Flyouts\Cloud\UserList.xaml">
+    <Page Include="Views\Flyouts\CloudFlyouts\UserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -444,6 +445,7 @@
     <Resource Include="Assets\next.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="icon_black.ico" />
     <Resource Include="Assets\cd_icon_animation.gif" />
     <Content Include="Assets\cd_icon_color_for_mlv %281%29.mp4" />
   </ItemGroup>

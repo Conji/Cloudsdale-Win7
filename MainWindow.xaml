@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" x:Class="CloudsdaleWin7.MainWindow"
         xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM"
-        Title="Cloudsdale" Height="600" Width="800" Icon="Assets/cloudsdale.ico" Closing="SaveSettings">
+        Title="Cloudsdale" Height="600" Width="800" Icon="icon_black.ico" Closing="SaveSettings">
     <Window.Resources>
     </Window.Resources>
     <Grid>
