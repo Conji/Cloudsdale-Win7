@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using CloudsdaleWin7.lib.CloudsdaleLib;
@@ -18,7 +14,7 @@ namespace CloudsdaleWin7.Controls
         {
             Click += DoOnClick;
         }
-        private void DoOnClick(object sender, EventArgs e)
+        private void DoOnClick(object sender, RoutedEventArgs e)
         {
             BrowserHelper.FollowLink(NavigateOnClick.AssuredLink());
         }

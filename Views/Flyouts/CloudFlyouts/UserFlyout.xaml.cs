@@ -40,11 +40,6 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             Avi.BeginAnimation(MarginProperty, a);
         }
 
-        private void GoBack(object sender, MouseButtonEventArgs e)
-        {
-            Main.Instance.ShowFlyoutMenu(this);
-        }
-
         private void AddOnSkype(object sender, RoutedEventArgs e)
         {
             UIHelpers.MessageOnSkype(Self.SkypeName ?? Self.SkypeName);
@@ -70,6 +65,11 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 ModelId = Self.Id,
                 SubscriptionType = SubscriptionType.User
             });
+        }
+
+        private void GoBack(object sender, RoutedEventArgs e)
+        {
+            Main.Instance.ShowFlyoutMenu(this);
         }
     }
 }

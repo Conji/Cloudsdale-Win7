@@ -73,7 +73,7 @@
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                         <!-- Unread Count-->
-                        <TextBlock Margin="5" Text="{Binding RawCloud, Converter={StaticResource Unread}}">
+                        <TextBlock Margin="5" Text="{Binding RawController.UnreadMessages, Converter={StaticResource Unread}}" FontSize="16" FontFamily="Calibri">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                             </TextBlock.Foreground>

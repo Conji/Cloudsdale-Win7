@@ -11,7 +11,7 @@
     </Page.Resources>
 
     <Grid>
-        <DockPanel Height="71" LastChildFill="False" VerticalAlignment="Top">
+        <DockPanel Height="65" LastChildFill="False" VerticalAlignment="Top">
             <DockPanel.Background>
                 <SolidColorBrush Color="#FF63A0D0"/>
             </DockPanel.Background>

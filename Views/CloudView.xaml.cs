@@ -86,6 +86,7 @@ namespace CloudsdaleWin7 {
 
             try
             {
+                
                 var response = await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
                 new StringContent(messageData)
                 {
@@ -109,7 +110,7 @@ namespace CloudsdaleWin7 {
                 fullMessage.Result.CopyTo(messageModel);
                 App.Connection.MessageController[Cloud].AddMessageToSource(messageModel);
             }
-            catch (JsonException e) { Console.WriteLine(e.Message);}
+            catch (Exception e) { Console.WriteLine(e.Message);}
 
             InputBox.Text = "";
             InputBox.IsEnabled = true;

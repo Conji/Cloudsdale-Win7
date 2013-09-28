@@ -57,18 +57,22 @@ namespace CloudsdaleWin7
                 case "CmdPopular":
                     App.Settings.ChangeSetting("selected_source", "popular");
                     CmdPopular.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
+                    ExploreFrame.Navigate(new ExplorePopular());
                     break;
                 case "CmdRecent":
                     App.Settings.ChangeSetting("selected_source", "recent");
                     CmdRecent.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
+                    ExploreFrame.Navigate(new ExploreRecent());
                     break;
                 case "CmdTop":
                     App.Settings.ChangeSetting("selected_source", "top");
                     CmdTop.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
+                    ExploreFrame.Navigate(new ExploreTop());
                     break;
                 case "CmdRoulette":
                     App.Settings.ChangeSetting("selected_source", "roulette");
                     CmdRoulette.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
+                    ExploreFrame.Navigate(new ExploreRoulette());
                     break;
 
             }

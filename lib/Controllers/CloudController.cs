@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CloudsdaleWin7.Views;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -194,6 +195,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public void AddMessageToSource(Message message)
         {
+            message.Content = message.Content.UnescapeLiteral();
             if (_messages.Count > 0)
             {
                 if (_messages.Last().Content == message.Content) return;
@@ -250,7 +252,14 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 SetStatus(user.Id, (Status)user.Status);
             }
-            await App.Connection.ModelController.UpdateDataAsync(user);
+            try
+            {
+                await App.Connection.ModelController.UpdateDataAsync(user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void OnCloudData(JToken cloudData)

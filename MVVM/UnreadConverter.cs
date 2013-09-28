@@ -13,9 +13,9 @@ namespace CloudsdaleWin7.MVVM
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var cloud = (Cloud) value;
-            if (App.Connection.MessageController[cloud].UnreadMessages == 0) return "";
-            return App.Connection.MessageController[cloud].UnreadMessages;
+            return (int) value > 0
+                       ? value.ToString()
+                       : "";
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -9,7 +9,7 @@ namespace CloudsdaleWin7.lib.Models
 {
     class ClientVersion
     {
-        private const string VERSION= "2.0.1 BETA";
+        private const string VERSION= "2.0.2 BETA";
 
         public static string UpdatedVersion()
         {

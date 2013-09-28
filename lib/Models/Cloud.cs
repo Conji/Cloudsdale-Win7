@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
 
@@ -23,6 +25,7 @@ namespace CloudsdaleWin7.lib.Models
         private string _rules;
         private DateTime? _created;
         private string _description;
+        private string _unreadMessages;
 
         /// <summary>
         /// Creates a cloud object based on the given ID
@@ -34,6 +37,11 @@ namespace CloudsdaleWin7.lib.Models
         public Cloud RawCloud
         {
             get { return this; }
+        }
+
+        public CloudController RawController
+        {
+            get { return App.Connection.MessageController[this]; }
         }
 
         /// <summary>

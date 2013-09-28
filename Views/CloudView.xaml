@@ -39,8 +39,7 @@
             <StackPanel.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </StackPanel.Background>
-            <StackPanel Width="434">
-            </StackPanel>
+            <StackPanel Width="434"/>
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>
         <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Grid.Row="1">
@@ -51,16 +50,14 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <controls:StandardMessageView Visibility="{Binding Path=Content, Converter={StaticResource IsSlashMe}, ConverterParameter=Inverse}"/>
-                            <controls:ActionMessageView Visibility="{Binding Path=Content, Converter={StaticResource IsSlashMe}}"/>
+                            <controls:StandardMessageView Visibility="{Binding Content, ConverterParameter=Inverse, Converter={StaticResource IsSlashMe}}"/>
+                            <controls:ActionMessageView Visibility="{Binding Content, Converter={StaticResource IsSlashMe}}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" Padding="27,0,0,0" >
-            
-        </TextBox>
+        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="18" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" Padding="27,0,0,0" />
         <TextBlock x:Name="Name" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0" Height="27" FontFamily="Segoe UI Semibold" Grid.ColumnSpan="2" Cursor="Hand" HorizontalAlignment="Left" MouseDown="ShowUserList"/>
         <Button Content="&#xE15F;" HorizontalAlignment="Left" Grid.Row="2" Width="25" BorderBrush="{x:Null}" Background="{x:Null}" FontFamily="Segoe UI Symbol" Click="ButtonClick1"/>
         <Border x:Name="SymbolBox" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1" Width="120" Height="131" VerticalAlignment="Bottom" Visibility="Hidden">
@@ -71,7 +68,7 @@
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="™" MouseDown="AddEmoji"/>
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😄" ToolTip=":)" MouseDown="AddEmoji"/>
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😃" ToolTip=":D" MouseDown="AddEmoji"/>
-                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😠" ToolTip=">:(" MouseDown="AddEmoji"/>
+                <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😠" ToolTip="&gt;:(" MouseDown="AddEmoji"/>
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😋" ToolTip=":P" MouseDown="AddEmoji"/>
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😉" ToolTip=";)" MouseDown="AddEmoji"/>
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text="😒" ToolTip="-.-" MouseDown="AddEmoji"/>
@@ -87,5 +84,29 @@
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
             </WrapPanel>
         </Border>
+        <Separator Margin="0,0,30,0" Grid.Column="1" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="26">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+            <Separator.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Separator.Foreground>
+            <Separator.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Separator.BorderBrush>
+            <Separator.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Separator.Background>
+        </Separator>
+        <Button Content="Ξ" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" Width="40">
+            <Button.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Button.Foreground>
+        </Button>
     </Grid>
 </Page>

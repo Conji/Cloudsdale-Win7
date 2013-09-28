@@ -60,25 +60,30 @@ namespace CloudsdaleWin7.Controls
             typeof(string[]), typeof(MessageTextControl),
             new PropertyMetadata(default(string[]), MessagesChanged));
 
+
         private static void MessagesChanged(DependencyObject dependencyObject,
             DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
             var control = (MessageTextControl)dependencyObject;
 
+
             control.UpdateContents();
         }
 
-        public IList<string> Messages
+
+        public string[] Messages
         {
             get { return (string[])GetValue(MessagesProperty); }
             set { SetValue(MessagesProperty, value); }
         }
         #endregion
 
+
         #region Prefix Inline Property
         public static readonly DependencyProperty PrefixInlineProperty =
             DependencyProperty.Register("PrefixInline", typeof(Inline),
             typeof(MessageTextControl), new PropertyMetadata(default(Inline)));
+
 
         public Inline PrefixInline
         {
@@ -87,10 +92,13 @@ namespace CloudsdaleWin7.Controls
         }
         #endregion
 
+
         #region Linebreak Handling Property
+
 
         public static readonly DependencyProperty LinebreakHandlingProperty =
             DependencyProperty.Register("LinebreakHandling", typeof(LinebreakHandling), typeof(MessageTextControl), new PropertyMetadata(LinebreakHandling.Mimic));
+
 
         public LinebreakHandling LinebreakHandling
         {
@@ -99,11 +107,14 @@ namespace CloudsdaleWin7.Controls
         }
         #endregion
 
+
         #region Text Alignment
+
 
         public static readonly DependencyProperty TextAlignmentProperty =
             DependencyProperty.Register("TextAlignment", typeof(TextAlignment), typeof(MessageTextControl),
             new PropertyMetadata(TextAlignment.Left, AlignmentChanged));
+
 
         private static void AlignmentChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
@@ -111,13 +122,16 @@ namespace CloudsdaleWin7.Controls
             control.RichText.Document.TextAlignment = (TextAlignment)args.NewValue;
         }
 
+
         public TextAlignment TextAlignment
         {
             get { return (TextAlignment)GetValue(TextAlignmentProperty); }
             set { SetValue(TextAlignmentProperty, value); }
         }
 
+
         #endregion
+
 
         #region Update
         private void UpdateContents()
@@ -138,11 +152,15 @@ namespace CloudsdaleWin7.Controls
         }
         #endregion
 
+
         #region Message Parsing
+
 
         public readonly List<Func<string, IEnumerable<TextGroup>>> Parsers;
 
+
         private static readonly Regex ExtraSpacesRegex = new Regex("[ ]+");
+
 
         private IEnumerable<Inline> ParseMessage(string message)
         {
@@ -171,12 +189,10 @@ namespace CloudsdaleWin7.Controls
                 {
                     lineColor = Colors.Black;
                 }
-                
 
                 var span = new Span
                 {
                     Foreground = new SolidColorBrush(lineColor)
-                            
                 };
                 foreach (var inline in BuildLine(line))
                 {
@@ -184,13 +200,16 @@ namespace CloudsdaleWin7.Controls
                 }
                 yield return span;
 
+
                 first = false;
             }
         }
 
+
         private IEnumerable<Inline> BuildLine(string line)
         {
             var groups = new List<TextGroup> { new TextGroup { Text = line } };
+
 
             foreach (var processor in Parsers)
             {
@@ -209,18 +228,22 @@ namespace CloudsdaleWin7.Controls
                 groups = nextList;
             }
 
+
             return groups.Select(item => item.Inline ?? new Run { Text = item.Text });
         }
+
 
         public Func<string, IEnumerable<TextGroup>> Processor(Regex matcher, Func<string, Inline> processor)
         {
             return input => InternalProcessor(matcher, processor, input);
         }
 
+
         private IEnumerable<TextGroup> InternalProcessor(Regex matcher, Func<string, Inline> processor, string input)
         {
             var matches = matcher.Matches(input);
             var lastIndex = 0;
+
 
             foreach (Match match in matches)
             {
@@ -229,10 +252,12 @@ namespace CloudsdaleWin7.Controls
                 lastIndex = match.Index + match.Length;
             }
 
+
             yield return new TextGroup { Text = input.Substring(lastIndex) };
         }
         #endregion
     }
+
 
     public class TextGroup
     {
@@ -240,8 +265,10 @@ namespace CloudsdaleWin7.Controls
         public Inline Inline;
     }
 
+
     public enum LinebreakHandling
     {
         Mimic, Ignore
     }
+
 }
