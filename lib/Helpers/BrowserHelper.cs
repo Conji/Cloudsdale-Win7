@@ -40,40 +40,17 @@ namespace CloudsdaleWin7.lib.Helpers
             JoinCloud(cloudObject);
         }
 
-        private static void JoinCloud(Cloud cloud)
+        private async static void JoinCloud(Cloud cloud)
         {
-            var jObj = new JObject();
-            var dataString = jObj.ToString();
-            var data = Encoding.UTF8.GetBytes(dataString);
-            var request = WebRequest.CreateHttp(Endpoints.CloudUserRestate.
-                Replace("[:id]", cloud.Id).
-                ReplaceUserId(App.Connection.SessionController.CurrentSession.Id));
-            request.Accept = "application/json";
-            request.Method = "PUT";
-            request.ContentType = "application/json";
-            request.Headers["X-Auth-Token"] = App.Connection.SessionController.CurrentSession.AuthToken;
-            request.BeginGetRequestStream(ar =>
-            {
-                var requestStream = request.EndGetRequestStream(ar);
-                requestStream.Write(data, 0, data.Length);
-                requestStream.Close();
-                request.BeginGetResponse(a =>
-                {
-                    try
-                    {
-                        var response = request.EndGetResponse(a);
-                        string message;
-                        using (var responseStream = response.GetResponseStream())
-                        using (var streamReader = new StreamReader(responseStream))
-                        {
-                            message = streamReader.ReadToEnd();
-                        }
-                        var user = JsonConvert.DeserializeObject<WebResponse<Session>>(message).Result;
-                        user.CopyTo(App.Connection.SessionController.CurrentSession);
-                    }
-                    catch (WebException ex){ }
-                }, null);
-            }, null);
+            var client = new HttpClient
+                             {
+                                 DefaultRequestHeaders =
+                                     {
+                                         {"Accept", "application/json"},
+                                         {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
+                                     }
+                             };
+             
 
         }
     

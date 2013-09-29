@@ -61,7 +61,6 @@ namespace CloudsdaleWin7 {
             InputBox.IsEnabled = false;
             message = message.TrimEnd();
 
-
             var messageModel = new Message
             {
                 Content = message.EscapeLiteral(),
@@ -74,7 +73,6 @@ namespace CloudsdaleWin7 {
             messageModel.Id = Guid.NewGuid().ToString();
             messageModel.Author = App.Connection.SessionController.CurrentSession;
 
-
             var client = new HttpClient
             {
                 DefaultRequestHeaders = {
@@ -83,10 +81,8 @@ namespace CloudsdaleWin7 {
                 }
             };
             
-
             try
             {
-                
                 var response = await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
                 new StringContent(messageData)
                 {
@@ -97,12 +93,12 @@ namespace CloudsdaleWin7 {
                     }
                 );
                 var responseText = await response.Content.ReadAsStringAsync();
-                var fullMessage = await JsonConvert.DeserializeObjectAsync<WebResponse<Message>>(responseText);
+                var fullMessage = JsonConvert.DeserializeObject<WebResponse<Message>>(responseText);
 
                 if (fullMessage == null) return;
                 if (fullMessage.Flash != null)
                 {
-                    await App.Connection.ErrorController.OnError(fullMessage);
+                    App.Connection.ErrorController.OnError(fullMessage);
                     return;
                 }
 
