@@ -17,6 +17,7 @@ namespace CloudsdaleWin7.lib.Models
     public sealed class Cloud : CloudsdaleResource, IAvatarUploadTarget
     {
         private string _name;
+        private string _shortName;
         private string[] _userIds;
         private string[] _moderatorIds;
         private string _ownerId;
@@ -55,6 +56,21 @@ namespace CloudsdaleWin7.lib.Models
             {
                 if (value == _name) return;
                 _name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// The shortname of the cloud
+        /// </summary>
+        [JsonProperty("short_name")]
+        public string ShortName
+        {
+            get { return _shortName; }
+            set
+            {
+                if (value == _shortName) return;
+                _shortName = value;
                 OnPropertyChanged();
             }
         }

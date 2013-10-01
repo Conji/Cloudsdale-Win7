@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
+﻿using System.Diagnostics;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using CloudsdaleWin7.Properties;
-using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.Helpers
 {
-    public class BrowserHelper
+    public static class BrowserHelper
     {
         private static bool IsCloudLink(string link)
         {
@@ -37,22 +26,47 @@ namespace CloudsdaleWin7.lib.Helpers
             var response = client.GetStringAsync(Endpoints.Cloud.Replace("[:id]", cloudId));
             var cloudObject = (JsonConvert.DeserializeObject<WebResponse<Cloud>>(response.Result)).Result;
 
-            JoinCloud(cloudObject);
+            JoinCloud(cloudObject.Id);
         }
 
-        private async static void JoinCloud(Cloud cloud)
+        private async static void JoinCloud(string id)
         {
             var client = new HttpClient
-                             {
-                                 DefaultRequestHeaders =
-                                     {
-                                         {"Accept", "application/json"},
-                                         {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
-                                     }
-                             };
-             
-
+            {
+                DefaultRequestHeaders =
+                {
+                    {"Accept", "application/json"},
+                    {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
+                }
+            };
+            var response =  await client.PutAsync(Endpoints.CloudUserRestate.Replace("[:id]", id).ReplaceUserId(
+                        App.Connection.SessionController.CurrentSession.Id), new StringContent(""));
+            var responseText = await response.Content.ReadAsStringAsync();
+            var fullMessage = await JsonConvert.DeserializeObjectAsync<WebResponse<Session>>(responseText);
+            fullMessage.Result.CopyTo(App.Connection.SessionController.CurrentSession);
         }
-    
+        
+        public async static void LeaveCloud(string id)
+        {
+            FayeConnector.Unsubscribe("/clouds/" + id + "/chat/messages");
+            FayeConnector.Unsubscribe("clouds/" + id + "users/**");
+
+            var client = new HttpClient
+            {
+                DefaultRequestHeaders =
+                {
+                    {"Accept", "application/json"},
+                    {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
+                }
+            };
+            var response =
+                await
+                client.DeleteAsync(
+                    Endpoints.CloudUserRestate.Replace("[:id]", id).ReplaceUserId(
+                        App.Connection.SessionController.CurrentSession.AuthToken));
+            var responseText = await response.Content.ReadAsStringAsync();
+            var fullMessage = await JsonConvert.DeserializeObjectAsync<WebResponse<Session>>(responseText);
+            fullMessage.Result.CopyTo(App.Connection.SessionController.CurrentSession);
+        }
     }
 }

@@ -32,7 +32,11 @@
         </Grid.Background>
         <StackPanel x:Name="LoggingInUi" Grid.Column="1" Margin="0,0,0,0" Visibility="Hidden">
             <Image gif:ImageBehavior.AnimatedSource="/Cloudsdale;component/Assets/cd_icon_animation.gif" gif:ImageBehavior.AutoStart="True" Grid.Column="1" Margin="57,192,57,0" Width="150" Height="150" VerticalAlignment="Top"/>
-            <TextBlock Text="Logging in..." HorizontalAlignment="Center" FontWeight="SemiBold"/>
+            <TextBlock Text="Logging in..." HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16" FontFamily="Nirmala UI">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                </TextBlock.Foreground>
+            </TextBlock>
         </StackPanel>
         <TextBlock x:Name="ErrorMessage" Margin="176,295,175,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="72" Opacity="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontFamily="Nirmala UI" MouseDown="BeginRegister">
             <TextBlock.Foreground>
@@ -48,7 +52,7 @@
                     <TransformGroup>
                         <ScaleTransform/>
                         <SkewTransform/>
-                        <RotateTransform Angle="-0.227"/>
+                        <RotateTransform Angle="0"/>
                         <TranslateTransform/>
                     </TransformGroup>
                 </RichTextBox.RenderTransform>

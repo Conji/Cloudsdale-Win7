@@ -64,6 +64,13 @@ namespace CloudsdaleWin7.Views
             board.Begin(this);
         }
 
+        public void HideFlyoutMenu()
+        {
+            var a = new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)));
+            a.EasingFunction = new ExponentialEase();
+            FlyoutFrame.BeginAnimation(WidthProperty, a);
+        }
+
         private void CloudsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Clouds.SelectedIndex == -1) return;

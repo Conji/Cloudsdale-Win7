@@ -98,7 +98,7 @@
         /// <summary>
         /// Base endpoint for cloud links.
         /// </summary>
-        public const string BaseCloudAddress = "http://www.cloudsdale.org/clouds/";
+        public const string BaseCloudAddress = "http://www.cloudsdale.org/clouds/[:cloud_id]";
         /// <summary>
         /// Endpoint to retrieve the launcher version.
         /// </summary>

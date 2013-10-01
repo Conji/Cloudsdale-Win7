@@ -119,10 +119,10 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Controls:MessageTextControl Messages="{Binding Path=Messages}" FontSize="16">
+                    <Controls:MessageTextControl x:Name="Contents" Messages="{Binding Path=Messages}" FontSize="16">
                         <Controls:MessageTextControl.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Command=""/>
+                                <MenuItem Header="Quote..." Click="Quote" DataContext="{Binding Path=Content}"/>
                             </ContextMenu>
                         </Controls:MessageTextControl.ContextMenu>
                     </Controls:MessageTextControl>

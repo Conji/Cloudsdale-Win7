@@ -49,6 +49,11 @@ namespace CloudsdaleWin7.Controls
                 Main.Instance.ShowFlyoutMenu(new UserFlyout(user, App.Connection.MessageController.CurrentCloud.Cloud));
             }
         }
+
+        private void Quote(object sender, RoutedEventArgs e)
+        {
+            CloudView.Instance.InputBox.Text = "> " + ((MenuItem) sender).DataContext;
+        }
         
     }
 }

@@ -103,7 +103,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Separator.Background>
         </Separator>
-        <Button Content="Ξ" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" Width="40">
+        <Button Content="Ξ" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" Width="40" Click="ExpandCloud">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>

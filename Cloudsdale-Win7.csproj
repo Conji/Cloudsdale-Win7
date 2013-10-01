@@ -125,6 +125,7 @@
     <Compile Include="lib\Controllers\ErrorController.cs" />
     <Compile Include="lib\Controllers\MessageController.cs" />
     <Compile Include="lib\Controllers\ModelController.cs" />
+    <Compile Include="lib\Controllers\NotificationController.cs" />
     <Compile Include="lib\Controllers\SessionController.cs" />
     <Compile Include="lib\Controllers\SubscriptionController.cs" />
     <Compile Include="lib\Faye\Connection.cs" />
@@ -150,6 +151,9 @@
     <Compile Include="MVVM\UnreadConverter.cs" />
     <Compile Include="Views\CloudViews\OwnedCloud.xaml.cs">
       <DependentUpon>OwnedCloud.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CloudViews\StandardCloud.xaml.cs">
+      <DependentUpon>StandardCloud.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExploreViews\ExplorePopular.xaml.cs">
       <DependentUpon>ExplorePopular.xaml</DependentUpon>
@@ -239,6 +243,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CloudViews\OwnedCloud.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CloudViews\StandardCloud.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

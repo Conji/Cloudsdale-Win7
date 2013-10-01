@@ -236,6 +236,7 @@ namespace CloudsdaleWin7.lib.Controllers
             if (message.ClientId == FayeConnector.ClientID) return;
 
             message.Author.CopyTo(message.User);
+            App.Connection.NotificationController.Notify("[" + Cloud.Name + "]", message.Author.Name + ": " + message.Content);
             AddMessageToSource(message);
             if (App.Connection.MessageController.CurrentCloud == this && Main.CurrentView != null)
             {

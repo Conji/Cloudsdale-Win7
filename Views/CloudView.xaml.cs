@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CloudsdaleWin7.Controls;
 using CloudsdaleWin7.Views;
+using CloudsdaleWin7.Views.CloudViews;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.CloudsdaleLib;
@@ -49,8 +50,18 @@ namespace CloudsdaleWin7 {
         private void SendBoxEnter(object sender, KeyEventArgs e)
         {
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
-
             if (e.Key != Key.Enter) return;
+            if (e.Key == Key.Enter && e.Key.Equals(ModifierKeys.Shift))
+            {
+                var index = InputBox.SelectionStart;
+                var length = InputBox.SelectionLength;
+
+                InputBox.Text = InputBox.Text.Substring(0, index) + "\r\n" + InputBox.Text.Substring(index + length);
+                InputBox.SelectionLength = 0;
+                InputBox.SelectionStart = index + 1;
+
+                return;
+            }
             if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
             Send(InputBox.Text);
         }
@@ -123,6 +134,19 @@ namespace CloudsdaleWin7 {
         {
             var block = (TextBlock) sender;
             InputBox.Text += block.Text;
+        }
+
+        private void ExpandCloud(object sender, RoutedEventArgs e)
+        {
+            Page prefFlyout;
+            if (Cloud.OwnerId == App.Connection.SessionController.CurrentSession.Id)
+            {
+                prefFlyout = new OwnedCloud(Cloud);
+            }else
+            {
+                prefFlyout = new StandardCloud(Cloud);
+            }
+            Main.Instance.ShowFlyoutMenu(prefFlyout);
         }
     }
     public class MessageTemplateSelector : DataTemplateSelector

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
@@ -14,7 +14,8 @@ namespace CloudsdaleWin7.Views.ExploreViews
     public partial class ExplorePopular
     {
 
-        private readonly Dictionary<string, Cloud> _popularList = new Dictionary<string, Cloud>(); 
+        private readonly ObservableCollection<Cloud> _popularList = new ObservableCollection<Cloud>();
+        public ObservableCollection<Cloud> PopularList { get { return _popularList; } }
 
         public ExplorePopular()
         {
@@ -29,7 +30,8 @@ namespace CloudsdaleWin7.Views.ExploreViews
             foreach (JObject o in jsonObject)
             {
                 var cloud = o.ToObject<Cloud>();
-                _popularList.Add(cloud.Id, cloud);
+                _popularList.Add(cloud);
+                Console.WriteLine(cloud.Name);
             }
         }
     }
