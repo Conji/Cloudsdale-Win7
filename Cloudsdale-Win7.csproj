@@ -222,6 +222,18 @@
     <Compile Include="lib\Providers\ISessionProvider.cs" />
     <Compile Include="lib\Providers\IStatusProvider.cs" />
     <Compile Include="lib\Providers\IUserProvider.cs" />
+    <Compile Include="Views\Misc\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Misc\Donate.xaml.cs">
+      <DependentUpon>Donate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Misc\Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Misc\MeetTheCrew.xaml.cs">
+      <DependentUpon>MeetTheCrew.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\ActionMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -354,6 +366,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Misc\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Misc\Donate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Misc\Help.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Misc\MeetTheCrew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\Models\Updaters\UDUModel.cs" />
@@ -453,6 +481,7 @@
     <Resource Include="Assets\next.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Misc\SimGretina - Twilightlicious SimGret.mp3" />
     <Resource Include="icon_black.ico" />
     <Resource Include="Assets\cd_icon_animation.gif" />
     <Content Include="Assets\cd_icon_color_for_mlv %281%29.mp4" />

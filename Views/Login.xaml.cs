@@ -36,9 +36,10 @@ namespace CloudsdaleWin7 {
            try
            {
                App.Settings.ChangeSetting("email", EmailBox.Text);
-               await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
-               
-               
+               await App.Connection.MainFrame.Dispatcher.InvokeAsync(
+                   () => App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password));
+
+
            }catch (Exception ex)
            {
                ShowMessage(ex.Message);

@@ -5,8 +5,10 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Controllers;
+using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
 
@@ -250,6 +252,36 @@ namespace CloudsdaleWin7.lib.Models
             {
                 result.Result.CopyTo(this);
             }
+        }
+        public async void Leave()
+        {
+            FayeConnector.Unsubscribe("/clouds/" + Id + "/chat/messages");
+            FayeConnector.Unsubscribe("clouds/" + Id + "users/**");
+
+            var client = new HttpClient
+            {
+                DefaultRequestHeaders =
+                {
+                    {"Accept", "application/json"},
+                    {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
+                }
+            };
+            var response =
+                await
+                client.DeleteAsync(
+                    Endpoints.CloudUserRestate.Replace("[:id]", Id).ReplaceUserId(
+                        App.Connection.SessionController.CurrentSession.Id));
+            var responseText = await response.Content.ReadAsStringAsync();
+
+            var fullMessage = await JsonConvert.DeserializeObjectAsync<WebResponse<Session>>(responseText);
+            fullMessage.Result.CopyTo(App.Connection.SessionController.CurrentSession);
+            App.Connection.SessionController.CurrentSession.Clouds.Remove(this);
+            App.Connection.SessionController.RefreshClouds();
+            Main.Instance.Clouds.SelectedIndex = -1;
+        }
+        public override string ToString()
+        {
+            return Name + "[" + Id + "]";
         }
     }
 }

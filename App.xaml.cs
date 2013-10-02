@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using CloudsdaleWin7.lib.CloudsdaleLib;
+﻿using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Controllers;
 
 namespace CloudsdaleWin7 {

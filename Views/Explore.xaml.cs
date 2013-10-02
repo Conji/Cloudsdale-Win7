@@ -77,5 +77,10 @@ namespace CloudsdaleWin7
 
             }
         }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            ((TextBox) sender).Text = "";
+        }
     }
 }

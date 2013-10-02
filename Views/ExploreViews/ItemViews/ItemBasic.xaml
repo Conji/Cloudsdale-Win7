@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Height="139" Width="100">
-    <Grid>
+             mc:Ignorable="d" Height="160" Width="130" MouseEnter="ShowHiddenUi" MouseLeave="HideHiddenUi">
+    <Grid Margin="0,0,0,21">
 
-        <Grid x:Name="BackUI" HorizontalAlignment="Left" Width="100" Margin="0,-38,0,39" MouseEnter="ShowHiddenUI" MouseLeave="HideHiddenUI">
-            <Ellipse HorizontalAlignment="Left" Height="100" Margin="0,38,0,-38" VerticalAlignment="Top" Width="100">
+        <Grid x:Name="BackUI" HorizontalAlignment="Center" Width="100" Margin="0,-38,0,39">
+            <Ellipse HorizontalAlignment="Center" Height="100" Margin="0,38,0,-38" VerticalAlignment="Top" Width="100">
                 <Ellipse.Fill>
                     <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                 </Ellipse.Fill>
@@ -15,10 +15,10 @@
                     <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                 </Ellipse.Stroke>
             </Ellipse>
-            <Button Content="Join!" HorizontalAlignment="Left" Margin="26,100,0,-26" VerticalAlignment="Top" Width="50" Height="26" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" FontWeight="SemiBold" FontFamily="Nirmala UI"/>
+            <Button Content="Join!" HorizontalAlignment="Left" Margin="26,100,0,-26" VerticalAlignment="Top" Width="50" Height="26" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" FontWeight="SemiBold" FontFamily="Nirmala UI" Click="Join"/>
         </Grid>
 
-        <Border BorderThickness="2" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" CornerRadius="50">
+        <Border BorderThickness="2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="100" CornerRadius="50">
             <Border.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </Border.BorderBrush>
@@ -28,6 +28,7 @@
                 </Image.Clip>
             </Image>
         </Border>
+        <TextBlock x:Name="BasicName" Margin="0,118,0,-21" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="42" FontWeight="SemiBold" FontSize="14"/>
 
     </Grid>
 </UserControl>

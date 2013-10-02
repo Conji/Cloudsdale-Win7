@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CloudsdaleWin7.Controls;
-using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.CloudViews;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
 using CloudsdaleWin7.lib;
@@ -15,7 +14,7 @@ using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
 
-namespace CloudsdaleWin7 {
+namespace CloudsdaleWin7.Views {
     /// <summary>
     /// Interaction logic for CloudView.xaml
     /// </summary>
@@ -36,33 +35,23 @@ namespace CloudsdaleWin7 {
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             CloudMessages.ItemsSource = App.Connection.MessageController[cloud].Messages;
             Main.Instance.FlyoutFrame.Navigate(new UserList(App.Connection.MessageController[cloud]));
+            InputBox.Focus();
         }
 
         private void ButtonClick1(object sender, RoutedEventArgs e)
         {
-            if (SymbolBox.Visibility == Visibility.Visible)
-            {
-                SymbolBox.Visibility = Visibility.Hidden;
-                return;
-            } SymbolBox.Visibility = Visibility.Visible;
+            SymbolBox.Visibility = SymbolBox.Visibility 
+                == Visibility.Visible 
+                ? Visibility.Hidden 
+                : Visibility.Visible;
         }
 
         private void SendBoxEnter(object sender, KeyEventArgs e)
         {
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             if (e.Key != Key.Enter) return;
-            if (e.Key == Key.Enter && e.Key.Equals(ModifierKeys.Shift))
-            {
-                var index = InputBox.SelectionStart;
-                var length = InputBox.SelectionLength;
-
-                InputBox.Text = InputBox.Text.Substring(0, index) + "\r\n" + InputBox.Text.Substring(index + length);
-                InputBox.SelectionLength = 0;
-                InputBox.SelectionStart = index + 1;
-
-                return;
-            }
             if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
+            PlaySong(InputBox.Text.Trim());
             Send(InputBox.Text);
         }
         internal async void Send(string message)
@@ -122,6 +111,18 @@ namespace CloudsdaleWin7 {
             InputBox.Text = "";
             InputBox.IsEnabled = true;
             InputBox.Focus();
+        }
+
+        private void PlaySong(string text)
+        {
+            switch (text)
+            {
+                case "#twilight":
+                    InputBox.Text = "";
+                    Player.Visibility = Visibility.Visible;
+                    Player.Play();
+                    break;
+            }
         }
 
         private async void ShowUserList(object sender, MouseButtonEventArgs e)

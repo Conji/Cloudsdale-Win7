@@ -8,12 +8,9 @@
 	Title="ExplorePopular">
 
     <Grid>
-        <WrapPanel DataContext="{Binding Path=PopularList}">
-            <ItemsControl>
-                <ItemsPanelTemplate>
-                    <ItemViews:ItemBasic/>
-                </ItemsPanelTemplate>
-            </ItemsControl>
-        </WrapPanel>
+        <ScrollViewer Margin="0,0,0,27">
+            <WrapPanel x:Name="View" Margin="0,0,0,27"/>
+        </ScrollViewer>
+        <Button Content="Load Next Page" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="133" Height="27" FontSize="14" FontWeight="SemiBold" Click="LoadNext"/>
     </Grid>
 </Page>

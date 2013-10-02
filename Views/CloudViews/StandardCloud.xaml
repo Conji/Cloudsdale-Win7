@@ -19,7 +19,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>
         </TextBlock>
-        <Button Content="Leave this cloud..." Margin="34,264,33,0" VerticalAlignment="Top" Height="28" FontSize="14" FontFamily="Nirmala UI"/>
+        <Button Content="Leave this cloud..." Margin="34,264,33,0" VerticalAlignment="Top" Height="28" FontSize="14" FontFamily="Nirmala UI" Click="Leave"/>
         <Separator HorizontalAlignment="Left" Height="52" Margin="10,212,0,0" VerticalAlignment="Top" Width="230">
             <Separator.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>

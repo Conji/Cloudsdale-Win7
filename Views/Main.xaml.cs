@@ -73,7 +73,11 @@ namespace CloudsdaleWin7.Views
 
         private void CloudsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Clouds.SelectedIndex == -1) return;
+            if (Clouds.SelectedIndex == -1)
+            {
+                Frame.Navigate(new Home());
+                return;
+            }
             var cloud = (ListView)sender;
             var item = (lib.Models.Cloud)cloud.SelectedItem;
             App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
@@ -95,8 +99,14 @@ namespace CloudsdaleWin7.Views
 
         private void LaunchExplore(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(new Explore());
             Clouds.SelectedIndex = -1;
+            Frame.Navigate(new Explore());
         }
+
+        #region Cloud Reorder Mapping
+
+
+
+        #endregion
     }
 }

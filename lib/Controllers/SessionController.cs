@@ -48,6 +48,12 @@ namespace CloudsdaleWin7.lib.Controllers
             CurrentSession = null;
         }
 
+        public void RefreshClouds()
+        {
+            Main.Instance.Clouds.ItemsSource = null;
+            Main.Instance.Clouds.ItemsSource = CurrentSession.Clouds;
+        }
+
         public class SessionWrapper
         {
             public string ClientId { get; set; }
