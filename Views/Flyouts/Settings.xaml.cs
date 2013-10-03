@@ -22,30 +22,35 @@ namespace CloudsdaleWin7.Views.Flyouts
     /// </summary>
     public partial class Settings : Page
     {
-        private readonly Session Current = App.Connection.SessionController.CurrentSession;
-        private readonly Regex UsernameRegex = new Regex(@"\b[a-z]", RegexOptions.IgnoreCase);
-        private readonly Regex NameRegex = new Regex(@"\b[a-z0-9_]", RegexOptions.IgnoreCase);
+        private readonly Session _current = App.Connection.SessionController.CurrentSession;
+        private readonly Regex _nameRegex = new Regex(@"\b\s[a-z]\b", RegexOptions.IgnoreCase);
+        private readonly Regex _usernameRegex = new Regex(@"\b[a-z0-9_]\b", RegexOptions.IgnoreCase);
 
         public Settings()
         {
             InitializeComponent();
-            NameBlock.Text = Current.Name;
-            UsernameBlock.Text = Current.Username;
+            NameBlock.Text = _current.Name;
+            UsernameBlock.Text = _current.Username;
             CheckChanges();
-            SkypeBlock.Text = Current.SkypeName;
-            AvatarImage.Source = new BitmapImage(Current.Avatar.Normal);
+            SkypeBlock.Text = _current.SkypeName;
+            AvatarImage.Source = new BitmapImage(_current.Avatar.Normal);
+            Status.SelectedItem = _current.Status;
         }
         private void CheckChanges()
         {
-            if (Current.CanChangeName()) return;
+            if (_current.CanChangeName()) return;
             UsernameBlock.IsReadOnly = true;
         }
 
         private void ChangeName(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            if (NameRegex.IsMatch(NameBlock.Text)) return;
-            NameBlock.Text = Current.Name;
+            if (!_nameRegex.IsMatch(NameBlock.Text))
+            {
+                NameBlock.Text = _current.Name;
+                return;
+            }
+           App.Connection.SessionController.PostData("name", NameBlock.Text);
         }
     }
 }

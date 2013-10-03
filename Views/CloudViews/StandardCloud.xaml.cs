@@ -32,6 +32,8 @@ namespace CloudsdaleWin7.Views.CloudViews
             CloudName.Text = cloud.Name;
             Shortlink.Text = "/clouds/" + cloud.ShortName;
             Cloud = cloud;
+            Rules.Text = cloud.Rules.Replace("\n", "\r\n");
+            Description.Text = cloud.Description.Replace("\n", "\r\n");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

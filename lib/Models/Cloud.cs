@@ -266,18 +266,11 @@ namespace CloudsdaleWin7.lib.Models
                     {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
                 }
             };
-            var response =
-                await
-                client.DeleteAsync(
-                    Endpoints.CloudUserRestate.Replace("[:id]", Id).ReplaceUserId(
-                        App.Connection.SessionController.CurrentSession.Id));
-            var responseText = await response.Content.ReadAsStringAsync();
-
-            var fullMessage = await JsonConvert.DeserializeObjectAsync<WebResponse<Session>>(responseText);
-            fullMessage.Result.CopyTo(App.Connection.SessionController.CurrentSession);
+            await client.DeleteAsync(Endpoints.CloudUserRestate.Replace("[:id]", Id).ReplaceUserId(App.Connection.SessionController.CurrentSession.Id));
             App.Connection.SessionController.CurrentSession.Clouds.Remove(this);
             App.Connection.SessionController.RefreshClouds();
             Main.Instance.Clouds.SelectedIndex = -1;
+            Main.Instance.HideFlyoutMenu();
         }
         public override string ToString()
         {

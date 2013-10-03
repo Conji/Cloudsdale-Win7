@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.CloudsdaleLib;
@@ -23,7 +24,9 @@ namespace CloudsdaleWin7.lib.Controllers
         private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
         private readonly ObservableCollection<Message> _messages = new ModelCache<Message>(50);
         private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
+        private ObservableCollection<Drop> _drops = new ObservableCollection<Drop>();
         public User Owner { get; private set; }
+        public static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
 
         public CloudController(Cloud cloud)
         {
@@ -37,6 +40,17 @@ namespace CloudsdaleWin7.lib.Controllers
         public Cloud Cloud { get; private set; }
 
         public ObservableCollection<Message> Messages { get { return _messages; } }
+
+        public ObservableCollection<Drop> Drops
+        {
+            get { return _drops; }
+            set
+            {
+                if (value == _drops) return;
+                _drops = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<Ban> Bans
         {
@@ -136,9 +150,7 @@ namespace CloudsdaleWin7.lib.Controllers
                 var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
                 foreach (var ban in userData.Result)
                 {
-                    if (ban.Revoked == true) return;
-                    if (ban.Active == false) return;
-                    if (ban.Expired == true) return;
+                    if (ban.Revoked == true || ban.Active == false || ban.Expired == true) return;
                     _bans.Add(ban);
                 }
             }
@@ -238,6 +250,11 @@ namespace CloudsdaleWin7.lib.Controllers
             message.Author.CopyTo(message.User);
             App.Connection.NotificationController.Notify("[" + Cloud.Name + "]", message.Author.Name + ": " + message.Content);
             AddMessageToSource(message);
+            foreach (var drop in message.AllDrops)
+            {
+                if (Drops.Contains(drop)) return;
+                Drops.Add(drop);
+            }
             if (App.Connection.MessageController.CurrentCloud == this && Main.CurrentView != null)
             {
                 Main.ScrollChat();

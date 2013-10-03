@@ -112,6 +112,9 @@
       <DependentUpon>ActionMessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\BindableLink.cs" />
+    <Compile Include="Controls\Droplet.xaml.cs">
+      <DependentUpon>Droplet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MessageTextControl.xaml.cs">
       <DependentUpon>MessageTextControl.xaml</DependentUpon>
     </Compile>
@@ -172,6 +175,9 @@
     </Compile>
     <Compile Include="Views\ExploreViews\ItemViews\ItemTop.xaml.cs">
       <DependentUpon>ItemTop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Flyouts\CloudFlyouts\DropView.xaml.cs">
+      <DependentUpon>DropView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Flyouts\CloudFlyouts\QuickView.xaml.cs">
       <DependentUpon>QuickView.xaml</DependentUpon>
@@ -238,6 +244,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Droplet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\MessageTextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -287,6 +297,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExploreViews\ItemViews\ItemTop.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Flyouts\CloudFlyouts\DropView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -476,12 +490,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Menus\" />
+    <Folder Include="Assets\Misc\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\next.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Misc\SimGretina - Twilightlicious SimGret.mp3" />
+    <Resource Include="Assets\tint.png" />
     <Resource Include="icon_black.ico" />
     <Resource Include="Assets\cd_icon_animation.gif" />
     <Content Include="Assets\cd_icon_color_for_mlv %281%29.mp4" />

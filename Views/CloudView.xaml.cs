@@ -51,7 +51,6 @@ namespace CloudsdaleWin7.Views {
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             if (e.Key != Key.Enter) return;
             if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
-            PlaySong(InputBox.Text.Trim());
             Send(InputBox.Text);
         }
         internal async void Send(string message)
@@ -83,7 +82,7 @@ namespace CloudsdaleWin7.Views {
             
             try
             {
-                var response = await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
+                var response = client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
                 new StringContent(messageData)
                 {
                     Headers =
@@ -91,7 +90,7 @@ namespace CloudsdaleWin7.Views {
                         ContentType = new MediaTypeHeaderValue("application/json")
                         }
                     }
-                );
+                ).Result;
                 var responseText = await response.Content.ReadAsStringAsync();
                 var fullMessage = JsonConvert.DeserializeObject<WebResponse<Message>>(responseText);
 
@@ -111,18 +110,6 @@ namespace CloudsdaleWin7.Views {
             InputBox.Text = "";
             InputBox.IsEnabled = true;
             InputBox.Focus();
-        }
-
-        private void PlaySong(string text)
-        {
-            switch (text)
-            {
-                case "#twilight":
-                    InputBox.Text = "";
-                    Player.Visibility = Visibility.Visible;
-                    Player.Play();
-                    break;
-            }
         }
 
         private async void ShowUserList(object sender, MouseButtonEventArgs e)
@@ -148,6 +135,11 @@ namespace CloudsdaleWin7.Views {
                 prefFlyout = new StandardCloud(Cloud);
             }
             Main.Instance.ShowFlyoutMenu(prefFlyout);
+        }
+
+        private void ShowDrops(object sender, RoutedEventArgs e)
+        {
+            Main.Instance.ShowFlyoutMenu(new DropView());
         }
     }
     public class MessageTemplateSelector : DataTemplateSelector

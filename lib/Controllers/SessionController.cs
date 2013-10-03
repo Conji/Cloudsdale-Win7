@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CloudsdaleWin7.Views.Initial;
@@ -48,6 +50,18 @@ namespace CloudsdaleWin7.lib.Controllers
             CurrentSession = null;
         }
 
+        public async void PostData(string property, string key)
+        {
+            var data = JObject.FromObject(new
+            {
+                user = new {property = key}
+            }).ToString();
+            var client = new HttpClient().AcceptsJson();
+            client.DefaultRequestHeaders.Add("X-Auth-Token", CurrentSession.AuthToken);
+            var response = await client.PutAsync(Endpoints.User.ReplaceUserId(CurrentSession.Id), new StringContent(data));
+            Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+        }
+
         public void RefreshClouds()
         {
             Main.Instance.Clouds.ItemsSource = null;
@@ -59,6 +73,7 @@ namespace CloudsdaleWin7.lib.Controllers
             public string ClientId { get; set; }
             public Session User { get; set; }
         }
+
         private void InitializeClouds()
         {
             foreach (var cloud in CurrentSession.Clouds)
@@ -68,6 +83,7 @@ namespace CloudsdaleWin7.lib.Controllers
                 App.Connection.MessageController[cloud].EnsureLoaded();
             }
         }
+
         private void RegistrationCheck()
         {
             if (CurrentSession.NeedsToConfirmRegistration == true)

@@ -34,6 +34,7 @@ namespace CloudsdaleWin7.lib.Helpers
 
         public async static void JoinCloud(Cloud cloud)
         {
+            cloud = await App.Connection.ModelController.UpdateCloudAsync(cloud);
             var client = new HttpClient
             {
                 DefaultRequestHeaders =
@@ -46,7 +47,7 @@ namespace CloudsdaleWin7.lib.Helpers
                         App.Connection.SessionController.CurrentSession.Id), new StringContent(""));
             App.Connection.SessionController.CurrentSession.Clouds.Add(cloud);
             App.Connection.SessionController.RefreshClouds();
-            Main.Instance.Clouds.SelectedItem = cloud;
+            Main.Instance.Clouds.SelectedIndex = Main.Instance.Clouds.Items.Count - 1;
         }
     }
 }
