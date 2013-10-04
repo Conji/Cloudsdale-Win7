@@ -46,6 +46,8 @@ namespace CloudsdaleWin7.lib.Models
             {
                 case 0:
                     return false;
+                case 1:
+                    return true;
                 default:
                     return true;
             }

@@ -31,6 +31,7 @@ namespace CloudsdaleWin7.lib.Models
         private string _clientId;
         private string _content;
         private DateTime _timestamp;
+        public string PostedOn { get; set; }
 
         public Message RawMessage
         {

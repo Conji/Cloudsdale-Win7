@@ -113,6 +113,34 @@ namespace CloudsdaleWin7.lib.Controllers
                 return list;
             }
         }
+
+        public async Task LoadCompleteUsers()
+        {
+            try
+            {
+                var client = new HttpClient().AcceptsJson();
+                {
+                    var response = await client.GetStringAsync((Endpoints.CloudUsers)
+                        .Replace("[:id]", Cloud.Id));
+                    var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
+                    var users = new List<User>();
+                    foreach (var user in userData.Result)
+                    {
+                        if (user.Status != null)
+                        {
+                            SetStatus(user.Id, (Status)user.Status);
+                        }
+                        users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                LoadUsers();
+            }
+        }
+
         public async Task LoadUsers()
         {
             try
@@ -245,11 +273,12 @@ namespace CloudsdaleWin7.lib.Controllers
             AddUnread();
             var message = jMessage.ToObject<Message>();
 
-            if (message.ClientId == FayeConnector.ClientID) return;
+            //if (message.ClientId == FayeConnector.ClientID) return;
 
+            message.PostedOn = Cloud.Id;
             message.Author.CopyTo(message.User);
-            App.Connection.NotificationController.Notify("[" + Cloud.Name + "]", message.Author.Name + ": " + message.Content);
             AddMessageToSource(message);
+            Main.Instance.Notify(message);
             foreach (var drop in message.AllDrops)
             {
                 if (Drops.Contains(drop)) return;

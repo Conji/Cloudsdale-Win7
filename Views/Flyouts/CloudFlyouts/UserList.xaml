@@ -166,5 +166,6 @@
                 </ListView>
             </StackPanel>
         </ScrollViewer>
+        <Button Content="&#xE0F2;" HorizontalAlignment="Left" Margin="220,8,0,0" VerticalAlignment="Top" Width="20" Height="20" Background="{x:Null}" FontFamily="Segoe UI Symbol" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Click="ReloadUsers"/>
     </Grid>
 </Page>

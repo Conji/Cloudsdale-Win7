@@ -82,7 +82,7 @@ namespace CloudsdaleWin7.Views {
             
             try
             {
-                var response = client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
+                var response = await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
                 new StringContent(messageData)
                 {
                     Headers =
@@ -90,7 +90,7 @@ namespace CloudsdaleWin7.Views {
                         ContentType = new MediaTypeHeaderValue("application/json")
                         }
                     }
-                ).Result;
+                );
                 var responseText = await response.Content.ReadAsStringAsync();
                 var fullMessage = JsonConvert.DeserializeObject<WebResponse<Message>>(responseText);
 
@@ -103,7 +103,7 @@ namespace CloudsdaleWin7.Views {
 
                 fullMessage.Result.PreProcess();
                 fullMessage.Result.CopyTo(messageModel);
-                App.Connection.MessageController[Cloud].AddMessageToSource(messageModel);
+                //App.Connection.MessageController[Cloud].AddMessageToSource(messageModel);
             }
             catch (Exception e) { Console.WriteLine(e.Message);}
 

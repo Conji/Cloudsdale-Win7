@@ -45,31 +45,25 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             UIHelpers.MessageOnSkype(Self.SkypeName ?? Self.SkypeName);
         }
 
-        private void UpdateSubscription(object sender, RoutedEventArgs e)
-        {
-            var subModel = new Subscription(SubscriptionType.User, Self.Id);
-            App.Connection.SubscriptionController.AddSubscription(subModel);
-        }
         private void CheckIfSubbed()
         {
-            if (App.Connection.SubscriptionController.SubscribedUsers.Contains(new Subscription{SubscriptionType = SubscriptionType.User, ModelId = Self.Id}))
-            {
-                SubscriptionCheck.IsChecked = true;
-            }
+            if (!Self.IsSubscribed)return;
+            SubscriptionCheck.IsChecked = true;
         }
 
         private void Unsubscribe(object sender, RoutedEventArgs e)
         {
-            App.Connection.SubscriptionController.RemoveSubscription(new Subscription
-            {
-                ModelId = Self.Id,
-                SubscriptionType = SubscriptionType.User
-            });
+            Self.IsSubscribed = false;
         }
 
         private void GoBack(object sender, RoutedEventArgs e)
         {
-            Main.Instance.ShowFlyoutMenu(this);
+            Main.Instance.HideFlyoutMenu();
+        }
+
+        private void SubscriptionCheckChecked(object sender, RoutedEventArgs e)
+        {
+            Self.IsSubscribed = SubscriptionCheck.IsChecked == true;
         }
     }
 }

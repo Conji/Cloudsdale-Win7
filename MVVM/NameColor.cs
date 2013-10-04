@@ -13,8 +13,9 @@ namespace CloudsdaleWin7.MVVM {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (Main.Instance.Clouds.SelectedIndex == -1) return null;
             var user = (User)value;
-            var cloud = (Cloud) Main.Instance.Clouds.SelectedItem;
+            var cloud = (Cloud)Main.Instance.Clouds.SelectedItem;
 
             var color = cloud.OwnerId == user.Id
                             ? Color.FromArgb(0xFF, 0x80, 0x00, 0xFF)

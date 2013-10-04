@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,6 +7,7 @@ using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views.Flyouts;
 using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
+using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Views
 {
@@ -79,7 +79,7 @@ namespace CloudsdaleWin7.Views
                 return;
             }
             var cloud = (ListView)sender;
-            var item = (lib.Models.Cloud)cloud.SelectedItem;
+            var item = (Cloud)cloud.SelectedItem;
             App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
             var cloudView = new CloudView(item);
             Frame.Navigate(cloudView);
@@ -106,6 +106,36 @@ namespace CloudsdaleWin7.Views
         #region Cloud Reorder Mapping
 
 
+
+        #endregion
+
+        #region Notify
+
+        public void Notify(Message message)
+        {
+
+            var post = App.Connection.MessageController.CloudControllers[message.PostedOn];
+            if (App.Connection.MessageController.CurrentCloud == post) return;
+
+            NoteTitle.Text = "@" + message.Author.Username + "(" + post.Cloud.Name + "):";
+            NoteContent.Text = message.Content;
+            ShowNote();
+            HideNote();
+        }
+
+        private void ShowNote()
+        {
+            var a = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(0, 0, 2)));
+            a.EasingFunction = new ExponentialEase();
+            Note.BeginAnimation(OpacityProperty, a);
+        }
+
+        private void HideNote()
+        {
+            var a = new DoubleAnimation(100.0, 0.0, new Duration(new TimeSpan(0, 0, 6)));
+            a.EasingFunction = new ExponentialEase();
+            Note.BeginAnimation(OpacityProperty, a);
+        }
 
         #endregion
     }

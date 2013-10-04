@@ -28,8 +28,8 @@ namespace CloudsdaleWin7.lib.Controllers
 
             var requestModel = @"{""email"":""[:email]"", ""password"":""[:password]""".Replace("[:email]", email).Replace("[:password]", password);
             var request = new HttpClient().AcceptsJson();
-            var result = request.PostAsync(Endpoints.Session, new JsonContent(requestModel));
-            var resultString = await result.Result.Content.ReadAsStringAsync();
+            var result = await request.PostAsync(Endpoints.Session, new JsonContent(requestModel));
+            var resultString = await result.Content.ReadAsStringAsync();
             var response = await JsonConvert.DeserializeObjectAsync<WebResponse<SessionWrapper>>(resultString);
             try
             {
@@ -58,8 +58,7 @@ namespace CloudsdaleWin7.lib.Controllers
             }).ToString();
             var client = new HttpClient().AcceptsJson();
             client.DefaultRequestHeaders.Add("X-Auth-Token", CurrentSession.AuthToken);
-            var response = await client.PutAsync(Endpoints.User.ReplaceUserId(CurrentSession.Id), new StringContent(data));
-            Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+            await client.PutAsync(Endpoints.User.ReplaceUserId(CurrentSession.Id), new StringContent(data));
         }
 
         public void RefreshClouds()

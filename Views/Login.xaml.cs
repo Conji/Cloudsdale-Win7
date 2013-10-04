@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
@@ -35,9 +35,9 @@ namespace CloudsdaleWin7 {
             LoggingInUi.Visibility = Visibility.Visible;
            try
            {
+               Thread.Sleep(1000);
                App.Settings.ChangeSetting("email", EmailBox.Text);
-               await App.Connection.MainFrame.Dispatcher.InvokeAsync(
-                   () => App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password));
+               await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
 
 
            }catch (Exception ex)

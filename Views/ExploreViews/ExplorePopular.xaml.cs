@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Windows;
 using CloudsdaleWin7.Views.ExploreViews.ItemViews;
@@ -19,7 +20,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
         {
             InitializeComponent();
             FetchPopularList();
-            CurrentPage = 1;
+            CurrentPage = 0;
         }
         private void FetchPopularList()
         {
@@ -32,9 +33,9 @@ namespace CloudsdaleWin7.Views.ExploreViews
                              {
                                  DefaultRequestHeaders =
                                      {
-                                         {"X-Result-Page", CurrentPage.ToString()},
-                                         {"X-Result-Time", DateTime.Now.ToString()},
-                                         {"X-Result-Per", (View.Children.Count + 10).ToString()},
+                                         {"X-Result-Page", (CurrentPage + 1).ToString(new NumberFormatInfo())},
+                                         {"X-Result-Time", DateTime.Now.ToString(new DateTimeFormatInfo())},
+                                         {"X-Result-Per", "20"},
                                          {"Accept", "application/json"}
                                      }
                              };

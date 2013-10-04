@@ -87,5 +87,11 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             user.ShowFlyout(Controller.Cloud);
         }
 
+        private async void ReloadUsers(object sender, RoutedEventArgs e)
+        {
+            await Controller.LoadCompleteUsers();
+            OnlineUserList.ItemsSource = Controller.AllUsers;
+        }
+
     }
 }

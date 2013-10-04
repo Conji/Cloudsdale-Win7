@@ -8,17 +8,29 @@
 	Title="DropView" Width="250">
 
     <Grid>
-        <DockPanel Height="48" LastChildFill="False" VerticalAlignment="Top">
+        <DockPanel Height="36" LastChildFill="False" VerticalAlignment="Top">
             <DockPanel.Background>
-                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF1C7ECB" Offset="0"/>
+                    <GradientStop Color="{DynamicResource PrimaryBlue}" Offset="1"/>
+                    <GradientStop Color="{DynamicResource PrimaryBlue}" Offset="0.335"/>
+                </LinearGradientBrush>
             </DockPanel.Background>
-            <TextBlock Height="38" TextWrapping="Wrap" Text="Drops" VerticalAlignment="Top" Width="61" Margin="40,10,0,0" FontSize="20" FontWeight="SemiBold" FontFamily="Nirmala UI">
+            <TextBlock TextWrapping="Wrap" Text="Drops" Width="61" Margin="40,4,0,1" FontSize="20" FontWeight="SemiBold" FontFamily="Nirmala UI">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </TextBlock.Foreground>
             </TextBlock>
         </DockPanel>
-        <Button Content="X" HorizontalAlignment="Left" Margin="212,10,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="{x:Null}" BorderThickness="2" FontWeight="SemiBold" Click="Hide">
+        <Button Content="X" HorizontalAlignment="Left" Margin="215,5,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="{x:Null}" BorderThickness="2" FontWeight="SemiBold" Click="Hide">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>
@@ -26,7 +38,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.BorderBrush>
         </Button>
-        <ListView x:Name="DropCollection" Margin="0,48,0,0">
+        <ListView x:Name="DropCollection" Margin="0,36,0,0">
             <ListView.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </ListView.Background>

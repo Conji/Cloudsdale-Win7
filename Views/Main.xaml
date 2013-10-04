@@ -113,5 +113,20 @@
                 <SolidColorBrush Color="#FF4C4C5A"/>
             </Frame.Background>
         </Frame>
+        <Grid x:Name="Note" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="1" VerticalAlignment="Top" Opacity="0" MaxWidth="350">
+            <Grid.Background>
+                <SolidColorBrush Color="{DynamicResource Panels}"/>
+            </Grid.Background>
+            <TextBlock x:Name="NoteTitle" Margin="10,10,10,0" TextWrapping="Wrap" Text="@User(Cloud):" VerticalAlignment="Top" FontSize="16">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                </TextBlock.Foreground>
+            </TextBlock>
+            <TextBlock x:Name="NoteContent" Margin="10,37,10,10" TextWrapping="Wrap" Text="Content">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </Grid>
     </Grid>
 </Page>

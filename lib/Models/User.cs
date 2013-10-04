@@ -29,7 +29,7 @@ namespace CloudsdaleWin7.lib.Models
         private string _role;
         private Avatar _avatar;
         private string _username;
-        public static int ChangesAllowed;
+        public bool IsSubscribed { get; set; }
 
         [JsonConstructor]
         public User(string id) : base(id)
@@ -278,16 +278,6 @@ namespace CloudsdaleWin7.lib.Models
         }
 
         [JsonProperty("status")] public Status? Status;
-        [JsonProperty("username_changes_allowed")]
-        public static int NameChangesAllowed
-        {
-            get { return ChangesAllowed;  }
-            set
-            {
-                if (value.Equals(ChangesAllowed)) return;
-                ChangesAllowed = value;
-            }
-        }
         #endregion
         public async Task UploadAvatar(Stream pictureStream, string mimeType)
         {
