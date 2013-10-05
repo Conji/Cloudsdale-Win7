@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CloudsdaleWin7.Views;
+using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
@@ -278,7 +279,24 @@ namespace CloudsdaleWin7.lib.Controllers
             message.PostedOn = Cloud.Id;
             message.Author.CopyTo(message.User);
             AddMessageToSource(message);
-            Main.Instance.Notify(message);
+
+            #region Note
+
+            if (App.Connection.MessageController.CurrentCloud != this)
+            {
+                if (App.Connection.MessageController.CloudControllers[message.PostedOn].Cloud.IsSubscribed)
+                {
+                    App.Connection.NotificationController.Notification.Notify(NotificationType.Cloud, message);
+                }
+                else if (!App.Connection.MessageController.CloudControllers[message.PostedOn].Cloud.IsSubscribed
+                   && message.Author.IsSubscribed)
+                {
+                    App.Connection.NotificationController.Notification.Notify(NotificationType.User, message);
+                }
+            }
+
+            #endregion
+
             foreach (var drop in message.AllDrops)
             {
                 if (Drops.Contains(drop)) return;

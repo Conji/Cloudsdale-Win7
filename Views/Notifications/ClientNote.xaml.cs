@@ -17,14 +17,14 @@ using CloudsdaleWin7.lib.Models;
 namespace CloudsdaleWin7.Views.Notifications
 {
     /// <summary>
-    /// Interaction logic for UserNote.xaml
+    /// Interaction logic for ClientNote.xaml
     /// </summary>
-    public partial class UserNote : Page
+    public partial class ClientNote : Page
     {
-        public UserNote(Message message)
+        public ClientNote(Message message)
         {
             InitializeComponent();
-            if (!message.Author.IsSubscribed) return;
+            Block.Text = message.Content;
         }
     }
 }

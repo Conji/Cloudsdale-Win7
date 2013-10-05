@@ -29,6 +29,7 @@ namespace CloudsdaleWin7.lib.Models
         private DateTime? _created;
         private string _description;
         private string _unreadMessages;
+        public bool IsSubscribed { get; set; }
 
         /// <summary>
         /// Creates a cloud object based on the given ID

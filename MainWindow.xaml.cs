@@ -1,16 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Text.RegularExpressions;
+﻿
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Input;
-using CloudsdaleWin7.lib;
-using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
-using CloudsdaleWin7.Controls;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7
 {
@@ -47,7 +37,7 @@ namespace CloudsdaleWin7
             App.Close();
         }
 
-        private async void Testvoid()
+        private void Testvoid()
         {
 
         }

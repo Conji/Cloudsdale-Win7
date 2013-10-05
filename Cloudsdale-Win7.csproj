@@ -240,6 +240,18 @@
     <Compile Include="Views\Misc\MeetTheCrew.xaml.cs">
       <DependentUpon>MeetTheCrew.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Notifications\ClientNote.xaml.cs">
+      <DependentUpon>ClientNote.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Notifications\CloudNote.xaml.cs">
+      <DependentUpon>CloudNote.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Notifications\NotificationWindow.xaml.cs">
+      <DependentUpon>NotificationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Notifications\UserNote.xaml.cs">
+      <DependentUpon>UserNote.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\ActionMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -393,6 +405,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Misc\MeetTheCrew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Notifications\ClientNote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Notifications\CloudNote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Notifications\NotificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Notifications\UserNote.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

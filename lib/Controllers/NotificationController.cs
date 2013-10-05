@@ -4,19 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CloudsdaleWin7.Views.Notifications;
 
 namespace CloudsdaleWin7.lib.Controllers
 {
     public class NotificationController
     {
-        public NotifyIcon Notification = new NotifyIcon();
-
-        public void Notify(string title, string text)
-        {
-            Notification.BalloonTipIcon = ToolTipIcon.Info;
-            Notification.BalloonTipText = text;
-            Notification.BalloonTipTitle = title;
-            Notification.ShowBalloonTip(2000000);
-        }
+        public NotificationWindow Notification = new NotificationWindow();
     }
 }
