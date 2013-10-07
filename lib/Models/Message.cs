@@ -71,6 +71,11 @@ namespace CloudsdaleWin7.lib.Models
             }
         }
 
+        public string NoteTimestamp
+        {
+            get { return Timestamp.ToString().Split(' ')[1]; }
+        }
+
         /// <summary>
         /// Content of the message
         /// </summary>

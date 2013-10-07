@@ -36,6 +36,7 @@ namespace CloudsdaleWin7.Views {
             CloudMessages.ItemsSource = App.Connection.MessageController[cloud].Messages;
             Main.Instance.FlyoutFrame.Navigate(new UserList(App.Connection.MessageController[cloud]));
             InputBox.Focus();
+
         }
 
         private void ButtonClick1(object sender, RoutedEventArgs e)

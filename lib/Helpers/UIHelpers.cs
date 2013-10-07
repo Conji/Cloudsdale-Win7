@@ -29,7 +29,7 @@ namespace CloudsdaleWin7.lib.Helpers
         }
         public static void ShowFlyout(this User user, Cloud cloud)
         {
-            Main.Instance.FlyoutFrame.Navigate(new UserFlyout(user, cloud));
+            Main.Instance.FlyoutFrame.Navigate(new UserFlyout(user, cloud, App.Connection.MessageController.CurrentCloud.AllModerators.Contains(App.Connection.SessionController.CurrentUser)));
         }
         public static void MessageOnSkype(string user)
         {

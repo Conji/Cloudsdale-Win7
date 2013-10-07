@@ -87,10 +87,11 @@
         /// Endpoint for recently made clouds.
         /// </summary>
         public const string ExploreRecent = Api + "/clouds/recent.json";
+
         /// <summary>
         /// Endpoint to retrieve avatars.
         /// </summary>
-        public const string Avatar = AssetSource + "/[:type]/[:user_id].png?s=[:size]";
+        public const string Avatar = "http://avatar.cloudsdale.org/[:name].png";
         /// <summary>
         /// Server push address.
         /// </summary>

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.lib.Models
@@ -98,20 +94,20 @@ namespace CloudsdaleWin7.lib.Models
         /// </summary>
         /// <param name="size">Square dimmension for avatar retrieval</param>
         /// <returns>Endpoint for avatar of given size</returns>
-        public Uri this[int size]
-        {
-            get
-            {
-                if (Owner == null)
-                {
-                    return Normal;
-                }
+        //public Uri this[int size]
+        //{
+        //    get
+        //    {
+        //        if (Owner == null)
+        //        {
+        //            return Normal;
+        //        }
 
-                return new Uri(Endpoints.Avatar
-                    .Replace("[:type]", Owner.RestModelType)
-                    .Replace("[:id]", Owner.Id)
-                    .Replace("[:size]", size.ToString()));
-            }
-        }
+        //        return new Uri(Endpoints.Avatar
+        //            .Replace("[:type]", Owner.RestModelType)
+        //            .Replace("[:id]", Owner.Id)
+        //            .Replace("[:size]", size.ToString()));
+        //    }
+        //}
     }
 }

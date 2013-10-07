@@ -8,7 +8,6 @@
 	Title="UserFlyout" Width="250" FontFamily="Nirmala UI">
 
     <Grid>
-        <CheckBox x:Name="SubscriptionCheck" Content="Subscribed" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="134,79,10,0" Checked="SubscriptionCheckChecked" Height="41" VerticalAlignment="Top" Unchecked="Unsubscribe"/>
         <StackPanel>
             <TextBlock x:Name="Username" TextWrapping="Wrap" Text="Username" FontSize="16" Margin="10,5,45,0">
                 <TextBlock.Foreground>
@@ -53,6 +52,30 @@
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </Button.Foreground>
             </Button>
+            <StackPanel x:Name="AdminUI" Height="225" Margin="10,10,10,0">
+                <Button x:Name="PrimaryBanButton" Content="Ban" Height="33" FontSize="14" FontWeight="Light" Click="ShowBanUi">
+                    <Button.Foreground>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </Button.Foreground>
+                    <Button.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                    </Button.Background>
+                </Button>
+                <Grid x:Name="BanUI" Height="192" Visibility="Hidden">
+                    <DatePicker x:Name="BanCal" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="210" BorderThickness="0" FontSize="14" SelectedDateFormat="Short">
+                        <DatePicker.BorderBrush>
+                            <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+                        </DatePicker.BorderBrush>
+                    </DatePicker>
+                    <TextBox x:Name="BanReason" HorizontalAlignment="Left" Height="25" Margin="10,54,0,0" TextWrapping="Wrap" Text="Reason..." VerticalAlignment="Top" Width="210" BorderBrush="{x:Null}" FontSize="14" Background="#FF4C4C5A">
+                        <TextBox.Foreground>
+                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                        </TextBox.Foreground>
+                    </TextBox>
+                    <Button x:Name="BanAccept" Content="Accept" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="101"/>
+                    <Button x:Name="BanCancel" Content="Cancel" HorizontalAlignment="Left" Margin="119,109,0,0" VerticalAlignment="Top" Width="101"/>
+                </Grid>
+            </StackPanel>
         </StackPanel>
         <TextBlock x:Name="Name" TextWrapping="Wrap" Text="TextBlock" Margin="10,148,0,0" FontSize="14" Height="19" VerticalAlignment="Top">
             <TextBlock.Foreground>

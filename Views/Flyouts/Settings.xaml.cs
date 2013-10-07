@@ -41,5 +41,10 @@ namespace CloudsdaleWin7.Views.Flyouts
             }
            App.Connection.SessionController.PostData("name", NameBlock.Text);
         }
+
+        private void Logout(object sender, System.Windows.RoutedEventArgs e)
+        {
+            App.Connection.SessionController.Logout();
+        }
     }
 }

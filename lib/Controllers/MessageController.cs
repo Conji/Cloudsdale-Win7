@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Threading;
-using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
 using Newtonsoft.Json.Linq;
@@ -15,11 +13,6 @@ namespace CloudsdaleWin7.lib.Controllers
     {
         public Dictionary<string, CloudController> CloudControllers = new Dictionary<string, CloudController>();
         public CloudController CurrentCloud { get; set; }
-
-        /// <summary>
-        /// Replace [:type] with USER or CLOUD and [:id] with Id
-        /// </summary>
-        private const string SubscribedFormat = "/[:type]:[:id]";
 
         public void OnMessage(JObject message)
         {

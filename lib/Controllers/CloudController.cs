@@ -23,7 +23,7 @@ namespace CloudsdaleWin7.lib.Controllers
     {
         private int _unreadMessages;
         private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
-        private readonly ObservableCollection<Message> _messages = new ModelCache<Message>(50);
+        private readonly ObservableCollection<Message> _messages = new ObservableCollection<Message>();
         private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
         private ObservableCollection<Drop> _drops = new ObservableCollection<Drop>();
         public User Owner { get; private set; }
@@ -124,14 +124,13 @@ namespace CloudsdaleWin7.lib.Controllers
                     var response = await client.GetStringAsync((Endpoints.CloudUsers)
                         .Replace("[:id]", Cloud.Id));
                     var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
-                    var users = new List<User>();
                     foreach (var user in userData.Result)
                     {
                         if (user.Status != null)
                         {
                             SetStatus(user.Id, (Status)user.Status);
                         }
-                        users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
+                        AllUsers.Add(await App.Connection.ModelController.UpdateDataAsync(user));
                     }
                 }
             }
@@ -236,12 +235,13 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public void AddMessageToSource(Message message)
         {
+            message.Timestamp = message.Timestamp.ToLocalTime();
             message.Content = message.Content.UnescapeLiteral();
             if (_messages.Count > 0)
             {
-                if (_messages.Last().Content == message.Content) return;
-                if (_messages.Last().AuthorId == message.AuthorId && !message.Content.StartsWith("/me") &&
-                    !Messages.Last().Content.StartsWith("/me"))
+                if (_messages.Last().AuthorId == message.AuthorId 
+                    && !message.Content.StartsWith("/me") 
+                    && !Messages.Last().Content.StartsWith("/me"))
                 {
                     _messages.Last().Content += "\n" + message.Content;
                     _messages.Last().Timestamp = message.FinalTimestamp;
@@ -274,25 +274,16 @@ namespace CloudsdaleWin7.lib.Controllers
             AddUnread();
             var message = jMessage.ToObject<Message>();
 
-            //if (message.ClientId == FayeConnector.ClientID) return;
-
             message.PostedOn = Cloud.Id;
             message.Author.CopyTo(message.User);
+
             AddMessageToSource(message);
 
-            #region Note
+            #region Cloud Note
 
-            if (App.Connection.MessageController.CurrentCloud != this)
+            if (Cloud.IsSubscribed)
             {
-                if (App.Connection.MessageController.CloudControllers[message.PostedOn].Cloud.IsSubscribed)
-                {
-                    App.Connection.NotificationController.Notification.Notify(NotificationType.Cloud, message);
-                }
-                else if (!App.Connection.MessageController.CloudControllers[message.PostedOn].Cloud.IsSubscribed
-                   && message.Author.IsSubscribed)
-                {
-                    App.Connection.NotificationController.Notification.Notify(NotificationType.User, message);
-                }
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Cloud, message);
             }
 
             #endregion
@@ -381,7 +372,7 @@ namespace CloudsdaleWin7.lib.Controllers
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }

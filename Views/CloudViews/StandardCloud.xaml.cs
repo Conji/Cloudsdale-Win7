@@ -32,8 +32,8 @@ namespace CloudsdaleWin7.Views.CloudViews
             CloudName.Text = cloud.Name;
             Shortlink.Text = "/clouds/" + cloud.ShortName;
             Cloud = cloud;
-            Rules.Text = cloud.Rules.Replace("\n", "\r\n");
-            Description.Text = cloud.Description.Replace("\n", "\r\n");
+            if (cloud.Rules != null) Rules.Text = cloud.Rules.Replace("\n", "\r\n");
+            if (cloud.Description != null) Description.Text = cloud.Description.Replace("\n", "\r\n");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -45,6 +45,16 @@ namespace CloudsdaleWin7.Views.CloudViews
         {
             if (MessageBox.Show("Are you sure you want to leave this cloud?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 Cloud.Leave();
+        }
+
+        private void Subscribe(object sender, RoutedEventArgs e)
+        {
+            Cloud.IsSubscribed = true;
+        }
+
+        private void Unsubscribe(object sender, RoutedEventArgs e)
+        {
+            Cloud.IsSubscribed = false;
         }
     }
 }

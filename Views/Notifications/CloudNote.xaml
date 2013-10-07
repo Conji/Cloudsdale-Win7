@@ -8,12 +8,12 @@
 	Title="CloudNote">
 
     <Grid>
-        <TextBlock x:Name="NoteTitle" TextWrapping="Wrap" Text="Cloud-" VerticalAlignment="Top" Height="24" FontSize="14" FontWeight="SemiBold" FontFamily="Nirmala UI">
+        <TextBlock x:Name="NoteTitle" TextWrapping="Wrap" Text="Cloud-" VerticalAlignment="Top" Height="36" FontSize="18" FontWeight="SemiBold" FontFamily="Nirmala UI">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>
         </TextBlock>
-        <TextBlock x:Name="NoteContent" Margin="0,24,0,0" TextWrapping="Wrap" Text="[timestamp]@user: content">
+        <TextBlock x:Name="NoteContent" Margin="0,36,0,0" TextWrapping="Wrap" Text="[timestamp]@user: content" FontSize="16" MouseDown="DirectToCloud">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>

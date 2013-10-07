@@ -37,9 +37,9 @@ namespace CloudsdaleWin7.Views.ExploreViews.ItemViews
             BackUI.BeginAnimation(MarginProperty, a);
         }
 
-        private void Join(object sender, RoutedEventArgs e)
+        private async void Join(object sender, RoutedEventArgs e)
         {
-            BrowserHelper.JoinCloud(Cloud);
+            BrowserHelper.JoinCloud(await App.Connection.ModelController.UpdateCloudAsync(Cloud));
         }
     }
 }

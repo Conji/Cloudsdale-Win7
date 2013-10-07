@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CloudsdaleWin7.Views.Initial;
+using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
@@ -23,6 +25,12 @@ namespace CloudsdaleWin7.lib.Controllers
             var user = message["data"].ToObject<Session>();
             user.CopyTo(CurrentSession);
         }
+
+        public User CurrentUser
+        {
+            get { return App.Connection.ModelController.GetUserAsync(CurrentSession.Id).Result; }
+        }
+
         public async Task Login(string email, string password)
         {
 
@@ -46,8 +54,14 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public void Logout()
         {
-            MainWindow.Instance.MainFrame.Navigate(new Login());
+            foreach (var cloud in CurrentSession.Clouds)
+            {
+                FayeConnector.Unsubscribe("/clouds/" + cloud.Id + "/chat/messages");
+            }
+            App.Connection.MessageController.CloudControllers = new Dictionary<string, CloudController>();
             CurrentSession = null;
+
+            MainWindow.Instance.MainFrame.Navigate(new Login());            
         }
 
         public async void PostData(string property, string key)

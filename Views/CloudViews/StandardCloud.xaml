@@ -13,29 +13,41 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>
         </TextBlock>
-        <Image x:Name="CloudAvatar" Height="100" Margin="75,67,75,0" VerticalAlignment="Top"/>
+        <Image x:Name="CloudAvatar" Height="100" Margin="10,50,140,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="Shortlink" HorizontalAlignment="Left" Margin="10,193,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="230" FontSize="14">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>
         </TextBlock>
-        <Button Content="Leave this cloud..." Margin="34,0,33,10" FontSize="14" FontFamily="Nirmala UI" Click="Leave" Height="28" VerticalAlignment="Bottom"/>
+        <Button Content="Leave this cloud..." FontSize="14" FontFamily="Nirmala UI" Click="Leave" Height="38" VerticalAlignment="Bottom">
+            <Button.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Button.Foreground>
+            <Button.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+            </Button.Background>
+        </Button>
         <Separator HorizontalAlignment="Left" Height="52" Margin="10,212,0,0" VerticalAlignment="Top" Width="230">
             <Separator.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Separator.Background>
         </Separator>
         <Button Content="X" HorizontalAlignment="Left" Margin="216,10,0,0" VerticalAlignment="Top" Width="24" Height="23" Background="{x:Null}" FontSize="16" FontWeight="SemiBold" Click="Button_Click_1"/>
-        <TextBox x:Name="Rules" HorizontalAlignment="Left" Margin="10,328,0,43" TextWrapping="Wrap" Text="TextBox" Width="230" FontSize="14" VerticalScrollBarVisibility="Auto" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True" BorderThickness="0">
+        <TextBox x:Name="Rules" HorizontalAlignment="Left" Margin="10,328,0,43" TextWrapping="Wrap" Text="Rules&#xD;&#xA;" Width="230" FontSize="14" VerticalScrollBarVisibility="Auto" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True" BorderThickness="0">
             <TextBox.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBox.Foreground>
         </TextBox>
-        <TextBlock x:Name="Description" HorizontalAlignment="Left" Margin="10,248,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="75" Width="230">
+        <TextBlock x:Name="Description" HorizontalAlignment="Left" Margin="10,248,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Height="75" Width="230">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>
         </TextBlock>
+        <CheckBox x:Name="SubBox" Content="Subscribed" Margin="135,85,27,0" VerticalAlignment="Top" Checked="Subscribe" Unchecked="Unsubscribe" FontSize="14" Height="36">
+            <CheckBox.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </CheckBox.Foreground>
+        </CheckBox>
 
     </Grid>
 </Page>

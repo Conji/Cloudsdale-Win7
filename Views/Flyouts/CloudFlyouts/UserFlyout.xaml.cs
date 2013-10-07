@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.lib.Helpers;
@@ -17,16 +16,18 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         private static User Self { get; set; }
         private static Cloud FoundOn { get; set; }
 
-        public UserFlyout(User user, Cloud cloud)
+        public UserFlyout(User user, Cloud cloud, bool isMod)
         {
             InitializeComponent();
             Self = user;
             FoundOn = cloud;
             AvatarBounce();
-            Username.Text = "@" + user.Username;
+            Username.Text = "@" + Self.Username;
             Name.Text = user.Name;
-            AviImage.Source = new BitmapImage(user.Avatar.Normal);
-            CheckIfSubbed();
+            AviImage.Source = new BitmapImage(Self.Avatar.Normal);
+            akaList.ItemsSource = Self.AlsoKnownAs;
+            BanReason.Text = "Banned by @" + App.Connection.SessionController.CurrentSession.Username;
+            AdminUI.Visibility = isMod ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void AvatarBounce()
@@ -45,25 +46,14 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             UIHelpers.MessageOnSkype(Self.SkypeName ?? Self.SkypeName);
         }
 
-        private void CheckIfSubbed()
-        {
-            if (!Self.IsSubscribed)return;
-            SubscriptionCheck.IsChecked = true;
-        }
-
-        private void Unsubscribe(object sender, RoutedEventArgs e)
-        {
-            Self.IsSubscribed = false;
-        }
-
         private void GoBack(object sender, RoutedEventArgs e)
         {
             Main.Instance.HideFlyoutMenu();
         }
 
-        private void SubscriptionCheckChecked(object sender, RoutedEventArgs e)
+        private void ShowBanUi(object sender, RoutedEventArgs e)
         {
-            Self.IsSubscribed = SubscriptionCheck.IsChecked == true;
+            BanUI.Visibility = BanUI.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
         }
     }
 }

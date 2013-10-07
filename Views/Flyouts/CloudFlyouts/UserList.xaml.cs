@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Net.Http;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
-using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 {
@@ -41,7 +37,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void UpdateSearch(object sender, TextChangedEventArgs e)
+        private async void UpdateSearch(object sender, TextChangedEventArgs e)
         {
             if (SearchBox.Text == "")
             {
@@ -57,26 +53,37 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 // Collects the online users list first.
                 foreach (var user in Controller.OnlineUsers)
                 {
-                    if (user.Name == null) return;
-                    if (user.Name.ToLower().StartsWith(SearchBox.Text.ToLower()))
+                    var tempUser = user;
+                    if (tempUser.Name == null)
                     {
-                        SearchList.Add(user);
+                        tempUser = await App.Connection.ModelController.UpdateDataAsync(tempUser);
+                    }
+                    if (tempUser.Name.ToLower().StartsWith(SearchBox.Text.ToLower()))
+                    {
+                        SearchList.Add(tempUser);
                     }
                 }
                 //Collects the offline users list next.
                 foreach (var user in Controller.AllUsers)
                 {
-                    if (user.Name == null) return;
-                    if (SearchBox.Text.Trim() == "[all]")
+                    var tempUser = user;
+                    if (tempUser.Name == null)
                     {
-                        
+                        tempUser = await App.Connection.ModelController.UpdateDataAsync(tempUser);
                     }
-                    if (user.Name.ToLower().StartsWith(SearchBox.Text.ToLower()))
+                    if (SearchBox.Text.Trim() == "!all")
                     {
-                        //SearchList.Add(user);
-                        if (SearchList.Contains(user)) return;
-                        SearchList.Add(user);
+                        await Controller.LoadCompleteUsers();
+                        SearchResults.ItemsSource = Controller.AllUsers;
                     }
+                    else
+                    {
+                        SearchResults.ItemsSource = SearchList;
+                    }
+                    if (!tempUser.Name.ToLower().StartsWith(SearchBox.Text.ToLower())) return;
+                    //SearchList.Add(user);
+                    if (SearchList.Contains(tempUser)) return;
+                    SearchList.Add(tempUser);
                 }
             }
         }

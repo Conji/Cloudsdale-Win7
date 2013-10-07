@@ -58,7 +58,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </ListView.Foreground>
             <ListView.Background>
-                <SolidColorBrush Color="{DynamicResource Panels}"/>
+                <SolidColorBrush Color="#FF4C4C5A"/>
             </ListView.Background>
             <ListView.ItemTemplate>
                 <DataTemplate>

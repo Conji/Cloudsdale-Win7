@@ -48,6 +48,8 @@ namespace CloudsdaleWin7.MVVM
                     return new SolidColorBrush(CloudsdaleSource.DonatorTag);
                 case "legacy":
                     return new SolidColorBrush(CloudsdaleSource.LegacyTag);
+                case "associate":
+                    return new SolidColorBrush(CloudsdaleSource.AssociateTag);
                 case "verified":
                     return new SolidColorBrush(CloudsdaleSource.VerifiedTag);
                 default:

@@ -84,6 +84,7 @@ namespace CloudsdaleWin7.Views
             var cloudView = new CloudView(item);
             Frame.Navigate(cloudView);
             CurrentView = cloudView;
+            HideFlyoutMenu();
         }
 
         private void DirectHome(object sender, MouseButtonEventArgs e)

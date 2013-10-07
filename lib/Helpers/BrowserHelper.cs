@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Net.Http;
 using CloudsdaleWin7.Views;
+using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
 
@@ -55,6 +56,7 @@ namespace CloudsdaleWin7.lib.Helpers
             App.Connection.SessionController.CurrentSession.Clouds.Add(cloud);
             App.Connection.SessionController.RefreshClouds();
             Main.Instance.Clouds.SelectedIndex = Main.Instance.Clouds.Items.Count - 1;
+            FayeConnector.Subscribe("/clouds/" + cloud.Id + "/chat/messages");
         }
     }
 }
