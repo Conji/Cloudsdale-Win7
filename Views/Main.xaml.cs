@@ -1,13 +1,21 @@
 ﻿using System;
+using System.Net.Http;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views.Flyouts;
+using CloudsdaleWin7.Views.Notifications;
+using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
+using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.Views
 {
@@ -139,5 +147,57 @@ namespace CloudsdaleWin7.Views
         }
 
         #endregion
+
+        private async void CreateNewCloud(object sender, RoutedEventArgs e)
+        {
+            var reg = new Regex(@"^[a-z_]+$", RegexOptions.IgnoreCase);
+            if (NewCloudName.Opacity.Equals(0.0))
+            {
+                NewCloudName.BeginAnimation(OpacityProperty, new DoubleAnimation(NewCloudName.Opacity, 100.0, new Duration(new TimeSpan(0, 0, 2))));
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(NewCloudName.Text))
+            {
+                NewCloudName.BeginAnimation(OpacityProperty, new DoubleAnimation(NewCloudName.Opacity, 0.0, new Duration(new TimeSpan(0,0,3))));
+            }
+            
+            if (!reg.IsMatch(NewCloudName.Text))
+            {
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
+                                                                          new Message
+                                                                              {
+                                                                                  Content =
+                                                                                      "Cloud name can only contain numbers, letters, and underscores!"
+                                                                              });
+                return;
+            }
+            var client = new HttpClient
+                             {
+                                 DefaultRequestHeaders =
+                                     {
+                                         {"Accept", "application/json"},
+                                         {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
+                                     }
+                             };
+            var response = await client.PutAsync("http://www.cloudsdale.org/v1/clouds",
+                                            new StringContent(
+                                                JObject.FromObject(new { cloud = new
+                                                {
+                                                     name = NewCloudName.Text,
+                                                     short_name = NewCloudName.Text.Trim().ToLower()
+                                                }}).ToString()));
+            Console.WriteLine(response.ToString());
+            return;
+            var cloud = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(await response.Content.ReadAsStringAsync());
+            if (cloud.Errors != null)
+            {
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message{Content = cloud.Flash.Message});
+                return;
+            }
+            App.Connection.SessionController.CurrentSession.Clouds.Add(cloud.Result);
+            App.Connection.SessionController.RefreshClouds();
+            Clouds.SelectedItem = cloud;
+            NewCloudName.Opacity = 0.0;
+        }
     }
 }

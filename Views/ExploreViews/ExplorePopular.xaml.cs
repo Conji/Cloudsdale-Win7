@@ -27,7 +27,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
             LoadNext(this, null);
         }
 
-        private void LoadNext(object sender, RoutedEventArgs e)
+        private async void LoadNext(object sender, RoutedEventArgs e)
         {
             var client = new HttpClient
                              {
@@ -44,7 +44,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
             View.Children.Clear();
             foreach (JObject o in jsonObject)
             {
-                var cloud = o.ToObject<Cloud>();
+                var cloud = await App.Connection.ModelController.UpdateCloudAsync(o.ToObject<Cloud>());
                 var basic = new ItemBasic(cloud);
                 basic.Margin = new Thickness(30, 30, 30, 30);
 

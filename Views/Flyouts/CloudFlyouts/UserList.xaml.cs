@@ -80,7 +80,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                     {
                         SearchResults.ItemsSource = SearchList;
                     }
-                    if (!tempUser.Name.ToLower().StartsWith(SearchBox.Text.ToLower())) return;
+                    if (tempUser.Name != null && !tempUser.Name.ToLower().StartsWith(SearchBox.Text.ToLower())) return;
                     //SearchList.Add(user);
                     if (SearchList.Contains(tempUser)) return;
                     SearchList.Add(tempUser);

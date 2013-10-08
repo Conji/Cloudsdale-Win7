@@ -20,7 +20,7 @@ namespace CloudsdaleWin7.Views.ExploreViews.ItemViews
             InitializeComponent();
             BasicAvatar.Source = new BitmapImage(cloud.Avatar.Normal);
             BasicName.Text = cloud.Name;
-            Cloud = cloud;
+            Cloud = App.Connection.ModelController.GetCloud(cloud.Id);
         }
 
         private void ShowHiddenUi(object sender, MouseEventArgs e)
@@ -37,9 +37,9 @@ namespace CloudsdaleWin7.Views.ExploreViews.ItemViews
             BackUI.BeginAnimation(MarginProperty, a);
         }
 
-        private async void Join(object sender, RoutedEventArgs e)
+        private void Join(object sender, RoutedEventArgs e)
         {
-            BrowserHelper.JoinCloud(await App.Connection.ModelController.UpdateCloudAsync(Cloud));
+            BrowserHelper.JoinCloud(Cloud);
         }
     }
 }

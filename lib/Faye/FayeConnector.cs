@@ -24,10 +24,7 @@ namespace CloudsdaleWin7.lib.Faye
         public static async Task ConnectAsync()
         {
             var waiter = new ManualResetEvent(false);
-            DoneConnecting += () =>
-            {
-                waiter.Set();
-            };
+            DoneConnecting += () => waiter.Set();
             Connect();
             await Task.Run(() => waiter.WaitOne());
         }
@@ -40,6 +37,11 @@ namespace CloudsdaleWin7.lib.Faye
             socket.MessageReceived += MessageReceived;
             socket.Closed += (sender, args) => { if (LostConnection != null) LostConnection(); };
             socket.Open();
+        }
+
+        public static void Disconnect()
+        {
+            if (socket != null && socket.State == WebSocketState.Open) socket.Close();
         }
 
         static void OnOpen(object sender, EventArgs eventArgs)

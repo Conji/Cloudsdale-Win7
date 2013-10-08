@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -15,13 +12,17 @@ namespace CloudsdaleWin7.lib.Faye
         {
             FayeConnector.LostConnection += FayeConnector.Connect;
             FayeConnector.DoneConnecting += delegate
-            {
-                foreach (var cloud in App.Connection.SessionController.CurrentSession.Clouds)
-                {
-                    FayeConnector.Subscribe("/clouds/" + cloud.Id + "/chat/messages");
-                }
-            };
+                                                {
+                                                    foreach (
+                                                        var cloud in
+                                                            App.Connection.SessionController.CurrentSession.Clouds)
+                                                    {
+                                                        FayeConnector.Subscribe("/clouds/" + cloud.Id +
+                                                                                "/chat/messages");
+                                                    }
+                                                }; 
             FayeConnector.Connect();
+
         }
 
         public static async Task InitializeAsync()

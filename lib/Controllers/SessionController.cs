@@ -54,13 +54,8 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public void Logout()
         {
-            foreach (var cloud in CurrentSession.Clouds)
-            {
-                FayeConnector.Unsubscribe("/clouds/" + cloud.Id + "/chat/messages");
-            }
-            App.Connection.MessageController.CloudControllers = new Dictionary<string, CloudController>();
+            FayeConnector.socket = null;
             CurrentSession = null;
-
             MainWindow.Instance.MainFrame.Navigate(new Login());            
         }
 

@@ -28,7 +28,7 @@
                 </Image.Clip>
             </Image>
         </Border>
-        <TextBlock x:Name="BasicName" Margin="0,118,0,-21" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="42" FontWeight="SemiBold" FontSize="14"/>
+        <TextBlock x:Name="BasicName" Margin="35,126,35,-21" TextWrapping="Wrap" VerticalAlignment="Top" Height="34" FontWeight="SemiBold" FontSize="14" HorizontalAlignment="Center"/>
 
     </Grid>
 </UserControl>

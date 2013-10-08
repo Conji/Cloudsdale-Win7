@@ -44,14 +44,6 @@
                     <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                 </Button.BorderBrush>
             </Button>
-            <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,40,1" Height="51" BorderBrush="{x:Null}" FontWeight="SemiBold" Click="LaunchExplore">
-                <Button.Foreground>
-                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                </Button.Foreground>
-                <Button.Background>
-                    <SolidColorBrush Color="{DynamicResource Panels}"/>
-                </Button.Background>
-            </Button>
         </StackPanel>
         <ListView x:Name="Clouds" Margin="0,107,0,0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Width="226" SelectionChanged="CloudsSelectionChanged" Grid.Row="1">
             <ListView.Foreground>
@@ -128,5 +120,29 @@
                 </TextBlock.Foreground>
             </TextBlock>
         </Grid>
+        <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,40,1" Height="34" BorderBrush="{x:Null}" FontWeight="SemiBold" Click="LaunchExplore" Margin="114,73,0,0" Grid.Row="1" HorizontalAlignment="Left" Width="112">
+            <Button.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Button.Foreground>
+            <Button.Background>
+                <SolidColorBrush Color="{DynamicResource Panels}"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="CreateCloud" Content="+" Margin="0,73,0,0" Grid.Row="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="16" FontWeight="SemiBold" Click="CreateNewCloud" HorizontalAlignment="Left" Width="114" Height="34" VerticalAlignment="Top">
+            <Button.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Button.Foreground>
+        </Button>
+        <TextBox x:Name="NewCloudName" HorizontalAlignment="Left" Height="23" Margin="231,91,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Name your cloud!" VerticalAlignment="Top" Width="187" Opacity="0">
+            <TextBox.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </TextBox.Foreground>
+            <TextBox.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource Panels}"/>
+            </TextBox.BorderBrush>
+            <TextBox.Background>
+                <SolidColorBrush Color="{DynamicResource Panels}"/>
+            </TextBox.Background>
+        </TextBox>
     </Grid>
 </Page>

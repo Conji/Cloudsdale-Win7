@@ -3,9 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      d:DesignHeight="117.293" d:DesignWidth="284.211"
-	Title="CloudNote">
+      mc:Ignorable="d" d:DesignWidth="284.211"
+	Title="CloudNote" Height="81.293">
 
     <Grid>
         <TextBlock x:Name="NoteTitle" TextWrapping="Wrap" Text="Cloud-" VerticalAlignment="Top" Height="36" FontSize="18" FontWeight="SemiBold" FontFamily="Nirmala UI">
@@ -13,7 +12,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>
         </TextBlock>
-        <TextBlock x:Name="NoteContent" Margin="0,36,0,0" TextWrapping="Wrap" Text="[timestamp]@user: content" FontSize="16" MouseDown="DirectToCloud">
+        <TextBlock x:Name="NoteContent" Margin="0,36,0,10" TextWrapping="WrapWithOverflow" Text="[timestamp]@user: content" FontSize="16" MouseDown="DirectToCloud" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>

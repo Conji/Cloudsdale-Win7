@@ -7,6 +7,7 @@ using System.Windows.Input;
 using CloudsdaleWin7.Controls;
 using CloudsdaleWin7.Views.CloudViews;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
+using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
@@ -29,11 +30,11 @@ namespace CloudsdaleWin7.Views {
             InitializeComponent();
             Instance = this;
             Cloud = cloud;
-            App.Connection.MessageController[cloud].EnsureLoaded();
             App.Connection.MessageController[cloud].UnreadMessages = 0;
             Name.Text = cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             CloudMessages.ItemsSource = App.Connection.MessageController[cloud].Messages;
+            App.Connection.MessageController[cloud].EnsureLoaded();
             Main.Instance.FlyoutFrame.Navigate(new UserList(App.Connection.MessageController[cloud]));
             InputBox.Focus();
 
@@ -142,7 +143,23 @@ namespace CloudsdaleWin7.Views {
         {
             Main.Instance.ShowFlyoutMenu(new DropView());
         }
+
+        private async void Reload(object sender, RoutedEventArgs e)
+        {
+            CloudMessages.IsEnabled = false;
+            try
+            {
+                await App.Connection.MessageController[Cloud].EnsureLoaded();
+            }
+            catch (Exception ex)
+            {
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
+                                                                          new Message {Content = ex.Message});
+            }
+            CloudMessages.IsEnabled = true;
+        }
     }
+
     public class MessageTemplateSelector : DataTemplateSelector
     {
         protected DataTemplate SelectTemplateCore(object item, DependencyObject container)
