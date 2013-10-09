@@ -46,7 +46,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </Button.Background>
         </Button>
-        <CheckBox Content="Receive Notifications" HorizontalAlignment="Left" Margin="10,321,0,0" VerticalAlignment="Top" Width="182">
+        <CheckBox x:Name="RcCheck" Content="Receive Notifications" HorizontalAlignment="Left" Margin="10,321,0,0" VerticalAlignment="Top" Width="182" Checked="ReceiveTrue" Unchecked="ReceiveFalse">
             <CheckBox.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </CheckBox.Foreground>

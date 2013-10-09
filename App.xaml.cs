@@ -18,7 +18,6 @@ namespace CloudsdaleWin7 {
         public static void Close()
         {
             Settings.Save();
-            Connection.SubscriptionController.SaveSubscriptions();
         }
     }
 }

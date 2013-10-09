@@ -105,6 +105,16 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
             saveObject["settings"] = new JObject(_settings);
             File.WriteAllText(SettingsFile, saveObject.ToString());
         }
+
+        /// <summary>
+        /// Clear the previous settings file to default.
+        /// </summary>
+        public void Clear()
+        {
+            _settings.RemoveAll();
+            Save();
+        }
+
         /// <summary>
         /// Fetches the text from the JSON file and parses it to 
         /// the settings JObject.

@@ -24,6 +24,7 @@ namespace CloudsdaleWin7.Views.Flyouts
             SkypeBlock.Text = _current.SkypeName;
             AvatarImage.Source = new BitmapImage(_current.Avatar.Normal);
             Status.SelectedItem = _current.Status;
+            if (App.Settings["notifications"] == "true") RcCheck.IsChecked = true;
         }
         private void CheckChanges()
         {
@@ -45,6 +46,18 @@ namespace CloudsdaleWin7.Views.Flyouts
         private void Logout(object sender, System.Windows.RoutedEventArgs e)
         {
             App.Connection.SessionController.Logout();
+        }
+
+        private void ReceiveTrue(object sender, System.Windows.RoutedEventArgs e)
+        {
+            App.Connection.NotificationController.Receive = true;
+            App.Settings.ChangeSetting("notifications", "true");
+        }
+
+        private void ReceiveFalse(object sender, System.Windows.RoutedEventArgs e)
+        {
+            App.Connection.NotificationController.Receive = false;
+            App.Settings.ChangeSetting("notifications", "false");
         }
     }
 }

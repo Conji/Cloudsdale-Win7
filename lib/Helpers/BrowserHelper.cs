@@ -35,7 +35,8 @@ namespace CloudsdaleWin7.lib.Helpers
         {
             if (App.Connection.MessageController.CloudControllers.ContainsKey(cloud.Id))
             {
-                Main.Instance.Clouds.SelectedItem = await cloud.ForceValidate();
+                await cloud.ForceValidate();
+                Main.Instance.Clouds.SelectedItem = cloud;
                 return;
             }
 

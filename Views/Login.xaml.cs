@@ -35,11 +35,10 @@ namespace CloudsdaleWin7 {
             LoggingInUi.Visibility = Visibility.Visible;
            try
            {
-               Thread.Sleep(1000);
+               if (App.Settings["email"] != EmailBox.Text) App.Settings.Clear();
+
                App.Settings.ChangeSetting("email", EmailBox.Text);
                await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
-
-
            }catch (Exception ex)
            {
                ShowMessage(ex.Message);

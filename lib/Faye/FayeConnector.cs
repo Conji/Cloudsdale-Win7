@@ -41,7 +41,11 @@ namespace CloudsdaleWin7.lib.Faye
 
         public static void Disconnect()
         {
-            if (socket != null && socket.State == WebSocketState.Open) socket.Close();
+            
+            if (socket != null && socket.State == WebSocketState.Open)
+            {
+                socket = null;
+            }
         }
 
         static void OnOpen(object sender, EventArgs eventArgs)

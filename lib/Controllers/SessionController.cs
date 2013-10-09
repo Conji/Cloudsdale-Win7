@@ -56,7 +56,8 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             FayeConnector.socket = null;
             CurrentSession = null;
-            MainWindow.Instance.MainFrame.Navigate(new Login());            
+            App.Settings.Clear();
+            MainWindow.Instance.MainFrame.Navigate(new Login());
         }
 
         public async void PostData(string property, string key)
