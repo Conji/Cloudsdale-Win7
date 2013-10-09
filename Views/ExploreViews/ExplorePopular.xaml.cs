@@ -14,20 +14,21 @@ namespace CloudsdaleWin7.Views.ExploreViews
     /// </summary>
     public partial class ExplorePopular
     {
-        private int CurrentPage { get; set; }
-
         public ExplorePopular()
         {
             InitializeComponent();
             FetchPopularList();
-            CurrentPage = 0;
+            CurrentPage = 1;
         }
+
+        private int CurrentPage { get; set; }
+
         private void FetchPopularList()
         {
             LoadNext(this, null);
         }
 
-        private async void LoadNext(object sender, RoutedEventArgs e)
+        private void LoadNext(object sender, RoutedEventArgs e)
         {
             var client = new HttpClient
                              {
@@ -39,12 +40,12 @@ namespace CloudsdaleWin7.Views.ExploreViews
                                          {"Accept", "application/json"}
                                      }
                              };
-            
+
             var jsonObject = (JObject.Parse(client.GetStringAsync(Endpoints.ExplorePopular).Result))["result"];
-            View.Children.Clear();
+
             foreach (JObject o in jsonObject)
             {
-                var cloud = await App.Connection.ModelController.UpdateCloudAsync(o.ToObject<Cloud>());
+                var cloud = o.ToObject<Cloud>();
                 var basic = new ItemBasic(cloud);
                 basic.Margin = new Thickness(30, 30, 30, 30);
 

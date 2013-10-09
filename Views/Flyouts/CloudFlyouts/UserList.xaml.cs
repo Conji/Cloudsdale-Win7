@@ -56,7 +56,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                     var tempUser = user;
                     if (tempUser.Name == null)
                     {
-                        tempUser = await App.Connection.ModelController.UpdateDataAsync(tempUser);
+                        tempUser.ForceValidate();
                     }
                     if (tempUser.Name.ToLower().StartsWith(SearchBox.Text.ToLower()))
                     {
@@ -69,7 +69,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                     var tempUser = user;
                     if (tempUser.Name == null)
                     {
-                        tempUser = await App.Connection.ModelController.UpdateDataAsync(tempUser);
+                        tempUser.ForceValidate();
                     }
                     if (SearchBox.Text.Trim() == "!all")
                     {
@@ -96,7 +96,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 
         private async void ReloadUsers(object sender, RoutedEventArgs e)
         {
-            await Controller.LoadCompleteUsers();
+            await Controller.LoadUsers();
             OnlineUserList.ItemsSource = Controller.AllUsers;
         }
 

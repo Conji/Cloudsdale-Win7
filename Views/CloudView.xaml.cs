@@ -150,6 +150,7 @@ namespace CloudsdaleWin7.Views {
             try
             {
                 await App.Connection.MessageController[Cloud].EnsureLoaded();
+                await Cloud.ForceValidate();
             }
             catch (Exception ex)
             {

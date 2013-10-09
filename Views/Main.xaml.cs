@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -36,6 +37,8 @@ namespace CloudsdaleWin7.Views
             Clouds.ItemsSource = App.Connection.SessionController.CurrentSession.Clouds;
             Frame.Navigate(new Home());
             InitializeConnection();
+
+            
         }
 
         private static void InitializeConnection()
@@ -43,7 +46,7 @@ namespace CloudsdaleWin7.Views
             Connection.Initialize();
         }
 
-        private void ToggleMenu(object sender, RoutedEventArgs e)
+        private void ToggleMenu(object sender, MouseButtonEventArgs e)
         {
             ShowFlyoutMenu(new Settings());
         }
@@ -153,12 +156,13 @@ namespace CloudsdaleWin7.Views
             var reg = new Regex(@"^[a-z_]+$", RegexOptions.IgnoreCase);
             if (NewCloudName.Opacity.Equals(0.0))
             {
-                NewCloudName.BeginAnimation(OpacityProperty, new DoubleAnimation(NewCloudName.Opacity, 100.0, new Duration(new TimeSpan(0, 0, 2))));
+                NewCloudName.BeginAnimation(OpacityProperty, new DoubleAnimation(NewCloudName.Opacity, 100.0, new Duration(new TimeSpan(0, 0, 3))));
                 return;
             }
             if (String.IsNullOrWhiteSpace(NewCloudName.Text))
             {
-                NewCloudName.BeginAnimation(OpacityProperty, new DoubleAnimation(NewCloudName.Opacity, 0.0, new Duration(new TimeSpan(0,0,3))));
+                NewCloudName.BeginAnimation(OpacityProperty, new DoubleAnimation(NewCloudName.Opacity, 0.0, new Duration(new TimeSpan(0,0,2))));
+                return;
             }
             
             if (!reg.IsMatch(NewCloudName.Text))
@@ -172,30 +176,32 @@ namespace CloudsdaleWin7.Views
                 return;
             }
             var client = new HttpClient
-                             {
-                                 DefaultRequestHeaders =
-                                     {
-                                         {"Accept", "application/json"},
-                                         {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
-                                     }
-                             };
-            var response = await client.PutAsync("http://www.cloudsdale.org/v1/clouds",
-                                            new StringContent(
-                                                JObject.FromObject(new { cloud = new
-                                                {
-                                                     name = NewCloudName.Text,
-                                                     short_name = NewCloudName.Text.Trim().ToLower()
-                                                }}).ToString()));
-            Console.WriteLine(response.ToString());
-            return;
+            {
+                DefaultRequestHeaders =
+                {
+                    {"Accept", "application/json"},
+                    {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken},
+                }
+            };
+            var data = JObject.FromObject(new
+            {
+                cloud = new
+                {
+                    name = NewCloudName.Text,
+                    short_name = NewCloudName.Text.Trim().ToLower()
+                }
+            }).ToString();
+            var response = await client.PostAsync("http://www.cloudsdale.org/v1/clouds",new JsonContent(data));
+
             var cloud = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(await response.Content.ReadAsStringAsync());
-            if (cloud.Errors != null)
+            if (cloud.Flash != null)
             {
                 App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message{Content = cloud.Flash.Message});
                 return;
             }
             App.Connection.SessionController.CurrentSession.Clouds.Add(cloud.Result);
             App.Connection.SessionController.RefreshClouds();
+            FayeConnector.Subscribe("/clouds/" + cloud.Result.Id + "/chat/messages");
             Clouds.SelectedItem = cloud;
             NewCloudName.Opacity = 0.0;
         }

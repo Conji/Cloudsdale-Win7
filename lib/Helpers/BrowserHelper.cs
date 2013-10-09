@@ -33,11 +33,9 @@ namespace CloudsdaleWin7.lib.Helpers
 
         public async static void JoinCloud(Cloud cloud)
         {
-            cloud = await App.Connection.ModelController.UpdateCloudAsync(cloud);
-
-            if (App.Connection.SessionController.CurrentSession.Clouds.Contains(cloud))
+            if (App.Connection.MessageController.CloudControllers.ContainsKey(cloud.Id))
             {
-                Main.Instance.Clouds.SelectedItem = cloud;
+                Main.Instance.Clouds.SelectedItem = await cloud.ForceValidate();
                 return;
             }
 
@@ -52,7 +50,7 @@ namespace CloudsdaleWin7.lib.Helpers
             await client.PutAsync(Endpoints.CloudUserRestate.Replace("[:id]", cloud.Id).ReplaceUserId(
                         App.Connection.SessionController.CurrentSession.Id), new StringContent(""));
 
-            cloud = await App.Connection.ModelController.UpdateCloudAsync(cloud);
+            
             App.Connection.SessionController.CurrentSession.Clouds.Add(cloud);
             App.Connection.SessionController.RefreshClouds();
             Main.Instance.Clouds.SelectedIndex = Main.Instance.Clouds.Items.Count - 1;

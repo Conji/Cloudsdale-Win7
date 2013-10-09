@@ -15,15 +15,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="31*"/>
-            <RowDefinition Height="388*"/>
+            <RowDefinition Height="419*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel x:Name="SidePanel" HorizontalAlignment="Left" Width="226" Grid.RowSpan="3">
-        <StackPanel.Background>
-            <SolidColorBrush Color="{DynamicResource Panels}"/>
-        </StackPanel.Background>
-        <StackPanel Height="65">
+        <StackPanel x:Name="SidePanel" HorizontalAlignment="Left" Width="226" Grid.RowSpan="2">
+            <StackPanel.Background>
+                <SolidColorBrush Color="{DynamicResource Panels}"/>
+            </StackPanel.Background>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Width="226" Height="65" VerticalAlignment="Top">
             <StackPanel.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </StackPanel.Background>
@@ -33,25 +33,10 @@
                 </TextBlock.Foreground>
             </TextBlock>
         </StackPanel>
-            <Button Content="Settings" BorderThickness="0" Margin="54,0,0,0" Height="39" FontWeight="SemiBold" Click="ToggleMenu">
-                <Button.Foreground>
-                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                </Button.Foreground>
-                <Button.Background>
-                    <SolidColorBrush Color="{DynamicResource Panels}"/>
-                </Button.Background>
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
-                </Button.BorderBrush>
-            </Button>
-        </StackPanel>
-        <ListView x:Name="Clouds" Margin="0,107,0,0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Width="226" SelectionChanged="CloudsSelectionChanged" Grid.Row="1">
+        <ListView x:Name="Clouds" Margin="0,145,0,0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Width="226" SelectionChanged="CloudsSelectionChanged" Background="#FF4C4C5A">
             <ListView.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </ListView.Foreground>
-            <ListView.Background>
-                <SolidColorBrush Color="#FF4C4C5A"/>
-            </ListView.Background>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="2" Orientation="Horizontal">
@@ -61,7 +46,7 @@
                                 <MenuItem Command="Check the info"/>
                                 <MenuItem Command="Check the rules"/>
                                 <Separator/>-->
-                                
+
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                         <!-- Unread Count-->
@@ -82,6 +67,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,39,1" Height="39" BorderBrush="{x:Null}" FontWeight="SemiBold" Click="LaunchExplore" Margin="50,65,0,0" HorizontalAlignment="Left" Width="176" Background="{x:Null}">
+            <Button.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Button.Foreground>
+        </Button>
         <Border 
                 BorderThickness="4" 
                 HorizontalAlignment="Left" 
@@ -89,23 +79,20 @@
                 Margin="10,24,0,0"
                 VerticalAlignment="Top"
                 Width="80" 
-                CornerRadius="70" Grid.RowSpan="2">
+                CornerRadius="70">
             <Border.BorderBrush>
-            <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
-        </Border.BorderBrush>
-        <Image x:Name="SelfAvatar" Stretch="UniformToFill" Cursor="Hand">
-            <Image.Clip>
-                <RectangleGeometry Rect="0,0,72,72"  RadiusX="80" RadiusY="80" />
-            </Image.Clip>
-        </Image>
-    </Border>
-    <Frame x:Name="Frame" Content="" Margin="226,0,0,0" Background="#FFFAFAFA" Grid.RowSpan="3"/>
-        <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <Frame.Background>
-                <SolidColorBrush Color="#FF4C4C5A"/>
-            </Frame.Background>
-        </Frame>
-        <Grid x:Name="Note" HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Row="1" VerticalAlignment="Top" Opacity="0" MaxWidth="350">
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+            </Border.BorderBrush>
+            <Image x:Name="SelfAvatar" Stretch="UniformToFill" Cursor="Hand" MouseDown="ToggleMenu">
+                <Image.Clip>
+                    <RectangleGeometry Rect="0,0,72,72"  RadiusX="80" RadiusY="80" />
+                </Image.Clip>
+            </Image>
+        </Border>
+        <Image x:Name="Opac" HorizontalAlignment="Left" Height="80" Margin="10,24,0,0" VerticalAlignment="Top" Width="80" Source="/Cloudsdale;component/Assets/icon_white.png" Opacity="0" IsHitTestVisible="True" MouseDown="ToggleMenu"/>
+        <Frame x:Name="Frame" Content="" Margin="226,0,0,0" Background="#FFFAFAFA" Grid.RowSpan="2"/>
+        <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="0" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#FF4C4C5A"/>
+        <Grid x:Name="Note" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Opacity="0" MaxWidth="350">
             <Grid.Background>
                 <SolidColorBrush Color="{DynamicResource Panels}"/>
             </Grid.Background>
@@ -120,20 +107,12 @@
                 </TextBlock.Foreground>
             </TextBlock>
         </Grid>
-        <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,40,1" Height="34" BorderBrush="{x:Null}" FontWeight="SemiBold" Click="LaunchExplore" Margin="114,73,0,0" Grid.Row="1" HorizontalAlignment="Left" Width="112">
-            <Button.Foreground>
-                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-            </Button.Foreground>
-            <Button.Background>
-                <SolidColorBrush Color="{DynamicResource Panels}"/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="CreateCloud" Content="+" Margin="0,73,0,0" Grid.Row="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="16" FontWeight="SemiBold" Click="CreateNewCloud" HorizontalAlignment="Left" Width="114" Height="34" VerticalAlignment="Top">
+        <Button x:Name="CreateCloud" Content="Create A Cloud!" Margin="0,104,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="SemiBold" Click="CreateNewCloud" HorizontalAlignment="Left" Width="226" Height="34" VerticalAlignment="Top" Padding="89,1,1,1">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>
         </Button>
-        <TextBox x:Name="NewCloudName" HorizontalAlignment="Left" Height="23" Margin="231,91,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Name your cloud!" VerticalAlignment="Top" Width="187" Opacity="0">
+        <TextBox x:Name="NewCloudName" HorizontalAlignment="Left" Height="23" Margin="231,122,0,0" TextWrapping="Wrap" Text="Name your cloud!" VerticalAlignment="Top" Width="187" Opacity="0">
             <TextBox.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBox.Foreground>
@@ -144,5 +123,10 @@
                 <SolidColorBrush Color="{DynamicResource Panels}"/>
             </TextBox.Background>
         </TextBox>
+        <Separator Margin="10,138,0,0" HorizontalAlignment="Left" Width="211" Height="7" VerticalAlignment="Top">
+            <Separator.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Separator.Background>
+        </Separator>
     </Grid>
 </Page>

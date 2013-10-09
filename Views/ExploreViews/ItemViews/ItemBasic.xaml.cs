@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using CloudsdaleWin7.Views.Notifications;
+using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.Views.ExploreViews.ItemViews
 {
@@ -20,7 +24,7 @@ namespace CloudsdaleWin7.Views.ExploreViews.ItemViews
             InitializeComponent();
             BasicAvatar.Source = new BitmapImage(cloud.Avatar.Normal);
             BasicName.Text = cloud.Name;
-            Cloud = App.Connection.ModelController.GetCloud(cloud.Id);
+            Cloud = cloud;
         }
 
         private void ShowHiddenUi(object sender, MouseEventArgs e)
@@ -37,9 +41,21 @@ namespace CloudsdaleWin7.Views.ExploreViews.ItemViews
             BackUI.BeginAnimation(MarginProperty, a);
         }
 
-        private void Join(object sender, RoutedEventArgs e)
+        private async void Join(object sender, RoutedEventArgs e)
         {
-            BrowserHelper.JoinCloud(Cloud);
+            var client = new HttpClient().AcceptsJson();
+            var response = await client.GetStringAsync(Endpoints.Cloud.Replace("[:id]", Cloud.Id));
+            var responseObject = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(response);
+            if (responseObject.Flash != null)
+            {
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
+                                                                          new Message
+                                                                              {Content = responseObject.Flash.Message}
+                    );
+                return;
+            }
+
+            BrowserHelper.JoinCloud(responseObject.Result);
         }
     }
 }
