@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json.Linq;
+
 namespace CloudsdaleWin7.lib.CloudsdaleLib
 {
     public class Settings
@@ -12,11 +13,13 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
         /// </summary>
         private static readonly string SettingsFile = CloudsdaleSource.SettingsFile;
         private static JObject _settings = new JObject();
+
         public Settings()
         {
             Initialize();
             _settings = new JObject(SettingsObject);
         }
+
         public string this[string key]
         {
             get
@@ -47,6 +50,7 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
         {
             _settings.Add(tokenKey, value);
         }
+
         /// <summary>
         /// Adds the specified bool value to the settings JObject.
         /// </summary>
@@ -56,6 +60,7 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
         {
             _settings.Add(tokenKey, value);
         }
+
         /// <summary>
         /// Changes the string value of the specified key.
         /// If the key doesn't exist, it will create it.
@@ -87,6 +92,7 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
             }
             _settings.Add(tokenKey, value);
         }
+
         /// <summary>
         /// Removes the setting from the settings JObject.
         /// </summary>

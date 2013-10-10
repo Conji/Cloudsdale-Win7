@@ -54,8 +54,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public void Logout()
         {
-            FayeConnector.socket = null;
-            CurrentSession = null;
+            FayeConnector.socket.Close();
             App.Settings.Clear();
             MainWindow.Instance.MainFrame.Navigate(new Login());
         }

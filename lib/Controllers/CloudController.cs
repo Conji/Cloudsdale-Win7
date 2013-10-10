@@ -233,23 +233,44 @@ namespace CloudsdaleWin7.lib.Controllers
 
         }
 
+        public async Task LoadMessages()
+        {
+            var client = new HttpClient().AcceptsJson();
+
+            var response = await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id));
+            var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(response);
+            var newMessages = new List<Message>(_messages
+                .Where(message => message.Timestamp > responseMessages.Result.Last().Timestamp));
+            _messages.Clear();
+            foreach (var message in responseMessages.Result)
+            {
+                StatusForUser(message.Author.Id);
+                AddMessageToSource(message);
+            }
+            foreach (var message in newMessages)
+            {
+                StatusForUser(message.Author.Id);
+                AddMessageToSource(message);
+            }
+        }
+
         public void AddMessageToSource(Message message)
         {
             message.Timestamp = message.Timestamp.ToLocalTime();
             message.Content = message.Content.UnescapeLiteral();
-            if (_messages.Count > 0)
+            if (Messages.Count > 0)
             {
-                if (_messages.Last().AuthorId == message.AuthorId 
+                if (Messages.Last().AuthorId == message.AuthorId 
                     && !message.Content.StartsWith("/me") 
                     && !Messages.Last().Content.StartsWith("/me"))
                 {
-                    _messages.Last().Content += "\n" + message.Content;
-                    _messages.Last().Timestamp = message.FinalTimestamp;
+                    Messages.Last().Content += "\n" + message.Content;
+                    Messages.Last().Timestamp = message.FinalTimestamp;
                 }
-            else _messages.Add(message);
+            else Messages.Add(message);
             }
-            else _messages.Add(message);
-            if (_messages.Count > 50) _messages.RemoveAt(50);
+            else Messages.Add(message);
+            if (Messages.Count > 50) Messages.RemoveAt(50);
         }
 
         public void OnMessage(JObject message)
@@ -281,21 +302,19 @@ namespace CloudsdaleWin7.lib.Controllers
 
             #region Cloud Note
 
-            if (Cloud.IsSubscribed)
+            if (App.Connection.NotificationController.Receive)
             {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Cloud, message);
+                if (Cloud.IsSubscribed)
+                {
+                    App.Connection.NotificationController.Notification.Notify(NotificationType.Cloud, message);
+                }
             }
 
             #endregion
 
-            foreach (var drop in message.AllDrops)
+            if (App.Connection.MessageController.CurrentCloud == this && CloudView.Instance != null)
             {
-                if (Drops.Contains(drop)) return;
-                Drops.Add(drop);
-            }
-            if (App.Connection.MessageController.CurrentCloud == this && Main.CurrentView != null)
-            {
-                Main.ScrollChat();
+                CloudView.Instance.ChatScroll.ScrollToBottom();
             }
         }
 

@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="454.511" d:DesignWidth="300"
+      d:DesignHeight="545.511" d:DesignWidth="300"
 	Title="UserFlyout" Width="250" FontFamily="Nirmala UI">
 
     <Grid>
@@ -22,17 +22,17 @@
             <Border x:Name="Avi" 
                 BorderThickness="2" 
                 HorizontalAlignment="Left" 
-                Height="80" 
+                Height="150" 
                 Margin="10,10,0,0"
                 VerticalAlignment="Top"
-                Width="80" 
-                CornerRadius="70" Grid.RowSpan="2">
+                Width="150" 
+                CornerRadius="90" Grid.RowSpan="2">
                 <Border.BorderBrush>
                     <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                 </Border.BorderBrush>
                 <Image x:Name="AviImage" Stretch="UniformToFill" Cursor="Hand" Source="/Cloudsdale;component/Assets/Fallback/user.png">
                     <Image.Clip>
-                        <RectangleGeometry Rect="0,0,76,76"  RadiusX="80" RadiusY="80" />
+                        <RectangleGeometry Rect="0,0,146,146"  RadiusX="80" RadiusY="80" />
                     </Image.Clip>
                 </Image>
             </Border>
@@ -61,23 +61,31 @@
                         <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                     </Button.Background>
                 </Button>
-                <Grid x:Name="BanUI" Height="192" Visibility="Hidden">
-                    <DatePicker x:Name="BanCal" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="210" BorderThickness="0" FontSize="14" SelectedDateFormat="Short">
+                <Grid x:Name="BanUI" Height="192">
+                    <DatePicker x:Name="BanCal" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="210" BorderThickness="0" FontSize="14" SelectedDateFormat="Long">
                         <DatePicker.BorderBrush>
                             <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                         </DatePicker.BorderBrush>
                     </DatePicker>
-                    <TextBox x:Name="BanReason" HorizontalAlignment="Left" Height="25" Margin="10,54,0,0" TextWrapping="Wrap" Text="Reason..." VerticalAlignment="Top" Width="210" BorderBrush="{x:Null}" FontSize="14" Background="#FF4C4C5A">
+
+                    <TextBox x:Name="BanReason" HorizontalAlignment="Left" Height="25" Margin="10,112,0,0" TextWrapping="Wrap" Text="Reason..." VerticalAlignment="Top" Width="210" BorderBrush="{x:Null}" FontSize="14" Background="#FF4C4C5A">
                         <TextBox.Foreground>
                             <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                         </TextBox.Foreground>
                     </TextBox>
-                    <Button x:Name="BanAccept" Content="Accept" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="101"/>
-                    <Button x:Name="BanCancel" Content="Cancel" HorizontalAlignment="Left" Margin="119,109,0,0" VerticalAlignment="Top" Width="101"/>
+                    
+                    <Button x:Name="BanAccept" Content="Accept" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="101" Click="AttemptBan"/>
+                    <Button x:Name="BanCancel" Content="Cancel" HorizontalAlignment="Left" Margin="119,152,0,0" VerticalAlignment="Top" Width="101"/>
+                    <TextBox x:Name="TimeBox" HorizontalAlignment="Left" Height="23" Margin="10,73,0,0" TextWrapping="Wrap" Text="12:00" VerticalAlignment="Top" Width="210"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,52,0,0" TextWrapping="Wrap" Text="Time of Day(HH:MM)" VerticalAlignment="Top" Width="210" FontSize="16">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
                 </Grid>
             </StackPanel>
         </StackPanel>
-        <TextBlock x:Name="Name" TextWrapping="Wrap" Text="TextBlock" Margin="10,148,0,0" FontSize="14" Height="19" VerticalAlignment="Top">
+        <TextBlock x:Name="Name" TextWrapping="Wrap" Text="TextBlock" Margin="10,218,0,0" FontSize="14" Height="19" VerticalAlignment="Top">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>

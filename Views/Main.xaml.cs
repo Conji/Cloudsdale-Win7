@@ -154,15 +154,14 @@ namespace CloudsdaleWin7.Views
         private async void CreateNewCloud(object sender, RoutedEventArgs e)
         {
             var reg = new Regex(@"^[a-z_]+$", RegexOptions.IgnoreCase);
-            if (NewCloudName.Opacity.Equals(0.0))
+            if (NewCloudName.Visibility == Visibility.Hidden)
             {
-                NewCloudName.BeginAnimation(OpacityProperty, new DoubleAnimation(NewCloudName.Opacity, 100.0, new Duration(new TimeSpan(0, 0, 3))));
+                NewCloudName.Visibility = Visibility.Visible;
                 return;
             }
             if (String.IsNullOrWhiteSpace(NewCloudName.Text))
             {
-                NewCloudName.BeginAnimation(OpacityProperty, new DoubleAnimation(NewCloudName.Opacity, 0.0, new Duration(new TimeSpan(0,0,2))));
-                return;
+                NewCloudName.Visibility = Visibility.Hidden;
             }
             
             if (!reg.IsMatch(NewCloudName.Text))
@@ -191,7 +190,7 @@ namespace CloudsdaleWin7.Views
                     short_name = NewCloudName.Text.Trim().ToLower()
                 }
             }).ToString();
-            var response = await client.PostAsync("http://www.cloudsdale.org/v1/clouds",new JsonContent(data));
+            var response = await client.PostAsync("http://www.cloudsdale.org/v1/clouds", new JsonContent(data));
 
             var cloud = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(await response.Content.ReadAsStringAsync());
             if (cloud.Flash != null)
@@ -203,7 +202,8 @@ namespace CloudsdaleWin7.Views
             App.Connection.SessionController.RefreshClouds();
             FayeConnector.Subscribe("/clouds/" + cloud.Result.Id + "/chat/messages");
             Clouds.SelectedItem = cloud;
-            NewCloudName.Opacity = 0.0;
+            NewCloudName.Visibility = Visibility.Hidden;
+            NewCloudName.Text = "";
         }
     }
 }

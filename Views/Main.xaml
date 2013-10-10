@@ -12,6 +12,7 @@
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="226"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -90,9 +91,9 @@
             </Image>
         </Border>
         <Image x:Name="Opac" HorizontalAlignment="Left" Height="80" Margin="10,24,0,0" VerticalAlignment="Top" Width="80" Source="/Cloudsdale;component/Assets/icon_white.png" Opacity="0" IsHitTestVisible="True" MouseDown="ToggleMenu"/>
-        <Frame x:Name="Frame" Content="" Margin="226,0,0,0" Background="#FFFAFAFA" Grid.RowSpan="2"/>
-        <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="0" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#FF4C4C5A"/>
-        <Grid x:Name="Note" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Opacity="0" MaxWidth="350">
+        <Frame x:Name="Frame" Content="" Background="#FFFAFAFA" Grid.RowSpan="2" Grid.Column="1"/>
+        <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="0" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#FF4C4C5A" Grid.Column="1"/>
+        <Grid x:Name="Note" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Opacity="0" MaxWidth="350" Grid.Column="1">
             <Grid.Background>
                 <SolidColorBrush Color="{DynamicResource Panels}"/>
             </Grid.Background>
@@ -112,7 +113,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>
         </Button>
-        <TextBox x:Name="NewCloudName" HorizontalAlignment="Left" Height="23" Margin="231,122,0,0" TextWrapping="Wrap" Text="Name your cloud!" VerticalAlignment="Top" Width="187" Opacity="0">
+        <TextBox x:Name="NewCloudName" HorizontalAlignment="Left" Height="23" Margin="0,112,0,0" TextWrapping="Wrap" Text="Set your link!" VerticalAlignment="Top" Width="187" Grid.Column="1" Visibility="Hidden">
             <TextBox.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBox.Foreground>

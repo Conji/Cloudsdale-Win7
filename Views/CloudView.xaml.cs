@@ -84,7 +84,7 @@ namespace CloudsdaleWin7.Views {
             
             try
             {
-                var response = await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
+                await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
                 new StringContent(messageData)
                 {
                     Headers =
@@ -93,22 +93,10 @@ namespace CloudsdaleWin7.Views {
                         }
                     }
                 );
-                var responseText = await response.Content.ReadAsStringAsync();
-                var fullMessage = JsonConvert.DeserializeObject<WebResponse<Message>>(responseText);
-
-                if (fullMessage == null) return;
-                if (fullMessage.Flash != null)
-                {
-                    App.Connection.ErrorController.OnError(fullMessage);
-                    return;
-                }
-
-                fullMessage.Result.PreProcess();
-                fullMessage.Result.CopyTo(messageModel);
-                //App.Connection.MessageController[Cloud].AddMessageToSource(messageModel);
+                InputBox.Text = "";
+                await App.Connection.MessageController[Cloud].LoadMessages();
             }
             catch (Exception e) { Console.WriteLine(e.Message);}
-
             InputBox.Text = "";
             InputBox.IsEnabled = true;
             InputBox.Focus();

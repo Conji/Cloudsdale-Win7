@@ -44,7 +44,7 @@ namespace CloudsdaleWin7.lib.Faye
             
             if (socket != null && socket.State == WebSocketState.Open)
             {
-                socket = null;
+                socket.Close();
             }
         }
 
