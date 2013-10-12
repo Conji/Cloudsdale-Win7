@@ -37,6 +37,8 @@ namespace CloudsdaleWin7.lib.Helpers
                 return;
             }
             responseObject.Result.CopyTo(App.Connection.MessageController[cloud].Cloud);
+            Console.WriteLine(responseObject.Result);
+            App.Connection.SessionController.RefreshClouds();
             Main.Instance.InitSession();
         }
 

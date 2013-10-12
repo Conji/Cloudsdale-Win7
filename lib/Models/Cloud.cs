@@ -249,7 +249,7 @@ namespace CloudsdaleWin7.lib.Models
             }
             else
             {
-                result.Result.CopyTo(this);
+                
                 App.Connection.SessionController.RefreshClouds();
             }
         }

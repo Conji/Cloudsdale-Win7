@@ -184,13 +184,15 @@ namespace CloudsdaleWin7.lib.Controllers
         public async Task LoadBans()
         {
             var client = new HttpClient().AcceptsJson();
+            client.DefaultRequestHeaders.Add("X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken);
+
             {
                 _bans.Clear();
                 var response = await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id));
                 var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
                 foreach (var ban in userData.Result)
                 {
-                    if (ban.Revoked == true || ban.Active == false || ban.Expired == true) return;
+                    if (ban.Expired == true || ban.Revoked == true) return;
                     _bans.Add(ban);
                 }
             }
@@ -295,7 +297,6 @@ namespace CloudsdaleWin7.lib.Controllers
             if (Messages.Count > 50) Messages.RemoveAt(50);
         }
 
-
         public void OnMessage(JObject message)
         {
             var chanSplit = ((string)message["channel"]).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
@@ -313,16 +314,13 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
-
         private void OnChatMessage(JToken jMessage)
         {
             AddUnread();
             var message = jMessage.ToObject<Message>();
 
-
             message.PostedOn = Cloud.Id;
             message.Author.CopyTo(message.User);
-
 
             AddMessageToSource(message);
 

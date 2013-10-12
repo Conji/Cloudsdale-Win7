@@ -65,7 +65,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             BanUI.Visibility = BanUI.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
         }
 
-        private void AttemptBan(object sender, RoutedEventArgs e)
+        private async void AttemptBan(object sender, RoutedEventArgs e)
         {
             if (BanCal.SelectedDate == null)
             {
@@ -87,8 +87,23 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 
             if (MessageBox.Show("Ban @" + Self.Username + " for " + BanReason.Text + " until " + BanCal.SelectedDate + "?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
-            var client = new HttpClient().AcceptsJson();
-            
+
+            var ban = new Ban(Self.Id)
+                          {
+                              OffenderId = Self.Id,
+                              Reason = BanReason.Text,
+                              Due = BanCal.SelectedDate
+                          };
+            var client = new HttpClient
+                             {
+                                 DefaultRequestHeaders =
+                                     {
+                                         {"Accept", "application/json"},
+                                         {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
+                                     }
+                             };
+            await client.PostAsync(
+                    Endpoints.CloudBan.Replace("[:id]", App.Connection.MessageController.CurrentCloud.Cloud.Id), new JsonContent(ban));
 
         }
     }

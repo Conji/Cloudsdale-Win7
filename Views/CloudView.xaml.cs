@@ -37,7 +37,7 @@ namespace CloudsdaleWin7.Views {
             App.Connection.MessageController[cloud].EnsureLoaded();
             Main.Instance.FlyoutFrame.Navigate(new UserList(App.Connection.MessageController[cloud]));
             InputBox.Focus();
-
+            App.Connection.MessageController[cloud].LoadBans();
         }
 
         private void ButtonClick1(object sender, RoutedEventArgs e)

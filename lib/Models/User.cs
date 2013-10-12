@@ -36,6 +36,7 @@ namespace CloudsdaleWin7.lib.Models
         [JsonConstructor]
         public User(string id) : base(id)
         {
+
         }
 
         #region Visual information
