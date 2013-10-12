@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -28,7 +27,6 @@ namespace CloudsdaleWin7.lib.Models
         private string _rules;
         private DateTime? _created;
         private string _description;
-        private string _unreadMessages;
         public bool IsSubscribed { get; set; }
 
         /// <summary>
@@ -252,6 +250,7 @@ namespace CloudsdaleWin7.lib.Models
             else
             {
                 result.Result.CopyTo(this);
+                App.Connection.SessionController.RefreshClouds();
             }
         }
         public async void Leave()

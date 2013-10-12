@@ -84,7 +84,7 @@
                     <DockPanel Height="32">
                         <TextBlock Foreground="#4d4d4d" FontSize="16" DataContext="{Binding Path=Author}">
                                 <Run Text="&#x25CF;" FontFamily="Segoe UI Symbol" FontSize="14"
-                                     Foreground="{Binding Path=UIMetadata[Status].Value, 
+                                     Foreground="{Binding Path=UiMetadata[Status].Value, 
                                      Converter={StaticResource StatusColor}}"/>
                                 <Run Text="{Binding Path=Name}" FontSize="18" FontWeight="SemiBold"
                                      Foreground="{Binding Path=RawUser, Converter={StaticResource NameColor}}" MouseDown="UserInfo" Cursor="Hand"/>

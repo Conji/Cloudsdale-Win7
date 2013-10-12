@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -19,7 +16,7 @@ namespace CloudsdaleWin7.lib.Models
     {
         public CloudsdaleModel()
         {
-            UIMetadata = new UIMetadata(this);
+            UiMetadata = new UIMetadata(this);
         }
 
         /// <summary>
@@ -37,18 +34,16 @@ namespace CloudsdaleWin7.lib.Models
                 if (attribute == null) continue;
 
                 var value = property.GetValue(this);
-                if (value != null)
-                {
-                    var targetProperty = targetType.GetRuntimeProperty(property.Name);
-                    targetProperty.SetValue(other, value);
-                }
+                if (value == null) return;
+                var targetProperty = targetType.GetRuntimeProperty(property.Name);
+                targetProperty.SetValue(other, value);
             }
         }
 
         /// <summary>
         /// Metadata useful for UI display, provided by a MetadataProvider
         /// </summary>
-        public UIMetadata UIMetadata { get; set; }
+        public UIMetadata UiMetadata { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

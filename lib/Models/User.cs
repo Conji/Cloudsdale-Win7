@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Windows.Media.Imaging;
+using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
@@ -320,6 +322,7 @@ namespace CloudsdaleWin7.lib.Models
             else
             {
                 result.Result.CopyTo(this);
+                Main.Instance.SelfAvatar.Source = new BitmapImage(Avatar.Normal);
             }
         }
         public override string ToString()

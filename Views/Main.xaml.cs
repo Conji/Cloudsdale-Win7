@@ -32,13 +32,16 @@ namespace CloudsdaleWin7.Views
         {
             Instance = this;
             InitializeComponent();
-            SelfName.Text = App.Connection.SessionController.CurrentSession.Name;
-            SelfAvatar.Source = new BitmapImage(App.Connection.SessionController.CurrentSession.Avatar.Preview);
+            InitSession();
             Clouds.ItemsSource = App.Connection.SessionController.CurrentSession.Clouds;
             Frame.Navigate(new Home());
             InitializeConnection();
+        }
 
-            
+        public void InitSession()
+        {
+            SelfAvatar.Source = new BitmapImage(App.Connection.SessionController.CurrentSession.Avatar.Normal);
+            SelfName.Text = App.Connection.SessionController.CurrentSession.Name;
         }
 
         private static void InitializeConnection()

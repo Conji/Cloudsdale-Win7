@@ -8,7 +8,7 @@ using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.lib.Helpers
 {
-    public static class UIHelpers
+    public static class UiHelpers
     {
         public static Hyperlink OnClickLaunch(this Hyperlink link, string uri)
         {

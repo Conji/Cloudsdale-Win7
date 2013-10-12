@@ -9,6 +9,7 @@
     <Page.Resources>
         <Color x:Key="Panels">#FF4C4C5A</Color>
         <MVVM:UnreadConverter x:Key="Unread"/>
+        <MVVM:StringShorten x:Key="Short"/>
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -50,12 +51,6 @@
 
                             </ContextMenu>
                         </StackPanel.ContextMenu>
-                        <!-- Unread Count-->
-                        <TextBlock Margin="5" Text="{Binding RawController.UnreadMessages, Converter={StaticResource Unread}}" FontSize="16" FontFamily="Calibri">
-                            <TextBlock.Foreground>
-                                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
-                            </TextBlock.Foreground>
-                        </TextBlock>
                         <!-- Image -->
                         <Image Margin="3" Height="30" Width="30" Source="{Binding Avatar.Preview}">
                             <Image.Clip>
@@ -63,7 +58,13 @@
                             </Image.Clip>
                         </Image>
                         <!-- Name -->
-                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Name, Converter={StaticResource Short}}" MaxWidth="150"/>
+                        <!-- Unread Count-->
+                        <TextBlock Margin="5" Text="{Binding RawController.UnreadMessages, Converter={StaticResource Unread}}" FontSize="18" FontFamily="Consolas" FontWeight="Bold">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="#FF6E82FF"/>
+                            </TextBlock.Foreground>
+                        </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -73,6 +74,11 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>
         </Button>
+        <Ellipse HorizontalAlignment="Left" Height="80" Margin="10,24,0,0" VerticalAlignment="Top" Width="80">
+            <Ellipse.Fill>
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+            </Ellipse.Fill>
+        </Ellipse>
         <Border 
                 BorderThickness="4" 
                 HorizontalAlignment="Left" 

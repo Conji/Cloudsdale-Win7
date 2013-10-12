@@ -19,7 +19,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.Controllers
 {
-    public class CloudController : IStatusProvider,  INotifyPropertyChanged
+    public class CloudController : IStatusProvider, INotifyPropertyChanged
     {
         private int _unreadMessages;
         private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
@@ -28,6 +28,7 @@ namespace CloudsdaleWin7.lib.Controllers
         private ObservableCollection<Drop> _drops = new ObservableCollection<Drop>();
         public User Owner { get; private set; }
         public static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
+
 
         public CloudController(Cloud cloud)
         {
@@ -38,9 +39,12 @@ namespace CloudsdaleWin7.lib.Controllers
             Owner = JsonConvert.DeserializeObject<WebResponse<User>>(response).Result;
         }
 
+
         public Cloud Cloud { get; private set; }
 
+
         public ObservableCollection<Message> Messages { get { return _messages; } }
+
 
         public ObservableCollection<Drop> Drops
         {
@@ -53,14 +57,16 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
+
         public ObservableCollection<Ban> Bans
         {
-            get 
-            { 
+            get
+            {
                 LoadBans();
                 return _bans;
             }
-        } 
+        }
+
 
         public List<User> OnlineModerators
         {
@@ -76,6 +82,7 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
+
         public List<User> AllModerators
         {
             get
@@ -88,6 +95,7 @@ namespace CloudsdaleWin7.lib.Controllers
                 return list;
             }
         }
+
 
         public List<User> OnlineUsers
         {
@@ -115,6 +123,7 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
+
         public async Task LoadCompleteUsers()
         {
             try
@@ -141,6 +150,7 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
+
         public async Task LoadUsers()
         {
             try
@@ -163,11 +173,13 @@ namespace CloudsdaleWin7.lib.Controllers
                         users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
+
 
         public async Task LoadBans()
         {
@@ -184,13 +196,17 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
+
         public async Task EnsureLoaded()
         {
             FayeConnector.Subscribe("/clouds/" + Cloud.Id + "/users/*");
 
+
             Cloud.Validate();
 
+
             var client = new HttpClient().AcceptsJson();
+
 
             // Load user list
             {
@@ -210,7 +226,9 @@ namespace CloudsdaleWin7.lib.Controllers
                     users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
                 }
 
+
             }
+
 
             // Load messages
             {
@@ -231,11 +249,14 @@ namespace CloudsdaleWin7.lib.Controllers
                 }
             }
 
+
         }
+
 
         public async Task LoadMessages()
         {
             var client = new HttpClient().AcceptsJson();
+
 
             var response = await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id));
             var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(response);
@@ -254,24 +275,26 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
+
         public void AddMessageToSource(Message message)
         {
             message.Timestamp = message.Timestamp.ToLocalTime();
             message.Content = message.Content.UnescapeLiteral();
             if (Messages.Count > 0)
             {
-                if (Messages.Last().AuthorId == message.AuthorId 
-                    && !message.Content.StartsWith("/me") 
+                if (Messages.Last().AuthorId == message.AuthorId
+                    && !message.Content.StartsWith("/me")
                     && !Messages.Last().Content.StartsWith("/me"))
                 {
                     Messages.Last().Content += "\n" + message.Content;
                     Messages.Last().Timestamp = message.FinalTimestamp;
                 }
-            else Messages.Add(message);
+                else Messages.Add(message);
             }
             else Messages.Add(message);
             if (Messages.Count > 50) Messages.RemoveAt(50);
         }
+
 
         public void OnMessage(JObject message)
         {
@@ -290,17 +313,22 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
+
         private void OnChatMessage(JToken jMessage)
         {
             AddUnread();
             var message = jMessage.ToObject<Message>();
 
+
             message.PostedOn = Cloud.Id;
             message.Author.CopyTo(message.User);
 
+
             AddMessageToSource(message);
 
+
             #region Cloud Note
+
 
             if (App.Connection.NotificationController.Receive)
             {
@@ -310,7 +338,9 @@ namespace CloudsdaleWin7.lib.Controllers
                 }
             }
 
+
             #endregion
+
 
             if (App.Connection.MessageController.CurrentCloud == this && CloudView.Instance != null)
             {
@@ -318,7 +348,6 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
-        
         private async void OnUserMessage(string id, JToken jUser)
         {
             jUser["id"] = id;
@@ -374,11 +403,13 @@ namespace CloudsdaleWin7.lib.Controllers
             return status;
         }
 
+
         public Status StatusForUser(string userId)
         {
             FixSessionStatus();
             return _userStatuses.ContainsKey(userId) ? _userStatuses[userId] : SetStatus(userId, Status.Offline);
         }
+
 
         private void FixSessionStatus()
         {
@@ -386,7 +417,9 @@ namespace CloudsdaleWin7.lib.Controllers
                 App.Connection.SessionController.CurrentSession.PreferredStatus;
         }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
+
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -395,4 +428,5 @@ namespace CloudsdaleWin7.lib.Controllers
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
 }

@@ -50,6 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icon_black.ico</ApplicationIcon>
@@ -134,6 +135,7 @@
     <Compile Include="lib\Faye\Connection.cs" />
     <Compile Include="lib\Faye\FayeConnector.cs" />
     <Compile Include="lib\Helpers\CloudsdaleEscaper.cs" />
+    <Compile Include="lib\Helpers\ModelHelpers.cs" />
     <Compile Include="lib\Models\Client\BooleanMetadataProvider.cs" />
     <Compile Include="lib\Models\Client\CloudControllerMetadataProvider.cs" />
     <Compile Include="lib\Models\Client\LastSession.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="lib\Models\Subscription.cs" />
     <Compile Include="MVVM\ChatHelpers.cs" />
     <Compile Include="MVVM\LoginScreen.cs" />
+    <Compile Include="MVVM\StringShorten.cs" />
     <Compile Include="MVVM\Tag.cs" />
     <Compile Include="lib\Helpers\BrowserHelper.cs" />
     <Compile Include="lib\Helpers\UIHelpers.cs" />

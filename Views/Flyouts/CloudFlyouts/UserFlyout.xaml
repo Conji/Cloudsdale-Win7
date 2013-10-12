@@ -52,7 +52,20 @@
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </Button.Foreground>
             </Button>
-            <StackPanel x:Name="AdminUI" Height="225" Margin="10,10,10,0">
+            <Separator Height="6" Margin="0">
+                <Separator.Background>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                </Separator.Background>
+            </Separator>
+            <StackPanel x:Name="AdminUI" Height="227" Margin="10,10,10,0" Visibility="Hidden">
+                <Button Content="Promote to Moderator" Margin="0,5,-10,10" Height="36" FontSize="16" HorizontalAlignment="Left" Width="230">
+                    <Button.BorderBrush>
+                        <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                    </Button.BorderBrush>
+                    <Button.Background>
+                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                    </Button.Background>
+                </Button>
                 <Button x:Name="PrimaryBanButton" Content="Ban" Height="33" FontSize="14" FontWeight="Light" Click="ShowBanUi">
                     <Button.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
@@ -62,26 +75,20 @@
                     </Button.Background>
                 </Button>
                 <Grid x:Name="BanUI" Height="192">
-                    <DatePicker x:Name="BanCal" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="210" BorderThickness="0" FontSize="14" SelectedDateFormat="Long">
+                    <DatePicker x:Name="BanCal" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="210" BorderThickness="0" FontSize="14" SelectedDateFormat="Short">
                         <DatePicker.BorderBrush>
                             <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                         </DatePicker.BorderBrush>
                     </DatePicker>
 
-                    <TextBox x:Name="BanReason" HorizontalAlignment="Left" Height="25" Margin="10,112,0,0" TextWrapping="Wrap" Text="Reason..." VerticalAlignment="Top" Width="210" BorderBrush="{x:Null}" FontSize="14" Background="#FF4C4C5A">
+                    <TextBox x:Name="BanReason" HorizontalAlignment="Left" Height="25" Margin="10,49,0,0" TextWrapping="Wrap" Text="Reason..." VerticalAlignment="Top" Width="210" BorderBrush="{x:Null}" FontSize="14" Background="#FF4C4C5A">
                         <TextBox.Foreground>
                             <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                         </TextBox.Foreground>
                     </TextBox>
-                    
-                    <Button x:Name="BanAccept" Content="Accept" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="101" Click="AttemptBan"/>
-                    <Button x:Name="BanCancel" Content="Cancel" HorizontalAlignment="Left" Margin="119,152,0,0" VerticalAlignment="Top" Width="101"/>
-                    <TextBox x:Name="TimeBox" HorizontalAlignment="Left" Height="23" Margin="10,73,0,0" TextWrapping="Wrap" Text="12:00" VerticalAlignment="Top" Width="210"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,52,0,0" TextWrapping="Wrap" Text="Time of Day(HH:MM)" VerticalAlignment="Top" Width="210" FontSize="16">
-                        <TextBlock.Foreground>
-                            <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                        </TextBlock.Foreground>
-                    </TextBlock>
+
+                    <Button x:Name="BanAccept" Content="Accept" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="101" Click="AttemptBan"/>
+                    <Button x:Name="BanCancel" Content="Cancel" HorizontalAlignment="Left" Margin="119,91,0,0" VerticalAlignment="Top" Width="101"/>
                 </Grid>
             </StackPanel>
         </StackPanel>

@@ -1,8 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib.Models;
+using CloudsdaleWin7.lib.Helpers;
+using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.Views.Flyouts
 {
@@ -12,8 +17,8 @@ namespace CloudsdaleWin7.Views.Flyouts
     public partial class Settings
     {
         private readonly Session _current = App.Connection.SessionController.CurrentSession;
-        private readonly Regex _nameRegex = new Regex(@"\b\s[a-z]\b", RegexOptions.IgnoreCase);
-        private readonly Regex _usernameRegex = new Regex(@"\b[a-z0-9_]\b", RegexOptions.IgnoreCase);
+        private readonly Regex _nameRegex = new Regex("^[a-z_ ]+$", RegexOptions.IgnoreCase);
+        private readonly Regex _usernameRegex = new Regex("^[a-z0-9]", RegexOptions.IgnoreCase);
 
         public Settings()
         {
@@ -40,7 +45,7 @@ namespace CloudsdaleWin7.Views.Flyouts
                 NameBlock.Text = _current.Name;
                 return;
             }
-           App.Connection.SessionController.PostData("name", NameBlock.Text);
+            App.Connection.SessionController.CurrentSession.UpdateProperty("name", NameBlock.Text);
         }
 
         private void Logout(object sender, System.Windows.RoutedEventArgs e)
@@ -58,6 +63,44 @@ namespace CloudsdaleWin7.Views.Flyouts
         {
             App.Connection.NotificationController.Receive = false;
             App.Settings.ChangeSetting("notifications", "false");
+        }
+
+        private void UploadNewAvatar(object sender, MouseButtonEventArgs e)
+        {
+            var dialog = new System.Windows.Forms.OpenFileDialog
+                             {
+                                 DefaultExt = ".png",
+                                 InitialDirectory = Environment.SpecialFolder.MyPictures.ToString(),
+                                 Title = "Select a new avatar",
+                                 Filter = "Image files | *.png; *.jpg; *.bmp"
+                             };
+            dialog.ShowDialog();
+
+            var mimeType = "image/";
+
+            if (String.IsNullOrEmpty(dialog.FileName)) return;
+            if (dialog.SafeFileName == null) return;
+
+            if (dialog.SafeFileName.EndsWith(".png")) mimeType += "png";
+            else if (dialog.SafeFileName.EndsWith(".jpg")) mimeType += "jpg";
+            else if (dialog.SafeFileName.EndsWith(".bmp")) mimeType += "bmp";
+            else
+            {
+                dialog.Dispose();
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message{Content = "That's not a supported file type! Please try again."});
+                return;
+            }
+
+            App.Connection.SessionController.CurrentSession.UploadAvatar(
+                new FileStream(dialog.FileName, FileMode.Open), mimeType);
+            dialog.Dispose();
+            
+        }
+
+        private void ChangeSkypeName(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            App.Connection.SessionController.CurrentSession.UpdateProperty("skype_name", SkypeBlock.Text);
         }
     }
 }

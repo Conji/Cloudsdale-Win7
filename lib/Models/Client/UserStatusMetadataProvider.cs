@@ -103,7 +103,7 @@ namespace CloudsdaleWin7.lib.Models.Client
 
             public object Value
             {
-                get { return (Status)Model.UIMetadata["Status"].Value != Status.Offline; }
+                get { return (Status)Model.UiMetadata["Status"].Value != Status.Offline; }
                 set { throw new NotSupportedException(); }
             }
 

@@ -47,7 +47,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
             {
                 var cloud = o.ToObject<Cloud>();
                 var basic = new ItemBasic(cloud);
-                basic.Margin = new Thickness(30, 30, 30, 30);
+                basic.Margin = new Thickness(10,10,10,10);
 
                 View.Children.Add(basic);
             }

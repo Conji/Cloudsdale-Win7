@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Height="160" Width="130" MouseEnter="ShowHiddenUi" MouseLeave="HideHiddenUi">
+             mc:Ignorable="d" Height="160" Width="170" MouseEnter="ShowHiddenUi" MouseLeave="HideHiddenUi">
     <Grid Margin="0,0,0,21">
 
         <Grid x:Name="BackUI" HorizontalAlignment="Center" Width="100" Margin="0,-38,0,39">
@@ -28,7 +28,7 @@
                 </Image.Clip>
             </Image>
         </Border>
-        <TextBlock x:Name="BasicName" Margin="35,126,35,-21" TextWrapping="Wrap" VerticalAlignment="Top" Height="34" FontWeight="SemiBold" FontSize="14" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="BasicName" Margin="35,120,35,-21" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" FontWeight="SemiBold" FontSize="14" HorizontalAlignment="Center"/>
 
     </Grid>
 </UserControl>

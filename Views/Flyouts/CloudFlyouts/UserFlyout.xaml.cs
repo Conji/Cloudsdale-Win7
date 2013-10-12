@@ -5,8 +5,10 @@ using System.Windows;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views.Notifications;
+using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 {
@@ -22,17 +24,18 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         public UserFlyout(User user, Cloud cloud, bool isMod)
         {
             InitializeComponent();
-            Self = user;
             FoundOn = cloud;
+            user.Validate();
+            Self = user;
             AvatarBounce();
-            Username.Text = "@" + Self.Username;
+            Username.Text = "@" + user.Username;
             Name.Text = user.Name;
-            AviImage.Source = new BitmapImage(Self.Avatar.Normal);
-            akaList.ItemsSource = Self.AlsoKnownAs;
+            AviImage.Source = new BitmapImage(user.Avatar.Normal);
+            SkypeUI.Visibility = user.SkypeName != null ? Visibility.Visible : Visibility.Hidden;
+            akaList.ItemsSource = user.AlsoKnownAs;
             BanReason.Text = "Banned by @" + App.Connection.SessionController.CurrentSession.Username;
             AdminUI.Visibility = isMod ? Visibility.Visible : Visibility.Hidden;
 
-            TimeBox.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute;
             BanCal.SelectedDate = DateTime.Now;
         }
 
@@ -49,7 +52,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 
         private void AddOnSkype(object sender, RoutedEventArgs e)
         {
-            UIHelpers.MessageOnSkype(Self.SkypeName ?? Self.SkypeName);
+            UiHelpers.MessageOnSkype(Self.SkypeName ?? Self.SkypeName);
         }
 
         private void GoBack(object sender, RoutedEventArgs e)
@@ -71,17 +74,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                                                                               {Content = "You have to select a date!"});
                 return;
             }
-            var timeReg = new Regex("^(?:[01]?[0-9]|2[0-3]):[0-5][0-9]$");
-            if (!timeReg.IsMatch(TimeBox.Text))
-            {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
-                                                                          new Message
-                                                                              {
-                                                                                  Content =
-                                                                                      "Time format must be HH:MM in 24 hour time!"
-                                                                              });
-                return;
-            }
+            
             if (String.IsNullOrEmpty(BanReason.Text))
             {
                 App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
@@ -92,7 +85,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 return;
             }
 
-            if (MessageBox.Show("Ban @" + Self.Username + " for " + BanReason.Text + " until " + TimeBox.Text + BanCal.SelectedDate + "?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            if (MessageBox.Show("Ban @" + Self.Username + " for " + BanReason.Text + " until " + BanCal.SelectedDate + "?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
             var client = new HttpClient().AcceptsJson();
             

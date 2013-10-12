@@ -47,6 +47,7 @@ namespace CloudsdaleWin7.Views.Notifications
         
         public void ShowNote()
         {
+            Visibility = Visibility.Visible;
             var a = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(0, 0, 3)));
             a.EasingFunction = new QuadraticEase();
             Show();
@@ -63,7 +64,7 @@ namespace CloudsdaleWin7.Views.Notifications
 
         private void Close(object sender, RoutedEventArgs e)
         {
-            Opacity = 0.0;
+            Visibility = Visibility.Hidden;
         }
 
     }

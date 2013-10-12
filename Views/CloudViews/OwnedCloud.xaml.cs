@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
-using Newtonsoft.Json;
 using WinForms = System.Windows.Forms;
 
 namespace CloudsdaleWin7.Views.CloudViews
@@ -52,9 +42,19 @@ namespace CloudsdaleWin7.Views.CloudViews
                              {
                                  InitialDirectory = Environment.SpecialFolder.MyPictures.ToString(),
                                  Title = "Upload a new cloud avatar...",
-                                 Filter = "Image files |*.png"
+                                 Filter = "Image files |*.png; *.jpg; *.bmp"
                              };
             dialog.ShowDialog();
+
+            if (dialog.SafeFileName == null) return;
+            if (String.IsNullOrEmpty(dialog.FileName)) return;
+
+            var mimeType = "image/";
+            if (dialog.SafeFileName.EndsWith(".png")) mimeType += "png";
+            if (dialog.SafeFileName.EndsWith(".jpg")) mimeType += "jpg";
+            if (dialog.SafeFileName.EndsWith(".bmp")) mimeType += "bmp";
+
+            Cloud.UploadAvatar(new FileStream(dialog.FileName, FileMode.Open), mimeType);
         }
 
         private async void AttemptDelete(object sender, RoutedEventArgs e)

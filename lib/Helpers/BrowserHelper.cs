@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Net.Http;
 using CloudsdaleWin7.Views;
+using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
@@ -23,12 +24,18 @@ namespace CloudsdaleWin7.lib.Helpers
                 Process.Start(uri);
                 return;
             }
-            var client = new HttpClient().AcceptsJson();
-            var cloudId = uri.Split('/')[4];
-            var response = client.GetStringAsync(Endpoints.Cloud.Replace("[:id]", cloudId));
-            var cloudObject = (JsonConvert.DeserializeObject<WebResponse<Cloud>>(response.Result)).Result;
+            try
+            {
+                var client = new HttpClient().AcceptsJson();
+                var cloudId = uri.Split('/')[4];
+                var response = client.GetStringAsync(Endpoints.Cloud.Replace("[:id]", cloudId));
+                var cloudObject = (JsonConvert.DeserializeObject<WebResponse<Cloud>>(response.Result)).Result;
 
-            JoinCloud(cloudObject);
+                JoinCloud(cloudObject);
+            }catch(Exception ex)
+            {
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message{Content = ex.Message});
+            }
         }
 
         public async static void JoinCloud(Cloud cloud)

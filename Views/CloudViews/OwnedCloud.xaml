@@ -38,7 +38,7 @@
                         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                     </TextBlock.Foreground>
                 </TextBlock>
-                <TextBox x:Name="RulesBox" Width="210"/>
+                <TextBox x:Name="RulesBox" Width="210" TextWrapping="Wrap"/>
             </StackPanel>
         </ScrollViewer>
         <Button Content="X" HorizontalAlignment="Left" Margin="223,10,0,0" VerticalAlignment="Top" Width="17" Background="{x:Null}" Click="Button_Click_1"/>
