@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -8,7 +10,6 @@ using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
-using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 {
@@ -25,7 +26,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         {
             InitializeComponent();
             FoundOn = cloud;
-            user.Validate();
+            user.ForceValidate();
             Self = user;
             AvatarBounce();
             Username.Text = "@" + user.Username;
@@ -35,18 +36,17 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             akaList.ItemsSource = user.AlsoKnownAs;
             BanReason.Text = "Banned by @" + App.Connection.SessionController.CurrentSession.Username;
             AdminUI.Visibility = isMod ? Visibility.Visible : Visibility.Hidden;
+            PreviousBans.ItemsSource = UnexpiredBans();
 
             BanCal.SelectedDate = DateTime.Now;
         }
 
         private void AvatarBounce()
         {
+
+            var bounce = new BounceEase { Bounces = 3, Bounciness = 10 };
             var a = new ThicknessAnimation(new Thickness(10, -800, 0, 810), new Thickness(10, 10, 0, 0),
-                                           new Duration(new TimeSpan(0, 0, 1)));
-            var bounce = new BounceEase();
-            bounce.Bounces = 3;
-            bounce.Bounciness = 10;
-            a.EasingFunction = bounce;
+                                           new Duration(new TimeSpan(0, 0, 1))) {EasingFunction = bounce};
             Avi.BeginAnimation(MarginProperty, a);
         }
 
@@ -63,6 +63,18 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         private void ShowBanUi(object sender, RoutedEventArgs e)
         {
             BanUI.Visibility = BanUI.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+        }
+
+        private static IEnumerable<Ban> UnexpiredBans()
+        {
+            var list = new ObservableCollection<Ban>();
+            foreach (var ban in App.Connection.MessageController[FoundOn].Bans.Where(ban => (ban.Expired == false
+                                                                                            || ban.Revoked == false)
+                                                                                            && ban.OffenderId == Self.Id))
+            {
+                list.Add(ban);
+            }
+            return list;
         }
 
         private async void AttemptBan(object sender, RoutedEventArgs e)

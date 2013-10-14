@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Net;
+using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,6 +35,7 @@ namespace CloudsdaleWin7.Views
             Clouds.ItemsSource = App.Connection.SessionController.CurrentSession.Clouds;
             Frame.Navigate(new Home());
             InitializeConnection();
+            VerifyCloudOwners();
         }
 
         public void InitSession()
@@ -80,8 +80,8 @@ namespace CloudsdaleWin7.Views
 
         public void HideFlyoutMenu()
         {
-            var a = new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)));
-            a.EasingFunction = new ExponentialEase();
+            var a = new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)))
+                        {EasingFunction = new ExponentialEase()};
             FlyoutFrame.BeginAnimation(WidthProperty, a);
         }
 
@@ -106,6 +106,22 @@ namespace CloudsdaleWin7.Views
             Frame.Navigate(new Home());
             Clouds.SelectedIndex = -1;
         }
+
+        private void VerifyCloudOwners()
+        {
+            switch(App.Connection.SessionController.CurrentSession.Role)
+            {
+                case "founder":
+                    return;
+                case "developer":
+                    return;
+                default:
+                    if (App.Connection.SessionController.CurrentSession.Clouds.Any(cloud => cloud.OwnerId == App.Connection.SessionController.CurrentSession.Id))
+                        CreateCloud.Visibility = Visibility.Hidden;
+                    break;
+            }
+        }
+
         public void NavigateToCloud(CloudController cloud)
         {
             Frame.Navigate(new CloudView(cloud.Cloud));
@@ -140,15 +156,15 @@ namespace CloudsdaleWin7.Views
 
         private void ShowNote()
         {
-            var a = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(0, 0, 2)));
-            a.EasingFunction = new ExponentialEase();
+            var a = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(0, 0, 2)))
+                        {EasingFunction = new ExponentialEase()};
             Note.BeginAnimation(OpacityProperty, a);
         }
 
         private void HideNote()
         {
-            var a = new DoubleAnimation(100.0, 0.0, new Duration(new TimeSpan(0, 0, 6)));
-            a.EasingFunction = new ExponentialEase();
+            var a = new DoubleAnimation(100.0, 0.0, new Duration(new TimeSpan(0, 0, 6)))
+                        {EasingFunction = new ExponentialEase()};
             Note.BeginAnimation(OpacityProperty, a);
         }
 
@@ -205,6 +221,44 @@ namespace CloudsdaleWin7.Views
             App.Connection.SessionController.RefreshClouds();
             FayeConnector.Subscribe("/clouds/" + cloud.Result.Id + "/chat/messages");
             Clouds.SelectedItem = cloud;
+            NewCloudName.Visibility = Visibility.Hidden;
+            NewCloudName.Text = "";
+        }
+
+        private void AddDirectCloud(object sender, MouseButtonEventArgs e)
+        {
+            
+            if (NewCloudName.Visibility == Visibility.Hidden)
+            {
+                NewCloudName.Visibility = Visibility.Visible;
+                NewCloudName.Text = "";
+                return;
+            }
+            
+            if (NewCloudName.Visibility == Visibility.Visible && NewCloudName.Text == "")
+            {
+                NewCloudName.Visibility = Visibility.Hidden;
+                return;
+            }
+
+            try
+            {
+                var client = new HttpClient().AcceptsJson();
+                var response =
+                    JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(
+                        client.GetStringAsync(Endpoints.CloudJson.Replace("[:id]", NewCloudName.Text)).Result);
+                if (response.Result.Flash != null)
+                {
+                    App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message { Content = response.Result.Flash.Message });
+                    return;
+                }
+                BrowserHelper.JoinCloud(response.Result.Result);
+            }
+            catch(Exception ex)
+            {
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
+                                                                          new Message {Content = ex.Message});
+            }
             NewCloudName.Visibility = Visibility.Hidden;
             NewCloudName.Text = "";
         }

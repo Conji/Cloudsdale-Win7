@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using CloudsdaleWin7.lib.ErrorConsole.CConsole;
 
@@ -9,34 +11,32 @@ namespace CloudsdaleWin7.lib.Models
 {
     class ClientVersion
     {
-        private const string VERSION= "2.0.2 BETA";
+        private const string Version= "2.0.6 BETA";
 
-        public static string UpdatedVersion()
+        public async static Task<string> UpdatedVersion()
         {
             try
             {
-                var request = WebRequest.CreateHttp(Endpoints.VersionAddress);
-                var responseStream = request.GetResponse().GetResponseStream();
-                var response = new StreamReader(responseStream);
-                return response.ReadToEnd().Trim();
+                var client = new HttpClient();
+                var response = await client.GetStringAsync(Endpoints.VersionAddress);
+                return response.Trim();
             }catch (Exception ex)
             {
                 WriteError.ShowError(ex.Message);
-                return "UPDATED FAILED";
+                return "UPDATE FAILED";
             }
         }
-        public static void CheckVersion()
+        public async static void CheckVersion()
         {
             //fix this
-            if (UpdatedVersion() != "UPDATE FAILED" && UpdatedVersion() != VERSION)
-            {
-                if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
+            if (await UpdatedVersion() == Version || await UpdatedVersion() == "UPDATE FAILED") return;
+            if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
                                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
-                {
-                    UpdateClient();
-                }
+            {
+                UpdateClient();
             }
         }
+
         public static void Validate()
         {
             CheckVersion();
@@ -56,7 +56,7 @@ namespace CloudsdaleWin7.lib.Models
             try
             {
                 File.Delete(CloudsdaleSource.Folder + "old.file");
-            }catch(Exception e){}
+            }catch(Exception e){Console.WriteLine(e.Message);}
         }
     }
 }

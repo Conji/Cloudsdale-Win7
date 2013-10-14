@@ -1,5 +1,6 @@
 ﻿using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Controllers;
+using CloudsdaleWin7.lib.Faye;
 
 namespace CloudsdaleWin7 {
     /// <summary>
@@ -17,6 +18,7 @@ namespace CloudsdaleWin7 {
 
         public static void Close()
         {
+            FayeConnector.socket.Close();
             Settings.Save();
         }
     }

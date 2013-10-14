@@ -126,7 +126,7 @@
 
         public static string ReplaceCloudId(this string endpoint, string id)
         {
-            return endpoint.Replace("[:cloud_id", id);
+            return endpoint.Replace("[:cloud_id]", id);
         }
 
         #endregion

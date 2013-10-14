@@ -11,7 +11,6 @@ using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
-using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
 

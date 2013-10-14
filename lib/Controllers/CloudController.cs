@@ -37,6 +37,7 @@ namespace CloudsdaleWin7.lib.Controllers
             var client = new HttpClient().AcceptsJson();
             var response = client.GetStringAsync(Endpoints.User.Replace("[:id]", cloud.OwnerId)).Result;
             Owner = JsonConvert.DeserializeObject<WebResponse<User>>(response).Result;
+            LoadBans();
         }
 
 
@@ -45,6 +46,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public ObservableCollection<Message> Messages { get { return _messages; } }
 
+        public ObservableCollection<Ban> Bans { get { return _bans; } }
 
         public ObservableCollection<Drop> Drops
         {
@@ -56,17 +58,6 @@ namespace CloudsdaleWin7.lib.Controllers
                 OnPropertyChanged();
             }
         }
-
-
-        public ObservableCollection<Ban> Bans
-        {
-            get
-            {
-                LoadBans();
-                return _bans;
-            }
-        }
-
 
         public List<User> OnlineModerators
         {
@@ -192,7 +183,6 @@ namespace CloudsdaleWin7.lib.Controllers
                 var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
                 foreach (var ban in userData.Result)
                 {
-                    if (ban.Expired == true || ban.Revoked == true) return;
                     _bans.Add(ban);
                 }
             }

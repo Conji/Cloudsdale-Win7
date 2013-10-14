@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Windows;
 using CloudsdaleWin7.Views.ExploreViews.ItemViews;
 using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.Views.ExploreViews
 {
@@ -28,7 +30,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
             LoadNext(this, null);
         }
 
-        private void LoadNext(object sender, RoutedEventArgs e)
+        private async void LoadNext(object sender, RoutedEventArgs e)
         {
             var client = new HttpClient
                              {
@@ -41,17 +43,14 @@ namespace CloudsdaleWin7.Views.ExploreViews
                                      }
                              };
 
-            var jsonObject = (JObject.Parse(client.GetStringAsync(Endpoints.ExplorePopular).Result))["result"];
+            var response =
+                JsonConvert.DeserializeObjectAsync<WebResponse<Cloud[]>>(
+                    await client.GetStringAsync(Endpoints.ExplorePopular));
 
-            foreach (JObject o in jsonObject)
-            {
-                var cloud = o.ToObject<Cloud>();
-                var basic = new ItemBasic(cloud);
-                basic.Margin = new Thickness(10,10,10,10);
-
+            foreach (var basic in from Cloud cloud in response.Result.Result select new ItemBasic(cloud) { Margin = new Thickness(10, 10, 10, 10) })
                 View.Children.Add(basic);
-            }
-            CurrentPage += 1;
+
+            ++CurrentPage;
         }
     }
 }

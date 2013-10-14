@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Media;
 
 namespace CloudsdaleWin7.lib
@@ -21,10 +20,10 @@ namespace CloudsdaleWin7.lib
         public static Color FounderTag = Color.FromRgb(255, 183, 230);
         public static Color DevTag = Color.FromRgb(142, 60, 255);
         public static Color AdminTag = Color.FromRgb(99, 151, 63);
-        public static Color AssociateTag = Color.FromRgb(110, 110, 167);
+        public static Color AssociateTag = Color.FromRgb(100, 110, 167);
         public static Color DonatorTag = Color.FromRgb(220, 220, 30);
         public static Color LegacyTag = Color.FromRgb(160, 160, 160);
-        public static Color VerifiedTag = Color.FromRgb(40, 40, 250);
+        public static Color VerifiedTag = Color.FromRgb(40, 80, 250);
 
         public static Color OnlineStatus = Colors.LimeGreen;
         public static Color OfflineStatus = Colors.LightGray;
@@ -34,7 +33,7 @@ namespace CloudsdaleWin7.lib
         #region Folders
 
         public static string Folder = @"C:\Users\" + Environment.UserName + @"\AppData\Roaming\Cloudsdale\";
-        public static string File = Folder + "Cloudsdale.exe";
+        public static string File = Folder + @"bin\Cloudsdale.exe";
         public static string SettingsFile = Folder + "settings.json";
 
         #endregion
