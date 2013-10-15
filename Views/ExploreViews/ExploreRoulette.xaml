@@ -14,11 +14,11 @@
         </Grid.RowDefinitions>
         <Grid x:Name="LoadingUi" Grid.RowSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="67*"/>
-                <RowDefinition Height="33*"/>
+                <RowDefinition Height="179*"/>
+                <RowDefinition Height="121*"/>
             </Grid.RowDefinitions>
-            <Image gif:ImageBehavior.AnimatedSource="/Cloudsdale;component/Assets/cd_icon_animation.gif" gif:ImageBehavior.AutoStart="True" HorizontalAlignment="Center" Height="100" Margin="100,0,100,1" VerticalAlignment="Bottom" Width="100"/>
-            <TextBlock x:Name="CurrentStatus" HorizontalAlignment="Center" Margin="0,11,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="16" FontWeight="Thin" Grid.Row="1"/>
+            <Image gif:ImageBehavior.AnimatedSource="/Cloudsdale;component/Assets/cd_icon_animation.gif" gif:ImageBehavior.AutoStart="True" HorizontalAlignment="Center" Height="150" Margin="75,0" VerticalAlignment="Bottom" Width="150"/>
+            <TextBlock x:Name="CurrentStatus" Margin="0,11,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="16" FontWeight="Thin" Grid.Row="1" Height="21" TextAlignment="Center"/>
         </Grid>
 
     </Grid>

@@ -37,7 +37,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
                                  DefaultRequestHeaders =
                                      {
                                          {"X-Result-Page", (CurrentPage + 1).ToString(new NumberFormatInfo())},
-                                         {"X-Result-Time", DateTime.Now.ToString(new DateTimeFormatInfo())},
+                                         {"X-Result-Time", DateTime.Now.ToString("o")},
                                          {"X-Result-Per", "20"},
                                          {"Accept", "application/json"}
                                      }

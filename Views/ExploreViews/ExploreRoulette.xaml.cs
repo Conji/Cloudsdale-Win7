@@ -1,56 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Net.Http;
+using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.Views.ExploreViews
 {
     /// <summary>
     /// Interaction logic for ExploreRoulette.xaml
     /// </summary>
-    public partial class ExploreRoulette : Page
+    public partial class ExploreRoulette
     {
+
+        private readonly ObservableCollection<Cloud> _gathered = new ObservableCollection<Cloud>(); 
+
+        /// <summary>
+        /// Steps to roulette.
+        /// 1: Gather 6 clouds out of 100
+        /// 2: Adds them to the wheel
+        /// 3: Skips over a rand of 4-20 clouds and chooses.
+        /// </summary>
         public ExploreRoulette()
         {
             InitializeComponent();
+            Begin();
         }
 
-        private void StartupRoulette()
+        private void Begin()
         {
-            
+            GatherClouds();
         }
 
-        private void GatherClouds()
+        public async void GatherClouds()
         {
-            
+            CurrentStatus.Text = "Gathering clouds...";
+            var client = new HttpClient
+            {
+                DefaultRequestHeaders =
+                                     {
+                                         {"X-Result-Time", DateTime.Now.ToString("o")},
+                                         {"X-Result-Per", "100"},
+                                         {"Accept", "application/json"}
+                                     }
+            };
+
+            var response =
+                JsonConvert.DeserializeObjectAsync<WebResponse<Cloud[]>>(
+                    await client.GetStringAsync(Endpoints.ExplorePopular));
+
+            foreach(var cloud in response.Result.Result)
+            {
+                cloud.ForceValidate();
+                _gathered.Add(cloud);
+            }
+            CurrentStatus.Text = "Finished gathering clouds.";
         }
 
-        private ObservableCollection<Cloud> GatheredClouds()
-        {
-            var clouds = new ObservableCollection<Cloud>();
-            return clouds;
-        }
+        
 
-        private void Chance(ObservableCollection<Cloud> clouds)
-        {
-            
-        }
-
-        private void AnimateWheel()
-        {
-            
-        }
     }
 }

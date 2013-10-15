@@ -53,7 +53,7 @@ namespace CloudsdaleWin7.MVVM
                 case "verified":
                     return new SolidColorBrush(CloudsdaleSource.VerifiedTag);
                 default:
-                    return new SolidColorBrush(CloudsdaleSource.LegacyTag);
+                    return new SolidColorBrush(CloudsdaleSource.PrimaryBackground);
             }
         }
         public Object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

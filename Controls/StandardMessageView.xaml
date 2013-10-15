@@ -38,7 +38,7 @@
         </Style>
     </UserControl.Resources>
     <Grid Margin="5,0,5,7">
-        <Border HorizontalAlignment="Stretch" Height="1" x:Name="Separator"
+        <!--<Border HorizontalAlignment="Stretch" Height="1" x:Name="Separator"
                 VerticalAlignment="Top">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -47,27 +47,29 @@
                     <GradientStop Offset="1" Color="#E7E7E7" />
                 </LinearGradientBrush>
             </Border.Background>
-        </Border>
+        </Border>-->
         <Grid Margin="0,7,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
                 <ColumnDefinition Width="15" />
             </Grid.ColumnDefinitions>
-            <Grid Margin="0,0,5,5" x:Name="TagGrid" Width="60">
+            <Grid Margin="0,0,5,5" x:Name="TagGrid" Width="64">
                 <StackPanel>
-                    <Border BorderBrush="#3a3a3a" BorderThickness="1" VerticalAlignment="Top" >
-                        <Image Source="{Binding Path=Author.Avatar.Normal}" Width="60" Height="60" />
+                    <Border BorderThickness="3" VerticalAlignment="Top" CornerRadius="50" Height="64" Width="64" BorderBrush="{Binding Path=Author.Role, Converter={StaticResource TagColor}}">
+                        <Image Source="{Binding Path=Author.Avatar.Normal}" Width="60" Height="60" ClipToBounds="True">
+                            <Image.Clip>
+                                <RectangleGeometry Rect="0,0,58,59" RadiusX="60" RadiusY="60">
+
+                                </RectangleGeometry>
+                            </Image.Clip>
+                        </Image>
                     </Border>
-                    <Border DataContext="{Binding Path=Author.Role}" BorderBrush="Gray"
-                            BorderThickness="1" CornerRadius="2" Height="16" Margin="0,5,0,0"
-                            Visibility="{Binding Converter={StaticResource ShowTag}}"
-                            Background="{Binding Converter={StaticResource TagColor}}">
-                        <TextBlock Text="{Binding Converter={StaticResource TagText}}"
-                                   FontSize="12" Foreground="White"
+                    <TextBlock Text="{Binding Path=Author.Role,Converter={StaticResource TagText}}"
+                                   FontSize="12" Foreground="{Binding Path=Author.Role, Converter={StaticResource TagColor}}"
+                                   Visibility="{Binding Path=Author.Role,Converter={StaticResource ShowTag}}"
                                    HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                    </Border>
+                                   VerticalAlignment="Center" Width="64" TextAlignment="Center"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">

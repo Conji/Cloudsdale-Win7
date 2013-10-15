@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border HorizontalAlignment="Stretch" Height="1" x:Name="Separator"
+        <!--<Border HorizontalAlignment="Stretch" Height="1" x:Name="Separator"
                 VerticalAlignment="Top">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -26,7 +26,7 @@
                     <GradientStop Offset="1" Color="#E7E7E7" />
                 </LinearGradientBrush>
             </Border.Background>
-        </Border>
+        </Border>-->
         <TextBlock FontSize="14" Margin="3" HorizontalAlignment="Center">
             <Run Text="{Binding Path=FinalTimeStamp, Converter={StaticResource TimeStamp},Mode=OneWay}"/>
             <Run Text="{Binding Path=Device, Converter={StaticResource MessageDevice}}"/>

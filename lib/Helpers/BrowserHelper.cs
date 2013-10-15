@@ -13,15 +13,21 @@ namespace CloudsdaleWin7.lib.Helpers
     {
         private static bool IsCloudLink(string link)
         {
-            if (link.Contains("cloudsdale.org/clouds")) return true;
-            return false;
+            return link.Contains("cloudsdale.org/clouds");
         }
 
         public static void FollowLink(string uri)
         {
             if (!IsCloudLink(uri))
             {
-                Process.Start(uri);
+                try
+                {
+                    Process.Start(uri);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
                 return;
             }
             try

@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
+﻿using System.Windows;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Views.CloudViews
@@ -20,7 +7,7 @@ namespace CloudsdaleWin7.Views.CloudViews
     /// <summary>
     /// Interaction logic for StandardCloud.xaml
     /// </summary>
-    public partial class StandardCloud : Page
+    public partial class StandardCloud
     {
 
         private Cloud Cloud { get; set; }
@@ -34,9 +21,10 @@ namespace CloudsdaleWin7.Views.CloudViews
             Cloud = cloud;
             if (cloud.Rules != null) Rules.Text = cloud.Rules.Replace("\n", "\r\n");
             if (cloud.Description != null) Description.Text = cloud.Description.Replace("\n", "\r\n");
+            if (Cloud.IsSubscribed) SubBox.IsChecked = true;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonClick1(object sender, RoutedEventArgs e)
         {
             Main.Instance.HideFlyoutMenu();
         }
@@ -49,12 +37,12 @@ namespace CloudsdaleWin7.Views.CloudViews
 
         private void Subscribe(object sender, RoutedEventArgs e)
         {
-            Cloud.IsSubscribed = true;
+            App.Connection.MessageController[Cloud].Cloud.IsSubscribed = true;
         }
 
         private void Unsubscribe(object sender, RoutedEventArgs e)
         {
-            Cloud.IsSubscribed = false;
+            App.Connection.MessageController[Cloud].Cloud.IsSubscribed = false;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace CloudsdaleWin7.Controls
 
         private void ActionMessageView_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Separator.Width = e.NewSize.Width;
+            //Separator.Width = e.NewSize.Width;
         }
     }
 }

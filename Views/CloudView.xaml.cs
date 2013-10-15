@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,6 +10,7 @@ using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
+using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
 
@@ -83,15 +83,7 @@ namespace CloudsdaleWin7.Views {
             
             try
             {
-                await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id),
-                new StringContent(messageData)
-                {
-                    Headers =
-                        {
-                        ContentType = new MediaTypeHeaderValue("application/json")
-                        }
-                    }
-                );
+                await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id), new JsonContent(messageData));
                 InputBox.Text = "";
                 await App.Connection.MessageController[Cloud].LoadMessages();
             }
@@ -136,7 +128,7 @@ namespace CloudsdaleWin7.Views {
             CloudMessages.IsEnabled = false;
             try
             {
-                await App.Connection.MessageController[Cloud].EnsureLoaded();
+                await App.Connection.MessageController[Cloud].LoadMessages();
                 await Cloud.ForceValidate();
             }
             catch (Exception ex)
@@ -157,11 +149,7 @@ namespace CloudsdaleWin7.Views {
             var actionTemplate = new DataTemplate(new ActionMessageView());
             var standardTemplate = new DataTemplate(new StandardMessageView());
 
-            if (Message.SlashMeFormat.IsMatch(message.Content))
-            {
-                return actionTemplate;
-            }
-            return standardTemplate;
+            return Message.SlashMeFormat.IsMatch(message.Content) ? actionTemplate : standardTemplate;
         }
     }
 }

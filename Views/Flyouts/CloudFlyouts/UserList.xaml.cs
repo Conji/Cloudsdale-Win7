@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using CloudsdaleWin7.lib.Controllers;
@@ -51,39 +52,29 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 UserScroll.Visibility = Visibility.Collapsed;
                 SearchList.Clear();
                 // Collects the online users list first.
-                foreach (var user in Controller.OnlineUsers)
+                foreach (var user in Controller.OnlineUsers.Where(user => user.Name == null))
                 {
-                    var tempUser = user;
-                    if (tempUser.Name == null)
-                    {
-                        tempUser.ForceValidate();
-                    }
-                    if (tempUser.Name.ToLower().StartsWith(SearchBox.Text.ToLower()))
-                    {
-                        SearchList.Add(tempUser);
-                    }
+                    await user.ForceValidate();
+                }
+                foreach (var user in Controller.OnlineUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
+                {
+                    SearchList.Add(user);
                 }
                 //Collects the offline users list next.
+                foreach (var user in Controller.AllUsers.Where(user => user.Name == null))
+                {
+                    await user.ForceValidate();
+                }
+                foreach (var user in Controller.AllUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
+                {
+                    SearchList.Add(user);
+                }
+                //Fetches all users
+                if (SearchBox.Text != "..") return;
+                SearchList.Clear();
                 foreach (var user in Controller.AllUsers)
                 {
-                    var tempUser = user;
-                    if (tempUser.Name == null)
-                    {
-                        tempUser.ForceValidate();
-                    }
-                    if (SearchBox.Text.Trim() == "!all")
-                    {
-                        await Controller.LoadCompleteUsers();
-                        SearchResults.ItemsSource = Controller.AllUsers;
-                    }
-                    else
-                    {
-                        SearchResults.ItemsSource = SearchList;
-                    }
-                    if (tempUser.Name != null && !tempUser.Name.ToLower().StartsWith(SearchBox.Text.ToLower())) return;
-                    //SearchList.Add(user);
-                    if (SearchList.Contains(tempUser)) return;
-                    SearchList.Add(tempUser);
+                    SearchList.Add(user);
                 }
             }
         }

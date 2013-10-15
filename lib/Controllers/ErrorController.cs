@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using CloudsdaleWin7.lib.ErrorConsole.CConsole;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Providers;
 
@@ -15,7 +14,7 @@ namespace CloudsdaleWin7.lib.Controllers
             LastError = response;
             string title;
             var message = BuildMessage(response, out title);
-            return WriteError.ShowError(message);
+            return null;
         }
 
         private static string BuildMessage<T>(WebResponse<T> response, out string title)

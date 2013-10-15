@@ -32,7 +32,7 @@
         </Grid.Background>
         <StackPanel x:Name="LoggingInUi" Grid.Column="1" Margin="0,0,0,0" Visibility="Hidden">
             <Image gif:ImageBehavior.AnimatedSource="/Cloudsdale;component/Assets/cd_icon_animation.gif" gif:ImageBehavior.AutoStart="True" Grid.Column="1" Margin="57,192,57,0" Width="150" Height="150" VerticalAlignment="Top"/>
-            <TextBlock Text="Logging in..." HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16" FontFamily="Nirmala UI">
+            <TextBlock Text="Logging in..." HorizontalAlignment="Center" FontWeight="Thin" FontSize="16" FontFamily="Nirmala UI">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </TextBlock.Foreground>
@@ -59,7 +59,7 @@
                 <FlowDocument>
                     <FlowDocument.Blocks>
                         <Paragraph>
-                            <Run Text="Welcome to" FontFamily="Nirmala UI" FontWeight="Light"/>
+                            <Run Text="Welcome to" FontFamily="Nirmala UI" FontWeight="Thin"/>
                             <Run Text="Cloudsdale." FontSize="18" FontFamily="Nirmala UI" FontWeight="Medium"/>
                         </Paragraph>
                     </FlowDocument.Blocks>
@@ -73,7 +73,7 @@
                     <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
                 </Border.BorderBrush>
                 <StackPanel Margin="-1,0,0,-1">
-                    <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" FontFamily="Nirmala UI" IsHitTestVisible="True" IsInactiveSelectionHighlightEnabled="True">
+                    <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" FontFamily="Nirmala UI" IsHitTestVisible="True" IsInactiveSelectionHighlightEnabled="True" FontWeight="Thin">
                         <TextBox.Foreground>
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                         </TextBox.Foreground>
@@ -89,7 +89,7 @@
                             <SolidColorBrush Color="{Binding Converter={StaticResource ScreenColor}}"/>
                         </Separator.Background>
                     </Separator>
-                    <PasswordBox x:Name="PasswordBox" Margin="10,0" KeyDown="LoginAttempt" Height="21" IsHitTestVisible="True" TabIndex="0">
+                    <PasswordBox x:Name="PasswordBox" Margin="10,0" KeyDown="LoginAttempt" Height="21" IsHitTestVisible="True" TabIndex="0" FontWeight="Thin">
                         <PasswordBox.SelectionBrush>
                             <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                         </PasswordBox.SelectionBrush>

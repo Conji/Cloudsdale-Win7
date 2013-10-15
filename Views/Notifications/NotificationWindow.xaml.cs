@@ -29,16 +29,13 @@ namespace CloudsdaleWin7.Views.Notifications
             switch (type)
             {
                 case NotificationType.Client:
-
-                    NoteFrame.Navigate(new ClientNote(message));
-                    break;
-                case NotificationType.User:
-                    if (MainWindow.Instance.WindowState != WindowState.Minimized) return;
-                    NoteFrame.Navigate(new UserNote(message));
+                    NoteTitle.Text = "";
+                    NoteText.Text = message.Content;
                     break;
                 case NotificationType.Cloud:
                     if (MainWindow.Instance.WindowState != WindowState.Minimized) return;
-                    NoteFrame.Navigate(new CloudNote(message));
+                    NoteTitle.Text = App.Connection.MessageController.CloudControllers[message.PostedOn].Cloud.Name;
+                    NoteText.Text = message.FinalTimestamp + ".. @" + message.Author.Username + "-" + message.Content;
                     break;
             }
             ShowNote();
@@ -48,8 +45,8 @@ namespace CloudsdaleWin7.Views.Notifications
         public void ShowNote()
         {
             Visibility = Visibility.Visible;
-            var a = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(0, 0, 3)));
-            a.EasingFunction = new QuadraticEase();
+            var a = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(0, 0, 3)))
+                        {EasingFunction = new QuadraticEase()};
             Show();
             Opacity = 0.0;
             BeginAnimation(OpacityProperty, a);
@@ -57,8 +54,8 @@ namespace CloudsdaleWin7.Views.Notifications
 
         public void HideNote()
         {
-            var a = new DoubleAnimation(100.0, 0.0, new Duration(new TimeSpan(0, 0, 6)));
-            a.EasingFunction = new ExponentialEase();
+            var a = new DoubleAnimation(100.0, 0.0, new Duration(new TimeSpan(0, 0, 6)))
+                        {EasingFunction = new ExponentialEase()};
             BeginAnimation(OpacityProperty, a);
         }
 
@@ -75,6 +72,6 @@ namespace CloudsdaleWin7.Views.Notifications
     /// </summary>
     public enum NotificationType
     {
-        Cloud, User, Client
+        Cloud, Client
     }
 }

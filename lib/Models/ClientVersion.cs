@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using CloudsdaleWin7.lib.ErrorConsole.CConsole;
+using CloudsdaleWin7.Views.Notifications;
 
 namespace CloudsdaleWin7.lib.Models
 {
@@ -22,7 +22,8 @@ namespace CloudsdaleWin7.lib.Models
                 return response.Trim();
             }catch (Exception ex)
             {
-                WriteError.ShowError(ex.Message);
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
+                                                                          new Message {Content = ex.Message});
                 return "UPDATE FAILED";
             }
         }
@@ -44,7 +45,6 @@ namespace CloudsdaleWin7.lib.Models
         }
         private static void UpdateClient()
         {
-            
             File.Move(CloudsdaleSource.File, CloudsdaleSource.Folder + "old.file");
             var client = new WebClient();
             client.DownloadFile(Endpoints.ClientAddress, CloudsdaleSource.File);

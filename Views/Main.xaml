@@ -29,7 +29,7 @@
             <StackPanel.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </StackPanel.Background>
-            <TextBlock x:Name="SelfName" TextWrapping="Wrap" Margin="95,25,0,0" FontFamily="Meiryo UI" FontWeight="SemiBold" Height="22" Cursor="Hand" MouseDown="DirectHome">
+            <TextBlock x:Name="SelfName" TextWrapping="Wrap" Margin="95,25,0,0" FontFamily="Meiryo UI" FontWeight="Thin" Height="22" Cursor="Hand" MouseDown="DirectHome">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </TextBlock.Foreground>
@@ -52,11 +52,11 @@
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                         <!-- Image -->
-                        <Image Margin="3" Height="30" Width="30" Source="{Binding Avatar.Preview}">
+                        <!--<Image Margin="3" Height="30" Width="30" Source="{Binding Avatar.Preview}">
                             <Image.Clip>
                                 <RectangleGeometry Rect="0,0,30,30" RadiusX="30" RadiusY="30" />
                             </Image.Clip>
-                        </Image>
+                        </Image>-->
                         <!-- Name -->
                         <TextBlock Text="{Binding Name, Converter={StaticResource Short}}" MaxWidth="150"/>
                         <!-- Unread Count-->
@@ -69,7 +69,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,39,1" Height="39" BorderBrush="{x:Null}" FontWeight="SemiBold" Click="LaunchExplore" Margin="50,65,0,0" HorizontalAlignment="Left" Width="176" Background="{x:Null}">
+        <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,39,1" Height="39" BorderBrush="{x:Null}" FontWeight="Thin" Click="LaunchExplore" Margin="50,65,0,0" HorizontalAlignment="Left" Width="176" Background="{x:Null}">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>
@@ -114,7 +114,7 @@
                 </TextBlock.Foreground>
             </TextBlock>
         </Grid>
-        <Button x:Name="CreateCloud" Content="Create A Cloud!" Margin="90,104,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="SemiBold" Click="CreateNewCloud" HorizontalAlignment="Left" Width="136" Height="34" VerticalAlignment="Top" Padding="0,1,1,1">
+        <Button x:Name="CreateCloud" Content="Create A Cloud!" Margin="90,104,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Thin" Click="CreateNewCloud" HorizontalAlignment="Left" Width="136" Height="34" VerticalAlignment="Top" Padding="0,1,1,1">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>
@@ -130,12 +130,7 @@
                 <SolidColorBrush Color="{DynamicResource Panels}"/>
             </TextBox.Background>
         </TextBox>
-        <Separator Margin="10,138,0,0" HorizontalAlignment="Left" Width="211" Height="7" VerticalAlignment="Top">
-            <Separator.Background>
-                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-            </Separator.Background>
-        </Separator>
-        <TextBlock TextWrapping="Wrap" Text="+" Margin="41,104,167,286" FontSize="24" MouseDown="AddDirectCloud">
+        <TextBlock TextWrapping="Wrap" Text="+" Margin="41,104,167,0" FontSize="24" MouseDown="AddDirectCloud" Height="29" VerticalAlignment="Top" Cursor="Hand">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>
