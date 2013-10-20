@@ -26,7 +26,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
             SearchResults.ItemsSource = SearchList;
-            App.Connection.MessageController[cloud.Cloud].EnsureLoaded();
+            App.Connection.MessageController[cloud.Cloud].LoadUsers();
         }
 
         /// <summary>
@@ -51,6 +51,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 SearchScroll.Visibility = Visibility.Visible;
                 UserScroll.Visibility = Visibility.Collapsed;
                 SearchList.Clear();
+
                 // Collects the online users list first.
                 foreach (var user in Controller.OnlineUsers.Where(user => user.Name == null))
                 {
@@ -58,8 +59,10 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 }
                 foreach (var user in Controller.OnlineUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
                 {
+                    if (SearchList.Contains(user)) return;
                     SearchList.Add(user);
                 }
+
                 //Collects the offline users list next.
                 foreach (var user in Controller.AllUsers.Where(user => user.Name == null))
                 {
@@ -67,13 +70,17 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 }
                 foreach (var user in Controller.AllUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
                 {
+                    if (SearchList.Contains(user)) return;
                     SearchList.Add(user);
                 }
+
                 //Fetches all users
                 if (SearchBox.Text != "..") return;
                 SearchList.Clear();
                 foreach (var user in Controller.AllUsers)
                 {
+                    await user.ForceValidate();
+                    if (SearchList.Contains(user)) return;
                     SearchList.Add(user);
                 }
             }

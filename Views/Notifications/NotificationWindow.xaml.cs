@@ -25,11 +25,10 @@ namespace CloudsdaleWin7.Views.Notifications
 
         public void Notify(NotificationType type, Message message)
         {
-            
             switch (type)
             {
                 case NotificationType.Client:
-                    NoteTitle.Text = "";
+                    NoteTitle.Text = "Message from Cloudsdale...";
                     NoteText.Text = message.Content;
                     break;
                 case NotificationType.Cloud:
@@ -45,11 +44,11 @@ namespace CloudsdaleWin7.Views.Notifications
         public void ShowNote()
         {
             Visibility = Visibility.Visible;
+            Show();
             var a = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(0, 0, 3)))
                         {EasingFunction = new QuadraticEase()};
-            Show();
-            Opacity = 0.0;
             BeginAnimation(OpacityProperty, a);
+            
         }
 
         public void HideNote()

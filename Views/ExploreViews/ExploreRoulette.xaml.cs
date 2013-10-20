@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Timers;
+using System.Windows;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -15,6 +17,8 @@ namespace CloudsdaleWin7.Views.ExploreViews
     {
 
         private readonly ObservableCollection<Cloud> _gathered = new ObservableCollection<Cloud>(); 
+        private readonly ObservableCollection<Cloud> _assigned = new ObservableCollection<Cloud>();
+        private Cloud FinalCloud { get; set; }
 
         /// <summary>
         /// Steps to roulette.
@@ -31,10 +35,12 @@ namespace CloudsdaleWin7.Views.ExploreViews
         private void Begin()
         {
             GatherClouds();
+            
         }
 
         public async void GatherClouds()
         {
+            FinalizedUI.Visibility = Visibility.Hidden;
             CurrentStatus.Text = "Gathering clouds...";
             var client = new HttpClient
             {
@@ -56,9 +62,57 @@ namespace CloudsdaleWin7.Views.ExploreViews
                 _gathered.Add(cloud);
             }
             CurrentStatus.Text = "Finished gathering clouds.";
+
+
+            CurrentStatus.Text = "Assigning clouds...";
+            var newMax = new Random().Next(4, 20);
+            while (_assigned.Count < newMax)
+            {
+                _assigned.Add(_gathered[new Random().Next(0, 99)]);
+            }
+            CurrentStatus.Text = "Finished assigning clouds.";
+
+
+            CurrentStatus.Text = "Roulette has gathered " + newMax + " clouds for you. Preparing to choose...";
+            var clock = new Timer
+                            {
+                                Interval = 1000,
+                            };
+            clock.Start();
+            clock.Elapsed += delegate
+                                 {
+                                     var sec = 0;
+                                     if (sec < 3)
+                                     {
+                                         ++sec;
+                                         return;
+                                     }
+                                     clock.Stop();
+                                 };
+            var finalInt = new Random().Next(0, newMax - 1);
+            FinalCloud = _assigned[finalInt];
+            Decide();
+        }
+        private void Decide()
+        {
+            CurrentStatus.Text =
+                "Roulette has chosen your cloud. Do you wish to take your chance and join or try again?";
+            FinalizedUI.Visibility = Visibility.Visible;
         }
 
-        
+        private async void Join(object sender, RoutedEventArgs e)
+        {
+            var client = new HttpClient().AcceptsJson();
+            var response =
+                JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(
+                    await client.GetStringAsync(Endpoints.Cloud.Replace("[:id]", FinalCloud.Id)));
+            BrowserHelper.JoinCloud(response.Result.Result);
+        }
 
+        private void TryAgain(object sender, RoutedEventArgs e)
+        {
+            GatherClouds();
+        }
+        
     }
 }

@@ -52,13 +52,13 @@
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                         <!-- Image -->
-                        <!--<Image Margin="3" Height="30" Width="30" Source="{Binding Avatar.Preview}">
+                        <Image Margin="3" Height="30" Width="30" Source="{Binding Avatar.Preview}">
                             <Image.Clip>
                                 <RectangleGeometry Rect="0,0,30,30" RadiusX="30" RadiusY="30" />
                             </Image.Clip>
-                        </Image>-->
+                        </Image>
                         <!-- Name -->
-                        <TextBlock Text="{Binding Name, Converter={StaticResource Short}}" MaxWidth="150"/>
+                        <TextBlock Text="{Binding Name, Converter={StaticResource Short}}" MaxWidth="150" FontSize="14"/>
                         <!-- Unread Count-->
                         <TextBlock Margin="5" Text="{Binding RawController.UnreadMessages, Converter={StaticResource Unread}}" FontSize="18" FontFamily="Consolas" FontWeight="Bold">
                             <TextBlock.Foreground>

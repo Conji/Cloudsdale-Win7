@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.Notifications;
+using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ namespace CloudsdaleWin7.lib.Helpers
     {
         private static bool IsCloudLink(string link)
         {
-            return link.Contains("cloudsdale.org/clouds");
+            return link.StartsWith("http://www.cloudsdale.org/clouds/") || link.StartsWith("www.cloudsdale.org/clouds/");
         }
 
         public static void FollowLink(string uri)
@@ -26,7 +27,8 @@ namespace CloudsdaleWin7.lib.Helpers
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
+                                                                              new Message {Content = ex.Message});
                 }
                 return;
             }
@@ -48,7 +50,6 @@ namespace CloudsdaleWin7.lib.Helpers
         {
             if (App.Connection.MessageController.CloudControllers.ContainsKey(cloud.Id))
             {
-                await cloud.ForceValidate();
                 Main.Instance.Clouds.SelectedItem = cloud;
                 return;
             }
@@ -64,8 +65,8 @@ namespace CloudsdaleWin7.lib.Helpers
             await client.PutAsync(Endpoints.CloudUserRestate.Replace("[:id]", cloud.Id).ReplaceUserId(
                         App.Connection.SessionController.CurrentSession.Id), new StringContent(""));
 
-            
             App.Connection.SessionController.CurrentSession.Clouds.Add(cloud);
+            App.Connection.MessageController.CloudControllers.Add(cloud.ShortName, new CloudController(cloud));
             App.Connection.SessionController.RefreshClouds();
             Main.Instance.Clouds.SelectedIndex = Main.Instance.Clouds.Items.Count - 1;
             FayeConnector.Subscribe("/clouds/" + cloud.Id + "/chat/messages");

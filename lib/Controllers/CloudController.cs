@@ -29,15 +29,20 @@ namespace CloudsdaleWin7.lib.Controllers
         public User Owner { get; private set; }
         public static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
 
+        private User GetOwner()
+        {
+            var client = new HttpClient().AcceptsJson();
+            return
+                JsonConvert.DeserializeObjectAsync<WebResponse<User>>(client.GetStringAsync(Endpoints.User.Replace("[:id]", Cloud.OwnerId)).Result).
+                    Result.Result;
+        }
 
         public CloudController(Cloud cloud)
         {
             Cloud = cloud;
             FixSessionStatus();
-            var client = new HttpClient().AcceptsJson();
-            var response = client.GetStringAsync(Endpoints.User.Replace("[:id]", cloud.OwnerId)).Result;
-            Owner = JsonConvert.DeserializeObject<WebResponse<User>>(response).Result;
             LoadBans();
+            Owner = GetOwner();
         }
 
 

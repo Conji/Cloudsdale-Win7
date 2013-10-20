@@ -268,6 +268,7 @@ namespace CloudsdaleWin7.lib.Models
             };
             await client.DeleteAsync(Endpoints.CloudUserRestate.Replace("[:id]", Id).ReplaceUserId(App.Connection.SessionController.CurrentSession.Id));
             App.Connection.SessionController.CurrentSession.Clouds.Remove(this);
+            App.Connection.MessageController.CloudControllers.Remove(Id);
             App.Connection.SessionController.RefreshClouds();
             Main.Instance.Clouds.SelectedIndex = -1;
             Main.Instance.HideFlyoutMenu();

@@ -9,7 +9,7 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock x:Name="Username" TextWrapping="Wrap" Text="Username" FontSize="16" Margin="10,5,45,0">
+            <TextBlock x:Name="Username" TextWrapping="Wrap" Text="Username" FontSize="16" Margin="10,5,45,0" FontWeight="Thin">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </TextBlock.Foreground>

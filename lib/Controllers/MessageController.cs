@@ -14,9 +14,9 @@ namespace CloudsdaleWin7.lib.Controllers
         public Dictionary<string, CloudController> CloudControllers = new Dictionary<string, CloudController>();
         public CloudController CurrentCloud { get; set; }
 
-        public void OnMessage(JObject message)
+        public async void OnMessage(JObject message)
         {
-            App.Connection.MainFrame.Dispatcher.Invoke(()=>InternalOnMessage(message));
+            await App.Connection.MainFrame.Dispatcher.InvokeAsync(()=>InternalOnMessage(message));
         }
 
         private void InternalOnMessage(JObject message)
@@ -27,7 +27,12 @@ namespace CloudsdaleWin7.lib.Controllers
             switch (chanSplit[0])
             {
                 case "clouds":
-                    CloudControllers[chanSplit[1]].OnMessage(message);
+                    if (CloudControllers.ContainsKey(chanSplit[1]))
+                    {
+                        CloudControllers[chanSplit[1]].OnMessage(message);
+                        break;
+                    }
+                    CloudControllers.Add(chanSplit[1], new CloudController(App.Connection.ModelController.GetCloud(chanSplit[1])));
                     break;
                 case "users":
                     var sessionController = App.Connection.SessionController;

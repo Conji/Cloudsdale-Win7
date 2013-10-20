@@ -1,7 +1,6 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CloudsdaleWin7.Views.Initial;
@@ -55,6 +54,8 @@ namespace CloudsdaleWin7.lib.Controllers
         public void Logout()
         {
             FayeConnector.socket.Close();
+            CurrentSession = null;
+            App.Connection.MessageController.CloudControllers = new Dictionary<string, CloudController>();
             App.Settings.Clear();
             MainWindow.Instance.MainFrame.Navigate(new Login());
         }

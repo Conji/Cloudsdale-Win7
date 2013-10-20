@@ -10,6 +10,7 @@ using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 {
@@ -26,7 +27,6 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         {
             InitializeComponent();
             FoundOn = cloud;
-            user.ForceValidate();
             Self = user;
             AvatarBounce();
             Username.Text = "@" + user.Username;
