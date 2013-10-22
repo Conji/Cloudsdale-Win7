@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Views.ExploreViews.ItemViews
 {
@@ -20,7 +21,7 @@ namespace CloudsdaleWin7.Views.ExploreViews.ItemViews
     /// </summary>
     public partial class ItemTop : UserControl
     {
-        public ItemTop()
+        public ItemTop(Cloud cloud)
         {
             InitializeComponent();
         }

@@ -1,10 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
+using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 {
@@ -52,36 +56,60 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 UserScroll.Visibility = Visibility.Collapsed;
                 SearchList.Clear();
 
-                // Collects the online users list first.
-                foreach (var user in Controller.OnlineUsers.Where(user => user.Name == null))
+                if (SearchBox.Text != "?")
                 {
-                    await user.ForceValidate();
-                }
-                foreach (var user in Controller.OnlineUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
-                {
-                    if (SearchList.Contains(user)) return;
-                    SearchList.Add(user);
-                }
+                    // Collects the online users list first.
+                    foreach (var user in Controller.OnlineUsers.Where(user => user.Name == null))
+                    {
+                        await user.ForceValidate();
+                    }
+                    foreach (var user in Controller.OnlineUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
+                    {
+                        if (App.Connection.ModelController.Users.ContainsValue(user))
+                        {
+                            SearchList.Add(App.Connection.ModelController.Users[user.Id]);
+                            return;
+                        }
+                        if (SearchList.Contains(user)) return;
+                        SearchList.Add(user);
+                       
+                    }
 
-                //Collects the offline users list next.
-                foreach (var user in Controller.AllUsers.Where(user => user.Name == null))
-                {
-                    await user.ForceValidate();
-                }
-                foreach (var user in Controller.AllUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
-                {
-                    if (SearchList.Contains(user)) return;
-                    SearchList.Add(user);
+                    //Collects the offline users list next.
+                    foreach (var user in Controller.AllUsers.Where(user => user.Name == null))
+                    {
+                        await user.ForceValidate();
+                    }
+                    foreach (var user in Controller.AllUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
+                    {
+                        if (SearchList.Contains(user)) return;
+                        SearchList.Add(user);
+                    }
+                    return;
                 }
 
                 //Fetches all users
-                if (SearchBox.Text != "..") return;
                 SearchList.Clear();
-                foreach (var user in Controller.AllUsers)
+                
+                foreach (var id in Controller.Cloud.UserIds)
                 {
-                    await user.ForceValidate();
-                    if (SearchList.Contains(user)) return;
-                    SearchList.Add(user);
+                   try
+                   {
+                       var client = new HttpClient().AcceptsJson();
+                       var response = await client.GetStringAsync(Endpoints.User.Replace("[:id]", id));
+
+
+                       var user = await JsonConvert.DeserializeObjectAsync<WebResponse<User>>(response);
+                       if (SearchList.Contains(user.Result)) return;
+                       App.Connection.ModelController.UpdateDataAsync(user.Result);
+                       SearchList.Add(user.Result);
+                   }catch(Exception ex)
+                   {
+                       Console.WriteLine(ex.Message);
+                       var user = new User(id);
+                       user.ForceValidate();
+                       SearchList.Add(user);
+                   }
                 }
             }
         }

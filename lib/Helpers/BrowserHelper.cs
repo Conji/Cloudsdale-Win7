@@ -66,7 +66,7 @@ namespace CloudsdaleWin7.lib.Helpers
                         App.Connection.SessionController.CurrentSession.Id), new StringContent(""));
 
             App.Connection.SessionController.CurrentSession.Clouds.Add(cloud);
-            App.Connection.MessageController.CloudControllers.Add(cloud.ShortName, new CloudController(cloud));
+            App.Connection.MessageController.CloudControllers.Add(cloud.Id, new CloudController(cloud));
             App.Connection.SessionController.RefreshClouds();
             Main.Instance.Clouds.SelectedIndex = Main.Instance.Clouds.Items.Count - 1;
             FayeConnector.Subscribe("/clouds/" + cloud.Id + "/chat/messages");

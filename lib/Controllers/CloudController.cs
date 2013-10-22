@@ -26,8 +26,12 @@ namespace CloudsdaleWin7.lib.Controllers
         private readonly ObservableCollection<Message> _messages = new ObservableCollection<Message>();
         private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
         private ObservableCollection<Drop> _drops = new ObservableCollection<Drop>();
-        public User Owner { get; private set; }
         public static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
+
+        public User Owner
+        {
+            get { return GetOwner(); }
+        }
 
         private User GetOwner()
         {
@@ -42,7 +46,6 @@ namespace CloudsdaleWin7.lib.Controllers
             Cloud = cloud;
             FixSessionStatus();
             LoadBans();
-            Owner = GetOwner();
         }
 
 
@@ -118,7 +121,6 @@ namespace CloudsdaleWin7.lib.Controllers
                 return list;
             }
         }
-
 
         public async Task LoadCompleteUsers()
         {
@@ -222,11 +224,7 @@ namespace CloudsdaleWin7.lib.Controllers
                     }
                     users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
                 }
-
-
             }
-
-
             // Load messages
             {
                 var response = await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id));
@@ -245,10 +243,7 @@ namespace CloudsdaleWin7.lib.Controllers
                     AddMessageToSource(message);
                 }
             }
-
-
         }
-
 
         public async Task LoadMessages()
         {
@@ -318,7 +313,6 @@ namespace CloudsdaleWin7.lib.Controllers
             message.Author.CopyTo(message.User);
 
             AddMessageToSource(message);
-
 
             #region Cloud Note
 

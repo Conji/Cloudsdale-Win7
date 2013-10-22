@@ -7,98 +7,102 @@ namespace CloudsdaleWin7.lib.Controllers
 {
     public class ModelController : IUserProvider, ICloudProvider
     {
-        private readonly Dictionary<string, User> _users = new Dictionary<string, User>();
-        private readonly Dictionary<string, Cloud> _clouds = new Dictionary<string, Cloud>();
+        public readonly Dictionary<string, User> Users = new Dictionary<string, User>();
+        public readonly Dictionary<string, Cloud> Clouds = new Dictionary<string, Cloud>();
 
         public async Task<User> GetUserAsync(string id)
         {
-            if (!_users.ContainsKey(id))
+            if (!Users.ContainsKey(id))
             {
                 var user = new User(id);
                 await user.ForceValidate();
-                _users[id] = user;
+                Users[id] = user;
             }
             else
             {
-                await _users[id].Validate();
+                await Users[id].Validate();
             }
-            return _users[id];
+            return Users[id];
         }
 
         public User GetUser(string id)
         {
-            if (!_users.ContainsKey(id))
+            if (!Users.ContainsKey(id))
             {
                 var user = new User(id);
                 user.ForceValidate();
-                _users[id] = user;
+                Users[id] = user;
             }
             else
             {
-                _users[id].Validate();
+                Users[id].Validate();
             }
-            return _users[id];
+            return Users[id];
         }
 
-        public async Task<User> UpdateDataAsync(User user)
+        public async Task<User> UpdateDataAsync(User user, bool validate = false)
         {
-            if (!_users.ContainsKey(user.Id))
+            if (!Users.ContainsKey(user.Id))
             {
                 await user.ForceValidate();
-                _users[user.Id] = user;
+                Users[user.Id] = user;
             }
             else
             {
-                user.CopyTo(_users[user.Id]);
+                if (validate)
+                {
+                    await user.ForceValidate();
+                }
+                user.CopyTo(Users[user.Id]);
             }
-            return _users[user.Id];
+            return Users[user.Id];
         }
 
         public async Task<Cloud> UpdateCloudAsync(Cloud cloud)
         {
-            if (!_clouds.ContainsKey(cloud.Id))
+            if (!Clouds.ContainsKey(cloud.Id))
             {
                 await cloud.ForceValidate();
-                _clouds[cloud.Id] = cloud;
+                Clouds[cloud.Id] = cloud;
             }
             else
             {
-                cloud.CopyTo(_clouds[cloud.Id]);
+                cloud.CopyTo(Clouds[cloud.Id]);
             }
 
-            return _clouds[cloud.Id];
+            return Clouds[cloud.Id];
         }
 
         public Cloud UpdateCloud(Cloud cloud)
         {
-            if (!_clouds.ContainsKey(cloud.Id))
+            if (!Clouds.ContainsKey(cloud.Id))
             {
                 cloud.ForceValidate();
-                _clouds[cloud.Id] = cloud;
+                Clouds[cloud.Id] = cloud;
             }
             else
             {
-                var cacheCloud = _clouds[cloud.Id];
+                var cacheCloud = Clouds[cloud.Id];
                 cloud.CopyTo(cacheCloud);
             }
 
-            return _clouds[cloud.Id];
+            return Clouds[cloud.Id];
         }
 
         public Cloud GetCloud(string cloudId)
         {
-            if (!_clouds.ContainsKey(cloudId))
+            if (!Clouds.ContainsKey(cloudId))
             {
                 var cloud = new Cloud(cloudId);
                 cloud.ForceValidate();
-                _clouds[cloud.Id] = cloud;
+                Clouds[cloud.Id] = cloud;
             }
             else
             {
-                _clouds[cloudId].Validate();
+                Clouds[cloudId].Validate();
             }
 
-            return _clouds[cloudId];
+            return Clouds[cloudId];
         }
     }
 }

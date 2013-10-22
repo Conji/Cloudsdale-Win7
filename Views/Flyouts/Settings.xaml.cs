@@ -18,7 +18,7 @@ namespace CloudsdaleWin7.Views.Flyouts
     {
         private readonly Session _current = App.Connection.SessionController.CurrentSession;
         private readonly Regex _nameRegex = new Regex("^[a-z_ ]+$", RegexOptions.IgnoreCase);
-        private readonly Regex _usernameRegex = new Regex("^[a-z0-9]", RegexOptions.IgnoreCase);
+        private readonly Regex _usernameRegex = new Regex("^[a-z0-9]+$", RegexOptions.IgnoreCase);
 
         public Settings()
         {

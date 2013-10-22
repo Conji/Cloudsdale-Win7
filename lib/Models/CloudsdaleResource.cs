@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -142,9 +143,9 @@ namespace CloudsdaleWin7.lib.Models
             };
             var response = await ValidationRequest(client, requestUrl);
 
-            var responseObject = JObject.Parse(await response.Content.ReadAsStringAsync());
-            var responseModel = ObjectFromWebResult(responseObject).ToObject<CloudsdaleModel>();
-            responseModel.CopyTo(this);
+            var responseObject =
+                JsonConvert.DeserializeObject<WebResponse<CloudsdaleModel>>(await response.Content.ReadAsStringAsync());
+            responseObject.Result.CopyTo(this);
             return true;
         }
 

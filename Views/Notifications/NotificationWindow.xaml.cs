@@ -11,6 +11,9 @@ namespace CloudsdaleWin7.Views.Notifications
     /// </summary>
     public partial class NotificationWindow
     {
+
+        private Message Message { get; set; }
+
         public NotificationWindow()
         {
             InitializeComponent();
@@ -25,6 +28,7 @@ namespace CloudsdaleWin7.Views.Notifications
 
         public void Notify(NotificationType type, Message message)
         {
+            Message = message;
             switch (type)
             {
                 case NotificationType.Client:
@@ -61,6 +65,11 @@ namespace CloudsdaleWin7.Views.Notifications
         private void Close(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Hidden;
+        }
+
+        private void DirectToCloud(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Main.Instance.Clouds.SelectedItem = App.Connection.MessageController.CloudControllers[Message.PostedOn].Cloud;
         }
 
     }

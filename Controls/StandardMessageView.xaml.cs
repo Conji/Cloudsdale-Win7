@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -55,6 +56,15 @@ namespace CloudsdaleWin7.Controls
         {
             CloudView.Instance.InputBox.Text = "> " + ((MenuItem) sender).DataContext.ToString().Replace("\r\n", "\r\n> ");
             CloudView.Instance.InputBox.Focus();
+        }
+
+        private void DeleteMessage(object sender, MouseButtonEventArgs e)
+        {
+            var client = new HttpClient().AcceptsJson();
+            var response =
+                client.DeleteAsync(Endpoints.CloudMessages.Replace("[:id]",
+                                                           App.Connection.MessageController.CurrentCloud.Cloud.Id));
+            Console.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
         }
         
     }

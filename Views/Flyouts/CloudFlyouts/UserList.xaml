@@ -22,7 +22,7 @@
         <ScrollViewer x:Name="SearchScroll" Margin="0,2,0,0" Grid.Row="1" Visibility="Collapsed">
             <StackPanel x:Name="SearchUI" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="250">
                 <TextBlock Text="Results..." Margin="4,0,0,0"/>
-                <ListView x:Name="SearchResults" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,24,0" SelectionMode="Single">
+                <ListView x:Name="SearchResults" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,24,0" SelectionMode="Single" SelectionChanged="FlyoutUser">
                     <ListView.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                     </ListView.Foreground>

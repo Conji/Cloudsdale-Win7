@@ -107,7 +107,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>
         </Button>
-        <Button Content="&#xE114;" HorizontalAlignment="Left" Grid.Row="2" Width="30" Click="ShowDrops" Background="{x:Null}" FontFamily="Segoe UI Symbol" BorderThickness="1,2,2,1">
+        <Button Content="&#xE114;" HorizontalAlignment="Left" Grid.Row="2" Width="30" Background="{x:Null}" FontFamily="Segoe UI Symbol" BorderThickness="0" Click="ScreenShot">
             <Button.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </Button.BorderBrush>

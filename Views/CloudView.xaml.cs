@@ -3,6 +3,9 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Runtime.InteropServices;
+using System.Drawing;
+using System.Drawing.Imaging;
 using CloudsdaleWin7.Controls;
 using CloudsdaleWin7.Views.CloudViews;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
@@ -33,8 +36,8 @@ namespace CloudsdaleWin7.Views {
             Name.Text = cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             CloudMessages.ItemsSource = App.Connection.MessageController[cloud].Messages;
-            App.Connection.MessageController[cloud].EnsureLoaded();
-            Main.Instance.FlyoutFrame.Navigate(new UserList(App.Connection.MessageController[cloud]));
+            App.Connection.MessageController[cloud].LoadMessages();
+            Main.Instance.HideFlyoutMenu();
             InputBox.Focus();
             App.Connection.MessageController[cloud].LoadBans();
         }
@@ -118,11 +121,6 @@ namespace CloudsdaleWin7.Views {
             Main.Instance.ShowFlyoutMenu(prefFlyout);
         }
 
-        private void ShowDrops(object sender, RoutedEventArgs e)
-        {
-            Main.Instance.ShowFlyoutMenu(new DropView());
-        }
-
         private async void Reload(object sender, RoutedEventArgs e)
         {
             CloudMessages.IsEnabled = false;
@@ -137,6 +135,11 @@ namespace CloudsdaleWin7.Views {
                                                                           new Message {Content = ex.Message});
             }
             CloudMessages.IsEnabled = true;
+        }
+
+        private void ScreenShot(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

@@ -27,13 +27,20 @@ namespace CloudsdaleWin7.lib.Helpers
             };
             return link;
         }
+
         public static void ShowFlyout(this User user, Cloud cloud)
         {
             Main.Instance.FlyoutFrame.Navigate(new UserFlyout(user, cloud, App.Connection.MessageController.CurrentCloud.AllModerators.Contains(App.Connection.SessionController.CurrentUser)));
         }
+
         public static void MessageOnSkype(string user)
         {
             Process.Start("skype:[:name]?chat".Replace("[:name]", user));
+        }
+
+        public static string ReplaceToQuery(this string request)
+        {
+            return request.Trim().Replace(" ", "%20");
         }
     }
 }

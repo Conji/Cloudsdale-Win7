@@ -22,7 +22,7 @@ namespace CloudsdaleWin7 {
         {
             var r = new Random();
             String message;
-            switch(r.Next(0,3))
+            switch(r.Next(0,4))
             {
                 case 0:
                     message = "Hi, [:name]!";
@@ -33,8 +33,17 @@ namespace CloudsdaleWin7 {
                 case 2:
                     message = "Welcome back, [:name].";
                     break;
-                default:
+                case 3:
                     message = "Hi there, [:name]!";
+                    break;
+                case 4:
+                    if (DateTime.Now.Hour >= 6 && DateTime.Now.Hour < 12) message = "Good morning, [:name]~";
+                    else if (DateTime.Now.Hour < 6) message = "It's a lovely night, [:name].";
+                    else if (DateTime.Now.Hour >= 12 && DateTime.Now.Hour < 20) message = "Good afternoon [:name].";
+                    else message = "Howdy, [:name]~";
+                    break;
+                default:
+                    message = "Hello, [:name].";
                     break;
             }
             return message.Replace("[:name]", name);

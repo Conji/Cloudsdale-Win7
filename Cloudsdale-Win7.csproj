@@ -113,9 +113,6 @@
       <DependentUpon>ActionMessageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\BindableLink.cs" />
-    <Compile Include="Controls\Droplet.xaml.cs">
-      <DependentUpon>Droplet.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\MessageTextControl.xaml.cs">
       <DependentUpon>MessageTextControl.xaml</DependentUpon>
     </Compile>
@@ -170,8 +167,8 @@
     <Compile Include="Views\ExploreViews\ExploreRoulette.xaml.cs">
       <DependentUpon>ExploreRoulette.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExploreViews\ExploreTop.xaml.cs">
-      <DependentUpon>ExploreTop.xaml</DependentUpon>
+    <Compile Include="Views\ExploreViews\ExploreSearch.xaml.cs">
+      <DependentUpon>ExploreSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExploreViews\ItemViews\ItemBasic.xaml.cs">
       <DependentUpon>ItemBasic.xaml</DependentUpon>
@@ -246,10 +243,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Droplet.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\MessageTextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -290,7 +283,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ExploreViews\ExploreTop.xaml">
+    <Page Include="Views\ExploreViews\ExploreSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

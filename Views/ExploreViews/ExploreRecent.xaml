@@ -8,6 +8,19 @@
 	Title="ExploreRecent">
 
     <Grid>
-        
+        <ScrollViewer Margin="0,0,0,27">
+            <WrapPanel x:Name="View" Margin="0,0,0,27"/>
+        </ScrollViewer>
+        <Button Content="Load Next Page" VerticalAlignment="Bottom" Height="27" FontSize="14" FontWeight="SemiBold" Click="LoadNext">
+            <Button.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Button.Foreground>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Page>

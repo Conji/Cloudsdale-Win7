@@ -87,6 +87,10 @@
         /// Endpoint for recently made clouds.
         /// </summary>
         public const string ExploreRecent = Api + "/clouds/recent.json";
+        /// <summary>
+        /// Endpoint for searching clouds.
+        /// </summary>
+        public const string ExploreSearch = Api + "/clouds/search.json?q=$";
 
         /// <summary>
         /// Endpoint to retrieve avatars.

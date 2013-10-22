@@ -4,8 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="147.744" d:DesignWidth="430.827">
     <Grid>
-            
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="3">
+            <Grid>
+                <Image x:Name="A" HorizontalAlignment="Left" Height="100" Margin="10,36,0,0" VerticalAlignment="Top" Width="100" Source="{Binding Path=Avatar.Normal}"/>
+                <TextBlock x:Name="N" Margin="10,0" TextWrapping="Wrap" Text="{Binding Path=Name}" VerticalAlignment="Top" Height="31" FontSize="20"/>
+                <TextBlock x:Name="D" Margin="115,36,54,10" TextWrapping="Wrap" Text="{Binding Path=Description}" FontSize="14"/>
+                <Button Content="" HorizontalAlignment="Right" Width="49" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="Segoe UI Symbol" FontSize="20"/>
+            </Grid>
+        </Border>
+
     </Grid>
 </UserControl>

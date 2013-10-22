@@ -1,9 +1,15 @@
-﻿using System;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using CloudsdaleWin7.Views.ExploreViews;
+using CloudsdaleWin7.Views.ExploreViews.ItemViews;
 using CloudsdaleWin7.lib;
+using CloudsdaleWin7.lib.Helpers;
+using CloudsdaleWin7.lib.Models;
+using Newtonsoft.Json;
 
 namespace CloudsdaleWin7
 {
@@ -29,10 +35,6 @@ namespace CloudsdaleWin7
                 case "recent":
                     ExploreFrame.Navigate(new ExploreRecent());
                     CmdRecent.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
-                    break;
-                case "top":
-                    ExploreFrame.Navigate(new ExploreTop());
-                    CmdTop.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
                     break;
                 case "roulette":
                     ExploreFrame.Navigate(new ExploreRoulette());
@@ -64,11 +66,6 @@ namespace CloudsdaleWin7
                     CmdRecent.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
                     ExploreFrame.Navigate(new ExploreRecent());
                     break;
-                case "CmdTop":
-                    App.Settings.ChangeSetting("selected_source", "top");
-                    CmdTop.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
-                    ExploreFrame.Navigate(new ExploreTop());
-                    break;
                 case "CmdRoulette":
                     App.Settings.ChangeSetting("selected_source", "roulette");
                     CmdRoulette.BorderBrush = new SolidColorBrush(CloudsdaleSource.PrimaryBlueDark);
@@ -78,9 +75,16 @@ namespace CloudsdaleWin7
             }
         }
 
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        private async void SearchForCloud(object sender, KeyEventArgs e)
         {
-            ((TextBox) sender).Text = "";
+            if (e.Key != Key.Enter) return;
+            var client = new HttpClient().AcceptsJson();
+            var response =
+                client.GetStringAsync(Endpoints.ExploreSearch.Replace("$", ((TextBox) sender).Text.ReplaceToQuery()));
+            var objects = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud[]>>(await response);
+
+            var list = objects.Result.Select(cloud => new ItemBasic(cloud)).ToList();
+            ExploreFrame.Navigate(new ExploreSearch(list));
         }
     }
 }
