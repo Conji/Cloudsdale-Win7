@@ -52,15 +52,20 @@ namespace CloudsdaleWin7.Views {
 
         private void SendBoxEnter(object sender, KeyEventArgs e)
         {
-            Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
-            if (e.Key != Key.Enter) return;
             if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
+            Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
+            if (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.Enter)
+            {
+                ((TextBox)sender).Text += "\r\n";
+                ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
+                return;
+            }
+            if (e.Key != Key.Enter) return;
+            
             Send(InputBox.Text);
         }
         internal async void Send(string message)
         {
-            if (string.IsNullOrWhiteSpace(message)) return;
-
             InputBox.IsEnabled = false;
             message = message.TrimEnd();
 
@@ -68,7 +73,7 @@ namespace CloudsdaleWin7.Views {
             {
                 Content = message.EscapeLiteral(),
                 Device = "desktop",
-                ClientId = FayeConnector.ClientID
+                ClientId = FayeConnector.ClientId
             };
 
             var messageData = await JsonConvert.SerializeObjectAsync(messageModel);
@@ -98,8 +103,8 @@ namespace CloudsdaleWin7.Views {
 
         private async void ShowUserList(object sender, MouseButtonEventArgs e)
         {
-            Main.Instance.ShowFlyoutMenu(new UserList(App.Connection.MessageController.CurrentCloud));
             await App.Connection.MessageController.CurrentCloud.LoadUsers();
+            Main.Instance.ShowFlyoutMenu(new UserList(App.Connection.MessageController.CurrentCloud));
         }
 
         private void AddEmoji(object sender, MouseButtonEventArgs e)

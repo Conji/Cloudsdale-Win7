@@ -19,12 +19,16 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100">
             <Image x:Name="CloudAvatar"/>
         </Border>
-        <TextBox x:Name="Shortlink" HorizontalAlignment="Left" Height="23" Margin="10,168,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="230" HorizontalScrollBarVisibility="Auto"/>
-        <TextBlock x:Name="Name" HorizontalAlignment="Left" Margin="10,138,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="14" FontWeight="SemiBold">
+        <TextBlock x:Name="Shortlink" HorizontalAlignment="Left" Height="23" Margin="10,168,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="230" FontFamily="Nirmala UI" FontWeight="Thin">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </TextBlock.Foreground>
         </TextBlock>
+        <TextBox x:Name="Name" Margin="10,138,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="14" FontWeight="SemiBold" KeyDown="ChangeName">
+            <TextBox.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+            </TextBox.Foreground>
+        </TextBox>
         <ScrollViewer Margin="0,231,0,46">
             <StackPanel>
                 <TextBlock Text="Description:" Width="202">
@@ -32,13 +36,13 @@
                         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                     </TextBlock.Foreground>
                 </TextBlock>
-                <TextBox x:Name="DescriptionBox" Width="210"/>
+                <TextBox x:Name="DescriptionBox" Width="210" KeyDown="ChangeDescription" MaxLength="120"/>
                 <TextBlock Text="Rules:" Width="202">
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                     </TextBlock.Foreground>
                 </TextBlock>
-                <TextBox x:Name="RulesBox" Width="210" TextWrapping="Wrap"/>
+                <TextBox x:Name="RulesBox" Width="210" TextWrapping="Wrap" KeyDown="ChangeRules"/>
             </StackPanel>
         </ScrollViewer>
         <Button Content="X" HorizontalAlignment="Left" Margin="223,10,0,0" VerticalAlignment="Top" Width="17" Background="{x:Null}" Click="Button_Click_1"/>

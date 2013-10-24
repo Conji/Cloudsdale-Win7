@@ -5,13 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using CloudsdaleWin7.Views.Notifications;
+using CloudsdaleWin7.Views.Misc;
 
 namespace CloudsdaleWin7.lib.Models
 {
     class ClientVersion
     {
-        private const string Version= "2.0.6 BETA";
+        private const string Version= "2.0.8 BETA";
 
         public async static Task<string> UpdatedVersion()
         {
@@ -20,16 +20,15 @@ namespace CloudsdaleWin7.lib.Models
                 var client = new HttpClient();
                 var response = await client.GetStringAsync(Endpoints.VersionAddress);
                 return response.Trim();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
-                                                                          new Message {Content = ex.Message});
+                App.Connection.NotificationController.Notification.Notify(ex.Message);
                 return "UPDATE FAILED";
             }
         }
         public async static void CheckVersion()
         {
-            //fix this
             if (await UpdatedVersion() == Version || await UpdatedVersion() == "UPDATE FAILED") return;
             if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
                                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
@@ -45,17 +44,21 @@ namespace CloudsdaleWin7.lib.Models
         }
         private static void UpdateClient()
         {
-            File.Move(CloudsdaleSource.File, CloudsdaleSource.Folder + "old.file");
+            MainWindow.Instance.Hide();
+            MainWindow.Instance.ShowInTaskbar = false;
+            Updater.Instance.Show();
+            File.Move(CloudsdaleSource.ExeFile, CloudsdaleSource.OldFile);
             var client = new WebClient();
-            client.DownloadFile(Endpoints.ClientAddress, CloudsdaleSource.File);
-            Process.Start(CloudsdaleSource.File);
+            client.DownloadFile(Endpoints.ClientAddress, CloudsdaleSource.ExeFile);
+            Updater.Instance.Hide();
+            Process.Start(CloudsdaleSource.ExeFile);
             MainWindow.Instance.Close();
         }
         public static void CleanUp()
         {
             try
             {
-                File.Delete(CloudsdaleSource.Folder + "old.file");
+                File.Delete(CloudsdaleSource.OldFile);
             }catch(Exception e){Console.WriteLine(e.Message);}
         }
     }

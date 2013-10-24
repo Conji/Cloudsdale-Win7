@@ -18,7 +18,7 @@ namespace CloudsdaleWin7 {
 
         public static void Close()
         {
-            if (FayeConnector.socket != null)FayeConnector.socket.Close();
+            if (FayeConnector.Socket != null && FayeConnector.Connected) FayeConnector.Socket.Close();
             Settings.Save();
         }
     }

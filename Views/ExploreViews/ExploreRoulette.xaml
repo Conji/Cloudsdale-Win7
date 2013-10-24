@@ -18,17 +18,9 @@
                 <RowDefinition Height="121*"/>
             </Grid.RowDefinitions>
             <Image gif:ImageBehavior.AnimatedSource="/Cloudsdale;component/Assets/cd_icon_animation.gif" gif:ImageBehavior.AutoStart="True" HorizontalAlignment="Center" Height="150" Margin="75,0" VerticalAlignment="Bottom" Width="150"/>
-            <TextBlock x:Name="CurrentStatus" Margin="0,11,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="16" FontWeight="Thin" Grid.Row="1" Height="21" TextAlignment="Center"/>
+            <TextBlock x:Name="CurrentStatus" Margin="0,11,0,0" TextWrapping="Wrap" Text="Click to begin..." VerticalAlignment="Top" FontSize="16" FontWeight="Thin" Grid.Row="1" Height="21" TextAlignment="Center"/>
             <Grid x:Name="FinalizedUI" HorizontalAlignment="Center" Height="29" Margin="0,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="300">
-                <Button Content="Join Cloud" HorizontalAlignment="Center" Margin="0,0,120,0" VerticalAlignment="Top" Width="101" Height="29" FontFamily="Nirmala UI" FontWeight="Thin" Click="Join">
-                    <Button.Foreground>
-                        <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                    </Button.Foreground>
-                    <Button.Background>
-                        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
-                    </Button.Background>
-                </Button>
-                <Button Content="Try Again" HorizontalAlignment="Center" Margin="120,0,0,0" VerticalAlignment="Top" Width="101" Height="29" FontFamily="Nirmala UI" FontWeight="Thin" Click="TryAgain">
+                <Button Content="Begin" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="102" Height="29" FontFamily="Nirmala UI" FontWeight="Thin" Click="BeginRoulette">
                     <Button.Foreground>
                         <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                     </Button.Foreground>

@@ -4,13 +4,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
-using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 {
@@ -22,23 +23,35 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 
         private static User Self { get; set; }
         private static Cloud FoundOn { get; set; }
+        public static UserFlyout Instance;
 
         public UserFlyout(User user, Cloud cloud, bool isMod)
         {
             InitializeComponent();
+            Instance = this;
             FoundOn = cloud;
             Self = user;
-            AvatarBounce();
-            Username.Text = "@" + user.Username;
-            Name.Text = user.Name;
-            AviImage.Source = new BitmapImage(user.Avatar.Normal);
-            SkypeUI.Visibility = user.SkypeName != null ? Visibility.Visible : Visibility.Hidden;
-            akaList.ItemsSource = user.AlsoKnownAs;
-            BanReason.Text = "Banned by @" + App.Connection.SessionController.CurrentSession.Username;
             AdminUI.Visibility = isMod ? Visibility.Visible : Visibility.Hidden;
-            PreviousBans.ItemsSource = UnexpiredBans();
+            InitializeUser();
+        }
 
-            BanCal.SelectedDate = DateTime.Now;
+        private void InitializeUser()
+        {
+            AvatarBounce();
+            Username.Text = "@" + Self.Username;
+            Name.Text = Self.Name;
+            AviImage.Source = new BitmapImage(Self.Avatar.Normal);
+            SkypeUI.Visibility = Self.SkypeName != null ? Visibility.Visible : Visibility.Hidden;
+            PromoteCommand.Visibility = FoundOn.OwnerId == App.Connection.SessionController.CurrentSession.Id
+                                            ? Visibility.Visible
+                                            : Visibility.Hidden;
+            if (FoundOn.ModeratorIds.Contains(Self.Id)) PromoteCommand.Content = "Demote Moderator";
+            akaList.ItemsSource = Self.AlsoKnownAs;
+            BanReason.Text = "Banned by @" + App.Connection.SessionController.CurrentSession.Username;
+            
+            PreviousBans.ItemsSource = UnexpiredBans().Reverse();
+
+            BanCal.SelectedDate = DateTime.Now.AddDays(1.0);
         }
 
         private void AvatarBounce()
@@ -65,12 +78,16 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             BanUI.Visibility = BanUI.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
         }
 
-        private static IEnumerable<Ban> UnexpiredBans()
+        public static IEnumerable<Ban> UnexpiredBans()
         {
             var list = new ObservableCollection<Ban>();
-            foreach (var ban in App.Connection.MessageController[FoundOn].Bans.Where(ban => (ban.Expired == false
-                                                                                            || ban.Revoked == false)
-                                                                                            && ban.OffenderId == Self.Id))
+            //foreach (var ban in App.Connection.MessageController[FoundOn].Bans.Where(ban => (ban.Expired == false
+            //                                                                                || ban.Revoked == false)
+            //                                                                                && ban.OffenderId == Self.Id))
+            //{
+            //    list.Add(ban);
+            //}
+            foreach (var ban in App.Connection.MessageController[FoundOn].Bans.Where(ban => ban.OffenderId == Self.Id))
             {
                 list.Add(ban);
             }
@@ -81,19 +98,13 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         {
             if (BanCal.SelectedDate == null)
             {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
-                                                                          new Message
-                                                                              {Content = "You have to select a date!"});
+                App.Connection.NotificationController.Notification.Notify("You have to select a date!");
                 return;
             }
             
             if (String.IsNullOrEmpty(BanReason.Text))
             {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
-                                                                          new Message
-                                                                              {
-                                                                                  Content = "Can't leave the reason blank!"
-                                                                              });
+                App.Connection.NotificationController.Notification.Notify("You can't leave the reason blank!");
                 return;
             }
 
@@ -104,7 +115,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                           {
                               OffenderId = Self.Id,
                               Reason = BanReason.Text,
-                              Due = BanCal.SelectedDate
+                              Due = BanCal.SelectedDate.Value.ToUniversalTime()
                           };
             var client = new HttpClient
                              {
@@ -116,7 +127,45 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                              };
             await client.PostAsync(
                     Endpoints.CloudBan.Replace("[:id]", App.Connection.MessageController.CurrentCloud.Cloud.Id), new JsonContent(ban));
+            
+            Main.Instance.ShowFlyoutMenu(this);
+        }
 
+        private void AdjustModeration(object sender, RoutedEventArgs e)
+        {
+            var cmd = (Button) sender;
+
+            var client = new HttpClient
+            {
+                DefaultRequestHeaders =
+                {
+                     {"Accept", "application/json"},
+                     {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
+                }
+            };
+
+            switch (cmd.Content.ToString())
+            {
+                case "Promote To Moderator":
+                    break;
+                case "Demote Moderator":
+                    break;
+            }
+        }
+
+        private void AttemptRevoke(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var ban = (Ban) ((Run) sender).DataContext;
+            if (MessageBox.Show("Would you like to revoke the ban for " + ban.Offender.Name + "?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                return;
+            
+            if (ban.Revoked == true || ban.Expired == true)
+            {
+                MessageBox.Show("Ban has either been revoked or already ended!");
+                return;
+            }
+            ban.Revoke();
+            Main.Instance.ShowFlyoutMenu(this);
         }
     }
 }

@@ -28,7 +28,6 @@ namespace CloudsdaleWin7.Views.Flyouts
             CheckChanges();
             SkypeBlock.Text = _current.SkypeName;
             AvatarImage.Source = new BitmapImage(_current.Avatar.Normal);
-            Status.SelectedItem = _current.Status;
             if (App.Settings["notifications"] == "true") RcCheck.IsChecked = true;
         }
         private void CheckChanges()

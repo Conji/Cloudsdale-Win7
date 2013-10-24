@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
 namespace CloudsdaleWin7.lib.Models
 {
     public sealed class Ban : CloudsdaleResource
     {
-        public Ban(string id) : base(id)
+        public Ban(string id) : base(id){}
+        
+        public Ban Raw
         {
+            get { return this; }
         }
-
         /// <summary>
         /// The date at which the ban will expire
         /// </summary>
@@ -56,7 +61,7 @@ namespace CloudsdaleWin7.lib.Models
         /// </summary>
         public User Offender
         {
-            get { return Cloudsdale.UserProvider.GetUser(OffenderId); }
+            get { return App.Connection.ModelController.GetUserAsync(OffenderId).Result; }
         }
 
         /// <summary>
@@ -64,7 +69,7 @@ namespace CloudsdaleWin7.lib.Models
         /// </summary>
         public User Enforcer
         {
-            get { return Cloudsdale.UserProvider.GetUser(EnforcerId); }
+            get { return App.Connection.ModelController.GetUserAsync(EnforcerId).Result; }
         }
 
         /// <summary>
@@ -106,6 +111,35 @@ namespace CloudsdaleWin7.lib.Models
         public override bool CanValidate()
         {
             return false;
+        }
+
+        /// <summary>
+        /// Revokes the ban
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> Revoke()
+        {
+            var newBan = this;
+            newBan.Revoked = true;
+            var client = new HttpClient
+                             {
+                                 DefaultRequestHeaders =
+                                     {
+                                         {"Accept", "application/json"},
+                                         {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
+                                     }
+                             };
+            var request = await client.PutAsync(Endpoints.CloudBan.Replace("[:id]", JurisdictionId) + Id, new JsonContent(newBan));
+            var response =
+                JsonConvert.DeserializeObjectAsync<WebResponse<Ban>>(request.Content.ReadAsStringAsync().Result);
+            if (response.Result.Flash != null)
+            {
+                App.Connection.NotificationController.Notification.Notify(response.Result.Flash.Message);
+                return false;
+            }
+
+            response.Result.Result.CopyTo(this);
+            return true;
         }
     }
 }

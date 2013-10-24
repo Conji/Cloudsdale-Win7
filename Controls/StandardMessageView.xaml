@@ -39,7 +39,7 @@
         </Style>
     </UserControl.Resources>
     <Grid Margin="5,0,5,7">
-        <!--<Border HorizontalAlignment="Stretch" Height="1" x:Name="Separator"
+        <Border HorizontalAlignment="Stretch" Height="1" x:Name="Separator"
                 VerticalAlignment="Top">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -48,7 +48,7 @@
                     <GradientStop Offset="1" Color="#E7E7E7" />
                 </LinearGradientBrush>
             </Border.Background>
-        </Border>-->
+        </Border>
         <Grid Margin="0,7,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

@@ -1,5 +1,7 @@
 ﻿using System.Windows;
-using CloudsdaleWin7.lib.Models.Updaters;
+using CloudsdaleWin7.Views.Notifications;
+using CloudsdaleWin7.lib.Helpers;
+using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Views.Initial
 {
@@ -16,11 +18,11 @@ namespace CloudsdaleWin7.Views.Initial
         private void ButtonClick1(object sender, RoutedEventArgs e)
         {
             Waiting.Visibility = Visibility.Visible;
-            UDUModel.UpdateSessionModel("needs_to_confirm_registration", false);
+            App.Connection.SessionController.CurrentSession.UpdateProperty("needs_to_confirm_registration", false);
             if (App.Connection.SessionController.CurrentSession.NeedsToConfirmRegistration == false)
             {
                 Waiting.Visibility = Visibility.Hidden;
-                MessageBox.Show("We're sorry! An error occured when trying to process your request.");
+                App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message{Content = "An error occured while trying to process your request!"});
             }else
             {
                 if (App.Connection.SessionController.CurrentSession.HasReadTnc == false)

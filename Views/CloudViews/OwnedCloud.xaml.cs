@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
@@ -24,11 +25,10 @@ namespace CloudsdaleWin7.Views.CloudViews
             InitializeComponent();
             Cloud = cloud;
             Shortlink.Text = "/clouds/" + cloud.ShortName;
-            Shortlink.IsReadOnly = cloud.ShortName != cloud.Id;
             CloudAvatar.Source = new BitmapImage(cloud.Avatar.Normal);
             Name.Text = cloud.Name;
-            if (cloud.Description != null) DescriptionBox.Text = cloud.Description.Replace("\n", Environment.NewLine);
-            if (cloud.Rules != null) RulesBox.Text = cloud.Rules.Replace("\n", Environment.NewLine);
+            if (cloud.Description != null) DescriptionBox.Text = cloud.Description.Replace("\n", "\r\n");
+            if (cloud.Rules != null) RulesBox.Text = cloud.Rules.Replace("\n", "\r\n");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -67,6 +67,32 @@ namespace CloudsdaleWin7.Views.CloudViews
             App.Connection.SessionController.CurrentSession.Clouds.Remove(Cloud);
             App.Connection.SessionController.RefreshClouds();
             Main.Instance.HideFlyoutMenu();
+        }
+
+        private void ChangeName(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            Cloud.UpdateProperty("name", ((TextBox) sender).Text.Trim(), true);
+            Main.Instance.Clouds.SelectedItem = Cloud;
+        }
+
+        private void ChangeDescription(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            Cloud.UpdateProperty("description", ((TextBox) sender).Text.EscapeMessage().Trim(), true);
+
+        }
+
+        private void ChangeRules(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.Enter)
+            {
+                ((TextBox) sender).Text += "\r\n";
+                ((TextBox) sender).Select(((TextBox)sender).Text.Length, 0);
+                return;
+            }
+            if (e.Key != Key.Enter) return;
+            Cloud.UpdateProperty("rules", ((TextBox)sender).Text.EscapeMessage().Trim(), true);
         }
     }
 }

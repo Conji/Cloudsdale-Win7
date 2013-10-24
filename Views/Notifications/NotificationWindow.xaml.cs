@@ -26,6 +26,11 @@ namespace CloudsdaleWin7.Views.Notifications
             Top = 20;
         }
 
+        public void Notify(string message)
+        {
+            Notify(NotificationType.Client, new Message {Content = message});
+        }
+
         public void Notify(NotificationType type, Message message)
         {
             Message = message;
@@ -38,7 +43,7 @@ namespace CloudsdaleWin7.Views.Notifications
                 case NotificationType.Cloud:
                     if (MainWindow.Instance.WindowState != WindowState.Minimized) return;
                     NoteTitle.Text = App.Connection.MessageController.CloudControllers[message.PostedOn].Cloud.Name;
-                    NoteText.Text = message.FinalTimestamp + ".. @" + message.Author.Username + "-" + message.Content;
+                    NoteText.Text = message.FinalTimestamp + ".. @" + message.Author.Username + ": \r\n" + message.Content;
                     break;
             }
             ShowNote();
@@ -69,6 +74,7 @@ namespace CloudsdaleWin7.Views.Notifications
 
         private void DirectToCloud(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            MainWindow.Instance.WindowState = WindowState.Normal;
             Main.Instance.Clouds.SelectedItem = App.Connection.MessageController.CloudControllers[Message.PostedOn].Cloud;
         }
 

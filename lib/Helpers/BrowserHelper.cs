@@ -14,7 +14,9 @@ namespace CloudsdaleWin7.lib.Helpers
     {
         private static bool IsCloudLink(string link)
         {
-            return link.StartsWith("http://www.cloudsdale.org/clouds/") || link.StartsWith("www.cloudsdale.org/clouds/");
+            return link.StartsWith("http://www.cloudsdale.org/clouds/") 
+                | link.StartsWith("www.cloudsdale.org/clouds/") 
+                | link.StartsWith("https://www.cloudsdale.org/clouds");
         }
 
         public static void FollowLink(string uri)

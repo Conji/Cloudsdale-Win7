@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -11,15 +8,12 @@ namespace CloudsdaleWin7.lib.Faye
 {
     static class FayeConnector
     {
-        public static WebSocket socket;
-        private static string clientID;
+        public static WebSocket Socket;
         public static event Action DoneConnecting;
         public static event Action LostConnection;
+        public static bool Connected = false;
 
-        public static string ClientID
-        {
-            get { return clientID; }
-        }
+        public static string ClientId { get; private set; }
 
         public static async Task ConnectAsync()
         {
@@ -31,21 +25,23 @@ namespace CloudsdaleWin7.lib.Faye
 
         public static void Connect()
         {
-            if (socket != null && socket.State == WebSocketState.Open) socket.Close();
-            socket = new WebSocket(Endpoints.PushAddress);
-            socket.Opened += OnOpen;
-            socket.MessageReceived += MessageReceived;
-            socket.Closed += (sender, args) => { if (LostConnection != null) LostConnection(); };
-            socket.Open();
+            if (Socket != null && Socket.State == WebSocketState.Open) Socket.Close();
+            Connected = false;
+            Socket = new WebSocket(Endpoints.PushAddress);
+            Socket.Opened += OnOpen;
+            Socket.MessageReceived += MessageReceived;
+            Socket.Closed += (sender, args) => { if (LostConnection != null) LostConnection(); };
+            Socket.Open();
+            Connected = true;
         }
 
         public static void Disconnect()
         {
-            
-            if (socket != null && socket.State == WebSocketState.Open)
+            if (Socket != null && Socket.State == WebSocketState.Open)
             {
-                socket.Close();
+                Socket.Close();
             }
+            Connected = false;
         }
 
         static void OnOpen(object sender, EventArgs eventArgs)
@@ -55,7 +51,7 @@ namespace CloudsdaleWin7.lib.Faye
             handshake["version"] = "1.0";
             handshake["minimumVersion"] = "1.0beta";
             handshake["supportedConnectionTypes"] = new JArray { "websocket" };
-            socket.Send(handshake.ToString());
+            Socket.Send(handshake.ToString());
         }
 
         static void MessageReceived(object sender, MessageReceivedEventArgs e)
@@ -84,7 +80,7 @@ namespace CloudsdaleWin7.lib.Faye
 
         static void HandshakeResponse(JToken handshake)
         {
-            clientID = (string)handshake["clientId"];
+            ClientId = (string)handshake["clientId"];
             ConnectRequest();
             if (DoneConnecting != null) DoneConnecting();
         }
@@ -94,7 +90,7 @@ namespace CloudsdaleWin7.lib.Faye
             var message = new JObject();
             message["channel"] = channel;
             message["data"] = data;
-            message["clientId"] = clientID;
+            message["clientId"] = ClientId;
             if (ext != null)
             {
                 message["ext"] = ext;
@@ -104,36 +100,36 @@ namespace CloudsdaleWin7.lib.Faye
                 message["ext"] = new JObject();
             }
             message["ext"]["auth_token"] = App.Connection.SessionController.CurrentSession.AuthToken;
-            socket.Send(message.ToString());
+            Socket.Send(message.ToString());
         }
 
         public static void Subscribe(string channel)
         {
             var message = new JObject();
             message["channel"] = "/meta/subscribe";
-            message["clientId"] = clientID;
+            message["clientId"] = ClientId;
             message["subscription"] = channel;
             message["ext"] = new JObject();
             message["ext"]["auth_token"] = App.Connection.SessionController.CurrentSession.AuthToken;
-            socket.Send(message.ToString());
+            Socket.Send(message.ToString());
         }
 
         public static void Unsubscribe(string channel)
         {
             var message = new JObject();
             message["channel"] = "/meta/unsubscribe";
-            message["clientId"] = clientID;
+            message["clientId"] = ClientId;
             message["subscription"] = channel;
-            socket.Send(message.ToString());
+            Socket.Send(message.ToString());
         }
 
         static void ConnectRequest()
         {
             var connect = new JObject();
             connect["channel"] = "/meta/connect";
-            connect["clientId"] = clientID;
+            connect["clientId"] = ClientId;
             connect["connectionType"] = "websocket";
-            socket.Send(connect.ToString());
+            Socket.Send(connect.ToString());
         }
     }
 }

@@ -11,8 +11,10 @@ namespace CloudsdaleWin7.lib.Helpers
 {
     public static class ModelHelpers
     {
-        public static async Task UpdateProperty(this Cloud cloud, string property, JToken value)
+        public static async Task UpdateProperty(this Cloud cloud, string property, JToken value, bool stayOnCloud = false)
         {
+            var currentIndex = Main.Instance.Clouds.SelectedIndex;
+
             var o = @"{""cloud"":{""[:p]"":""[:v]""}}"
                .Replace("[:p]", property)
                .Replace("[:v]", value.ToString());
@@ -37,9 +39,11 @@ namespace CloudsdaleWin7.lib.Helpers
                 return;
             }
             responseObject.Result.CopyTo(App.Connection.MessageController[cloud].Cloud);
-            Console.WriteLine(responseObject.Result);
             App.Connection.SessionController.RefreshClouds();
             Main.Instance.InitSession();
+
+            if (stayOnCloud != true) return;
+            Main.Instance.Clouds.SelectedIndex = currentIndex;
         }
 
         public static async Task UpdateProperty(this User user, string property, JToken value)

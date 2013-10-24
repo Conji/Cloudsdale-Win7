@@ -73,7 +73,7 @@
         /// <summary>
         /// Retrieves the ban list.
         /// </summary>
-        public const string CloudBan = Cloud + "/bans";
+        public const string CloudBan = Cloud + "/bans/";
         /// <summary>
         /// Checks a ban on a specific user.
         /// Use 

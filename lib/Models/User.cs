@@ -328,7 +328,7 @@ namespace CloudsdaleWin7.lib.Models
         }
         public override string ToString()
         {
-            return Id + " { " + Name + " @" + Username + " [" + Role + "] }";
+            return Username;
         }
     }
 }

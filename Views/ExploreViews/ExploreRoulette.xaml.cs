@@ -29,13 +29,11 @@ namespace CloudsdaleWin7.Views.ExploreViews
         public ExploreRoulette()
         {
             InitializeComponent();
-            Begin();
         }
 
         private void Begin()
         {
             GatherClouds();
-            
         }
 
         public async void GatherClouds()
@@ -82,7 +80,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
             clock.Elapsed += delegate
                                  {
                                      var sec = 0;
-                                     if (sec < 3)
+                                     if (sec < 5)
                                      {
                                          ++sec;
                                          return;
@@ -91,13 +89,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
                                  };
             var finalInt = new Random().Next(0, newMax - 1);
             FinalCloud = _assigned[finalInt];
-            Decide();
-        }
-        private void Decide()
-        {
-            CurrentStatus.Text =
-                "Roulette has chosen your cloud. Do you wish to take your chance and join or try again?";
-            FinalizedUI.Visibility = Visibility.Visible;
+            Join(this, null);
         }
 
         private async void Join(object sender, RoutedEventArgs e)
@@ -109,9 +101,9 @@ namespace CloudsdaleWin7.Views.ExploreViews
             BrowserHelper.JoinCloud(response.Result.Result);
         }
 
-        private void TryAgain(object sender, RoutedEventArgs e)
+        private void BeginRoulette(object sender, RoutedEventArgs e)
         {
-            GatherClouds();
+            Begin();
         }
         
     }

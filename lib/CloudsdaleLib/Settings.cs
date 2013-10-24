@@ -35,6 +35,12 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
         /// </summary>
         private static void Initialize()
         {
+
+            if (!Directory.Exists(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.cloudsdale"))
+            {
+                Directory.CreateDirectory(@"C:\Users\" + Environment.UserName + @"\AppData\Roaming\.cloudsdale");
+            }
+
             if (File.Exists(SettingsFile)) return;
             var jo = new JObject();
             jo["settings"] = new JObject();

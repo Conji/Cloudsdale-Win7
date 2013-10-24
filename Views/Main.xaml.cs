@@ -64,18 +64,15 @@ namespace CloudsdaleWin7.Views
 
         public void ShowFlyoutMenu(Page view)
         {
+            if (FlyoutFrame.Width > 0)
+            {
+                HideFlyoutMenu();
+                return;
+            }
             FlyoutFrame.Navigate(view);
-
-            var board = new Storyboard();
-            var animation = (FlyoutFrame.Width > 0
-                                 ? new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)))
-                                 : new DoubleAnimation(FlyoutFrame.Width, 250.0, new Duration(new TimeSpan(2000000))));
-            board.Children.Add(animation);
-            animation.EasingFunction = new ExponentialEase();
-            Storyboard.SetTargetName(animation, FlyoutFrame.Name);
-            Storyboard.SetTargetProperty(animation, new PropertyPath(WidthProperty));
-            
-            board.Begin(this);
+            var animation = (new DoubleAnimation(FlyoutFrame.Width, 250.0, new Duration(new TimeSpan(2000000)))
+                                 {EasingFunction = new ExponentialEase()});
+            FlyoutFrame.BeginAnimation(WidthProperty, animation);
         }
 
         public void HideFlyoutMenu()
@@ -140,36 +137,6 @@ namespace CloudsdaleWin7.Views
 
         #endregion
 
-        #region Notify
-
-        public void Notify(Message message)
-        {
-
-            var post = App.Connection.MessageController.CloudControllers[message.PostedOn];
-            if (App.Connection.MessageController.CurrentCloud == post) return;
-
-            NoteTitle.Text = "@" + message.Author.Username + "(" + post.Cloud.Name + "):";
-            NoteContent.Text = message.Content;
-            ShowNote();
-            HideNote();
-        }
-
-        private void ShowNote()
-        {
-            var a = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(0, 0, 2)))
-                        {EasingFunction = new ExponentialEase()};
-            Note.BeginAnimation(OpacityProperty, a);
-        }
-
-        private void HideNote()
-        {
-            var a = new DoubleAnimation(100.0, 0.0, new Duration(new TimeSpan(0, 0, 6)))
-                        {EasingFunction = new ExponentialEase()};
-            Note.BeginAnimation(OpacityProperty, a);
-        }
-
-        #endregion
-
         private async void CreateNewCloud(object sender, RoutedEventArgs e)
         {
             var reg = new Regex(@"^[a-z_]+$", RegexOptions.IgnoreCase);
@@ -181,16 +148,12 @@ namespace CloudsdaleWin7.Views
             if (String.IsNullOrWhiteSpace(NewCloudName.Text))
             {
                 NewCloudName.Visibility = Visibility.Hidden;
+                return;
             }
             
             if (!reg.IsMatch(NewCloudName.Text))
             {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
-                                                                          new Message
-                                                                              {
-                                                                                  Content =
-                                                                                      "Cloud name can only contain numbers, letters, and underscores!"
-                                                                              });
+                App.Connection.NotificationController.Notification.Notify("Cloud name can only contain numbers, letters, and underscores!");
                 return;
             }
             var client = new HttpClient
@@ -225,42 +188,25 @@ namespace CloudsdaleWin7.Views
             NewCloudName.Text = "";
         }
 
-        private void AddDirectCloud(object sender, MouseButtonEventArgs e)
+        private async void LeaveCloud(object sender, RoutedEventArgs e)
         {
-            
-            if (NewCloudName.Visibility == Visibility.Hidden)
+            var c = (Cloud)((Button)sender).DataContext;
+            if (c.OwnerId == App.Connection.SessionController.CurrentSession.Id)
             {
-                NewCloudName.Visibility = Visibility.Visible;
-                NewCloudName.Text = "";
-                return;
-            }
-            
-            if (NewCloudName.Visibility == Visibility.Visible && NewCloudName.Text == "")
-            {
-                NewCloudName.Visibility = Visibility.Hidden;
+                if (MessageBox.Show("Are you sure you want to delete this cloud?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                    return;
+                var client = new HttpClient().AcceptsJson();
+                client.DefaultRequestHeaders.Add("X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken);
+                await client.DeleteAsync(Endpoints.Cloud.Replace("[:id]", c.Id));
+                App.Connection.SessionController.CurrentSession.Clouds.Remove(c);
+                App.Connection.SessionController.RefreshClouds();
+                HideFlyoutMenu();
                 return;
             }
 
-            try
-            {
-                var client = new HttpClient().AcceptsJson();
-                var response =
-                    JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(
-                        client.GetStringAsync(Endpoints.CloudJson.Replace("[:id]", NewCloudName.Text)).Result);
-                if (response.Result.Flash != null)
-                {
-                    App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message { Content = response.Result.Flash.Message });
-                    return;
-                }
-                BrowserHelper.JoinCloud(response.Result.Result);
-            }
-            catch(Exception ex)
-            {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
-                                                                          new Message {Content = ex.Message});
-            }
-            NewCloudName.Visibility = Visibility.Hidden;
-            NewCloudName.Text = "";
+            if (MessageBox.Show("Are you sure you want to leave this cloud?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            
+            c.Leave();
         }
     }
 }

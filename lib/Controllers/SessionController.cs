@@ -53,7 +53,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public void Logout()
         {
-            FayeConnector.socket.Close();
+            FayeConnector.Socket.Close();
             CurrentSession = null;
             App.Connection.MessageController.CloudControllers = new Dictionary<string, CloudController>();
             App.Settings.Clear();

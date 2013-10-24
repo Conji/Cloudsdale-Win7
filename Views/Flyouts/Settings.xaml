@@ -32,12 +32,6 @@
         </TextBlock>
         <TextBox x:Name="SkypeBlock" Height="23" Margin="10,270,10,0" TextWrapping="Wrap" VerticalAlignment="Top" KeyDown="ChangeSkypeName"/>
         <Image x:Name="AvatarImage" HorizontalAlignment="Left" Height="82" Margin="10,45,0,0" VerticalAlignment="Top" Width="82" MouseDown="UploadNewAvatar" Cursor="Hand"/>
-        <ComboBox x:Name="Status" HorizontalAlignment="Left" Margin="120,105,0,0" VerticalAlignment="Top" Width="120">
-            <ComboBoxItem Content="Online"/>
-            <ComboBoxItem Content="Offline"/>
-            <ComboBoxItem Content="Busy"/>
-            <ComboBoxItem Content="Away"/>
-        </ComboBox>
         <Button Content="Logout" Height="35" VerticalAlignment="Bottom" FontSize="16" FontWeight="ExtraLight" Click="Logout">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>

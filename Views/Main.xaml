@@ -51,6 +51,12 @@
 
                             </ContextMenu>
                         </StackPanel.ContextMenu>
+                        <!-- Leave cloud button -->
+                        <Button Content="" FontSize="10" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="Segoe UI Symbol" Width="15" Click="LeaveCloud" DataContext="{Binding RawCloud}">
+                            <Button.Foreground>
+                                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                            </Button.Foreground>
+                        </Button>
                         <!-- Image -->
                         <Image Margin="3" Height="30" Width="30" Source="{Binding Avatar.Preview}">
                             <Image.Clip>

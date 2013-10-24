@@ -35,7 +35,7 @@ namespace CloudsdaleWin7.lib.Controllers
             }
             else
             {
-                Users[id].Validate();
+                Users[id].ForceValidate();
             }
             return Users[id];
         }

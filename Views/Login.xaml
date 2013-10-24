@@ -73,7 +73,7 @@
                     <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
                 </Border.BorderBrush>
                 <StackPanel Margin="-1,0,0,-1">
-                    <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" FontFamily="Nirmala UI" IsHitTestVisible="True" IsInactiveSelectionHighlightEnabled="True" FontWeight="Thin">
+                    <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" FontFamily="Nirmala UI" IsHitTestVisible="True" FontWeight="Thin">
                         <TextBox.Foreground>
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                         </TextBox.Foreground>

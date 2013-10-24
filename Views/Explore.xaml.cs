@@ -84,6 +84,17 @@ namespace CloudsdaleWin7
             var objects = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud[]>>(await response);
 
             var list = objects.Result.Select(cloud => new ItemBasic(cloud)).ToList();
+
+            try
+            {
+                var r = client.GetStringAsync(Endpoints.Cloud.Replace("[:id]", ((TextBox)sender).Text));
+                var result = JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(r.Result);
+                if (result.Result.Result != null)
+                {
+                    list.Add(new ItemBasic(result.Result.Result));
+                }
+            }catch{}
+
             ExploreFrame.Navigate(new ExploreSearch(list));
         }
     }
