@@ -82,16 +82,19 @@ namespace CloudsdaleWin7.Views
             FlyoutFrame.BeginAnimation(WidthProperty, a);
         }
 
-        private void CloudsSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void CloudsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Clouds.SelectedIndex == -1)
             {
                 Frame.Navigate(new Home());
                 return;
             }
+            LoadingText.Visibility = Visibility.Visible;
+            Frame.IsEnabled = false;
             var cloud = (ListView)sender;
             var item = (Cloud)cloud.SelectedItem;
             App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
+            await App.Connection.MessageController[item].LoadMessages();
             var cloudView = new CloudView(item);
             Frame.Navigate(cloudView);
             CurrentView = cloudView;

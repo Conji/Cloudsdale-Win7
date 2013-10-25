@@ -28,7 +28,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
-            <SolidColorBrush Color="{Binding Converter={StaticResource ScreenColor}}"/>
+            <SolidColorBrush Color="#FF3F85B3"/>
         </Grid.Background>
         <StackPanel x:Name="LoggingInUi" Grid.Column="1" Margin="0,0,0,0" Visibility="Hidden">
             <Image gif:ImageBehavior.AnimatedSource="/Cloudsdale;component/Assets/cd_icon_animation.gif" gif:ImageBehavior.AutoStart="True" Grid.Column="1" Margin="57,192,57,0" Width="150" Height="150" VerticalAlignment="Top"/>
@@ -67,10 +67,10 @@
             </RichTextBox>
             <Border BorderThickness="1" Height="62" Margin="20,0">
                 <Border.Background>
-                    <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                 </Border.Background>
                 <Border.BorderBrush>
-                    <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                 </Border.BorderBrush>
                 <StackPanel Margin="-1,0,0,-1">
                     <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" FontFamily="Nirmala UI" IsHitTestVisible="True" FontWeight="Thin">
@@ -78,15 +78,15 @@
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                         </TextBox.Foreground>
                         <TextBox.BorderBrush>
-                            <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                            <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                         </TextBox.BorderBrush>
                         <TextBox.Background>
-                            <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                            <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                         </TextBox.Background>
                     </TextBox>
                     <Separator Height="4" Margin="0,0,-10,0" IsTabStop="False">
                         <Separator.Background>
-                            <SolidColorBrush Color="{Binding Converter={StaticResource ScreenColor}}"/>
+                            <SolidColorBrush Color="{DynamicResource DarkerBlue}"/>
                         </Separator.Background>
                     </Separator>
                     <PasswordBox x:Name="PasswordBox" Margin="10,0" KeyDown="LoginAttempt" Height="21" IsHitTestVisible="True" TabIndex="0" FontWeight="Thin">
@@ -97,7 +97,7 @@
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                         </PasswordBox.Foreground>
                         <PasswordBox.Background>
-                            <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>
+                            <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                         </PasswordBox.Background>
                         <PasswordBox.BorderBrush>
                             <SolidColorBrush Color="{Binding Converter={StaticResource Shades}}"/>

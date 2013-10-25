@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,6 +40,7 @@ namespace CloudsdaleWin7.lib.Controllers
             try
             {
                 CurrentSession = response.Result.User;
+                InitializeClouds();
                 RegistrationCheck();
             }
             catch
@@ -87,7 +87,6 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             foreach (var cloud in CurrentSession.Clouds)
             {
-
                 App.Connection.MessageController.CloudControllers.Add(cloud.Id, new CloudController(cloud));
                 App.Connection.MessageController[cloud].EnsureLoaded();
             }

@@ -206,49 +206,11 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             FayeConnector.Subscribe("/clouds/" + Cloud.Id + "/users/*");
 
-
             Cloud.Validate();
 
-
-            var client = new HttpClient().AcceptsJson();
-
-
-            // Load user list
-            {
-                var response = await client.GetStringAsync((
-                    Cloud.UserIds.Length > 100
-                    ? Endpoints.CloudOnlineUsers
-                    : Endpoints.CloudUsers)
-                    .Replace("[:id]", Cloud.Id));
-                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
-                var users = new List<User>();
-                foreach (var user in userData.Result)
-                {
-                    if (user.Status != null)
-                    {
-                        SetStatus(user.Id, (Status)user.Status);
-                    }
-                    users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
-                }
-            }
-            // Load messages
-            {
-                var response = await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id));
-                var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(response);
-                var newMessages = new List<Message>(_messages
-                    .Where(message => message.Timestamp > responseMessages.Result.Last().Timestamp));
-                _messages.Clear();
-                foreach (var message in responseMessages.Result)
-                {
-                    StatusForUser(message.Author.Id);
-                    AddMessageToSource(message);
-                }
-                foreach (var message in newMessages)
-                {
-                    StatusForUser(message.Author.Id);
-                    AddMessageToSource(message);
-                }
-            }
+            await LoadMessages();
+            await LoadUsers();
+            await LoadBans();
         }
 
         public async Task LoadMessages()
@@ -276,6 +238,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public void AddMessageToSource(Message message)
         {
+            message.Author.CopyTo(message.User);
             message.Timestamp = message.Timestamp.ToLocalTime();
             message.Content = message.Content.UnescapeLiteral();
             if (Messages.Count > 0)
@@ -316,7 +279,6 @@ namespace CloudsdaleWin7.lib.Controllers
             var message = jMessage.ToObject<Message>();
 
             message.PostedOn = Cloud.Id;
-            message.Author.CopyTo(message.User);
 
             AddMessageToSource(message);
 

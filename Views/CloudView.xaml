@@ -33,7 +33,7 @@
             <ColumnDefinition Width="130" />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" Height="37" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Grid.ColumnSpan="2" Height="65" VerticalAlignment="Top">
             <StackPanel.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </StackPanel.Background>
@@ -57,7 +57,7 @@
         </ScrollViewer>
         <MediaElement x:Name="Player" Visibility="Hidden" Grid.Column="1" Margin="216,0,364,0" LoadedBehavior="Manual"/>
         <TextBox Grid.Row="2" x:Name="InputBox" FontSize="16" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" Padding="27,0,0,0" TextWrapping="Wrap" Margin="30,0,0,0" />
-        <TextBlock x:Name="Name" VerticalAlignment="Top" FontSize="16" Margin="10,10,0,0" Height="27" FontFamily="Segoe UI Semibold" Grid.ColumnSpan="2" Cursor="Hand" HorizontalAlignment="Left" MouseDown="ShowUserList"/>
+        <TextBlock x:Name="Name" VerticalAlignment="Top" FontSize="20" Margin="10,10,0,0" Height="45" FontFamily="Segoe UI Semibold" Cursor="Hand" HorizontalAlignment="Left" MouseDown="ShowUserList"/>
         <Button Content="&#xE15F;" HorizontalAlignment="Left" Grid.Row="2" Width="25" BorderBrush="{x:Null}" Background="{x:Null}" FontFamily="Segoe UI Symbol" Click="ButtonClick1" Margin="30,0,0,0"/>
         <Border x:Name="SymbolBox" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="10,0,0,10" Grid.Row="1" Width="120" Height="131" VerticalAlignment="Bottom" Visibility="Hidden">
             <WrapPanel Margin="-1">
@@ -83,7 +83,7 @@
                 <TextBlock Width="20" Height ="20" Margin="4,4,4,4" Text=""/>
             </WrapPanel>
         </Border>
-        <Separator Margin="0,0,30,0" Grid.Column="1" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="26">
+        <Separator Margin="0,0,14,0" Grid.Column="1" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="58">
             <Separator.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -112,7 +112,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </Button.BorderBrush>
         </Button>
-        <Button Content="&#xE149;" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,45,0" VerticalAlignment="Top" Width="34" Height="37" BorderBrush="{x:Null}" Background="{x:Null}" FontFamily="Segoe UI Symbol" ToolTip="Reload cloud. Click this if you think you're lagging." Click="Reload">
+        <Button Content="&#xE149;" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,45,0" Width="45" BorderBrush="{x:Null}" Background="{x:Null}" FontFamily="Segoe UI Symbol" ToolTip="Reload cloud. Click this if you think you're lagging." Click="Reload" VerticalAlignment="Center" Height="65">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>

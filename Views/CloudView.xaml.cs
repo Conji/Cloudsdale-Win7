@@ -3,9 +3,6 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Runtime.InteropServices;
-using System.Drawing;
-using System.Drawing.Imaging;
 using CloudsdaleWin7.Controls;
 using CloudsdaleWin7.Views.CloudViews;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
@@ -36,10 +33,10 @@ namespace CloudsdaleWin7.Views {
             Name.Text = cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             CloudMessages.ItemsSource = App.Connection.MessageController[cloud].Messages;
-            App.Connection.MessageController[cloud].LoadMessages();
+            Main.Instance.Frame.IsEnabled = true;
+            Main.Instance.LoadingText.Visibility = Visibility.Hidden;
             Main.Instance.HideFlyoutMenu();
             InputBox.Focus();
-            App.Connection.MessageController[cloud].LoadBans();
         }
 
         private void ButtonClick1(object sender, RoutedEventArgs e)
@@ -66,7 +63,6 @@ namespace CloudsdaleWin7.Views {
         }
         internal async void Send(string message)
         {
-            InputBox.IsEnabled = false;
             message = message.TrimEnd();
 
             var messageModel = new Message
@@ -93,11 +89,9 @@ namespace CloudsdaleWin7.Views {
             {
                 await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id), new JsonContent(messageData));
                 InputBox.Text = "";
-                await App.Connection.MessageController[Cloud].LoadMessages();
             }
             catch (Exception e) { Console.WriteLine(e.Message);}
             InputBox.Text = "";
-            InputBox.IsEnabled = true;
             InputBox.Focus();
         }
 

@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Helpers;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.lib.Models
 {
@@ -69,11 +68,6 @@ namespace CloudsdaleWin7.lib.Models
                 OnPropertyChanged();
                 OnPropertyChanged("FinalTimestamp");
             }
-        }
-
-        public string NoteTimestamp
-        {
-            get { return Timestamp.ToString().Split(' ')[1]; }
         }
 
         /// <summary>
@@ -221,11 +215,7 @@ namespace CloudsdaleWin7.lib.Models
         {
             get
             {
-                if (_messages.Count < 1)
-                {
-                    return Timestamp;
-                }
-                return _messages.Last().Timestamp;
+                return _messages.Count < 1 ? Timestamp : _messages.Last().Timestamp;
             }
         }
 

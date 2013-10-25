@@ -35,7 +35,7 @@
                 </TextBlock.Foreground>
             </TextBlock>
         </StackPanel>
-        <ListView x:Name="Clouds" Margin="0,145,0,0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Width="226" SelectionChanged="CloudsSelectionChanged" Background="#FF4C4C5A">
+        <ListView x:Name="Clouds" Margin="0,135,0,0" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Width="226" SelectionChanged="CloudsSelectionChanged" Background="#FF4C4C5A">
             <ListView.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </ListView.Foreground>
@@ -75,12 +75,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,39,1" Height="39" BorderBrush="{x:Null}" FontWeight="Thin" Click="LaunchExplore" Margin="50,65,0,0" HorizontalAlignment="Left" Width="176" Background="{x:Null}">
+        <Button Content="Cloud Gaze™" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="1,1,39,1" Height="48" BorderBrush="{x:Null}" FontWeight="Thin" Click="LaunchExplore" Margin="112,87,0,0" HorizontalAlignment="Left" Width="114" Background="{x:Null}">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>
         </Button>
-        <Ellipse HorizontalAlignment="Left" Height="80" Margin="10,24,0,0" VerticalAlignment="Top" Width="80">
+        <Ellipse HorizontalAlignment="Left" Height="80" Margin="10,0,0,0" VerticalAlignment="Top" Width="80">
             <Ellipse.Fill>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </Ellipse.Fill>
@@ -89,7 +89,7 @@
                 BorderThickness="4" 
                 HorizontalAlignment="Left" 
                 Height="80" 
-                Margin="10,24,0,0"
+                Margin="10,0,0,0"
                 VerticalAlignment="Top"
                 Width="80" 
                 CornerRadius="70">
@@ -102,7 +102,7 @@
                 </Image.Clip>
             </Image>
         </Border>
-        <Image x:Name="Opac" HorizontalAlignment="Left" Height="80" Margin="10,24,0,0" VerticalAlignment="Top" Width="80" Source="/Cloudsdale;component/Assets/icon_white.png" Opacity="0" IsHitTestVisible="True" MouseDown="ToggleMenu" Cursor="Hand"/>
+        <Image x:Name="Opac" HorizontalAlignment="Left" Height="80" Margin="10,0,0,0" VerticalAlignment="Top" Width="80" Source="/Cloudsdale;component/Assets/icon_white.png" Opacity="0" IsHitTestVisible="True" MouseDown="ToggleMenu" Cursor="Hand"/>
         <Frame x:Name="Frame" Content="" Background="#FFFAFAFA" Grid.RowSpan="2" Grid.Column="1"/>
         <Frame x:Name="FlyoutFrame" Content="Frame" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="0" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#FF4C4C5A" Grid.Column="1"/>
         <Grid x:Name="Note" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Opacity="0" MaxWidth="350" Grid.Column="1">
@@ -120,7 +120,7 @@
                 </TextBlock.Foreground>
             </TextBlock>
         </Grid>
-        <Button x:Name="CreateCloud" Content="Create A Cloud!" Margin="0,104,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Thin" Click="CreateNewCloud" HorizontalAlignment="Left" Width="226" Height="34" VerticalAlignment="Top" Padding="90,1,1,1">
+        <Button x:Name="CreateCloud" Content="Create A Cloud!" Margin="0,87,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Thin" Click="CreateNewCloud" HorizontalAlignment="Left" Width="112" Height="48" VerticalAlignment="Top" Padding="0,1,1,1">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.Foreground>
@@ -136,5 +136,6 @@
                 <SolidColorBrush Color="{DynamicResource Panels}"/>
             </TextBox.Background>
         </TextBox>
+        <TextBlock x:Name="LoadingText" Grid.Column="1" HorizontalAlignment="Right" Margin="0,69,5,0" TextWrapping="Wrap" Text="Loading..." VerticalAlignment="Top" Opacity="0.5" Height="34" Width="96" FontSize="18" Visibility="Hidden"/>
     </Grid>
 </Page>

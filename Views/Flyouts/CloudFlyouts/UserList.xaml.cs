@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Windows;
@@ -26,11 +25,12 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             InitializeComponent();
             Instance = this;
             Controller = cloud;
+            App.Connection.MessageController[cloud.Cloud].LoadUsers();
+            App.Connection.MessageController[cloud.Cloud].LoadBans();
             OwnerList.Items.Add(cloud.Owner);
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
             SearchResults.ItemsSource = _searchList;
-            App.Connection.MessageController[cloud.Cloud].LoadUsers();
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 
                        _searchList.Add(user.Result);
                    }
-                   catch(Exception ex)
+                   catch
                    {
                        var user = new User(id);
                        user.ForceValidate();

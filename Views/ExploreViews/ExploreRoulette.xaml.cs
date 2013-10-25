@@ -80,7 +80,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
             clock.Elapsed += delegate
                                  {
                                      var sec = 0;
-                                     if (sec < 5)
+                                     if (sec < 3)
                                      {
                                          ++sec;
                                          return;
