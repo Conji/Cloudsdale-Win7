@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using CloudsdaleWin7.lib;
@@ -17,7 +18,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
     public partial class UserList
     {
         public static UserList Instance;
-        private static ObservableCollection<User> _searchList = new ObservableCollection<User>(); 
+        private static readonly ObservableCollection<User> SearchList = new ObservableCollection<User>(); 
         private static CloudController Controller { get; set; }
 
         public UserList(CloudController cloud)
@@ -30,7 +31,11 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             OwnerList.Items.Add(cloud.Owner);
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
-            SearchResults.ItemsSource = _searchList;
+            SearchResults.ItemsSource = SearchList;
+            foreach (var user in Controller.OnlineUsers)
+            {
+                SearchList.Add(App.Connection.ModelController.Users[user.Id]);
+            }
         }
 
         /// <summary>
@@ -44,102 +49,24 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         /// <param name="e"></param>
         private async void UpdateSearch(object sender, TextChangedEventArgs e)
         {
-            if (SearchBox.Text == "")
+            switch(SearchBox.Text.ToLower().Trim())
             {
-                SearchScroll.Visibility = Visibility.Collapsed;
-                UserScroll.Visibility = Visibility.Visible;
-                _searchList.Clear();
-            }
-            else
-            {
-                SearchScroll.Visibility = Visibility.Visible;
-                UserScroll.Visibility = Visibility.Collapsed;
-                _searchList.Clear();
+                case "":
+                    SearchScroll.Visibility = Visibility.Collapsed;
+                    UserScroll.Visibility = Visibility.Visible;
+                    SearchList.Clear();
+                    break;
+                default:
+                    SearchScroll.Visibility = Visibility.Visible;
+                    UserScroll.Visibility = Visibility.Collapsed;
+                    SearchList.Clear();
 
-                if (SearchBox.Text == "!")
-                {
-                    var cacheList = new ObservableCollection<User>();
-                    foreach (var response in from userId in Controller.BansByUser.Keys let client = new HttpClient().AcceptsJson() select JsonConvert.DeserializeObjectAsync<WebResponse<User>>(
-                        client.GetStringAsync(Endpoints.User.Replace("[:id]", userId)).Result))
+                    //TODO: show the search results
+                    foreach(var user in Controller.OnlineUsers)
                     {
-                        cacheList.Add(response.Result.Result);
+                        SearchList.Add(App.Connection.ModelController.Users[user.Id]);
                     }
-                    _searchList = cacheList;
-                    return;
-                }
-
-                if (SearchBox.Text != "?")
-                {
-                    // Collects the online users list first.
-                    foreach (var user in Controller.OnlineUsers.Where(user => user.Name == null))
-                    {
-                        await user.ForceValidate();
-                    }
-                    foreach (var user in Controller.OnlineUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
-                    {
-                        if (App.Connection.ModelController.Users.ContainsValue(user))
-                        {
-                            _searchList.Add(App.Connection.ModelController.Users[user.Id]);
-                            return;
-                        }
-
-                        if (Controller.BansByUser.ContainsKey(user.Id))
-                        {
-                            user.Name += "(banned)";
-                        }
-
-                        if (_searchList.Contains(user)) return;
-                        _searchList.Add(user);
-                       
-                    }
-
-                    //Collects the offline users list next.
-                    foreach (var user in Controller.AllUsers.Where(user => user.Name == null))
-                    {
-                        await user.ForceValidate();
-                    }
-                    foreach (var user in Controller.AllUsers.Where(user => user.Name != null && user.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
-                    {
-                        if (_searchList.Contains(user)) return;
-                        if (Controller.BansByUser.ContainsKey(user.Id))
-                        {
-                            user.Name += "(banned)";
-                        }
-
-                        _searchList.Add(user);
-                    }
-                    return;
-                }
-
-                //Fetches all users
-                _searchList.Clear();
-                
-                foreach (var id in Controller.Cloud.UserIds)
-                {
-                   try
-                   {
-                       var client = new HttpClient().AcceptsJson();
-                       var response = await client.GetStringAsync(Endpoints.User.Replace("[:id]", id));
-
-
-                       var user = await JsonConvert.DeserializeObjectAsync<WebResponse<User>>(response);
-                       if (_searchList.Contains(user.Result)) return;
-                       App.Connection.ModelController.UpdateDataAsync(user.Result);
-                       
-                       if (Controller.BansByUser.ContainsKey(user.Result.Id))
-                       {
-                           user.Result.Name += "(banned)";
-                       }
-
-                       _searchList.Add(user.Result);
-                   }
-                   catch
-                   {
-                       var user = new User(id);
-                       user.ForceValidate();
-                       _searchList.Add(user);
-                   }
-                }
+                    break;
             }
         }
 
@@ -147,7 +74,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         {
             var user = (User) ((ListView) sender).SelectedItem;
             user.Name = user.Name.Replace("(banned)", "");
-            user.ShowFlyout(Controller.Cloud);
+            user.ShowFlyout();
         }
 
         private async void ReloadUsers(object sender, RoutedEventArgs e)
@@ -158,5 +85,9 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             ModeratorList.ItemsSource = Controller.OnlineModerators;
         }
 
+        private void ClosePanel(object sender, RoutedEventArgs e)
+        {
+            Main.Instance.HideFlyoutMenu();
+        }
     }
 }

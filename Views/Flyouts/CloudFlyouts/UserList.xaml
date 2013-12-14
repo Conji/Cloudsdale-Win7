@@ -18,7 +18,7 @@
             <RowDefinition Height="33"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="SearchBox" Margin="5,10,20,0" TextChanged="UpdateSearch" Height="18" VerticalAlignment="Top" />
+        <TextBox x:Name="SearchBox" Margin="22,10,20,0" TextChanged="UpdateSearch" Height="18" VerticalAlignment="Top" />
         <ScrollViewer x:Name="SearchScroll" Margin="0,2,0,0" Grid.Row="1" Visibility="Collapsed">
             <StackPanel x:Name="SearchUI" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="250">
                 <TextBlock Text="Results..." Margin="4,0,0,0"/>
@@ -166,6 +166,7 @@
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-        <Button Content="&#xE0F2;" HorizontalAlignment="Left" Margin="230,8,0,0" VerticalAlignment="Top" Width="20" Height="20" Background="{x:Null}" FontFamily="Segoe UI Symbol" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Click="ReloadUsers" BorderThickness="0"/>
+        <Button Content="&#xE0F2;" HorizontalAlignment="Left" Margin="0,8,0,0" VerticalAlignment="Top" Width="20" Height="20" Background="{x:Null}" FontFamily="Segoe UI Symbol" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Click="ReloadUsers" BorderThickness="0"/>
+        <Button Content="X" Margin="230,10,0,0" VerticalAlignment="Top" BorderThickness="0" Background="{x:Null}" Click="ClosePanel"/>
     </Grid>
 </Page>

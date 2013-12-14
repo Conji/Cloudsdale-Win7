@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CloudsdaleWin7.Views.ExploreViews.ItemViews;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
@@ -44,6 +34,7 @@ namespace CloudsdaleWin7.Views.ExploreViews
 
         private async void LoadNext(object sender, RoutedEventArgs e)
         {
+            LoadingBlock.Visibility = Visibility.Visible;
             var client = new HttpClient
             {
                 DefaultRequestHeaders =
@@ -62,7 +53,20 @@ namespace CloudsdaleWin7.Views.ExploreViews
             foreach (var basic in from Cloud cloud in response.Result.Result select new ItemBasic(cloud) { Margin = new Thickness(10, 10, 10, 10) })
                 View.Children.Add(basic);
 
+            LoadingBlock.Visibility = Visibility.Hidden;
             ++CurrentPage;
+        }
+
+        private void CheckScrollState(object sender, ScrollChangedEventArgs e)
+        {
+            var scroll = (ScrollViewer)sender;
+            var vo = scroll.VerticalOffset;
+            var maxvo = scroll.ExtentHeight - scroll.ViewportHeight;
+
+            if (vo.Equals(maxvo))
+            {
+                LoadNext(this, null);
+            }
         }
     }
 }

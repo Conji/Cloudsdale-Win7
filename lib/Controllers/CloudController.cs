@@ -7,9 +7,9 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.Notifications;
-using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -23,11 +23,10 @@ namespace CloudsdaleWin7.lib.Controllers
     {
         private int _unreadMessages;
         private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
-        private readonly ObservableCollection<Message> _messages = new ObservableCollection<Message>();
         private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
-        private readonly Dictionary<string, Ban> _bansByUser = new Dictionary<string, Ban>(); 
-        private ObservableCollection<Drop> _drops = new ObservableCollection<Drop>();
+        private readonly Dictionary<string, Ban> _bansByUser = new Dictionary<string, Ban>();
         public static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
+        public MessageSource Source { get; set; }
 
         public User Owner
         {
@@ -46,28 +45,15 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             Cloud = cloud;
             FixSessionStatus();
+            Source = MessageSource.GetSource(cloud.Id);
             LoadBans();
         }
 
 
         public Cloud Cloud { get; private set; }
 
-
-        public ObservableCollection<Message> Messages { get { return _messages; } }
-
         public ObservableCollection<Ban> Bans { get { return _bans; } }
         public Dictionary<string, Ban> BansByUser { get { return _bansByUser; } } 
-
-        public ObservableCollection<Drop> Drops
-        {
-            get { return _drops; }
-            set
-            {
-                if (value == _drops) return;
-                _drops = value;
-                OnPropertyChanged();
-            }
-        }
 
         public List<User> OnlineModerators
         {
@@ -204,10 +190,9 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public async Task EnsureLoaded()
         {
-            FayeConnector.Subscribe("/clouds/" + Cloud.Id + "/users/*");
+            FayeConnector.Subscribe("/clouds/" + Cloud.Id + "/users/**");
 
-            Cloud.Validate();
-
+            await Cloud.Validate();
             await LoadMessages();
             await LoadUsers();
             await LoadBans();
@@ -217,43 +202,50 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             var client = new HttpClient().AcceptsJson();
 
-
             var response = await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id));
             var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(response);
-            var newMessages = new List<Message>(_messages
+            var newMessages = new List<Message>(MessageSource.GetSource(Cloud.Id).Messages
                 .Where(message => message.Timestamp > responseMessages.Result.Last().Timestamp));
-            _messages.Clear();
-            foreach (var message in responseMessages.Result)
+            MessageSource.GetSource(Cloud.Id).Messages.Clear();
+            try
             {
-                StatusForUser(message.Author.Id);
-                AddMessageToSource(message);
+                foreach (var message in responseMessages.Result)
+                {
+                    StatusForUser(message.Author.Id);
+                    AddMessageToSource(message);
+                }
+                foreach (var message in newMessages)
+                {
+                    StatusForUser(message.Author.Id);
+                    AddMessageToSource(message);
+                }
             }
-            foreach (var message in newMessages)
+            catch (Exception e)
             {
-                StatusForUser(message.Author.Id);
-                AddMessageToSource(message);
+                App.Connection.NotificationController.Notification.Notify(e.Message);
+                LoadMessages();
             }
         }
 
 
         public void AddMessageToSource(Message message)
         {
-            message.Author.CopyTo(message.User);
+            if (!App.Connection.ModelController.Users.ContainsKey(message.Author.Id))
+                App.Connection.ModelController.Users.Add(message.Author.Id, message.Author);
+            message.Author.CopyTo(App.Connection.ModelController.Users[message.Author.Id]);
+
             message.Timestamp = message.Timestamp.ToLocalTime();
-            message.Content = message.Content.UnescapeLiteral();
-            if (Messages.Count > 0)
+            if (Source.Messages.Count > 0)
             {
-                if (Messages.Last().AuthorId == message.AuthorId
+                if (Source.Messages.Last().AuthorId == message.AuthorId
                     && !message.Content.StartsWith("/me")
-                    && !Messages.Last().Content.StartsWith("/me"))
-                {
-                    Messages.Last().Content += "\n" + message.Content;
-                    Messages.Last().Timestamp = message.FinalTimestamp;
-                }
-                else Messages.Add(message);
+                    && !MessageSource.GetSource(Cloud.Id).Messages.Last().Content.StartsWith("/me"))
+                    Source.Messages[Source.Messages.Count - 1].Content += "\n" + message.Content;
+                else Source.AddMessages(message);
             }
-            else Messages.Add(message);
-            if (Messages.Count > 50) Messages.RemoveAt(50);
+            else Source.AddMessages(message);
+
+            if (Source.Messages.Count > 50) Source.Messages.RemoveAt(0);
         }
 
         public void OnMessage(JObject message)

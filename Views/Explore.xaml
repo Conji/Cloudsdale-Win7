@@ -15,8 +15,8 @@
             <DockPanel.Background>
                 <SolidColorBrush Color="#FF63A0D0"/>
             </DockPanel.Background>
-            <TextBlock TextWrapping="Wrap" Margin="50,20,0,20" FontFamily="Segoe UI Symbol" FontSize="20" Text="&#xE11A;" TextAlignment="Center"/>
-            <TextBox Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" Padding="0" Margin="10,20,0,0" FontSize="14" KeyDown="SearchForCloud"/>
+            <Image Height="55" VerticalAlignment="Top" Width="37" Source="/Cloudsdale;component/Assets/search.png" Margin="0,15,0,-5"/>
+            <TextBox Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" Padding="0" Margin="0,20,0,0" FontSize="14" KeyDown="SearchForCloud"/>
             <DockPanel x:Name="ViewPanel" Height="25" LastChildFill="False" VerticalAlignment="Top" Width="240" Margin="30,20,0,0">
                 <Button x:Name="CmdPopular" Content="Popular" Width="60" DockPanel.Dock="Left" Click="ChangeExploreSource" BorderThickness="3">
                     <Button.BorderBrush>

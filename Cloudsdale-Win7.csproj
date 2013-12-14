@@ -128,6 +128,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="lib\CloudsdaleLib\MessageSource.cs" />
     <Compile Include="MainApp.cs" />
     <Compile Include="Controls\ActionMessageView.xaml.cs">
       <DependentUpon>ActionMessageView.xaml</DependentUpon>
@@ -194,9 +195,6 @@
     <Compile Include="Views\ExploreViews\ItemViews\ItemTop.xaml.cs">
       <DependentUpon>ItemTop.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Flyouts\CloudFlyouts\DropView.xaml.cs">
-      <DependentUpon>DropView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Flyouts\CloudFlyouts\QuickView.xaml.cs">
       <DependentUpon>QuickView.xaml</DependentUpon>
     </Compile>
@@ -245,9 +243,6 @@
     </Compile>
     <Compile Include="Views\Misc\MeetTheCrew.xaml.cs">
       <DependentUpon>MeetTheCrew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Misc\Updater.xaml.cs">
-      <DependentUpon>Updater.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Notifications\NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
@@ -301,10 +296,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExploreViews\ItemViews\ItemTop.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Flyouts\CloudFlyouts\DropView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -383,10 +374,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Misc\Updater.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Notifications\NotificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -455,10 +442,24 @@
   <ItemGroup>
     <Resource Include="To-Do-List.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\minus.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="icon_black.ico" />
     <Resource Include="Assets\cd_icon_animation.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\parent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\CloudsdaleLib\Misc\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">

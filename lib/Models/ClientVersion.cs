@@ -5,13 +5,12 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using CloudsdaleWin7.Views.Misc;
 
 namespace CloudsdaleWin7.lib.Models
 {
     class ClientVersion
     {
-        private const string Version= "2.0.8 BETA";
+        private const string Version= "1.0.0 PRE-RELEASE";
 
         public async static Task<string> UpdatedVersion()
         {
@@ -44,13 +43,12 @@ namespace CloudsdaleWin7.lib.Models
         }
         private static void UpdateClient()
         {
-            MainWindow.Instance.Hide();
+            MessageBox.Show("Please wait while we update. The window will close once it's finished.");
+            MainWindow.Instance.IsEnabled = false;
             MainWindow.Instance.ShowInTaskbar = false;
-            Updater.Instance.Show();
             File.Move(CloudsdaleSource.ExeFile, CloudsdaleSource.OldFile);
             var client = new WebClient();
             client.DownloadFile(Endpoints.ClientAddress, CloudsdaleSource.ExeFile);
-            Updater.Instance.Hide();
             Process.Start(CloudsdaleSource.ExeFile);
             MainWindow.Instance.Close();
         }
@@ -59,7 +57,11 @@ namespace CloudsdaleWin7.lib.Models
             try
             {
                 File.Delete(CloudsdaleSource.OldFile);
-            }catch(Exception e){Console.WriteLine(e.Message);}
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

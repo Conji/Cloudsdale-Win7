@@ -8,7 +8,6 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.Views.Flyouts;
-using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
@@ -72,7 +71,8 @@ namespace CloudsdaleWin7.Views
             FlyoutFrame.Navigate(view);
             var animation = (new DoubleAnimation(FlyoutFrame.Width, 250.0, new Duration(new TimeSpan(2000000)))
                                  {EasingFunction = new ExponentialEase()});
-            FlyoutFrame.BeginAnimation(WidthProperty, animation);
+            if (!FlyoutFrame.Width.Equals(250))
+                FlyoutFrame.BeginAnimation(WidthProperty, animation);
         }
 
         public void HideFlyoutMenu()
@@ -142,7 +142,7 @@ namespace CloudsdaleWin7.Views
 
         private async void CreateNewCloud(object sender, RoutedEventArgs e)
         {
-            var reg = new Regex(@"^[a-z_]+$", RegexOptions.IgnoreCase);
+            var reg = new Regex(@"^[a-z0-9_]+$", RegexOptions.IgnoreCase);
             if (NewCloudName.Visibility == Visibility.Hidden)
             {
                 NewCloudName.Visibility = Visibility.Visible;
@@ -180,15 +180,16 @@ namespace CloudsdaleWin7.Views
             var cloud = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(await response.Content.ReadAsStringAsync());
             if (cloud.Flash != null)
             {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message{Content = cloud.Flash.Message});
+                App.Connection.NotificationController.Notification.Notify(cloud.Flash.Message);
                 return;
             }
             App.Connection.SessionController.CurrentSession.Clouds.Add(cloud.Result);
             App.Connection.SessionController.RefreshClouds();
             FayeConnector.Subscribe("/clouds/" + cloud.Result.Id + "/chat/messages");
-            Clouds.SelectedItem = cloud;
+            Clouds.SelectedIndex = Clouds.Items.Count - 1;
             NewCloudName.Visibility = Visibility.Hidden;
             NewCloudName.Text = "";
+            VerifyCloudOwners();
         }
 
         private async void LeaveCloud(object sender, RoutedEventArgs e)
@@ -210,6 +211,13 @@ namespace CloudsdaleWin7.Views
             if (MessageBox.Show("Are you sure you want to leave this cloud?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             
             c.Leave();
+            VerifyCloudOwners();
         }
+
+        private void EnterPressed(object sender, KeyEventArgs e)
+        {
+            CreateNewCloud(this, new RoutedEventArgs());
+        }
+
     }
 }

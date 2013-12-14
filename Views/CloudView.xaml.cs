@@ -3,10 +3,8 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using CloudsdaleWin7.Controls;
 using CloudsdaleWin7.Views.CloudViews;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
-using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.Faye;
@@ -23,7 +21,6 @@ namespace CloudsdaleWin7.Views {
         public static CloudView Instance;
         public Cloud Cloud { get; set; }
         
-
         public CloudView(Cloud cloud)
         {
             InitializeComponent();
@@ -32,19 +29,11 @@ namespace CloudsdaleWin7.Views {
             App.Connection.MessageController[cloud].UnreadMessages = 0;
             Name.Text = cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
-            CloudMessages.ItemsSource = App.Connection.MessageController[cloud].Messages;
+            CloudMessages.ItemsSource = MessageSource.GetSource(cloud.Id).Messages;
             Main.Instance.Frame.IsEnabled = true;
             Main.Instance.LoadingText.Visibility = Visibility.Hidden;
             Main.Instance.HideFlyoutMenu();
             InputBox.Focus();
-        }
-
-        private void ButtonClick1(object sender, RoutedEventArgs e)
-        {
-            SymbolBox.Visibility = SymbolBox.Visibility 
-                == Visibility.Visible 
-                ? Visibility.Hidden 
-                : Visibility.Visible;
         }
 
         private void SendBoxEnter(object sender, KeyEventArgs e)
@@ -63,7 +52,7 @@ namespace CloudsdaleWin7.Views {
         }
         internal async void Send(string message)
         {
-            message = message.TrimEnd();
+            message = message.TrimEnd().Replace("\r", "");
 
             var messageModel = new Message
             {
@@ -84,13 +73,20 @@ namespace CloudsdaleWin7.Views {
                     { "X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken }
                 }
             };
-            
+
             try
             {
+                InputBox.IsEnabled = false;
                 await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id), new JsonContent(messageData));
                 InputBox.Text = "";
             }
-            catch (Exception e) { Console.WriteLine(e.Message);}
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                InputBox.IsEnabled = true;}
             InputBox.Text = "";
             InputBox.Focus();
         }
@@ -99,12 +95,6 @@ namespace CloudsdaleWin7.Views {
         {
             await App.Connection.MessageController.CurrentCloud.LoadUsers();
             Main.Instance.ShowFlyoutMenu(new UserList(App.Connection.MessageController.CurrentCloud));
-        }
-
-        private void AddEmoji(object sender, MouseButtonEventArgs e)
-        {
-            var block = (TextBlock) sender;
-            InputBox.Text += block.Text;
         }
 
         private void ExpandCloud(object sender, RoutedEventArgs e)
@@ -130,28 +120,9 @@ namespace CloudsdaleWin7.Views {
             }
             catch (Exception ex)
             {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
-                                                                          new Message {Content = ex.Message});
+                App.Connection.NotificationController.Notification.Notify(ex.Message);
             }
             CloudMessages.IsEnabled = true;
-        }
-
-        private void ScreenShot(object sender, RoutedEventArgs e)
-        {
-
-        }
-    }
-
-    public class MessageTemplateSelector : DataTemplateSelector
-    {
-        protected DataTemplate SelectTemplateCore(object item, DependencyObject container)
-        {
-            var message = (Message)item;
-
-            var actionTemplate = new DataTemplate(new ActionMessageView());
-            var standardTemplate = new DataTemplate(new StandardMessageView());
-
-            return Message.SlashMeFormat.IsMatch(message.Content) ? actionTemplate : standardTemplate;
         }
     }
 }

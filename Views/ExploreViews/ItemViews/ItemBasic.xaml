@@ -22,7 +22,7 @@
             <Border.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </Border.BorderBrush>
-            <Image x:Name="BasicAvatar" Source="/Cloudsdale;component/Assets/Fallback/cloud.png">
+            <Image x:Name="BasicAvatar">
                 <Image.Clip>
                     <RectangleGeometry Rect="0,0,96,96" RadiusX="100" RadiusY="100"/>
                 </Image.Clip>

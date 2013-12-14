@@ -1,5 +1,6 @@
 ﻿
 using System.Windows;
+using CloudsdaleWin7.Views.Misc;
 using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib.Models;
 
@@ -40,7 +41,7 @@ namespace CloudsdaleWin7
 
         private void Testvoid()
         {
-           // App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message{Content="Test"});
+
         }
     }
 }

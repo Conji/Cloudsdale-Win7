@@ -6,6 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
+using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -29,27 +30,22 @@ namespace CloudsdaleWin7.Controls
             Main.CurrentView.InputBox.Focus();
         }
 
-        private void UserInfo(object sender, MouseButtonEventArgs e)
+        private async void UserInfo(object sender, MouseButtonEventArgs e)
         {
             var user = ((User) ((Run) sender).DataContext);
 
             var client = new HttpClient().AcceptsJson();
             var response =
-                JsonConvert.DeserializeObjectAsync<WebResponse<User>>(
-                    client.GetStringAsync(Endpoints.User.Replace("[:id]", user.Id)).Result).Result.Result;
+                await JsonConvert.DeserializeObjectAsync<WebResponse<User>>(
+                    client.GetStringAsync(Endpoints.User.Replace("[:id]", user.Id)).Result);
 
-            if (Main.Instance.FlyoutFrame.Width.Equals(250))
+            if (response.Flash != null)
             {
-                Main.Instance.FlyoutFrame.Navigate(new UserFlyout(response,
-                                                                  App.Connection.MessageController.CurrentCloud.Cloud, 
-                                                                  App.Connection.MessageController.CurrentCloud.AllModerators.Contains(App.Connection.SessionController.CurrentUser)));
+                App.Connection.NotificationController.Notification.Notify(response.Flash.Message);
+                return;
             }
-            else
-            {
-                Main.Instance.ShowFlyoutMenu(new UserFlyout(response,
-                                                            App.Connection.MessageController.CurrentCloud.Cloud,
-                                                            App.Connection.MessageController.CurrentCloud.AllModerators.Contains(App.Connection.SessionController.CurrentUser)));
-            }
+
+            Main.Instance.ShowFlyoutMenu(new UserFlyout(response.Result));
         }
 
         private void Quote(object sender, RoutedEventArgs e)

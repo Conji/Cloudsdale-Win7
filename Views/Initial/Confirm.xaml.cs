@@ -15,10 +15,10 @@ namespace CloudsdaleWin7.Views.Initial
             InitializeComponent();
         }
 
-        private void ButtonClick1(object sender, RoutedEventArgs e)
+        private async void ButtonClick1(object sender, RoutedEventArgs e)
         {
             Waiting.Visibility = Visibility.Visible;
-            App.Connection.SessionController.CurrentSession.UpdateProperty("needs_to_confirm_registration", false);
+            await App.Connection.SessionController.CurrentSession.UpdateProperty("needs_to_confirm_registration", false);
             if (App.Connection.SessionController.CurrentSession.NeedsToConfirmRegistration == false)
             {
                 Waiting.Visibility = Visibility.Hidden;

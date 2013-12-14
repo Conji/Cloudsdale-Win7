@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using CloudsdaleWin7.lib.CloudsdaleLib;
 
 namespace CloudsdaleWin7.Controls
 {
@@ -165,6 +166,7 @@ namespace CloudsdaleWin7.Controls
         private IEnumerable<Inline> ParseMessage(string message)
         {
             var first = true;
+            message = message.UnescapeLiteral();
             foreach (var line in message.Split('\n').Select(rawline => ExtraSpacesRegex.Replace(rawline, " ")))
             {
                 if (first && PrefixInline != null)
