@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,7 +32,6 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public async Task Login(string email, string password)
         {
-
             var requestModel = @"{""email"":""[:email]"", ""password"":""[:password]""".Replace("[:email]", email).Replace("[:password]", password);
             var request = new HttpClient().AcceptsJson();
             var result = await request.PostAsync(Endpoints.Session, new JsonContent(requestModel));
@@ -53,7 +53,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public void Logout()
         {
-            FayeConnector.Socket.Close();
+            FayeConnector.ForceClose();
             CurrentSession = null;
             App.Connection.MessageController.CloudControllers = new Dictionary<string, CloudController>();
             App.Settings.Clear();

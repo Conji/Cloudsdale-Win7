@@ -23,6 +23,14 @@ namespace CloudsdaleWin7.lib.Faye
             await Task.Run(() => waiter.WaitOne());
         }
 
+        public static void ForceClose()
+        {
+            Socket.Close();
+            Socket.MessageReceived += null;
+            Socket = null;
+            Connected = false;
+        }
+
         public static void Connect()
         {
             if (Socket != null && Socket.State == WebSocketState.Open) Socket.Close();

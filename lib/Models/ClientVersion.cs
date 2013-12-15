@@ -8,9 +8,9 @@ using System.Windows;
 
 namespace CloudsdaleWin7.lib.Models
 {
-    class ClientVersion
+    public class ClientVersion
     {
-        private const string Version= "1.0.0 PRE-RELEASE";
+        private const string Version= "1.0.0.1 PRE-RELEASE";
 
         public async static Task<string> UpdatedVersion()
         {
@@ -23,12 +23,12 @@ namespace CloudsdaleWin7.lib.Models
             catch (Exception ex)
             {
                 App.Connection.NotificationController.Notification.Notify(ex.Message);
-                return "UPDATE FAILED";
+                return "0";
             }
         }
         public async static void CheckVersion()
         {
-            if (await UpdatedVersion() == Version || await UpdatedVersion() == "UPDATE FAILED") return;
+            if (await UpdatedVersion() == Version || await UpdatedVersion() == "0") return;
             if (MessageBox.Show("A new version is available. Would you like to update?", "Cloudsdale Updater",
                                 MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
@@ -44,6 +44,8 @@ namespace CloudsdaleWin7.lib.Models
         private static void UpdateClient()
         {
             MessageBox.Show("Please wait while we update. The window will close once it's finished.");
+            MainWindow.Instance.Width = 50;
+            MainWindow.Instance.Height = 20;
             MainWindow.Instance.IsEnabled = false;
             MainWindow.Instance.ShowInTaskbar = false;
             File.Move(CloudsdaleSource.ExeFile, CloudsdaleSource.OldFile);
@@ -60,7 +62,10 @@ namespace CloudsdaleWin7.lib.Models
             }
             catch (Exception e)
             {
+#if DEBUG
                 Console.WriteLine(e.Message);
+#endif
+                App.Connection.NotificationController.Notification.Notify(e.Message);
             }
         }
     }

@@ -321,7 +321,7 @@ namespace CloudsdaleWin7.lib.Controllers
         private void AddUnread()
         {
             ++UnreadMessages;
-            if (App.Connection.MessageController.CurrentCloud == this)
+            if (App.Connection.MessageController.CurrentCloud == this && App.Connection.MessageController.HasCloudSelected)
             {
                 UnreadMessages = 0;
             }

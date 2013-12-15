@@ -22,7 +22,7 @@ namespace CloudsdaleWin7 {
         {
             var r = new Random();
             String message;
-            switch(r.Next(0,4))
+            switch(r.Next(0,5))
             {
                 case 0:
                     message = "Hi, [:name]!";
@@ -59,15 +59,20 @@ namespace CloudsdaleWin7 {
             animation.EasingFunction = new ExponentialEase();
             board.Begin(this);
 
-            var b1 = new Storyboard();
-            var a1 = new DoubleAnimation(0, 450, new Duration(new TimeSpan(0,0,1)), FillBehavior.HoldEnd);
-            b1.Children.Add(a1);
-            Storyboard.SetTargetName(a1, line1.Name);
-            Storyboard.SetTargetProperty(a1, new PropertyPath(WidthProperty));
-            a1.EasingFunction = new ExponentialEase();
-            b1.Begin(this);
+            #region FancyLines
+
+            //The line underneath the name first
+            line1.BeginAnimation(WidthProperty, new DoubleAnimation(0, MainWindow.Instance.Width - 400, new Duration(new TimeSpan(0,0,1)), FillBehavior.HoldEnd));
 
             #endregion
+
+            #endregion
+        }
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            line1.Width = MainWindow.Instance.Width - 400;
         }
     }
 }

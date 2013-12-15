@@ -19,6 +19,7 @@ namespace CloudsdaleWin7.lib.Controllers
         public Dictionary<string, CloudController> CloudControllers = new Dictionary<string, CloudController>();
         public Dictionary<CloudController, List<Message>> CloudMessages { get; set; } 
         public CloudController CurrentCloud { get; set; }
+        public bool HasCloudSelected = false;
 
         public MessageController()
         {

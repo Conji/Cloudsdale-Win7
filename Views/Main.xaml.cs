@@ -7,7 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using CloudsdaleWin7.Views.Flyouts;
+using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.CloudsdaleLib.Misc;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
@@ -15,6 +16,7 @@ using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Settings = CloudsdaleWin7.Views.Flyouts.Settings;
 
 namespace CloudsdaleWin7.Views
 {
@@ -29,6 +31,7 @@ namespace CloudsdaleWin7.Views
         public Main()
         {
             Instance = this;
+            OnFourOne.NexLogin();
             InitializeComponent();
             InitSession();
             Clouds.ItemsSource = App.Connection.SessionController.CurrentSession.Clouds;
@@ -87,14 +90,17 @@ namespace CloudsdaleWin7.Views
             if (Clouds.SelectedIndex == -1)
             {
                 Frame.Navigate(new Home());
+                App.Connection.MessageController.HasCloudSelected = false; 
                 return;
             }
+            App.Connection.MessageController.HasCloudSelected = true;
             LoadingText.Visibility = Visibility.Visible;
             Frame.IsEnabled = false;
             var cloud = (ListView)sender;
             var item = (Cloud)cloud.SelectedItem;
             App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
-            await App.Connection.MessageController[item].LoadMessages();
+            if (MessageSource.GetSource(item.Id).Messages.Count <= 25)
+                await App.Connection.MessageController[item].LoadMessages();
             var cloudView = new CloudView(item);
             Frame.Navigate(cloudView);
             CurrentView = cloudView;
@@ -216,6 +222,7 @@ namespace CloudsdaleWin7.Views
 
         private void EnterPressed(object sender, KeyEventArgs e)
         {
+            if (e.Key != Key.Enter) return;
             CreateNewCloud(this, new RoutedEventArgs());
         }
 

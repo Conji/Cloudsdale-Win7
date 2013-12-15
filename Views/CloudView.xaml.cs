@@ -11,6 +11,7 @@ using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
+using CommandManager = CloudsdaleWin7.lib.CloudsdaleLib.Misc.Commands.CommandManager;
 
 namespace CloudsdaleWin7.Views {
     /// <summary>
@@ -47,6 +48,12 @@ namespace CloudsdaleWin7.Views {
                 return;
             }
             if (e.Key != Key.Enter) return;
+
+            if (InputBox.Text.StartsWith("/"))
+            {
+                CommandManager.TryExecuteCommand(InputBox.Text);
+                return;
+            }
             
             Send(InputBox.Text);
         }
