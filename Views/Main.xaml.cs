@@ -103,6 +103,7 @@ namespace CloudsdaleWin7.Views
                 await App.Connection.MessageController[item].LoadMessages();
             var cloudView = new CloudView(item);
             Frame.Navigate(cloudView);
+            await App.Connection.MessageController.CurrentCloud.LoadUsers();
             CurrentView = cloudView;
             HideFlyoutMenu();
         }
