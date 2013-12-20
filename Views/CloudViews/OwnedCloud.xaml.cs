@@ -15,7 +15,7 @@ namespace CloudsdaleWin7.Views.CloudViews
     /// <summary>
     /// Interaction logic for OwnedCloud.xaml
     /// </summary>
-    public partial class OwnedCloud : Page
+    public partial class OwnedCloud
     {
 
         private Cloud Cloud { get; set; }
@@ -31,12 +31,12 @@ namespace CloudsdaleWin7.Views.CloudViews
             if (cloud.Rules != null) RulesBox.Text = cloud.Rules.Replace("\n", "\r\n");
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonClick1(object sender, RoutedEventArgs e)
         {
             Main.Instance.HideFlyoutMenu();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private async void ButtonClick2(object sender, RoutedEventArgs e)
         {
             var dialog = new WinForms.OpenFileDialog
                              {
@@ -54,7 +54,7 @@ namespace CloudsdaleWin7.Views.CloudViews
             if (dialog.SafeFileName.EndsWith(".jpg")) mimeType += "jpg";
             if (dialog.SafeFileName.EndsWith(".bmp")) mimeType += "bmp";
 
-            Cloud.UploadAvatar(new FileStream(dialog.FileName, FileMode.Open), mimeType);
+            await Cloud.UploadAvatar(new FileStream(dialog.FileName, FileMode.Open), mimeType);
         }
 
         private async void AttemptDelete(object sender, RoutedEventArgs e)
@@ -69,21 +69,21 @@ namespace CloudsdaleWin7.Views.CloudViews
             Main.Instance.HideFlyoutMenu();
         }
 
-        private void ChangeName(object sender, KeyEventArgs e)
+        private async void ChangeName(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            Cloud.UpdateProperty("name", ((TextBox) sender).Text.Trim(), true);
+            await Cloud.UpdateProperty("name", ((TextBox) sender).Text.Trim(), true);
             Main.Instance.Clouds.SelectedItem = Cloud;
         }
 
-        private void ChangeDescription(object sender, KeyEventArgs e)
+        private async void ChangeDescription(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            Cloud.UpdateProperty("description", ((TextBox) sender).Text.EscapeMessage().Trim(), true);
+            await Cloud.UpdateProperty("description", ((TextBox) sender).Text.EscapeMessage().Trim(), true);
 
         }
 
-        private void ChangeRules(object sender, KeyEventArgs e)
+        private async void ChangeRules(object sender, KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.Enter)
             {
@@ -92,7 +92,17 @@ namespace CloudsdaleWin7.Views.CloudViews
                 return;
             }
             if (e.Key != Key.Enter) return;
-            Cloud.UpdateProperty("rules", ((TextBox)sender).Text.EscapeMessage().Trim(), true);
+            await Cloud.UpdateProperty("rules", ((TextBox)sender).Text.EscapeMessage().Trim(), true);
+        }
+
+        private void Subscribe(object sender, RoutedEventArgs e)
+        {
+            Cloud.IsSubscribed = true;
+        }
+
+        private void Unsubscribe(object sender, RoutedEventArgs e)
+        {
+            Cloud.IsSubscribed = false;
         }
     }
 }

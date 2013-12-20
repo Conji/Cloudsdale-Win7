@@ -29,7 +29,7 @@
             <StackPanel Width="434"/>
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>
-        <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Grid.Row="1">
+        <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Grid.Row="1" MouseDown="MinimizeFlyout">
             <ItemsControl x:Name="CloudMessages">
                 <ItemsControl.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>

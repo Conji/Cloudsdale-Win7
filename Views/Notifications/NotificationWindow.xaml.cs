@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 using Message = CloudsdaleWin7.lib.Models.Message;
 
@@ -39,11 +40,13 @@ namespace CloudsdaleWin7.Views.Notifications
                 case NotificationType.Client:
                     NoteTitle.Text = "Message from Cloudsdale...";
                     NoteText.Text = message.Content;
+                    NoteTitle.MouseDown += ShowMain;
                     break;
                 case NotificationType.Cloud:
                     if (MainWindow.Instance.WindowState != WindowState.Minimized) return;
                     NoteTitle.Text = App.Connection.MessageController.CloudControllers[message.PostedOn].Cloud.Name;
                     NoteText.Text = message.FinalTimestamp + ".. @" + message.Author.Username + ": \r\n" + message.Content;
+                    NoteTitle.MouseDown += DirectToCloud;
                     break;
             }
             ShowNote();
@@ -72,10 +75,17 @@ namespace CloudsdaleWin7.Views.Notifications
             Visibility = Visibility.Hidden;
         }
 
-        private void DirectToCloud(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void DirectToCloud(object sender, MouseButtonEventArgs e)
         {
             MainWindow.Instance.WindowState = WindowState.Normal;
-            Main.Instance.Clouds.SelectedItem = App.Connection.MessageController.CloudControllers[Message.PostedOn].Cloud;
+            Main.Instance.Clouds.SelectedItem = Main.Instance.Clouds.Items.IndexOf(Message.PostedOn);
+            WindowState = WindowState.Minimized;
+        }
+
+        private void ShowMain(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow.Instance.WindowState = WindowState.Normal;
+            WindowState = WindowState.Minimized;
         }
 
     }

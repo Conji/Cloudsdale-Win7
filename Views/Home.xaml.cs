@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 
 namespace CloudsdaleWin7 {
     /// <summary>
@@ -9,13 +10,14 @@ namespace CloudsdaleWin7 {
     /// </summary>
     public partial class Home
     {
-        private string Name = App.Connection.SessionController.CurrentSession.Name;
+        private readonly string Name = App.Connection.SessionController.CurrentSession.Name;
         public static Home Instance;
         public Home()
         {
             InitializeComponent();
             Instance = this;
             Welcome.Text = WelcomeMessage(Name);
+            AviImage.Source = new BitmapImage(App.Connection.SessionController.CurrentSession.Avatar.Normal);
             Animate();
         }
         private static string WelcomeMessage(string name)
@@ -62,7 +64,15 @@ namespace CloudsdaleWin7 {
             #region FancyLines
 
             //The line underneath the name first
-            line1.BeginAnimation(WidthProperty, new DoubleAnimation(0, MainWindow.Instance.Width - 400, new Duration(new TimeSpan(0,0,1)), FillBehavior.HoldEnd));
+            Line1.BeginAnimation(WidthProperty,
+                new DoubleAnimation(0, MainWindow.Instance.Width - 400, new Duration(new TimeSpan(0, 0, 1)),
+                    FillBehavior.HoldEnd));
+            Avi.BeginAnimation(MarginProperty,
+                new ThicknessAnimation(new Thickness(0, -1000, 100, 1010), new Thickness(0, 100, 100, 200),
+                    new Duration(new TimeSpan(0, 0, 1)))
+                {
+                    EasingFunction = new BounceEase {Bounces = 3, Bounciness = 4}
+                });
 
             #endregion
 
@@ -72,7 +82,7 @@ namespace CloudsdaleWin7 {
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             base.OnRenderSizeChanged(sizeInfo);
-            line1.Width = MainWindow.Instance.Width - 400;
+            Line1.Width = MainWindow.Instance.Width - 400;
         }
     }
 }

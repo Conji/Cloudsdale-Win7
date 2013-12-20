@@ -32,7 +32,7 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Separator.Background>
         </Separator>
-        <Button Content="X" HorizontalAlignment="Left" Margin="216,10,0,0" VerticalAlignment="Top" Width="24" Height="23" Background="{x:Null}" FontSize="16" FontWeight="SemiBold" Click="ButtonClick1"/>
+        <Button Content="X" HorizontalAlignment="Left" Margin="216,10,0,0" VerticalAlignment="Top" Width="24" Height="23" Background="{x:Null}" FontSize="16" FontWeight="SemiBold" Click="ButtonClick1" BorderThickness="0"/>
         <TextBox x:Name="Rules" HorizontalAlignment="Left" Margin="10,328,0,43" TextWrapping="Wrap" Text="Rules&#xD;&#xA;" Width="230" FontSize="14" VerticalScrollBarVisibility="Auto" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True" BorderThickness="0">
             <TextBox.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>

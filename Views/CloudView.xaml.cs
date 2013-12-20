@@ -51,8 +51,9 @@ namespace CloudsdaleWin7.Views {
 
             if (InputBox.Text.StartsWith("/") && !InputBox.Text.StartsWith("//") && !InputBox.Text.StartsWith("/me"))
             {
-                if (CommandManager.TryExecuteCommand(InputBox.Text))
-                    return;
+                if (!CommandManager.TryExecuteCommand(InputBox.Text)) return;
+                InputBox.Text = "";
+                return;
             }
             
             Send(InputBox.Text);
@@ -130,6 +131,11 @@ namespace CloudsdaleWin7.Views {
                 App.Connection.NotificationController.Notification.Notify(ex.Message);
             }
             CloudMessages.IsEnabled = true;
+        }
+
+        private void MinimizeFlyout(object sender, MouseButtonEventArgs e)
+        {
+            Main.Instance.HideFlyoutMenu();
         }
     }
 }

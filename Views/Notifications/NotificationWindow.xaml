@@ -17,7 +17,7 @@
                 <SolidColorBrush Color="#FFC8C8C8"/>
             </TextBlock.Foreground>
         </TextBlock>
-        <TextBlock x:Name="NoteText" Margin="10,44,10,5" TextWrapping="Wrap" Text="TextBlock" TextAlignment="Right" FontWeight="Thin" Background="{x:Null}" FontSize="14" MouseDown="DirectToCloud">
+        <TextBlock x:Name="NoteText" Margin="10,44,10,5" TextWrapping="Wrap" Text="TextBlock" TextAlignment="Right" FontWeight="Thin" Background="{x:Null}" FontSize="14">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="#FFFAFAFA"/>
             </TextBlock.Foreground>

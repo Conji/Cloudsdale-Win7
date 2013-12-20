@@ -8,12 +8,16 @@
 	Title="OwnedCloud" Width="250">
 
     <Grid>
-        <Button Content="Upload New Avatar..." HorizontalAlignment="Left" Margin="115,90,0,0" VerticalAlignment="Top" Width="125" BorderThickness="2" Click="Button_Click_2">
-            <Button.Background>
+        <CheckBox x:Name="SubBox" Content="Subscribed" Margin="115,54,10,0" VerticalAlignment="Top" Checked="Subscribe" Unchecked="Unsubscribe" FontSize="14" Height="36"/>
+        <Button Content="Upload New Avatar..." HorizontalAlignment="Left" Margin="115,90,0,0" VerticalAlignment="Top" Width="125" BorderThickness="2" Click="ButtonClick2">
+            <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Button.Foreground>
+            <Button.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </Button.Background>
             <Button.BorderBrush>
-                <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.BorderBrush>
         </Button>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100">
@@ -45,7 +49,7 @@
                 <TextBox x:Name="RulesBox" Width="210" TextWrapping="Wrap" KeyDown="ChangeRules"/>
             </StackPanel>
         </ScrollViewer>
-        <Button Content="X" HorizontalAlignment="Left" Margin="223,10,0,0" VerticalAlignment="Top" Width="17" Background="{x:Null}" Click="Button_Click_1"/>
+        <Button Content="X" HorizontalAlignment="Left" Margin="223,10,0,0" VerticalAlignment="Top" Width="17" Background="{x:Null}" Click="ButtonClick1"/>
         <Separator HorizontalAlignment="Left" Height="40" Margin="10,191,0,0" VerticalAlignment="Top" Width="230">
             <Separator.Background>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
