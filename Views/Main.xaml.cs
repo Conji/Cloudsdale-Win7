@@ -227,5 +227,25 @@ namespace CloudsdaleWin7.Views
             CreateNewCloud(this, new RoutedEventArgs());
         }
 
+        private void AddCloudToView(object sender, DragEventArgs e)
+        {
+            AddCloudPageToDock((Cloud)e.Data.GetData(DataFormats.Serializable));
+        }
+
+        public void AddCloudPageToDock(Cloud cloud)
+        {
+            if (CloudDock.Children.Count >= 6)
+            {
+                App.Connection.NotificationController.Notification.Notify("You can only hold a max of 5 clouds in the docking station!");
+                return;
+            }
+
+            var cacheWidth = CloudDock.Width/CloudDock.Children.Count;
+            foreach (var child in CloudDock.Children.Cast<Control>())
+            {
+                child.Width = cacheWidth;
+            }
+            CloudDock.Children.Add(new CloudView(cloud) {Width = cacheWidth});
+        }
     }
 }

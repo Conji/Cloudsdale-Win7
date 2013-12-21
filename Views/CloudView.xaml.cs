@@ -49,11 +49,9 @@ namespace CloudsdaleWin7.Views {
             }
             if (e.Key != Key.Enter) return;
 
-            if (InputBox.Text.StartsWith("/") && !InputBox.Text.StartsWith("//") && !InputBox.Text.StartsWith("/me"))
+            if (InputBox.Text.StartsWith("/"))
             {
-                if (!CommandManager.TryExecuteCommand(InputBox.Text)) return;
-                InputBox.Text = "";
-                return;
+                if (CommandManager.TryExecuteCommand(InputBox.Text)) return;
             }
             
             Send(InputBox.Text);
