@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using CloudsdaleWin7.Views;
+using CloudsdaleWin7.Views.Misc;
 
 namespace CloudsdaleWin7 {
     /// <summary>
@@ -83,6 +85,11 @@ namespace CloudsdaleWin7 {
         {
             base.OnRenderSizeChanged(sizeInfo);
             Line1.Width = MainWindow.Instance.Width - 400;
+        }
+
+        private void DirectAbout(object sender, RoutedEventArgs e)
+        {
+            Main.Instance.Frame.Navigate(new About());
         }
     }
 }

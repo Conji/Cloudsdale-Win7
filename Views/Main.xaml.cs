@@ -247,5 +247,27 @@ namespace CloudsdaleWin7.Views
             }
             CloudDock.Children.Add(new CloudView(cloud) {Width = cacheWidth});
         }
+
+        private void CheckShortcuts(object sender, KeyEventArgs e)
+        {
+            if (!Keyboard.IsKeyDown(Key.LeftCtrl)) return;
+            switch (e.Key)
+            {
+                case Key.S:
+                    if (Clouds.SelectedIndex == Clouds.Items.Count) return;
+                    Clouds.SelectedIndex += 1;
+                    break;
+                case Key.W:
+                    if (Clouds.SelectedIndex == 0) return;
+                    Clouds.SelectedIndex -= 1;
+                    break;
+                case Key.E:
+                    Frame.Navigate(new Explore());
+                    break;
+                case Key.H:
+                    Frame.Navigate(new Home());
+                    break;
+            }
+        }
     }
 }

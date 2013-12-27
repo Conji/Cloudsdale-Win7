@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM"
       mc:Ignorable="d"
-	Title="Main" d:DesignWidth="518" d:DesignHeight="420" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+	Title="Main" d:DesignWidth="518" d:DesignHeight="420" DataContext="{Binding RelativeSource={RelativeSource Self}}" KeyDown="CheckShortcuts">
     <Page.Resources>
         <Color x:Key="Panels">#FF4C4C5A</Color>
         <MVVM:UnreadConverter x:Key="Unread"/>

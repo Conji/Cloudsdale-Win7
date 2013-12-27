@@ -35,8 +35,8 @@
                 </Image.Clip>
             </Image>
         </Border>
-        <Button Content="About Cloudsdale ›" Grid.Column="1" HorizontalAlignment="Left" Margin="202,0,0,315" VerticalAlignment="Bottom" Width="220" Height="35" FontSize="16" Background="{x:Null}" BorderThickness="0"/>
-        <Button Content="Meet The Crew ›" Grid.Column="1" HorizontalAlignment="Left" Margin="202,0,0,260" VerticalAlignment="Bottom" Width="220" Height="35" Background="{x:Null}" BorderThickness="0" FontSize="16"/>
+        <Button Content="About Cloudsdale ›" Grid.Column="1" HorizontalAlignment="Left" Margin="202,0,0,315" VerticalAlignment="Bottom" Width="220" Height="35" FontSize="16" Background="{x:Null}" BorderThickness="0" Click="DirectAbout"/>
+        <Button Content="Help ›" Grid.Column="1" HorizontalAlignment="Left" Margin="202,0,0,260" VerticalAlignment="Bottom" Width="220" Height="35" Background="{x:Null}" BorderThickness="0" FontSize="16"/>
         <Button Content="Contact Us ›" Grid.Column="1" HorizontalAlignment="Left" Margin="202,0,0,200" VerticalAlignment="Bottom" Width="220" Height="35" Background="{x:Null}" BorderThickness="0" FontSize="16"/>
     </Grid>
 </Page>

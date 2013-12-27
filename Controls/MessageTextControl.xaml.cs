@@ -181,7 +181,7 @@ namespace CloudsdaleWin7.Controls
                 Color lineColor;
                 if (GreentextRegex.IsMatch(line))
                 {
-                    lineColor = Colors.LimeGreen;
+                    lineColor = Colors.DarkGreen;
                 }
                 else if (OocRegex.IsMatch(line))
                 {

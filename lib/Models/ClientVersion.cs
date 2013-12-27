@@ -10,7 +10,7 @@ namespace CloudsdaleWin7.lib.Models
 {
     public class ClientVersion
     {
-        private const string Version= "1.0.0.1 PRE-RELEASE";
+        public const string Version = "1.0.0.2 PRE-RELEASE";
 
         public async static Task<string> UpdatedVersion()
         {

@@ -109,7 +109,8 @@ namespace CloudsdaleWin7.Views {
             if (Cloud.OwnerId == App.Connection.SessionController.CurrentSession.Id)
             {
                 prefFlyout = new OwnedCloud(Cloud);
-            }else
+            }
+            else
             {
                 prefFlyout = new StandardCloud(Cloud);
             }

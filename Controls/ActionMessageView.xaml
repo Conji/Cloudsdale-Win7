@@ -34,7 +34,7 @@
         <local:MessageTextControl Grid.Row="1" FontSize="20" LinebreakHandling="Ignore" Messages="{Binding Path=Messages, Converter={StaticResource ActionMessages}}"
                                   HorizontalAlignment="Stretch" TextAlignment="Center">
             <local:MessageTextControl.PrefixInline>
-                <Run Text="{Binding Path=Author.Name}" Foreground="{Binding Path=Author, Converter={StaticResource NameColor}}"/>
+                <Run Text="{Binding Path=Name}" DataContext="{Binding Path=Author}" Foreground="{Binding Path=RawUser, Converter={StaticResource NameColor}}" MouseDown="UserInfo" Cursor="Hand"/>
             </local:MessageTextControl.PrefixInline>
         </local:MessageTextControl>
     </Grid>

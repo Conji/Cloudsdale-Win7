@@ -4,10 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="406.015" d:DesignWidth="300"
 	Title="About">
 
     <Grid>
-        
+        <TextBlock TextWrapping="Wrap" Margin="20,20,20,10" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="14" FontWeight="Thin" HorizontalAlignment="Center"><Run Text="Hello Dear Friend, "/><LineBreak/><Run Text="Welcome to Cloudsdale! If you're here, you're probably wondering who we are and what we're about. At Cloudsdale we strive to be a central place on the web where cool ponies like you and I can have fun, get to know each other, and meet new friends. To achieve this goal, we're providing this non-profit service where everypony can have a good time. The Crew of Cloudsdale want to be ahead of the curve, redefining how regular ponies - just like you and me - use the web in every day life. A part of this is making Cloudsdale all about interacting in real time. To this end, we've built a fast, elegant and accessible system that transcends many of the big corporate services out there. Now that you know a bit about who we are and what we want, are you ready to join the party? "/><LineBreak/><Run/><LineBreak/><Run Text="Yours truly, Zeeraw"/></TextBlock>
     </Grid>
 </Page>
