@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:MVVM="clr-namespace:CloudsdaleWin7.MVVM" xmlns:local="clr-namespace:CloudsdaleWin7.Controls"
+             xmlns:mvvm="clr-namespace:CloudsdaleWin7.MVVM" xmlns:local="clr-namespace:CloudsdaleWin7.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" SizeChanged="ActionMessageView_OnSizeChanged">
     <UserControl.Resources>
-        <MVVM:NameColor x:Key="NameColor"/>
-        <MVVM:TimeOfDayToString x:Key="TimeStamp"/>
-        <MVVM:DeviceIcon x:Key="MessageDevice"/>
-        <MVVM:ActionMessagesConverter x:Key="ActionMessages"/>
+        <mvvm:NameColor x:Key="NameColor"/>
+        <mvvm:TimeOfDayToString x:Key="TimeStamp"/>
+        <mvvm:DeviceIcon x:Key="MessageDevice"/>
+        <mvvm:ActionMessagesConverter x:Key="ActionMessages"/>
     </UserControl.Resources>
     <Grid Margin="5,0,5,5">
         <Grid.RowDefinitions>
@@ -27,7 +27,7 @@
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
-        <TextBlock FontSize="14" Margin="3" HorizontalAlignment="Center">
+        <TextBlock Grid.Row="0" FontSize="14" Margin="3" HorizontalAlignment="Center">
             <Run Text="{Binding Path=TimeStamp, Converter={StaticResource TimeStamp}, Mode=OneWay}"/>
             <Run Text="{Binding Path=Device, Converter={StaticResource MessageDevice}}"/>
         </TextBlock>

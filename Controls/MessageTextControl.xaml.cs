@@ -191,7 +191,7 @@ namespace CloudsdaleWin7.Controls
                 {
                     lineColor = Colors.Black;
                 }
-
+                
                 var span = new Span
                 {
                     Foreground = new SolidColorBrush(lineColor)
@@ -201,7 +201,6 @@ namespace CloudsdaleWin7.Controls
                     span.Inlines.Add(inline);
                 }
                 yield return span;
-
 
                 first = false;
             }
@@ -241,7 +240,7 @@ namespace CloudsdaleWin7.Controls
         }
 
 
-        private IEnumerable<TextGroup> InternalProcessor(Regex matcher, Func<string, Inline> processor, string input)
+        private static IEnumerable<TextGroup> InternalProcessor(Regex matcher, Func<string, Inline> processor, string input)
         {
             var matches = matcher.Matches(input);
             var lastIndex = 0;

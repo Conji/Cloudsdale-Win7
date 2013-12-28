@@ -29,14 +29,16 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             InitializeComponent();
             Instance = this;
             Self = user;
-            AdminUI.Visibility = App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Contains(App.Connection.SessionController.CurrentSession.Id) || App.Connection.SessionController.CurrentSession.Role == "founder" || App.Connection.SessionController.CurrentSession.Role == "developer" ? Visibility.Visible : Visibility.Hidden;
+            AdminUI.Visibility = App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Contains(App.Connection.SessionController.CurrentSession.Id)
+                && Self.Role != "founder"
+                ? Visibility.Visible : Visibility.Hidden;
             InitializeUser();
         }
 
-        private void InitializeUser()
+        private async void InitializeUser()
         {
             AvatarBounce();
-            App.Connection.MessageController[App.Connection.MessageController.CurrentCloud.Cloud].LoadBans();
+            await App.Connection.MessageController[App.Connection.MessageController.CurrentCloud.Cloud].LoadBans();
             Username.Text = "@" + Self.Username;
             Name.Text = Self.Name;
             AviImage.Source = new BitmapImage(Self.Avatar.Normal);
@@ -101,7 +103,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 return;
             }
 
-            if (MessageBox.Show("Ban @" + Self.Username + " for " + BanReason.Text + " until " + BanCal.SelectedDate + "?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            if (MessageBox.Show("Ban @" + Self.Username + " for \"" + BanReason.Text + "\" until " + BanCal.SelectedDate + "?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
 
             var ban = new Ban(Self.Id)
@@ -147,6 +149,8 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             switch (cmd.Content.ToString())
             {
                 case "Promote To Moderator":
+                    var response = client.PostAsync(Endpoints.CloudModerators, new JsonContent(Self.Id));
+                    Console.WriteLine(response);
                     break;
                 case "Demote Moderator":
                     break;

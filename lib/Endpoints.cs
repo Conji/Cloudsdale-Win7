@@ -69,6 +69,10 @@
         /// [:user_id] with CurrentSession.Id.
         /// </summary>
         public const string CloudUserRestate = CloudUsers + "/[:user_id]" + Json;
+        /// <summary>
+        /// The endpoint the GET, POST, or PUT moderator IDs.
+        /// </summary>
+        public const string CloudModerators = CloudUsers + "/moderators";
 
         /// <summary>
         /// Retrieves the ban list.

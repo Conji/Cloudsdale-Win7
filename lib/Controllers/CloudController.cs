@@ -172,18 +172,17 @@ namespace CloudsdaleWin7.lib.Controllers
             var client = new HttpClient().AcceptsJson();
             client.DefaultRequestHeaders.Add("X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken);
 
+            if (!Cloud.ModeratorIds.Contains(App.Connection.SessionController.CurrentSession.Id)) return;
+            _bans.Clear();
+            var response = await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id));
+            var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
+            foreach (var ban in userData.Result)
             {
-                _bans.Clear();
-                var response = await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id));
-                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
-                foreach (var ban in userData.Result)
-                {
-                    if (_bans.Contains(ban)) return;
-                    _bans.Add(ban);
+                if (_bans.Contains(ban)) return;
+                _bans.Add(ban);
 
-                    if (_bansByUser.ContainsValue(ban)) return;
-                    _bansByUser.Add(ban.OffenderId, ban);
-                }
+                if (_bansByUser.ContainsValue(ban)) return;
+                _bansByUser.Add(ban.OffenderId, ban);
             }
         }
 
