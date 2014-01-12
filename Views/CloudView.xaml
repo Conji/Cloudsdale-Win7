@@ -29,7 +29,7 @@
             <StackPanel Width="434"/>
             <Rectangle Fill="#FFF4F4F5" Stroke="Black" Width="360" Margin="20,57,20,62" Visibility="Hidden"/>
         </StackPanel>
-        <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Grid.Row="1" MouseDown="MinimizeFlyout">
+        <ScrollViewer x:Name="ChatScroll" Grid.ColumnSpan="2" Grid.Row="1" MouseDown="MinimizeFlyout" VerticalScrollBarVisibility="Auto">
             <ItemsControl x:Name="CloudMessages">
                 <ItemsControl.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
@@ -45,9 +45,13 @@
             </ItemsControl>
         </ScrollViewer>
         <MediaElement x:Name="Player" Visibility="Hidden" Grid.Column="1" Margin="216,0,159,0" LoadedBehavior="Manual"/>
-        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="16" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" Padding="0" TextWrapping="Wrap" />
+        <TextBox Grid.Row="2" x:Name="InputBox" FontSize="16" KeyDown="SendBoxEnter" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True" Padding="0" TextWrapping="Wrap" Margin="10,0,45,10" BorderThickness="1,1,0,1" >
+            <TextBox.Background>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </TextBox.Background>
+        </TextBox>
         <TextBlock x:Name="Name" VerticalAlignment="Top" FontSize="20" Margin="10,25,284,0" Height="30" FontFamily="Segoe UI Semibold" Cursor="Hand" MouseDown="ShowUserList" Grid.ColumnSpan="2"/>
-        <Separator Margin="0,0,14,0" Grid.Column="1" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="58" IsHitTestVisible="False">
+        <Separator Margin="0,9,12,10" Grid.Column="1" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="62" IsHitTestVisible="False">
             <Separator.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -81,6 +85,20 @@
             <Button.Content>
                 <Image Source="/Cloudsdale;component/Assets/refresh.png" Height="65"/>
             </Button.Content>
+        </Button>
+        <Button Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,15,10" Grid.Row="2" Width="30" BorderThickness="0,1,1,1" Click="CaptureChat">
+            <Button.Background>
+                <SolidColorBrush Color="#FFFAFAFA"/>
+            </Button.Background>
+            <Button.Content>
+                <Image Source="/Cloudsdale;component/Assets/camera.png" Stretch="UniformToFill"/>
+            </Button.Content>
+            <Button.ContextMenu>
+                <ContextMenu>
+                    <MenuItem>Go to directory...</MenuItem>
+                    <MenuItem>View most recent...</MenuItem>
+                </ContextMenu>
+            </Button.ContextMenu>
         </Button>
     </Grid>
 </Page>

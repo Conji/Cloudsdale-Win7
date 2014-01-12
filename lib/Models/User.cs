@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -31,6 +32,7 @@ namespace CloudsdaleWin7.lib.Models
         private string _role;
         private Avatar _avatar;
         private string _username;
+        private List<Ban> _bans { get; set; }
         public bool IsSubscribed { get; set; }
 
         [JsonConstructor]
@@ -154,6 +156,12 @@ namespace CloudsdaleWin7.lib.Models
                 list.ListItems.AddRange(AlsoKnownAs);
                 return list;
             }
+        }
+
+        public List<Ban> BansOnUser
+        {
+            get { return _bans ?? (_bans = new List<Ban>()); }
+            set { _bans = value; }
         }
 
         #endregion

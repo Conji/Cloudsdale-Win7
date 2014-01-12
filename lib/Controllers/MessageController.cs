@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.lib.Models;
@@ -28,9 +29,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public async Task<CloudView> Page(Cloud cloud)
         {
-            if (Pages.ContainsKey(cloud.Id)) return Pages[cloud.Id];
-            await this[cloud].EnsureLoaded();
-            return new CloudView(cloud);
+            return Pages[cloud.Id] ?? new CloudView(cloud);
         }
 
         public void OnMessage(JObject message)

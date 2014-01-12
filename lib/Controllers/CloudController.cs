@@ -24,7 +24,6 @@ namespace CloudsdaleWin7.lib.Controllers
         private int _unreadMessages;
         private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
         private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
-        private readonly Dictionary<string, Ban> _bansByUser = new Dictionary<string, Ban>();
         public static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
         public MessageSource Source { get; set; }
 
@@ -46,14 +45,16 @@ namespace CloudsdaleWin7.lib.Controllers
             Cloud = cloud;
             FixSessionStatus();
             Source = MessageSource.GetSource(cloud.Id);
-            LoadBans();
+            //LoadBans();
         }
 
 
         public Cloud Cloud { get; private set; }
 
-        public ObservableCollection<Ban> Bans { get { return _bans; } }
-        public Dictionary<string, Ban> BansByUser { get { return _bansByUser; } } 
+        public ObservableCollection<Ban> Bans
+        {
+            get { return _bans; }
+        }
 
         public List<User> OnlineModerators
         {
@@ -178,14 +179,28 @@ namespace CloudsdaleWin7.lib.Controllers
             var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
             foreach (var ban in userData.Result)
             {
-                if (_bans.Contains(ban)) return;
-                _bans.Add(ban);
-
-                if (_bansByUser.ContainsValue(ban)) return;
-                _bansByUser.Add(ban.OffenderId, ban);
+                var b = ban;
+                foreach (var user in App.Connection.ModelController.Users.Where(user => b.OffenderId == user.Key))
+                {
+                    user.Value.BansOnUser.Add(ban);
+                }
             }
         }
 
+        public async Task LoadBans(string id)
+        {
+            var client = new HttpClient().AcceptsJson();
+            client.DefaultRequestHeaders.Add("X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken);
+
+            if (!Cloud.ModeratorIds.Contains(App.Connection.SessionController.CurrentSession.Id)) return;
+            _bans.Clear();
+            var response = await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id));
+            var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
+            foreach (var ban in userData.Result.Where(b => b.Expired == false && b.Revoked == false && b.OffenderId == id))
+            {
+                App.Connection.ModelController.Users[id].BansOnUser.Add(ban);
+            }
+        }
 
         public async Task EnsureLoaded()
         {
@@ -222,7 +237,7 @@ namespace CloudsdaleWin7.lib.Controllers
             catch (Exception e)
             {
                 App.Connection.NotificationController.Notification.Notify(e.Message);
-                LoadMessages();
+                //LoadMessages();
             }
         }
 
@@ -239,7 +254,10 @@ namespace CloudsdaleWin7.lib.Controllers
                 if (Source.Messages.Last().AuthorId == message.AuthorId
                     && !message.Content.StartsWith("/me")
                     && !MessageSource.GetSource(Cloud.Id).Messages.Last().Content.StartsWith("/me"))
+                {
                     Source.Messages[Source.Messages.Count - 1].Content += "\n" + message.Content;
+                    AddUnread();
+                }
                 else Source.AddMessages(message);
             }
             else Source.AddMessages(message);
@@ -268,6 +286,7 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             AddUnread();
             var message = jMessage.ToObject<Message>();
+            message.Author.CopyTo(message.User);
 
             message.PostedOn = Cloud.Id;
 
@@ -288,7 +307,7 @@ namespace CloudsdaleWin7.lib.Controllers
             #endregion
 
 
-            if (App.Connection.MessageController.CurrentCloud == this && CloudView.Instance != null)
+            if (App.Connection.MessageController.CurrentCloud == this && CloudView.Instance != null && !CloudView.Instance.IsReadingHistory)
             {
                 CloudView.Instance.ChatScroll.ScrollToBottom();
             }

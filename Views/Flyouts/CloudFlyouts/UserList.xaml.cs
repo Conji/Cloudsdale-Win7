@@ -26,15 +26,13 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             InitializeComponent();
             Instance = this;
             Controller = cloud;
-            App.Connection.MessageController[cloud.Cloud].LoadUsers();
-            App.Connection.MessageController[cloud.Cloud].LoadBans();
             OwnerList.Items.Add(cloud.Owner);
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
             SearchResults.ItemsSource = SearchList;
             foreach (var user in Controller.OnlineUsers)
             {
-                SearchList.Add(App.Connection.ModelController.Users[user.Id]);
+                SearchList.Add(App.Connection.ModelController.GetUserAsync(user.Id).Result);
             }
         }
 
@@ -62,10 +60,17 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                     SearchList.Clear();
 
                     //TODO: show the search results
-                    foreach(var user in Controller.OnlineUsers)
+                    foreach (var user in Controller.OnlineModerators.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)))
                     {
-                        SearchList.Add(App.Connection.ModelController.Users[user.Id]);
+                        SearchList.Add(user);
                     }
+
+                    foreach(var user in Controller.OnlineUsers.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)))
+                    {
+                        SearchList.Add(user);
+                    }
+
+
                     break;
             }
         }

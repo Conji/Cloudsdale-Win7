@@ -1,4 +1,5 @@
 ﻿using CloudsdaleWin7.lib.CloudsdaleLib;
+using CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot;
 using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
 
@@ -18,6 +19,7 @@ namespace CloudsdaleWin7 {
 
         public static void Close()
         {
+            ViewCapture.Instance.Close();
             if (FayeConnector.Socket != null && FayeConnector.Connected) FayeConnector.Socket.Close();
             Settings.Save();
         }

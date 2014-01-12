@@ -59,8 +59,8 @@
                 <FlowDocument>
                     <FlowDocument.Blocks>
                         <Paragraph>
-                            <Run Text="Welcome to" FontFamily="Nirmala UI" FontWeight="Thin"/>
-                            <Run Text="Cloudsdale." FontSize="18" FontFamily="Nirmala UI" FontWeight="Medium"/>
+                            <Run Text="Welcome to" FontWeight="Thin"/>
+                            <Run Text="Cloudsdale." FontSize="18" FontWeight="SemiBold"/>
                         </Paragraph>
                     </FlowDocument.Blocks>
                 </FlowDocument>
@@ -73,7 +73,7 @@
                     <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                 </Border.BorderBrush>
                 <StackPanel Margin="-1,0,0,-1">
-                    <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" FontFamily="Nirmala UI" IsHitTestVisible="True" FontWeight="Thin">
+                    <TextBox x:Name="EmailBox" Height="22" TextWrapping="Wrap" Text="Email" Margin="10,7,10,0" FontFamily="Nirmala UI" IsHitTestVisible="True" FontWeight="Thin" BorderThickness="0">
                         <TextBox.Foreground>
                             <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
                         </TextBox.Foreground>
@@ -89,7 +89,7 @@
                             <SolidColorBrush Color="{DynamicResource DarkerBlue}"/>
                         </Separator.Background>
                     </Separator>
-                    <PasswordBox x:Name="PasswordBox" Margin="10,0" KeyDown="LoginAttempt" Height="21" IsHitTestVisible="True" TabIndex="0" FontWeight="Thin">
+                    <PasswordBox x:Name="PasswordBox" Margin="10,0" KeyDown="LoginAttempt" Height="21" IsHitTestVisible="True" TabIndex="0" FontWeight="Thin" BorderThickness="0">
                         <PasswordBox.SelectionBrush>
                             <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
                         </PasswordBox.SelectionBrush>

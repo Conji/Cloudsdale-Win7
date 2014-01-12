@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using CloudsdaleWin7.Views;
@@ -38,9 +40,54 @@ namespace CloudsdaleWin7.lib.Helpers
             Process.Start("skype:[:name]?chat".Replace("[:name]", user));
         }
 
+        /// <summary>
+        /// Allows a string search of the parameter.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public static string ReplaceToQuery(this string request)
         {
             return request.Trim().Replace(" ", "%20");
+        }
+
+        /// <summary>
+        /// Trims the string to the length paramter (by default of 200) and trails with '...'.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string TrimToLength(this string input, int length = 200)
+        {
+            return input.Substring(0, length) + "...";
+        }
+
+        public static string FormatToFile(this string input)
+        {
+            return input + "_cd.png";
+        }
+
+        public static string CloudsdaleRandom(int length = 10)
+        {
+            var i = 0;
+            var c = "";
+            var r = new Random(DateTime.Now.Millisecond);
+
+            while (i <= length)
+            {
+                c += r.Next(9);
+                i++;
+            }
+            return c;
+        }
+
+        public static string ToLiteralString(this string[] array)
+        {
+            return "[ " + array.Aggregate("", (current, o) => current + (o + ", ")) + " ]";
+        }
+
+        public static string AddToLiteralString(this string[] array, object addition)
+        {
+            return "[ " + array.Aggregate("", (current, o) => current + (o + ", ")) + addition + " ]";
         }
     }
 }

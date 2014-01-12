@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -12,6 +13,7 @@ using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 {
@@ -38,7 +40,6 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         private async void InitializeUser()
         {
             AvatarBounce();
-            await App.Connection.MessageController[App.Connection.MessageController.CurrentCloud.Cloud].LoadBans();
             Username.Text = "@" + Self.Username;
             Name.Text = Self.Name;
             AviImage.Source = new BitmapImage(Self.Avatar.Normal);
@@ -50,7 +51,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             akaList.ItemsSource = Self.AlsoKnownAs;
             BanReason.Text = "Banned by @" + App.Connection.SessionController.CurrentSession.Username;
             
-            PreviousBans.ItemsSource = UnexpiredBans().Reverse();
+            PreviousBans.ItemsSource = (await UnexpiredBans()).Reverse();
 
             BanCal.SelectedDate = DateTime.Now.AddDays(1.0);
         }
@@ -79,12 +80,13 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             BanUI.Visibility = BanUI.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
         }
 
-        public static IEnumerable<Ban> UnexpiredBans()
+        public static async Task<ObservableCollection<Ban>> UnexpiredBans()
         {
             var list = new ObservableCollection<Ban>();
-            foreach (var ban in App.Connection.MessageController[App.Connection.MessageController.CurrentCloud.Cloud].BansByUser.Where(ban => ban.Key == Self.Id))
+            await App.Connection.MessageController.CurrentCloud.LoadBans(Self.Id);
+            foreach (var ban in Self.BansOnUser.Where(r => r.Revoked == false && r.Expired == false))
             {
-                list.Add(ban.Value);
+                list.Add(ban);
             }
             return list;
         }
@@ -133,31 +135,30 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             App.Connection.MessageController[App.Connection.MessageController.CurrentCloud.Cloud].Bans.Add(responseObject.Result.Result);
         }
 
-        private void AdjustModeration(object sender, RoutedEventArgs e)
+        private async void AdjustModeration(object sender, RoutedEventArgs e)
         {
-            var cmd = (Button) sender;
 
-            var client = new HttpClient
+            switch (App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Contains(Self.Id))
             {
-                DefaultRequestHeaders =
-                {
-                     {"Accept", "application/json"},
-                     {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
-                }
-            };
+                case false:
 
-            switch (cmd.Content.ToString())
-            {
-                case "Promote To Moderator":
-                    var response = client.PostAsync(Endpoints.CloudModerators, new JsonContent(Self.Id));
-                    Console.WriteLine(response);
+                    var content = new
+                                  {
+                                      cloud = new
+                                              {
+                                                  moderator_ids = App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.AddToLiteralString(Self.Id)
+                                              }
+                                  };
+
+                    await App.Connection.MessageController.CurrentCloud.Cloud.UpdateProperty("moderator_ids",
+                        content.ToString(), true);
                     break;
-                case "Demote Moderator":
+                case true:
                     break;
             }
         }
 
-        private void AttemptRevoke(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void AttemptRevoke(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var ban = (Ban) ((Run) sender).DataContext;
             if (MessageBox.Show("Would you like to revoke the ban for " + ban.Offender.Name + "?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.No)
@@ -168,7 +169,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 MessageBox.Show("This ban is no longer active!");
                 return;
             }
-            ban.Revoke();
+            await ban.Revoke();
             Main.Instance.ShowFlyoutMenu(this);
         }
     }

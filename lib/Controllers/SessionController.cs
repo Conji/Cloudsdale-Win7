@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot;
 using CloudsdaleWin7.Views.Initial;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
@@ -90,6 +91,7 @@ namespace CloudsdaleWin7.lib.Controllers
                 App.Connection.MessageController.CloudControllers.Add(cloud.Id, new CloudController(cloud));
                 App.Connection.MessageController[cloud].EnsureLoaded();
             }
+            Screencap.Initialize();
         }
 
         private void RegistrationCheck()

@@ -134,6 +134,10 @@
     <Compile Include="lib\CloudsdaleLib\Misc\Commands\CommandManager.cs" />
     <Compile Include="lib\CloudsdaleLib\Misc\Commands\ICommand.cs" />
     <Compile Include="lib\CloudsdaleLib\Misc\OnFourOne.cs" />
+    <Compile Include="lib\CloudsdaleLib\Misc\Screenshot\Screencap.cs" />
+    <Compile Include="lib\CloudsdaleLib\Misc\Screenshot\ViewCapture.xaml.cs">
+      <DependentUpon>ViewCapture.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainApp.cs" />
     <Compile Include="Controls\ActionMessageView.xaml.cs">
       <DependentUpon>ActionMessageView.xaml</DependentUpon>
@@ -261,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StandardMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="lib\CloudsdaleLib\Misc\Screenshot\ViewCapture.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -463,7 +471,21 @@
   <ItemGroup>
     <Resource Include="Assets\search.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\next.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">
     <ItemGroup>

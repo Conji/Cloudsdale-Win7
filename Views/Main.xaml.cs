@@ -95,12 +95,16 @@ namespace CloudsdaleWin7.Views
             }
             App.Connection.MessageController.HasCloudSelected = true;
             LoadingText.Visibility = Visibility.Visible;
-            Frame.IsEnabled = false;
             var cloud = (ListView)sender;
             var item = (Cloud)cloud.SelectedItem;
             App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
             if (MessageSource.GetSource(item.Id).Messages.Count <= 25)
+            {
+                Frame.IsEnabled = false;
                 await App.Connection.MessageController[item].LoadMessages();
+                Frame.IsEnabled = true;
+            }
+
             var cloudView = new CloudView(item);
             Frame.Navigate(cloudView);
             await App.Connection.MessageController.CurrentCloud.LoadUsers();
@@ -166,6 +170,7 @@ namespace CloudsdaleWin7.Views
                 App.Connection.NotificationController.Notification.Notify("Cloud name can only contain numbers, letters, and underscores!");
                 return;
             }
+
             var client = new HttpClient
             {
                 DefaultRequestHeaders =
@@ -266,6 +271,9 @@ namespace CloudsdaleWin7.Views
                     break;
                 case Key.H:
                     Frame.Navigate(new Home());
+                    break;
+                case Key.T:
+                    CloudView.Instance.CaptureChat(this, null);
                     break;
             }
         }

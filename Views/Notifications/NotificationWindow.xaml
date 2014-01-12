@@ -2,9 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="CloudsdaleWin7.Views.Notifications.NotificationWindow"
-        Title="NotificationWindow" WindowStyle="None" Background="#FF4C4C64" d:DesignWidth="348" MaxHeight="150" MaxWidth="350" AllowsTransparency="True" Height="110" ShowInTaskbar="False" Topmost="True" VerticalContentAlignment="Stretch" VerticalAlignment="Top" HorizontalAlignment="Right" UseLayoutRounding="False" ResizeMode="NoResize">
+        Title="NotificationWindow" d:DesignWidth="348" MaxHeight="150" MaxWidth="350" Height="110" ShowInTaskbar="False" Topmost="True" VerticalContentAlignment="Stretch" VerticalAlignment="Top" HorizontalAlignment="Right" UseLayoutRounding="False" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None">
+    <Window.Background>
+        <SolidColorBrush Color="#FF63A0D0"/>
+    </Window.Background>
+    <Window.Clip>
+        <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0,0,350,110"/>
+    </Window.Clip>
     <Grid>
-        <Button Content="X" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="19" Background="{x:Null}" Click="Close">
+        <Button Content="X" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="19" Background="{x:Null}" Click="Close" BorderThickness="0">
             <Button.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
             </Button.BorderBrush>

@@ -1,7 +1,6 @@
-﻿
+﻿using System;
 using System.Windows;
-using CloudsdaleWin7.Views.Misc;
-using CloudsdaleWin7.Views.Notifications;
+using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7
@@ -28,16 +27,28 @@ namespace CloudsdaleWin7
             MainFrame.Navigate(new Login());
             App.Connection.MainFrame = MainFrame;
             Testvoid();
+            StateChanged += (sender, args) =>
+                            {
+                                if (WindowState == WindowState.Minimized)
+                                    App.Connection.NotificationController.Receive = true;
+
+                            };
+            LostFocus += (sender, args) =>
+                         {
+                             App.Connection.NotificationController.Receive = true;
+                         };
+            GotFocus += (sender, args) =>
+                        {
+                            App.Connection.NotificationController.Receive = false;
+                        };
+
+            Closing += (sender, args) => App.Close();
+            
         }
 
         public static DependencyProperty MaxCharactersProperty =
             DependencyProperty.Register("MaxCharacters", typeof (int), typeof (MainWindow),
                                         new FrameworkPropertyMetadata(200));
-
-        private void SaveSettings(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            App.Close();
-        }
 
         private void Testvoid()
         {

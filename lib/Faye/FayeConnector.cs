@@ -25,9 +25,12 @@ namespace CloudsdaleWin7.lib.Faye
 
         public static void ForceClose()
         {
-            Socket.Close();
-            Socket.MessageReceived += null;
-            Socket = null;
+            if (Socket != null)
+            {
+                Socket.Close();
+                Socket.MessageReceived += null;
+                Socket = null;
+            }
             Connected = false;
         }
 

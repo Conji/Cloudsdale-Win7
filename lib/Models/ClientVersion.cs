@@ -10,7 +10,7 @@ namespace CloudsdaleWin7.lib.Models
 {
     public class ClientVersion
     {
-        public const string Version = "1.0.0.2 PRE-RELEASE";
+        public const string Version = "1.0.0.4 PRE-RELEASE";
 
         public async static Task<string> UpdatedVersion()
         {
@@ -46,12 +46,13 @@ namespace CloudsdaleWin7.lib.Models
             MessageBox.Show("Please wait while we update. The window will close once it's finished.");
             MainWindow.Instance.Width = 50;
             MainWindow.Instance.Height = 20;
-            MainWindow.Instance.IsEnabled = false;
+            MainWindow.Instance.ResizeMode = ResizeMode.NoResize;
             MainWindow.Instance.ShowInTaskbar = false;
             File.Move(CloudsdaleSource.ExeFile, CloudsdaleSource.OldFile);
             var client = new WebClient();
-            client.DownloadFile(Endpoints.ClientAddress, CloudsdaleSource.ExeFile);
-            Process.Start(CloudsdaleSource.ExeFile);
+            //client.DownloadFile(Endpoints.ClientAddress, CloudsdaleSource.ExeFile);
+            client.DownloadFile(new Uri(Endpoints.ClientAddress), CloudsdaleSource.ExeFile);
+            client.DownloadFileCompleted += (sender, args) => Process.Start(CloudsdaleSource.ExeFile);
             MainWindow.Instance.Close();
         }
         public static void CleanUp()

@@ -47,8 +47,8 @@
             </Grid.ColumnDefinitions>
             <Grid Margin="0,0,5,5" x:Name="TagGrid" Width="64">
                 <StackPanel>
-                    <Border BorderThickness="3" VerticalAlignment="Top" CornerRadius="50" Height="64" Width="64" BorderBrush="{Binding Path=Author.Role, Converter={StaticResource TagColor}}">
-                        <Image Source="{Binding Path=Author.Avatar.Normal}" Width="60" Height="60" ClipToBounds="True">
+                    <Border BorderThickness="3" VerticalAlignment="Top" CornerRadius="50" Height="64" Width="64" BorderBrush="{Binding Path=User.Role, Converter={StaticResource TagColor}}">
+                        <Image Source="{Binding Path=User.Avatar.Normal}" Width="60" Height="60" ClipToBounds="True">
                             <Image.Clip>
                                 <RectangleGeometry Rect="0,0,58,59" RadiusX="60" RadiusY="60">
 
@@ -56,9 +56,9 @@
                             </Image.Clip>
                         </Image>
                     </Border>
-                    <TextBlock Text="{Binding Path=Author.Role,Converter={StaticResource TagText}}"
-                                   FontSize="12" Foreground="{Binding Path=Author.Role, Converter={StaticResource TagColor}}"
-                                   Visibility="{Binding Path=Author.Role,Converter={StaticResource ShowTag}}"
+                    <TextBlock Text="{Binding Path=User.Role,Converter={StaticResource TagText}}"
+                                   FontSize="12" Foreground="{Binding Path=User.Role, Converter={StaticResource TagColor}}"
+                                   Visibility="{Binding Path=User.Role,Converter={StaticResource ShowTag}}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center" Width="64" TextAlignment="Center"/>
                 </StackPanel>
@@ -75,7 +75,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <DockPanel Height="32">
-                        <TextBlock Foreground="#4d4d4d" FontSize="16" DataContext="{Binding Path=Author}">
+                        <TextBlock Foreground="#4d4d4d" FontSize="16" DataContext="{Binding Path=User}">
                                 <Run Text="&#x25CF;" FontFamily="Segoe UI Symbol" FontSize="14"
                                      Foreground="{Binding Path=UiMetadata[Status].Value, 
                                      Converter={StaticResource StatusColor}}"/>

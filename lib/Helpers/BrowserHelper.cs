@@ -52,7 +52,7 @@ namespace CloudsdaleWin7.lib.Helpers
         {
             if (App.Connection.MessageController.CloudControllers.ContainsKey(cloud.Id))
             {
-                Main.Instance.Clouds.SelectedItem = cloud;
+                Main.Instance.Clouds.SelectedItem = Main.Instance.Clouds.Items.IndexOf(App.Connection.ModelController.Clouds[cloud.Id]);
                 return;
             }
 

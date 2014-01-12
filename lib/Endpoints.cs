@@ -51,7 +51,6 @@
         /// </summary>
         public const string UserJson = User + Json;
 
-
         /// <summary>
         /// Cloud messages endpoint.
         /// </summary>

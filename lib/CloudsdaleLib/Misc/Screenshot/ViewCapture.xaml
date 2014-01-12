@@ -1,0 +1,18 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot.ViewCapture"
+        Title="ViewCapture" WindowStyle="None" AllowsTransparency="True" d:DesignWidth="446.572" d:DesignHeight="374.849" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Topmost="True">
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+    </Window.Background>
+    <Grid>
+        <Image x:Name="Preview" Margin="10,10,10,44"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="10,0,0,7" VerticalAlignment="Bottom" Width="112" Background="{x:Null}" BorderThickness="0" FontSize="16" Click="Exit">
+            <Button.Foreground>
+                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+            </Button.Foreground>
+        </Button>
+
+    </Grid>
+</Window>

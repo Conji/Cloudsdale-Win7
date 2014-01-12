@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot;
 using CloudsdaleWin7.Views.CloudViews;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
 using CloudsdaleWin7.lib;
@@ -12,6 +13,9 @@ using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using Newtonsoft.Json;
 using CommandManager = CloudsdaleWin7.lib.CloudsdaleLib.Misc.Commands.CommandManager;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using Message = CloudsdaleWin7.lib.Models.Message;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace CloudsdaleWin7.Views {
     /// <summary>
@@ -37,16 +41,26 @@ namespace CloudsdaleWin7.Views {
             InputBox.Focus();
         }
 
+        public bool IsReadingHistory
+        {
+            get
+            {
+                return !ChatScroll.VerticalOffset.Equals(ChatScroll.ExtentHeight - ChatScroll.ViewportHeight);
+            }
+        }
+
         private void SendBoxEnter(object sender, KeyEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(InputBox.Text)) return;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
+
             if (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.Enter)
             {
                 ((TextBox)sender).Text += "\r\n";
                 ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
                 return;
             }
+
             if (e.Key != Key.Enter) return;
 
             if (InputBox.Text.StartsWith("/"))
@@ -99,8 +113,8 @@ namespace CloudsdaleWin7.Views {
 
         private async void ShowUserList(object sender, MouseButtonEventArgs e)
         {
-            await App.Connection.MessageController.CurrentCloud.LoadUsers();
             Main.Instance.ShowFlyoutMenu(new UserList(App.Connection.MessageController.CurrentCloud));
+            await App.Connection.MessageController.CurrentCloud.LoadUsers();
         }
 
         private void ExpandCloud(object sender, RoutedEventArgs e)
@@ -135,6 +149,11 @@ namespace CloudsdaleWin7.Views {
         private void MinimizeFlyout(object sender, MouseButtonEventArgs e)
         {
             Main.Instance.HideFlyoutMenu();
+        }
+
+        public void CaptureChat(object sender, RoutedEventArgs e)
+        {
+            Screencap.DoCap();
         }
     }
 }
