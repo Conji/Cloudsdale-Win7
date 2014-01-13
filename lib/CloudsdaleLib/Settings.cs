@@ -28,6 +28,10 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
                 _settings.Add(key, key);
                 return (String) _settings[key];
             }
+            set
+            {
+                ChangeSetting(key, value);
+            }
         }
         
         /// <summary>
@@ -114,7 +118,7 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib
         public void Save()
         {
             var saveObject = new JObject();
-            saveObject["settings"] = new JObject(_settings);
+            saveObject["settings"] = _settings ?? new JObject();
             File.WriteAllText(SettingsFile, saveObject.ToString());
         }
 

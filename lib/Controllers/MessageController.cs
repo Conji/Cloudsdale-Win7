@@ -52,6 +52,7 @@ namespace CloudsdaleWin7.lib.Controllers
                         break;
                     }
                     CloudControllers.Add(chanSplit[1], new CloudController(App.Connection.ModelController.GetCloud(chanSplit[1])));
+                    CloudControllers[chanSplit[1]].OnMessage(message);
                     break;
                 case "users":
                     var sessionController = App.Connection.SessionController;
@@ -86,9 +87,7 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             get
             {
-                return CloudControllers.Select(controller => 
-                    controller.Value.UnreadMessages)
-                                       .Aggregate(0, (total, i) => total + i);
+                return CloudControllers.Sum(c => c.Value.UnreadMessages);
             }
         }
 

@@ -30,6 +30,7 @@ namespace CloudsdaleWin7.Views {
         {
             InitializeComponent();
             Instance = this;
+            Title = cloud.Name;
             Cloud = cloud;
             App.Connection.MessageController[cloud].UnreadMessages = 0;
             Name.Text = cloud.Name;

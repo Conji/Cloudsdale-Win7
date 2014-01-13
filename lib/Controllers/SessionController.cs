@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot;
 using CloudsdaleWin7.Views.Initial;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
@@ -31,9 +30,13 @@ namespace CloudsdaleWin7.lib.Controllers
             get { return App.Connection.ModelController.GetUserAsync(CurrentSession.Id).Result; }
         }
 
-        public async Task Login(string email, string password)
+        public async Task Login(string semail, string spassword)
         {
-            var requestModel = @"{""email"":""[:email]"", ""password"":""[:password]""".Replace("[:email]", email).Replace("[:password]", password);
+            var requestModel = new
+                               {
+                                   email = semail,
+                                   password = spassword
+                               };
             var request = new HttpClient().AcceptsJson();
             var result = await request.PostAsync(Endpoints.Session, new JsonContent(requestModel));
             var resultString = await result.Content.ReadAsStringAsync();
@@ -91,7 +94,6 @@ namespace CloudsdaleWin7.lib.Controllers
                 App.Connection.MessageController.CloudControllers.Add(cloud.Id, new CloudController(cloud));
                 App.Connection.MessageController[cloud].EnsureLoaded();
             }
-            Screencap.Initialize();
         }
 
         private void RegistrationCheck()

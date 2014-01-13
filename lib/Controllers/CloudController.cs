@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.Notifications;
@@ -110,33 +111,6 @@ namespace CloudsdaleWin7.lib.Controllers
                 return list;
             }
         }
-
-        public async Task LoadCompleteUsers()
-        {
-            try
-            {
-                var client = new HttpClient().AcceptsJson();
-                {
-                    var response = await client.GetStringAsync((Endpoints.CloudUsers)
-                        .Replace("[:id]", Cloud.Id));
-                    var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
-                    foreach (var user in userData.Result)
-                    {
-                        if (user.Status != null)
-                        {
-                            SetStatus(user.Id, (Status)user.Status);
-                        }
-                        AllUsers.Add(await App.Connection.ModelController.UpdateDataAsync(user));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                LoadUsers();
-            }
-        }
-
 
         public async Task LoadUsers()
         {
@@ -262,6 +236,7 @@ namespace CloudsdaleWin7.lib.Controllers
             }
             else Source.AddMessages(message);
 
+            MainWindow.Instance.Title = String.Format("{0} ({1} Unread Messages)", ((Page)Main.Instance.Frame.Content).Title, App.Connection.MessageController.TotalUnreadMessages);
             if (Source.Messages.Count > 50) Source.Messages.RemoveAt(0);
         }
 

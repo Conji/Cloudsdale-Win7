@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -68,7 +69,7 @@ namespace CloudsdaleWin7.lib.Faye
         static void MessageReceived(object sender, MessageReceivedEventArgs e)
         {
             var packet = JArray.Parse(e.Message);
-            foreach (JObject message in packet)
+            foreach (var message in packet.Cast<JObject>())
             {
                 switch ((string)message["channel"])
                 {

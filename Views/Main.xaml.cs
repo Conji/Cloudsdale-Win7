@@ -26,7 +26,7 @@ namespace CloudsdaleWin7.Views
     public partial class Main
     {
         public static Main Instance;
-        public static CloudView CurrentView { get; set; }
+        public CloudView CurrentView { get; set; }
 
         public Main()
         {
@@ -56,7 +56,7 @@ namespace CloudsdaleWin7.Views
             ShowFlyoutMenu(new Settings());
         }
 
-        public static void ScrollChat()
+        public void ScrollChat()
         {
             if (CurrentView != null)
             {
@@ -276,6 +276,11 @@ namespace CloudsdaleWin7.Views
                     CloudView.Instance.CaptureChat(this, null);
                     break;
             }
+        }
+
+        private void ChangeTitle(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            MainWindow.Instance.Title = ((Page) e.Content).Title;
         }
     }
 }

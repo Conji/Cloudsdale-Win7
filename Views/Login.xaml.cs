@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using CloudsdaleWin7.Views.Initial;
 
 namespace CloudsdaleWin7 {
     /// <summary>
@@ -36,8 +37,7 @@ namespace CloudsdaleWin7 {
            try
            {
                if (App.Settings["email"] != EmailBox.Text) App.Settings.Clear();
-
-               App.Settings.ChangeSetting("email", EmailBox.Text);
+               App.Settings["email"] = EmailBox.Text;
                await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
            }catch (Exception ex)
            {
@@ -62,9 +62,9 @@ namespace CloudsdaleWin7 {
             #endregion
         }
 
-        private void BeginRegister(object sender, MouseButtonEventArgs e)
+        private void LaunchReg(object sender, MouseButtonEventArgs e)
         {
-
+            MainWindow.Instance.MainFrame.Navigate(new Register());
         }
     }
 }

@@ -19,7 +19,11 @@ namespace CloudsdaleWin7 {
 
         public static void Close()
         {
-            ViewCapture.Instance.Close();
+            try
+            {
+                ViewCapture.Instance.Close();
+            }
+            catch { }
             if (FayeConnector.Socket != null && FayeConnector.Connected) FayeConnector.Socket.Close();
             Settings.Save();
         }

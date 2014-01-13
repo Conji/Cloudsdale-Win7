@@ -8,6 +8,21 @@
 	Title="Help">
 
     <Grid>
-        
+        <RichTextBox Margin="20,0">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="Cloudsdale App Help:" FontSize="16" FontWeight="SemiBold">
+                        <Run.Foreground>
+                            <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+                        </Run.Foreground>
+                    </Run>
+                </Paragraph>
+                <Paragraph>
+                    <Run Text="Before we get started, lets figure out what makes this different from using a web browser."/>
+                </Paragraph>
+                <Paragraph/>
+            </FlowDocument>
+        </RichTextBox>
+
     </Grid>
 </Page>

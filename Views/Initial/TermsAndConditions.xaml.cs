@@ -34,7 +34,13 @@ namespace CloudsdaleWin7.Views.Initial
             client.DefaultRequestHeaders.Add("X-Auth-Token", App.Connection.SessionController.CurrentSession.Id);
             var response = await
                 client.PutAsync(Endpoints.User.ReplaceUserId(App.Connection.SessionController.CurrentSession.Id),
-                                new StringContent(""));
+                                new JsonContent(new
+                                                {
+                                                    user = new
+                                                           {
+                                                               has_read_tnc = true
+                                                           }
+                                                }));
             if (response.IsSuccessStatusCode)
             {
                 Main.Instance.Frame.Navigate(new Home());

@@ -14,8 +14,20 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib.Misc
         public static string ToPigLatin(this string input)
         {
             var charArray = input.Split(' ');
-            var cacheString = charArray.Where(word => !word.StartsWith("a") && !word.StartsWith("e") && !word.StartsWith("i") && !word.StartsWith("o") && !word.StartsWith("u")).Aggregate("", (current, word) => current + (word.Substring(1) + word[0] + "ay "));
-            return cacheString;
+            try
+            {
+                var cacheString =
+                    charArray.Where(
+                        word =>
+                            !word.StartsWith("a") && !word.StartsWith("e") && !word.StartsWith("i") &&
+                            !word.StartsWith("o") && !word.StartsWith("u"))
+                        .Aggregate("", (current, word) => current + (word.Substring(1) + word[0] + "ay "));
+                return cacheString;
+            }
+            catch
+            {
+                return input;
+            }
         }
 
         public static void NexLogin()

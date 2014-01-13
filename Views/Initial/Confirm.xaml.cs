@@ -15,15 +15,14 @@ namespace CloudsdaleWin7.Views.Initial
             InitializeComponent();
         }
 
-        private async void ButtonClick1(object sender, RoutedEventArgs e)
+        private void ButtonClick1(object sender, RoutedEventArgs e)
         {
             Waiting.Visibility = Visibility.Visible;
-            await App.Connection.SessionController.CurrentSession.UpdateProperty("needs_to_confirm_registration", false);
             if (App.Connection.SessionController.CurrentSession.NeedsToConfirmRegistration == false)
             {
                 Waiting.Visibility = Visibility.Hidden;
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message{Content = "An error occured while trying to process your request!"});
-            }else
+            }
+            else
             {
                 if (App.Connection.SessionController.CurrentSession.HasReadTnc == false)
                 {
