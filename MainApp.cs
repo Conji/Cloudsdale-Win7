@@ -26,7 +26,7 @@ namespace CloudsdaleWin7
             var assemblyName = new AssemblyName(args.Name);
 
             var path = assemblyName.Name + ".dll";
-            if (assemblyName.CultureInfo.Equals(CultureInfo.InvariantCulture) == false)
+            if (!assemblyName.CultureInfo.Equals(CultureInfo.InvariantCulture))
             {
                 path = String.Format(@"{0}\{1}", assemblyName.CultureInfo, path);
             }

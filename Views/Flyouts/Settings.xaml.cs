@@ -36,7 +36,7 @@ namespace CloudsdaleWin7.Views.Flyouts
             UsernameBlock.IsReadOnly = true;
         }
 
-        private void ChangeName(object sender, KeyEventArgs e)
+        private async void ChangeName(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
             if (!_nameRegex.IsMatch(NameBlock.Text))
@@ -44,7 +44,7 @@ namespace CloudsdaleWin7.Views.Flyouts
                 NameBlock.Text = _current.Name;
                 return;
             }
-            App.Connection.SessionController.CurrentSession.UpdateProperty("name", NameBlock.Text);
+            await App.Connection.SessionController.CurrentSession.UpdateProperty("name", NameBlock.Text);
         }
 
         private void Logout(object sender, System.Windows.RoutedEventArgs e)

@@ -106,26 +106,8 @@
             </Image>
         </Border>
         <Image Grid.Row="0" Grid.Column="0" x:Name="Opac" HorizontalAlignment="Left" Height="80" Margin="10,0,0,0" VerticalAlignment="Top" Width="80" Source="/Cloudsdale;component/Assets/icon_white.png" Opacity="0" IsHitTestVisible="True" MouseDown="ToggleMenu" Cursor="Hand"/>
-        <DockPanel x:Name="CloudDock" Grid.Column="1" AllowDrop="True" Drop="AddCloudToView">
-            <Frame x:Name="Frame" Content="" Background="#FFFAFAFA" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Navigated="ChangeTitle"/>
-        </DockPanel>
+        <Frame x:Name="Frame" Content="" Background="#FFFAFAFA" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Navigated="ChangeTitle"/>
         <Frame x:Name="FlyoutFrame" Content="Frame" Grid.Row="0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="0" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="#FF4C4C5A" Grid.Column="1"/>
-        <Grid x:Name="Note" HorizontalAlignment="Right" Margin="0,31,10,0" VerticalAlignment="Top" Opacity="0" MaxWidth="350"
-              Grid.Row="0" Grid.Column="1">
-            <Grid.Background>
-                <SolidColorBrush Color="{DynamicResource Panels}"/>
-            </Grid.Background>
-            <TextBlock x:Name="NoteTitle" Margin="10,10,10,0" TextWrapping="Wrap" Text="@User(Cloud):" VerticalAlignment="Top" FontSize="16">
-                <TextBlock.Foreground>
-                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                </TextBlock.Foreground>
-            </TextBlock>
-            <TextBlock x:Name="NoteContent" Margin="10,37,10,10" TextWrapping="Wrap" Text="Content">
-                <TextBlock.Foreground>
-                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-                </TextBlock.Foreground>
-            </TextBlock>
-        </Grid>
         <Button x:Name="CreateCloud" Content="Create A Cloud" Margin="0,87,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Thin" Click="CreateNewCloud" HorizontalAlignment="Left" Width="112" Height="48" VerticalAlignment="Top" Padding="0,1,1,1">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>

@@ -7,7 +7,7 @@
       d:DesignHeight="403" d:DesignWidth="300"
 	Title="Register">
     <Page.Background>
-        <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
+        <SolidColorBrush Color="#FF3F85B3"/>
     </Page.Background>
 
     <Grid>
@@ -46,16 +46,16 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
             </Separator.Background>
         </Separator>
-        <PasswordBox Grid.Column="1" Margin="0,242,0,0" VerticalAlignment="Top" BorderThickness="1">
+        <PasswordBox Grid.Column="1" Margin="0,242,0,0" VerticalAlignment="Top" BorderThickness="0">
             <PasswordBox.Background>
-                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </PasswordBox.Background>
         </PasswordBox>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,221,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="58"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,270,0,0" TextWrapping="Wrap" Text="Confirm Password" VerticalAlignment="Top" Width="114"/>
-        <PasswordBox Grid.Column="1" Margin="0,291,0,0" VerticalAlignment="Top" BorderThickness="1">
+        <PasswordBox Grid.Column="1" Margin="0,291,0,0" VerticalAlignment="Top" BorderThickness="0">
             <PasswordBox.Background>
-                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                <SolidColorBrush Color="{DynamicResource PrimaryBlue}"/>
             </PasswordBox.Background>
         </PasswordBox>
         <Button Content="Submit" Grid.Column="1" Margin="0,346,0,0" VerticalAlignment="Top" Height="36" BorderThickness="0" FontSize="18">

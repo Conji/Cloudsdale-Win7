@@ -80,6 +80,11 @@ namespace CloudsdaleWin7.lib.Helpers
             return c;
         }
 
+        public static string TimeTitle()
+        {
+            return DateTime.Now.ToString("yyyyMMddHHmmss");                
+        }
+
         public static string ToLiteralString(this string[] array)
         {
             return "[ " + array.Aggregate("", (current, o) => current + (o + ", ")) + " ]";

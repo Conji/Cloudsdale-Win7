@@ -59,8 +59,11 @@
                 <FlowDocument>
                     <FlowDocument.Blocks>
                         <Paragraph>
-                            <Run Text="Welcome to" FontWeight="Thin"/>
-                            <Run Text="Cloudsdale." FontSize="18" FontWeight="SemiBold"/>
+                            <Paragraph.Foreground>
+                                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                            </Paragraph.Foreground>
+                            <Run Text="Welcome to" FontWeight="ExtraLight"/>
+                            <Run Text="Cloudsdale." FontSize="18"/>
                         </Paragraph>
                     </FlowDocument.Blocks>
                 </FlowDocument>
@@ -105,12 +108,13 @@
                     </PasswordBox>
                 </StackPanel>
             </Border>
+            <TextBlock Margin="10,8,10,10" TextWrapping="Wrap" Text="Don't have an account?" VerticalAlignment="Bottom" TextAlignment="Center" FontWeight="ExtraLight" Cursor="Hand" MouseDown="LaunchReg">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
+                </TextBlock.Foreground>
+            </TextBlock>
         </StackPanel>
-        <TextBlock Grid.Column="1" Margin="10,0,10,10" TextWrapping="Wrap" Text="Don't have an account?" VerticalAlignment="Bottom" TextAlignment="Center" FontWeight="ExtraLight" Cursor="Hand" MouseDown="LaunchReg">
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
-            </TextBlock.Foreground>
-        </TextBlock>
+        
 
     </Grid>
 </Page>

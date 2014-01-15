@@ -56,14 +56,6 @@ namespace CloudsdaleWin7.Views
             ShowFlyoutMenu(new Settings());
         }
 
-        public void ScrollChat()
-        {
-            if (CurrentView != null)
-            {
-                CurrentView.ChatScroll.ScrollToBottom();
-            }
-        }
-
         public void ShowFlyoutMenu(Page view)
         {
             if (FlyoutFrame.Width > 0)
@@ -98,7 +90,7 @@ namespace CloudsdaleWin7.Views
             var cloud = (ListView)sender;
             var item = (Cloud)cloud.SelectedItem;
             App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
-            if (MessageSource.GetSource(item.Id).Messages.Count <= 25)
+            if (MessageSource.GetSource(item.Id).Messages.Count <= 45)
             {
                 Frame.IsEnabled = false;
                 await App.Connection.MessageController[item].LoadMessages();
@@ -230,27 +222,6 @@ namespace CloudsdaleWin7.Views
         {
             if (e.Key != Key.Enter) return;
             CreateNewCloud(this, new RoutedEventArgs());
-        }
-
-        private void AddCloudToView(object sender, DragEventArgs e)
-        {
-            AddCloudPageToDock((Cloud)e.Data.GetData(DataFormats.Serializable));
-        }
-
-        public void AddCloudPageToDock(Cloud cloud)
-        {
-            if (CloudDock.Children.Count >= 6)
-            {
-                App.Connection.NotificationController.Notification.Notify("You can only hold a max of 5 clouds in the docking station!");
-                return;
-            }
-
-            var cacheWidth = CloudDock.Width/CloudDock.Children.Count;
-            foreach (var child in CloudDock.Children.Cast<Control>())
-            {
-                child.Width = cacheWidth;
-            }
-            CloudDock.Children.Add(new CloudView(cloud) {Width = cacheWidth});
         }
 
         private void CheckShortcuts(object sender, KeyEventArgs e)

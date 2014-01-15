@@ -186,7 +186,7 @@ namespace CloudsdaleWin7.lib.Controllers
             await LoadBans();
         }
 
-        public async Task LoadMessages()
+        public async Task LoadMessages(bool addUnread = true)
         {
             var client = new HttpClient().AcceptsJson();
 
@@ -200,12 +200,12 @@ namespace CloudsdaleWin7.lib.Controllers
                 foreach (var message in responseMessages.Result)
                 {
                     StatusForUser(message.Author.Id);
-                    AddMessageToSource(message);
+                    AddMessageToSource(message, addUnread);
                 }
                 foreach (var message in newMessages)
                 {
                     StatusForUser(message.Author.Id);
-                    AddMessageToSource(message);
+                    AddMessageToSource(message, addUnread);
                 }
             }
             catch (Exception e)
@@ -216,13 +216,13 @@ namespace CloudsdaleWin7.lib.Controllers
         }
 
 
-        public void AddMessageToSource(Message message)
+        public void AddMessageToSource(Message message, bool addUnread = true)
         {
             if (!App.Connection.ModelController.Users.ContainsKey(message.Author.Id))
                 App.Connection.ModelController.Users.Add(message.Author.Id, message.Author);
-            message.Author.CopyTo(App.Connection.ModelController.Users[message.Author.Id]);
-
+            message.Author.CopyTo(message.User);
             message.Timestamp = message.Timestamp.ToLocalTime();
+
             if (Source.Messages.Count > 0)
             {
                 if (Source.Messages.Last().AuthorId == message.AuthorId
@@ -230,7 +230,7 @@ namespace CloudsdaleWin7.lib.Controllers
                     && !MessageSource.GetSource(Cloud.Id).Messages.Last().Content.StartsWith("/me"))
                 {
                     Source.Messages[Source.Messages.Count - 1].Content += "\n" + message.Content;
-                    AddUnread();
+                    if (addUnread) AddUnread();
                 }
                 else Source.AddMessages(message);
             }

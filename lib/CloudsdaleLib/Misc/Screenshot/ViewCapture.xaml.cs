@@ -23,7 +23,8 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot
             InitializeComponent();
             Location = uri;
             Instance = this;
-            Preview.Source = new BitmapImage(new Uri(uri));
+            //Preview.Source = new BitmapImage(new Uri(uri));
+            Preview.Source = Screencap.ChatBmpSource;
             Title = uri;
             UploadCapture(this, null);
         }

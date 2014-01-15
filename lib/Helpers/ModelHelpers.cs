@@ -79,6 +79,7 @@ namespace CloudsdaleWin7.lib.Helpers
                 return;
             }
             responseObject.Result.Result.CopyTo(App.Connection.SessionController.CurrentSession);
+            responseObject.Result.Result.CopyTo(App.Connection.ModelController.Users[App.Connection.SessionController.CurrentSession.Id]);
             Main.Instance.InitSession();
         }
     }

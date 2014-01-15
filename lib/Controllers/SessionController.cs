@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,6 +44,13 @@ namespace CloudsdaleWin7.lib.Controllers
             var response = await JsonConvert.DeserializeObjectAsync<WebResponse<SessionWrapper>>(resultString);
             try
             {
+                if (response.Flash != null)
+                {
+                    CloudsdaleWin7.Login.Instance.LoggingInUi.Visibility = Visibility.Hidden;
+                    CloudsdaleWin7.Login.Instance.LoginUi.Visibility = Visibility.Visible;
+                    CloudsdaleWin7.Login.Instance.ShowMessage(response.Flash.Message);
+                    return;
+                }
                 CurrentSession = response.Result.User;
                 InitializeClouds();
                 RegistrationCheck();
@@ -51,7 +59,7 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 CloudsdaleWin7.Login.Instance.LoggingInUi.Visibility = Visibility.Hidden;
                 CloudsdaleWin7.Login.Instance.LoginUi.Visibility = Visibility.Visible;
-                CloudsdaleWin7.Login.Instance.ShowMessage(response.Flash.Message);
+                CloudsdaleWin7.Login.Instance.ShowMessage(response.Flash != null ? response.Flash.Message : "Oops! An error occured that we couldn't seem to detect!");
             }
         }
 
@@ -87,12 +95,13 @@ namespace CloudsdaleWin7.lib.Controllers
             public Session User { get; set; }
         }
 
-        private void InitializeClouds()
+        private async void InitializeClouds()
         {
-            foreach (var cloud in CurrentSession.Clouds)
+            foreach (var cloud in CurrentSession.Clouds.Where(c => !App.Connection.MessageController.CloudControllers.Keys.Contains(c.Id)))
             {
                 App.Connection.MessageController.CloudControllers.Add(cloud.Id, new CloudController(cloud));
-                App.Connection.MessageController[cloud].EnsureLoaded();
+                await App.Connection.MessageController[cloud].LoadMessages(false);
+                await App.Connection.MessageController[cloud].LoadUsers();
             }
         }
 

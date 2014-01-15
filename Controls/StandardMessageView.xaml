@@ -80,10 +80,10 @@
                                      Foreground="{Binding Path=UiMetadata[Status].Value, 
                                      Converter={StaticResource StatusColor}}"/>
                                 <Run Text="{Binding Path=Name}" FontSize="18"
-                                     Foreground="{Binding Path=RawUser, Converter={StaticResource NameColor}}" MouseDown="UserInfo" Cursor="Hand" FontFamily="Nirmala UI"/>
+                                     Foreground="{Binding Path=RawUser, Converter={StaticResource NameColor}}" MouseDown="UserInfo" Cursor="Hand"/>
                                 <Span Foreground="DarkGray">
                                      <Run Text="   @"/>
-                                    <Run Text="{Binding Path=Username}" FontSize="14" FontWeight="Thin" MouseDown="Mention" Cursor="Hand" FontFamily="Nirmala UI"/>
+                                    <Run Text="{Binding Path=Username}" FontSize="14" FontWeight="Thin" MouseDown="Mention" Cursor="Hand"/>
                                 </Span>
                         </TextBlock>
                     </DockPanel>

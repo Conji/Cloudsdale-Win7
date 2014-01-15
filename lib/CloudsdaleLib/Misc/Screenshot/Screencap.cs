@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.Views;
@@ -32,7 +33,7 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot
             Directory.CreateDirectory(SavedDirectory);
         }
 
-        private static Bitmap CapChat()
+        public static Bitmap CapChat()
         {
             var topLeftX = int.Parse((Main.Instance.Frame.PointToScreen(new System.Windows.Point()).X).ToString().Split('.')[0]);
             var topLeftY = int.Parse((Main.Instance.Frame.PointToScreen(new System.Windows.Point()).Y).ToString().Split('.')[0]);
@@ -47,15 +48,21 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot
                             new System.Drawing.Size((int)Main.Instance.Frame.ActualWidth, (int)Main.Instance.Frame.ActualHeight),
                             CopyPixelOperation.SourceCopy);
 
-
-            //b.Save(SavedDirectory + UiHelpers.CloudsdaleRandom().FormatToFile(), ImageFormat.Png);
-
             return b;
+        }
+
+        public static BitmapSource ChatBmpSource
+        {
+            get
+            {
+                return Imaging.CreateBitmapSourceFromHBitmap(CapChat().GetHbitmap(), IntPtr.Zero, Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+            }
         }
 
         public static bool DoCap()
         {
-            var ran = SavedDirectory + UiHelpers.CloudsdaleRandom().FormatToFile();
+            var ran = SavedDirectory + UiHelpers.TimeTitle().FormatToFile();
             CapChat().Save(ran, ImageFormat.Png);
             var v = new ViewCapture(ran);
             v.Show();

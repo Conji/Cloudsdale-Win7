@@ -26,7 +26,7 @@ namespace CloudsdaleWin7.Controls
 
         private void Mention(object sender, MouseButtonEventArgs e)
         {
-            Main.Instance.CurrentView.InputBox.Text = "@" + ((Run) sender).Text + " ";
+            Main.Instance.CurrentView.InputBox.Text = "@" + ((User)((TextBlock)sender).DataContext).Username + " ";
             Main.Instance.CurrentView.InputBox.Focus();
         }
 
