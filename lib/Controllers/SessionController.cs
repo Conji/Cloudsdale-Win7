@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -26,11 +25,6 @@ namespace CloudsdaleWin7.lib.Controllers
             user.CopyTo(CurrentSession);
         }
 
-        public User CurrentUser
-        {
-            get { return App.Connection.ModelController.GetUserAsync(CurrentSession.Id).Result; }
-        }
-
         public async Task Login(string semail, string spassword)
         {
             var requestModel = new
@@ -40,8 +34,7 @@ namespace CloudsdaleWin7.lib.Controllers
                                };
             var request = new HttpClient().AcceptsJson();
             var result = await request.PostAsync(Endpoints.Session, new JsonContent(requestModel));
-            var resultString = await result.Content.ReadAsStringAsync();
-            var response = await JsonConvert.DeserializeObjectAsync<WebResponse<SessionWrapper>>(resultString);
+            var response = await JsonConvert.DeserializeObjectAsync<WebResponse<SessionWrapper>>(await result.Content.ReadAsStringAsync());
             try
             {
                 if (response.Flash != null)

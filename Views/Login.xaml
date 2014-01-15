@@ -108,7 +108,7 @@
                     </PasswordBox>
                 </StackPanel>
             </Border>
-            <TextBlock Margin="10,8,10,10" TextWrapping="Wrap" Text="Don't have an account?" VerticalAlignment="Bottom" TextAlignment="Center" FontWeight="ExtraLight" Cursor="Hand" MouseDown="LaunchReg">
+            <TextBlock Margin="10,8,10,10" TextWrapping="Wrap" Text="Don't have an account?" VerticalAlignment="Bottom" TextAlignment="Center" FontWeight="ExtraLight" Cursor="Hand" MouseDown="LaunchReg" Visibility="Hidden">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="{DynamicResource PrimaryBackground}"/>
                 </TextBlock.Foreground>
