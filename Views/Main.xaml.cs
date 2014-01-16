@@ -37,7 +37,7 @@ namespace CloudsdaleWin7.Views
             Clouds.ItemsSource = App.Connection.SessionController.CurrentSession.Clouds;
             Frame.Navigate(new Home());
             InitializeConnection();
-            VerifyCloudOwners();
+            if (!CanMakeCloud) CreateCloud.Visibility = Visibility.Hidden;
         }
 
         public void InitSession()
@@ -110,18 +110,13 @@ namespace CloudsdaleWin7.Views
             Clouds.SelectedIndex = -1;
         }
 
-        private void VerifyCloudOwners()
+        private bool CanMakeCloud
         {
-            switch(App.Connection.SessionController.CurrentSession.Role)
+            get
             {
-                case "founder":
-                    return;
-                case "developer":
-                    return;
-                default:
-                    if (App.Connection.SessionController.CurrentSession.Clouds.Any(cloud => cloud.OwnerId == App.Connection.SessionController.CurrentSession.Id))
-                        CreateCloud.Visibility = Visibility.Hidden;
-                    break;
+                if (App.Connection.SessionController.CurrentSession.Role == "founder" ||
+                    App.Connection.SessionController.CurrentSession.Role == "developer") return true;
+                return App.Connection.SessionController.CurrentSession.Clouds.All(i => i.OwnerId != App.Connection.SessionController.CurrentSession.Id);
             }
         }
 
@@ -193,7 +188,7 @@ namespace CloudsdaleWin7.Views
             Clouds.SelectedIndex = Clouds.Items.Count - 1;
             NewCloudName.Visibility = Visibility.Hidden;
             NewCloudName.Text = "";
-            VerifyCloudOwners();
+            if (!CanMakeCloud) CreateCloud.Visibility = Visibility.Hidden;
         }
 
         private async void LeaveCloud(object sender, RoutedEventArgs e)
@@ -215,7 +210,7 @@ namespace CloudsdaleWin7.Views
             if (MessageBox.Show("Are you sure you want to leave this cloud?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             
             c.Leave();
-            VerifyCloudOwners();
+            if (!CanMakeCloud) CreateCloud.Visibility = Visibility.Hidden;
         }
 
         private void EnterPressed(object sender, KeyEventArgs e)

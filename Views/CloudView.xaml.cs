@@ -98,7 +98,7 @@ namespace CloudsdaleWin7.Views {
             try
             {
                 InputBox.IsEnabled = false;
-                await client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id), new JsonContent(messageData));
+                client.PostAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id), new JsonContent(messageData));
                 InputBox.Text = "";
             }
             catch (Exception e)
