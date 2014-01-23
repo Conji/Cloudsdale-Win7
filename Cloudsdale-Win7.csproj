@@ -179,6 +179,9 @@
     <Compile Include="lib\Models\Message.cs" />
     <Compile Include="MVVM\ActionMessagesConverter.cs" />
     <Compile Include="MVVM\UnreadConverter.cs" />
+    <Compile Include="Views\CloudViews\BannedCloud.xaml.cs">
+      <DependentUpon>BannedCloud.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CloudViews\OwnedCloud.xaml.cs">
       <DependentUpon>OwnedCloud.xaml</DependentUpon>
     </Compile>
@@ -275,6 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CloudView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CloudViews\BannedCloud.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -132,21 +132,6 @@ namespace CloudsdaleWin7.Views {
             Main.Instance.ShowFlyoutMenu(prefFlyout);
         }
 
-        private async void Reload(object sender, RoutedEventArgs e)
-        {
-            CloudMessages.IsEnabled = false;
-            try
-            {
-                await App.Connection.MessageController[Cloud].LoadMessages();
-                await Cloud.ForceValidate();
-            }
-            catch (Exception ex)
-            {
-                App.Connection.NotificationController.Notification.Notify(ex.Message);
-            }
-            CloudMessages.IsEnabled = true;
-        }
-
         private void MinimizeFlyout(object sender, MouseButtonEventArgs e)
         {
             Main.Instance.HideFlyoutMenu();

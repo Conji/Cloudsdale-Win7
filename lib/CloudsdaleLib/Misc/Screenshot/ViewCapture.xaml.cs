@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot
@@ -14,7 +8,7 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot
     /// <summary>
     /// Interaction logic for ViewCapture.xaml
     /// </summary>
-    public partial class ViewCapture : Window
+    public partial class ViewCapture
     {
         public string Location { get; set; }
         public static ViewCapture Instance { get; set; }
@@ -23,8 +17,7 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot
             InitializeComponent();
             Location = uri;
             Instance = this;
-            //Preview.Source = new BitmapImage(new Uri(uri));
-            Preview.Source = Screencap.ChatBmpSource;
+            Preview.Source = new BitmapImage(new Uri(uri));
             Title = uri;
             UploadCapture(this, null);
         }

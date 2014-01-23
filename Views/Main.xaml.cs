@@ -14,6 +14,7 @@ using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
+using CloudsdaleWin7.Views.CloudViews;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Settings = CloudsdaleWin7.Views.Flyouts.Settings;
@@ -90,12 +91,25 @@ namespace CloudsdaleWin7.Views
             var cloud = (ListView)sender;
             var item = (Cloud)cloud.SelectedItem;
             App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
-            if (MessageSource.GetSource(item.Id).Messages.Count <= 45)
+
+            Frame.IsEnabled = false;
+            await App.Connection.MessageController.CurrentCloud.LoadBans();
+            foreach (var ban in App.Connection.MessageController.CurrentCloud.Bans.Where(
+                b => (b.OffenderId == App.Connection.SessionController.CurrentSession.Id)).Where(ban => ban.Active == true))
             {
-                Frame.IsEnabled = false;
-                await App.Connection.MessageController[item].LoadMessages();
+                Clouds.SelectedIndex = -1;
+                Frame.Navigate(new BannedCloud(ban, item.Id));
                 Frame.IsEnabled = true;
+                LoadingText.Visibility = Visibility.Hidden;
+                return;
             }
+            
+            if (!App.Connection.MessageController.CurrentCloud.BeenLoaded)
+            {
+                await App.Connection.MessageController[item].LoadMessages();
+                App.Connection.MessageController.CurrentCloud.BeenLoaded = true;
+            }
+            Frame.IsEnabled = true;
 
             var cloudView = new CloudView(item);
             Frame.Navigate(cloudView);
@@ -110,13 +124,11 @@ namespace CloudsdaleWin7.Views
             Clouds.SelectedIndex = -1;
         }
 
-        private bool CanMakeCloud
+        private static bool CanMakeCloud
         {
             get
             {
-                if (App.Connection.SessionController.CurrentSession.Role == "founder" ||
-                    App.Connection.SessionController.CurrentSession.Role == "developer") return true;
-                return App.Connection.SessionController.CurrentSession.Clouds.All(i => i.OwnerId != App.Connection.SessionController.CurrentSession.Id);
+                return App.Connection.SessionController.CurrentSession.IsStaff || App.Connection.SessionController.CurrentSession.Clouds.All(i => i.OwnerId != App.Connection.SessionController.CurrentSession.Id);
             }
         }
 
@@ -198,8 +210,13 @@ namespace CloudsdaleWin7.Views
             {
                 if (MessageBox.Show("Are you sure you want to delete this cloud?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                     return;
-                var client = new HttpClient().AcceptsJson();
-                client.DefaultRequestHeaders.Add("X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken);
+                var client = new HttpClient
+                             {
+                                 DefaultRequestHeaders =
+                                 {
+                                     {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken }
+                                 }
+                             }.AcceptsJson();
                 await client.DeleteAsync(Endpoints.Cloud.Replace("[:id]", c.Id));
                 App.Connection.SessionController.CurrentSession.Clouds.Remove(c);
                 App.Connection.SessionController.RefreshClouds();
@@ -238,7 +255,7 @@ namespace CloudsdaleWin7.Views
                 case Key.H:
                     Frame.Navigate(new Home());
                     break;
-                case Key.T:
+                case Key.Space:
                     CloudView.Instance.CaptureChat(this, null);
                     break;
             }

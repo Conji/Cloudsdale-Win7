@@ -18,24 +18,22 @@ namespace CloudsdaleWin7.lib.Helpers
             var o = @"{""cloud"":{""[:p]"":""[:v]""}}"
                .Replace("[:p]", property)
                .Replace("[:v]", value.ToString());
+            Console.WriteLine(o);
 
             var client = new HttpClient
             {
                 DefaultRequestHeaders =
                 {
-                    {"Accept", "application/json"},
                     {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
                 }
-            };
-            var response = await client.PutAsync(Endpoints.Cloud.Replace("[:id]", cloud.Id), new JsonContent(o));
-
+            }.AcceptsJson();
+            var response = await client.PostAsync(Endpoints.Cloud.Replace("[:id]", cloud.Id), new JsonContent(o));
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
             var responseObject = JsonConvert.DeserializeObject<WebResponse<Cloud>>(await response.Content.ReadAsStringAsync());
 
             if (responseObject.Flash != null)
             {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
-                                                                          new Message
-                                                                              {Content = responseObject.Flash.Message});
+                App.Connection.NotificationController.Notification.Notify(responseObject.Flash.Message);
                 return;
             }
             responseObject.Result.CopyTo(App.Connection.MessageController[cloud].Cloud);
@@ -69,13 +67,7 @@ namespace CloudsdaleWin7.lib.Helpers
                 JsonConvert.DeserializeObjectAsync<WebResponse<User>>(await response.Content.ReadAsStringAsync());
             if (responseObject.Result.Flash != null)
             {
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client,
-                                                                          new Message
-                                                                              {
-                                                                                  Content =
-                                                                                      responseObject.Result.Flash.
-                                                                                      Message
-                                                                              });
+                App.Connection.NotificationController.Notification.Notify(responseObject.Result.Flash.Message);
                 return;
             }
             responseObject.Result.Result.CopyTo(App.Connection.SessionController.CurrentSession);

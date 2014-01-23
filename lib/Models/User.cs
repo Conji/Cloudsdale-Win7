@@ -288,6 +288,11 @@ namespace CloudsdaleWin7.lib.Models
             }
         }
 
+        public bool IsStaff
+        {
+            get { return Role == "founder" || Role == "admin" || Role == "developer"; }
+        }
+
         [JsonProperty("status")] public Status? Status;
         #endregion
         public async Task UploadAvatar(Stream pictureStream, string mimeType)

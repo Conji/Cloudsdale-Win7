@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,10 +32,29 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             InitializeComponent();
             Instance = this;
             Self = user;
-            AdminUI.Visibility = App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Contains(App.Connection.SessionController.CurrentSession.Id)
-                && Self.Role != "founder"
-                ? Visibility.Visible : Visibility.Hidden;
+            AdminUI.Visibility = IsUserBannable ? Visibility.Visible : Visibility.Hidden;
             InitializeUser();
+        }
+
+        public bool IsUserBannable
+        {
+            get
+            {
+                //checks if the flyout is for the logged in user.
+                if (Self.Id == App.Connection.SessionController.CurrentSession.Id) return false;
+                //checks if the viewed user is role of founder.
+                if (Self.Role == "founder") return false;
+                //checks if logged in user is an admin.
+                if (App.Connection.SessionController.CurrentSession.Role == "admin") return true;
+                //checks if the cloud is owned by logged in user.
+                if (App.Connection.MessageController.CurrentCloud.Cloud.OwnerId ==
+                    App.Connection.SessionController.CurrentSession.Id) return true;
+                //checks if viewed user is a moderator.
+                if (App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Contains(Self.Id)) return false;
+                //checks if the user is a moderator. Returns false otherwise.
+                return App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Contains(
+                    App.Connection.SessionController.CurrentSession.Id);
+            }
         }
 
         private async void InitializeUser()
@@ -50,8 +70,9 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             if (App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Contains(Self.Id)) PromoteCommand.Content = "Demote Moderator";
             akaList.ItemsSource = Self.AlsoKnownAs;
             BanReason.Text = "Banned by @" + App.Connection.SessionController.CurrentSession.Username;
-            
-            PreviousBans.ItemsSource = (await UnexpiredBans()).Reverse();
+
+            PreviousBans.ItemsSource =
+                App.Connection.MessageController.CurrentCloud.Bans.Where(b => b.OffenderId == Self.Id);
 
             BanCal.SelectedDate = DateTime.Now.AddDays(1.0);
         }
@@ -83,8 +104,8 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         public static async Task<ObservableCollection<Ban>> UnexpiredBans()
         {
             var list = new ObservableCollection<Ban>();
-            await App.Connection.MessageController.CurrentCloud.LoadBans(Self.Id);
-            foreach (var ban in Self.BansOnUser.Where(r => r.Revoked == false && r.Expired == false))
+            await App.Connection.MessageController.CurrentCloud.LoadBans();
+            foreach (var ban in App.Connection.MessageController.CurrentCloud.Bans.Where(b => b.OffenderId == Self.Id))
             {
                 list.Add(ban);
             }
@@ -137,25 +158,39 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
 
         private async void AdjustModeration(object sender, RoutedEventArgs e)
         {
+            var id = App.Connection.MessageController.CurrentCloud.Cloud.Id;
+            var client = new HttpClient
+                         {
+                             DefaultRequestHeaders =
+                             {
+                                 {"X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken}
+                             }
+                         }.AcceptsJson();
+            var content = "";
 
             switch (App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Contains(Self.Id))
             {
                 case false:
 
-                    var content = new
-                                  {
-                                      cloud = new
-                                              {
-                                                  moderator_ids = App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.AddToLiteralString(Self.Id)
-                                              }
-                                  };
-
-                    await App.Connection.MessageController.CurrentCloud.Cloud.UpdateProperty("moderator_ids",
-                        content.ToString(), true);
+                    content = "{\"cloud\": { \"x_moderator_ids\": " +
+                              JArray.FromObject(App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Concat(new[] { Self.Id })) + "}}";
+                    
                     break;
                 case true:
+                    content = "{\"cloud\": { \"x_moderator_ids\": " +
+                              JArray.FromObject(App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.ToArray()
+                                  .Remove(Self.Id)) + "}}";
                     break;
             }
+            Console.WriteLine(content);
+            var response =
+                await
+                    client.PostAsync(
+                        Endpoints.Cloud.Replace("[:id]", id),
+                        new JsonContent(content));
+            var responseObject =
+                await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(await response.Content.ReadAsStringAsync());
+            App.Connection.ModelController.Clouds[id].ModeratorIds = responseObject.Result.ModeratorIds;
         }
 
         private async void AttemptRevoke(object sender, System.Windows.Input.MouseButtonEventArgs e)

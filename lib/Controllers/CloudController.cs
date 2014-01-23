@@ -25,8 +25,8 @@ namespace CloudsdaleWin7.lib.Controllers
         private int _unreadMessages;
         private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
         private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
-        public static readonly Regex LinkRegex = new Regex(@"(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
         public MessageSource Source { get; set; }
+        public bool BeenLoaded { get; set; }
 
         public User Owner
         {
@@ -47,6 +47,7 @@ namespace CloudsdaleWin7.lib.Controllers
             FixSessionStatus();
             Source = MessageSource.GetSource(cloud.Id);
             //LoadBans();
+            BeenLoaded = false;
         }
 
 
@@ -147,51 +148,24 @@ namespace CloudsdaleWin7.lib.Controllers
             var client = new HttpClient().AcceptsJson();
             client.DefaultRequestHeaders.Add("X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken);
 
-            if (!Cloud.ModeratorIds.Contains(App.Connection.SessionController.CurrentSession.Id)) return;
             _bans.Clear();
-            var response = await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id));
-            var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
-            foreach (var ban in userData.Result)
+            try
             {
-                var b = ban;
-                foreach (var user in App.Connection.ModelController.Users.Where(user => b.OffenderId == user.Key))
+                var response = await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id));
+                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
+                foreach (var ban in userData.Result)
                 {
-                    user.Value.BansOnUser.Add(ban);
+                    _bans.Add(ban);
                 }
             }
-        }
-
-        public async Task LoadBans(string id)
-        {
-            var client = new HttpClient().AcceptsJson();
-            client.DefaultRequestHeaders.Add("X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken);
-
-            if (!Cloud.ModeratorIds.Contains(App.Connection.SessionController.CurrentSession.Id)) return;
-            _bans.Clear();
-            var response = await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id));
-            var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
-            foreach (var ban in userData.Result.Where(b => b.Expired == false && b.Revoked == false && b.OffenderId == id))
-            {
-                App.Connection.ModelController.Users[id].BansOnUser.Add(ban);
-            }
-        }
-
-        public async Task EnsureLoaded()
-        {
-            FayeConnector.Subscribe("/clouds/" + Cloud.Id + "/users/**");
-
-            await Cloud.Validate();
-            await LoadMessages();
-            await LoadUsers();
-            await LoadBans();
+            catch { }
         }
 
         public async Task LoadMessages(bool addUnread = true)
         {
             var client = new HttpClient().AcceptsJson();
+            var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id)));
 
-            var response = await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id));
-            var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(response);
             var newMessages = new List<Message>(MessageSource.GetSource(Cloud.Id).Messages
                 .Where(message => message.Timestamp > responseMessages.Result.Last().Timestamp));
             MessageSource.GetSource(Cloud.Id).Messages.Clear();
@@ -262,13 +236,10 @@ namespace CloudsdaleWin7.lib.Controllers
             AddUnread();
             var message = jMessage.ToObject<Message>();
             message.Author.CopyTo(message.User);
-
             message.PostedOn = Cloud.Id;
-
             AddMessageToSource(message);
 
             #region Cloud Note
-
 
             if (App.Connection.NotificationController.Receive)
             {
@@ -278,14 +249,10 @@ namespace CloudsdaleWin7.lib.Controllers
                 }
             }
 
-
             #endregion
 
-
             if (App.Connection.MessageController.CurrentCloud == this && CloudView.Instance != null && !CloudView.Instance.IsReadingHistory)
-            {
                 CloudView.Instance.ChatScroll.ScrollToBottom();
-            }
         }
 
         private async void OnUserMessage(string id, JToken jUser)

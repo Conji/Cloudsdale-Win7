@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -87,12 +88,37 @@ namespace CloudsdaleWin7.lib.Helpers
 
         public static string ToLiteralString(this string[] array)
         {
-            return "[ " + array.Aggregate("", (current, o) => current + (o + ", ")) + " ]";
+            var s = "";
+            if (array.Count() == 1) return String.Format("[ \"{0}\" ]", array[0]);
+
+            var i = 0;
+            foreach (var item in array)
+            {
+                if (i == 0)
+                {
+                    s = "[ \"" + item + "\", ";
+                }
+                else if(i == array.Length - 1)
+                {
+                    s += "\"" + item + "\" ]";
+                }
+                else
+                {
+                    s += "\"" + item + "\", ";
+                }
+                ++i;
+            }
+            return s;
         }
 
         public static string AddToLiteralString(this string[] array, object addition)
         {
             return "[ " + array.Aggregate("", (current, o) => current + (o + ", ")) + addition + " ]";
+        }
+
+        public static string[] Remove(this string[] array, object item)
+        {
+            return (array.Where(k => !item.Equals(k)).ToArray());
         }
     }
 }

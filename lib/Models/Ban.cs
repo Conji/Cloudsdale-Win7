@@ -141,5 +141,17 @@ namespace CloudsdaleWin7.lib.Models
             response.Result.Result.CopyTo(this);
             return true;
         }
+        public override string ToString()
+        {
+            return new
+                   {
+                       ban = new
+                             {
+                                offender_id = OffenderId,
+                                due = Due,
+                                reason = Reason
+                             }
+                   }.ToString();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.Views.Initial;
 
 namespace CloudsdaleWin7 {
@@ -21,6 +22,7 @@ namespace CloudsdaleWin7 {
             EmailBox.Text = App.Settings["email"];
             if (String.IsNullOrEmpty(EmailBox.Text)) EmailBox.Focus();
             if (!String.IsNullOrEmpty(EmailBox.Text) && String.IsNullOrEmpty(PasswordBox.Password)) PasswordBox.Focus();
+            VersionBlock.Text = ClientVersion.Version;
         }
 
         private async void LoginAttempt(object sender, KeyEventArgs e)

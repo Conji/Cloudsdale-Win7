@@ -1,12 +1,10 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
-using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -26,8 +24,9 @@ namespace CloudsdaleWin7.Controls
 
         private void Mention(object sender, MouseButtonEventArgs e)
         {
-            Main.Instance.CurrentView.InputBox.Text = "@" + ((User)((TextBlock)sender).DataContext).Username + " ";
+            Main.Instance.CurrentView.InputBox.Text = "@" + ((User)((Run)sender).DataContext).Username + " ";
             Main.Instance.CurrentView.InputBox.Focus();
+            
         }
 
         private async void UserInfo(object sender, MouseButtonEventArgs e)
@@ -53,15 +52,5 @@ namespace CloudsdaleWin7.Controls
             CloudView.Instance.InputBox.Text = "> " + ((MenuItem) sender).DataContext.ToString().Replace("\r\n", "\r\n> ");
             CloudView.Instance.InputBox.Focus();
         }
-
-        private void DeleteMessage(object sender, MouseButtonEventArgs e)
-        {
-            var client = new HttpClient().AcceptsJson();
-            var response =
-                client.DeleteAsync(Endpoints.CloudMessages.Replace("[:id]",
-                                                           App.Connection.MessageController.CurrentCloud.Cloud.Id));
-            Console.WriteLine(response.Result.Content.ReadAsStringAsync().Result);
-        }
-        
     }
 }
