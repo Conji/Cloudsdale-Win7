@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.lib.CloudsdaleLib.Misc;
 using CloudsdaleWin7.lib;
 using CloudsdaleWin7.lib.Controllers;
@@ -107,7 +106,7 @@ namespace CloudsdaleWin7.Views
             if (!App.Connection.MessageController.CurrentCloud.BeenLoaded)
             {
                 await App.Connection.MessageController[item].LoadMessages();
-                App.Connection.MessageController.CurrentCloud.BeenLoaded = true;
+                App.Connection.MessageController.CloudControllers[item.Id].BeenLoaded = true;
             }
             Frame.IsEnabled = true;
 

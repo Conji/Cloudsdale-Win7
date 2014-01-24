@@ -5,13 +5,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.Notifications;
-using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
@@ -25,8 +23,9 @@ namespace CloudsdaleWin7.lib.Controllers
         private int _unreadMessages;
         private readonly Dictionary<string, Status> _userStatuses = new Dictionary<string, Status>();
         private readonly ObservableCollection<Ban> _bans = new ObservableCollection<Ban>();
-        public MessageSource Source { get; set; }
+        private ObservableCollection<Message> _messages = new ObservableCollection<Message>();
         public bool BeenLoaded { get; set; }
+
 
         public User Owner
         {
@@ -45,7 +44,6 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             Cloud = cloud;
             FixSessionStatus();
-            Source = MessageSource.GetSource(cloud.Id);
             //LoadBans();
             BeenLoaded = false;
         }
@@ -166,9 +164,9 @@ namespace CloudsdaleWin7.lib.Controllers
             var client = new HttpClient().AcceptsJson();
             var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id)));
 
-            var newMessages = new List<Message>(MessageSource.GetSource(Cloud.Id).Messages
+            var newMessages = new List<Message>(Messages
                 .Where(message => message.Timestamp > responseMessages.Result.Last().Timestamp));
-            MessageSource.GetSource(Cloud.Id).Messages.Clear();
+            Messages.Clear();
             try
             {
                 foreach (var message in responseMessages.Result)
@@ -190,28 +188,42 @@ namespace CloudsdaleWin7.lib.Controllers
         }
 
 
-        public void AddMessageToSource(Message message, bool addUnread = true)
+        public async void AddMessageToSource(Message message, bool addUnread = true)
         {
-            if (!App.Connection.ModelController.Users.ContainsKey(message.Author.Id))
-                App.Connection.ModelController.Users.Add(message.Author.Id, message.Author);
+            //if (!App.Connection.ModelController.Users.ContainsKey(message.Author.Id))
+            //    App.Connection.ModelController.Users.Add(message.Author.Id, message.Author);
+            //message.Author.CopyTo(message.User);
+            //message.Timestamp = message.Timestamp.ToLocalTime();
+
+            //if (Messages.Count > 0)
+            //{
+            //    if (Messages.Last().AuthorId == message.AuthorId
+            //        && !message.Content.StartsWith("/me")
+            //        && Messages.Last().Content.StartsWith("/me"))
+            //    {
+            //        Messages[Messages.Count - 1].Content += "\n" + message.Content;
+            //        if (addUnread) AddUnread();
+            //    }
+            //    else Messages.Add(message);
+            //}
+            //else Messages.Add(message);
+            if (!App.Connection.ModelController.Users.ContainsKey(message.AuthorId))
+                App.Connection.ModelController.Users.Add(message.AuthorId, message.Author);
             message.Author.CopyTo(message.User);
             message.Timestamp = message.Timestamp.ToLocalTime();
-
-            if (Source.Messages.Count > 0)
+            if (Messages.Count > 0)
             {
-                if (Source.Messages.Last().AuthorId == message.AuthorId
-                    && !message.Content.StartsWith("/me")
-                    && !MessageSource.GetSource(Cloud.Id).Messages.Last().Content.StartsWith("/me"))
+                if (message.CanMerge(Messages.Last()))
                 {
-                    Source.Messages[Source.Messages.Count - 1].Content += "\n" + message.Content;
+                    Messages[Messages.Count - 1].Content += "\n" + message.Content;
+                    Messages[Messages.Count - 1].Timestamp = message.Timestamp;
                     if (addUnread) AddUnread();
                 }
-                else Source.AddMessages(message);
-            }
-            else Source.AddMessages(message);
+                else Messages.Add(message);
+            }else Messages.Add(message);
 
             MainWindow.Instance.Title = String.Format("{0} ({1} Unread Messages)", ((Page)Main.Instance.Frame.Content).Title, App.Connection.MessageController.TotalUnreadMessages);
-            if (Source.Messages.Count > 50) Source.Messages.RemoveAt(0);
+            if (Messages.Count > 50) Messages.RemoveAt(0);
         }
 
         public void OnMessage(JObject message)
@@ -295,6 +307,20 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 if (value == _unreadMessages) return;
                 _unreadMessages = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Message> Messages
+        {
+            get
+            {
+                return _messages;
+            }
+            set
+            {
+                if (_messages == value) return;
+                _messages = value;
                 OnPropertyChanged();
             }
         }

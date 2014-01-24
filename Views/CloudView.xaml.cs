@@ -35,7 +35,7 @@ namespace CloudsdaleWin7.Views {
             App.Connection.MessageController[cloud].UnreadMessages = 0;
             Name.Text = cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
-            CloudMessages.ItemsSource = MessageSource.GetSource(cloud.Id).Messages;
+            CloudMessages.ItemsSource = App.Connection.MessageController[cloud].Messages;
             Main.Instance.Frame.IsEnabled = true;
             Main.Instance.LoadingText.Visibility = Visibility.Hidden;
             Main.Instance.HideFlyoutMenu();

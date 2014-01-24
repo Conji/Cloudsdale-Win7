@@ -60,12 +60,12 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                     SearchList.Clear();
 
                     //TODO: show the search results
-                    foreach (var user in Controller.OnlineModerators.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)))
+                    foreach (var user in Controller.AllModerators.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)))
                     {
                         SearchList.Add(user);
                     }
 
-                    foreach(var user in Controller.OnlineUsers.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)))
+                    foreach(var user in Controller.AllUsers.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)))
                     {
                         SearchList.Add(user);
                     }

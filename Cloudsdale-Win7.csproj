@@ -129,7 +129,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Changelog.cs" />
-    <Compile Include="lib\CloudsdaleLib\MessageSource.cs" />
     <Compile Include="lib\CloudsdaleLib\Misc\Commands\ClientCommands.cs" />
     <Compile Include="lib\CloudsdaleLib\Misc\Commands\CommandManager.cs" />
     <Compile Include="lib\CloudsdaleLib\Misc\Commands\ICommand.cs" />
@@ -492,9 +491,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\cancel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\download.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\next.png" />

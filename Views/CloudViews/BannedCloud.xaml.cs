@@ -1,4 +1,4 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
 using CloudsdaleWin7.lib.Models;
 
 namespace CloudsdaleWin7.Views.CloudViews
@@ -12,6 +12,9 @@ namespace CloudsdaleWin7.Views.CloudViews
         public BannedCloud(Ban ban, string id)
         {
             InitializeComponent();
+            ForStaff.Visibility = App.Connection.SessionController.CurrentSession.IsStaff
+                ? Visibility.Visible
+                : Visibility;
             sId = id;
             CloudName.Text = App.Connection.ModelController.Clouds[id].Name;
             BanDue.Text = ban.Due.Value.ToShortDateString();
@@ -21,9 +24,15 @@ namespace CloudsdaleWin7.Views.CloudViews
                 : "";
         }
 
-        private void LeaveCloud(object sender, System.Windows.RoutedEventArgs e)
+        private void LeaveCloud(object sender, RoutedEventArgs e)
         {
             App.Connection.ModelController.Clouds[sId].Leave();
+        }
+
+        private void Continue(object sender, RoutedEventArgs e)
+        {
+
+            Main.Instance.Frame.Navigate(new CloudView(App.Connection.MessageController.CurrentCloud.Cloud));
         }
     }
 }

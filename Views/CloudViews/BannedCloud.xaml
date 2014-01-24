@@ -29,6 +29,11 @@
                 <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
             </Button.BorderBrush>
         </Button>
+        <Button x:Name="ForStaff" Content="Continue To Cloud" HorizontalAlignment="Left" Margin="0,0,0,60" VerticalAlignment="Bottom" Width="224" Height="50" FontSize="18" Click="Continue">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource PrimaryContent}"/>
+            </Button.BorderBrush>
+        </Button>
 
     </Grid>
 </Page>
