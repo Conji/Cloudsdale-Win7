@@ -19,9 +19,6 @@
     </Page.Background>
 
     <Grid x:Name="Grid">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="264"/>

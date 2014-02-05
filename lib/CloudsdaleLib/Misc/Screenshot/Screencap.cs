@@ -24,14 +24,6 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot
     public static class Screencap
     {
         public static string SavedDirectory = String.Format("C:\\Users\\{0}\\Pictures\\Cloudsdale\\", Environment.UserName);
-        public static ObservableCollection<string> CurrentCaps { get; set; }
-
-        public static void Initialize()
-        {
-            CurrentCaps = new ObservableCollection<string>(Directory.GetFiles(SavedDirectory).ToList().Where(f => f.EndsWith("_cd.png")));
-            if (Directory.Exists(SavedDirectory)) return;
-            Directory.CreateDirectory(SavedDirectory);
-        }
 
         public static Bitmap CapChat()
         {
@@ -51,18 +43,9 @@ namespace CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot
             return b;
         }
 
-        public static BitmapSource ChatBmpSource
-        {
-            get
-            {
-                return Imaging.CreateBitmapSourceFromHBitmap(CapChat().GetHbitmap(), IntPtr.Zero, Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
-            }
-        }
-
         public static bool DoCap()
         {
-            var ran = SavedDirectory + UiHelpers.TimeTitle().FormatToFile();
+            var ran = SavedDirectory + DateTime.Now.ToString("yyyyMMddHHmmss").FormatToFile();
             CapChat().Save(ran, ImageFormat.Png);
             var v = new ViewCapture(ran);
             v.Show();

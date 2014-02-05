@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using CloudsdaleWin7.lib.CloudsdaleLib.Misc.Screenshot;
 using CloudsdaleWin7.Views.CloudViews;
 using CloudsdaleWin7.Views.Flyouts.CloudFlyouts;
@@ -36,10 +37,15 @@ namespace CloudsdaleWin7.Views {
             Name.Text = cloud.Name;
             Dispatcher.BeginInvoke(new Action(ChatScroll.ScrollToBottom));
             CloudMessages.ItemsSource = App.Connection.MessageController[cloud].Messages;
-            Main.Instance.Frame.IsEnabled = true;
-            Main.Instance.LoadingText.Visibility = Visibility.Hidden;
-            Main.Instance.HideFlyoutMenu();
             InputBox.Focus();
+            Dispatcher.InvokeAsync(async() =>
+                                         {
+                                             foreach (var id in cloud.UserIds)
+                                             {
+                                                 App.Connection.ModelController.Users[id] =
+                                                     await App.Connection.ModelController.GetUserAsync(id);
+                                             }
+                                         }, DispatcherPriority.Background);
         }
 
         public bool IsReadingHistory
@@ -107,9 +113,10 @@ namespace CloudsdaleWin7.Views {
             }
             finally
             {
-                InputBox.IsEnabled = true;}
-            InputBox.Text = "";
-            InputBox.Focus();
+                InputBox.IsEnabled = true;
+                InputBox.Text = "";
+                InputBox.Focus();
+            }
         }
 
         private async void ShowUserList(object sender, MouseButtonEventArgs e)

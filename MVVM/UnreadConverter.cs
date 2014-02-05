@@ -13,9 +13,10 @@ namespace CloudsdaleWin7.MVVM
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (int) value > 0
-                       ? value.ToString()
-                       : "";
+            var i = (int) value;
+            if (i >= 1000) return "999+";
+            if (i > 0) return value.ToString();
+            return "";
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

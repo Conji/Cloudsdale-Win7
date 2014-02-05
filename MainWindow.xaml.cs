@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms.VisualStyles;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 
@@ -52,7 +56,19 @@ namespace CloudsdaleWin7
 
         private void Testvoid()
         {
+            
+        }
 
+        private void AdjustTitle(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            try
+            {
+                Title = ((Page)MainFrame.Content).Title;
+            }
+            catch
+            {
+                Title = "Cloudsdale";
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.Views.Initial;
 
@@ -23,6 +24,7 @@ namespace CloudsdaleWin7 {
             if (String.IsNullOrEmpty(EmailBox.Text)) EmailBox.Focus();
             if (!String.IsNullOrEmpty(EmailBox.Text) && String.IsNullOrEmpty(PasswordBox.Password)) PasswordBox.Focus();
             VersionBlock.Text = ClientVersion.Version;
+            Title = "Cloudsdale";
         }
 
         private async void LoginAttempt(object sender, KeyEventArgs e)
@@ -34,32 +36,26 @@ namespace CloudsdaleWin7 {
                 return;
             }
             ErrorMessage.Text = "";
-            LoginUi.Visibility = Visibility.Hidden;
-            LoggingInUi.Visibility = Visibility.Visible;
-           try
-           {
-               if (App.Settings["email"] != EmailBox.Text) App.Settings.Clear();
-               App.Settings["email"] = EmailBox.Text;
-               await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
-           }catch (Exception ex)
-           {
-               ShowMessage(ex.Message);
-               LoginUi.Visibility = Visibility.Visible;
-               LoggingInUi.Visibility = Visibility.Hidden;
-           }
+            LoginUi.SwitchVisibility(LoggingInUi);
+            try
+            {
+                if (App.Settings["email"] != EmailBox.Text) App.Settings.Clear();
+                App.Settings["email"] = EmailBox.Text;
+                await App.Connection.SessionController.Login(EmailBox.Text, PasswordBox.Password);
+            }
+            catch (Exception ex)
+            {
+                ShowMessage(ex.Message);
+                LoginUi.SwitchVisibility(LoggingInUi);
+            }
         }
 
         public void ShowMessage(string message)
         {
             #region Show Message
 
-            var board = new Storyboard();
-            var animation = new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(200000000)));
-            board.Children.Add(animation);
-            Storyboard.SetTargetName(animation, ErrorMessage.Name);
-            Storyboard.SetTargetProperty(animation, new PropertyPath(OpacityProperty));
             ErrorMessage.Text = message;
-            board.Begin(this);
+            ErrorMessage.BeginAnimation(OpacityProperty, new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(200000000))));
 
             #endregion
         }

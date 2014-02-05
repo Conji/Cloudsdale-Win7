@@ -67,9 +67,9 @@
                             </Image.Clip>
                         </Image>
                         <!-- Name -->
-                        <TextBlock Text="{Binding Name, Converter={StaticResource Short}}" MaxWidth="150" FontSize="14"/>
+                        <TextBlock Text="{Binding Name, Converter={StaticResource Short}}" MaxWidth="150" FontSize="14" VerticalAlignment="Center"/>
                         <!-- Unread Count-->
-                        <TextBlock Margin="5" Text="{Binding RawController.UnreadMessages, Converter={StaticResource Unread}}" FontSize="18" FontFamily="Consolas" FontWeight="Bold">
+                        <TextBlock Margin="5" Text="{Binding RawController.UnreadMessages, Converter={StaticResource Unread}}" FontSize="18" FontFamily="Consolas" FontWeight="Bold" VerticalAlignment="Center">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="#FF6E82FF"/>
                             </TextBlock.Foreground>

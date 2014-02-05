@@ -31,6 +31,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
         {
             InitializeComponent();
             Instance = this;
+            Title = user.Username;
             Self = user;
             AdminUI.Visibility = IsUserBannable ? Visibility.Visible : Visibility.Hidden;
             InitializeUser();
@@ -57,7 +58,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             }
         }
 
-        private async void InitializeUser()
+        private void InitializeUser()
         {
             AvatarBounce();
             Username.Text = "@" + Self.Username;
@@ -70,10 +71,7 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             if (App.Connection.MessageController.CurrentCloud.Cloud.ModeratorIds.Contains(Self.Id)) PromoteCommand.Content = "Demote Moderator";
             akaList.ItemsSource = Self.AlsoKnownAs;
             BanReason.Text = "Banned by @" + App.Connection.SessionController.CurrentSession.Username;
-
-            PreviousBans.ItemsSource =
-                App.Connection.MessageController.CurrentCloud.Bans.Where(b => b.OffenderId == Self.Id);
-
+            PreviousBans.ItemsSource = App.Connection.MessageController.CurrentCloud.Bans.Where(b => b.OffenderId == Self.Id);
             BanCal.SelectedDate = DateTime.Now.AddDays(1.0);
         }
 
@@ -125,10 +123,11 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                 App.Connection.NotificationController.Notification.Notify("You can't leave the reason blank!");
                 return;
             }
-
-            if (MessageBox.Show("Ban @" + Self.Username + " for \"" + BanReason.Text + "\" until " + BanCal.SelectedDate + "?", "Confirm", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
-                return;
-
+            if (
+                MessageBox.Show(String.Format("Ban @{0} for \"{1}\" until {2}?", 
+                Self.Username, 
+                BanReason.Text,
+                BanCal.SelectedDate)) != MessageBoxResult.Yes) return;
             var ban = new Ban(Self.Id)
                           {
                               OffenderId = Self.Id,

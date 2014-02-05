@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -30,21 +31,8 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
             ModeratorList.ItemsSource = cloud.OnlineModerators;
             OnlineUserList.ItemsSource = cloud.OnlineUsers;
             SearchResults.ItemsSource = SearchList;
-            foreach (var user in Controller.OnlineUsers)
-            {
-                SearchList.Add(App.Connection.ModelController.GetUserAsync(user.Id).Result);
-            }
         }
 
-        /// <summary>
-        /// Updates the search box object according to text.
-        /// It will organize itself by:
-        /// - online users that match the criteria
-        /// - online users that contain the text
-        /// - offline users that match the criteria
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private async void UpdateSearch(object sender, TextChangedEventArgs e)
         {
             switch(SearchBox.Text.ToLower().Trim())
@@ -60,25 +48,24 @@ namespace CloudsdaleWin7.Views.Flyouts.CloudFlyouts
                     SearchList.Clear();
 
                     //TODO: show the search results
-                    foreach (var user in Controller.AllModerators.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)))
+
+                    foreach (var user in Controller.AllUsers.Where(c => c.Name.ToLower().StartsWith(SearchBox.Text.ToLower())))
                     {
-                        SearchList.Add(user);
+                        SearchList.Add(await App.Connection.ModelController.GetUserAsync(user.Id));
                     }
 
-                    foreach(var user in Controller.AllUsers.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)))
-                    {
-                        SearchList.Add(user);
-                    }
-
-
+                    //SearchList.AddRange(Controller.AllModerators.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)));
+                    //SearchList.AddRange(Controller.AllUsers.Where(u => u.Name.ToLower().StartsWith(SearchBox.Text.ToLower().Trim()) && !SearchList.Contains(u)));
                     break;
             }
+
         }
 
-        private void FlyoutUser(object sender, SelectionChangedEventArgs e)
+        private async void FlyoutUser(object sender, SelectionChangedEventArgs e)
         {
             var user = (User) ((ListView) sender).SelectedItem;
             user.Name = user.Name.Replace("(banned)", "");
+            await user.Validate();
             user.ShowFlyout();
         }
 

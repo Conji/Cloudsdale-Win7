@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
+using CloudsdaleWin7.Views.Misc;
 
 namespace CloudsdaleWin7.lib.Models
 {
@@ -41,19 +43,21 @@ namespace CloudsdaleWin7.lib.Models
             CheckVersion();
             CleanUp();
         }
-        private static void UpdateClient()
+        private async static void UpdateClient()
         {
-            MessageBox.Show("Please wait while we update. The window will close once it's finished.");
-            MainWindow.Instance.Width = 50;
-            MainWindow.Instance.Height = 20;
-            MainWindow.Instance.ResizeMode = ResizeMode.NoResize;
-            MainWindow.Instance.ShowInTaskbar = false;
+            MainWindow.Instance.Hide();
+            var win = new UpdatingWindow();
+            win.Show();
             File.Move(CloudsdaleSource.ExeFile, CloudsdaleSource.OldFile);
             var client = new WebClient();
-            client.DownloadFile(new Uri(Endpoints.ClientAddress), CloudsdaleSource.ExeFile);
-            client.DownloadFileCompleted += (sender, args) => Process.Start(CloudsdaleSource.ExeFile);
+            
+            await Dispatcher.CurrentDispatcher.InvokeAsync(() =>
+            {
+                client.DownloadFile(new Uri(Endpoints.ClientAddress), CloudsdaleSource.ExeFile);
+                win.Close();
+                MainWindow.Instance.Close();
+            });
             Process.Start(CloudsdaleSource.ExeFile);
-            MainWindow.Instance.Close();
         }
         public static void CleanUp()
         {

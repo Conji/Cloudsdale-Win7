@@ -29,7 +29,7 @@ namespace CloudsdaleWin7.lib.Faye
             if (Socket != null)
             {
                 Socket.Close();
-                Socket.MessageReceived += null;
+                Socket.MessageReceived -= null;
                 Socket = null;
             }
             Connected = false;

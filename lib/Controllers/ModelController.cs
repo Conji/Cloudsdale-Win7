@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CloudsdaleWin7.lib.Models;
 using CloudsdaleWin7.lib.Providers;
@@ -9,6 +11,27 @@ namespace CloudsdaleWin7.lib.Controllers
     {
         public readonly Dictionary<string, User> Users = new Dictionary<string, User>();
         public readonly Dictionary<string, Cloud> Clouds = new Dictionary<string, Cloud>();
+
+        public User this[string value, SearchParameter param = SearchParameter.Id]
+        {
+            get
+            {
+                switch (param)
+                {
+                    case SearchParameter.Id:
+                        return Users[value];
+                    case SearchParameter.Name:
+                        return Users.Values.First(u => String.Equals(u.Name, value, StringComparison.CurrentCultureIgnoreCase));
+                    case SearchParameter.Username:
+                        return Users.Values.First(u => String.Equals(u.Name, value, StringComparison.CurrentCultureIgnoreCase));
+                }
+                if (param == SearchParameter.Id)
+                {
+                    GetUser(value);
+                }
+                return null;
+            }
+        }
 
         public async Task<User> GetUserAsync(string id)
         {
@@ -104,5 +127,12 @@ namespace CloudsdaleWin7.lib.Controllers
 
             return Clouds[cloudId];
         }
+    }
+
+    public enum SearchParameter
+    {
+        Id,
+        Username,
+        Name,
     }
 }

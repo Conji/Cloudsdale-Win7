@@ -7,7 +7,6 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using CloudsdaleWin7.lib.CloudsdaleLib;
 using CloudsdaleWin7.Views;
 using CloudsdaleWin7.Views.Notifications;
 using CloudsdaleWin7.lib.Helpers;
@@ -44,10 +43,8 @@ namespace CloudsdaleWin7.lib.Controllers
         {
             Cloud = cloud;
             FixSessionStatus();
-            //LoadBans();
             BeenLoaded = false;
         }
-
 
         public Cloud Cloud { get; private set; }
 
@@ -116,22 +113,20 @@ namespace CloudsdaleWin7.lib.Controllers
             try
             {
                 var client = new HttpClient().AcceptsJson();
+                var response = await client.GetStringAsync((
+                       Cloud.UserIds.Length > 100
+                       ? Endpoints.CloudOnlineUsers
+                       : Endpoints.CloudUsers)
+                       .Replace("[:id]", Cloud.Id));
+                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
+                foreach (var user in userData.Result)
                 {
-                    var response = await client.GetStringAsync((
-                        Cloud.UserIds.Length > 100
-                        ? Endpoints.CloudOnlineUsers
-                        : Endpoints.CloudUsers)
-                        .Replace("[:id]", Cloud.Id));
-                    var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
-                    var users = new List<User>();
-                    foreach (var user in userData.Result)
+                    if (user.Status != null)
                     {
-                        if (user.Status != null)
-                        {
-                            SetStatus(user.Id, (Status)user.Status);
-                        }
-                        users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
+                        SetStatus(user.Id, (Status)user.Status);
                     }
+                    App.Connection.ModelController.Users[user.Id] =
+                    await App.Connection.ModelController.UpdateDataAsync(user);
                 }
             }
             catch (Exception ex)
@@ -140,17 +135,55 @@ namespace CloudsdaleWin7.lib.Controllers
             }
         }
 
+        public async Task LoadModerators()
+        {
+            var client = new HttpClient().AcceptsJson();
+            var response =
+                await
+                    JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(
+                        await client.GetStringAsync(Endpoints.CloudModerators.Replace("[:id]", Cloud.Id)));
+            foreach (var user in response.Result)
+            {
+                AllModerators.Add(user);
+                if (user.Status != null) SetStatus(user.Id, (Status) user.Status);
+            }
+        }
+
+        public async Task LoadAllUsers()
+        {
+            try
+            {
+                var client = new HttpClient().AcceptsJson();
+                var response = await client.GetStringAsync(Endpoints.CloudUsers.Replace("[:id]", Cloud.Id));
+                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<User[]>>(response);
+                var users = new List<User>();
+                foreach (var user in userData.Result)
+                {
+                    if (user.Status != null) SetStatus(user.Id, (Status) user.Status);
+                    users.Add(await App.Connection.ModelController.UpdateDataAsync(user));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+#if DEBUG
+                App.Connection.NotificationController.Notification.Notify(ex.Message);
+#endif
+            }
+        }
+
 
         public async Task LoadBans()
         {
-            var client = new HttpClient().AcceptsJson();
-            client.DefaultRequestHeaders.Add("X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken);
+            var client = new HttpClient
+                         {
+                             DefaultRequestHeaders = { { "X-Auth-Token", App.Connection.SessionController.CurrentSession.AuthToken} }
+                         }.AcceptsJson();
 
             _bans.Clear();
             try
             {
-                var response = await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id));
-                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(response);
+                var userData = await JsonConvert.DeserializeObjectAsync<WebResponse<Ban[]>>(await client.GetStringAsync(Endpoints.CloudBan.Replace("[:id]", Cloud.Id)));
                 foreach (var ban in userData.Result)
                 {
                     _bans.Add(ban);
@@ -161,6 +194,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public async Task LoadMessages(bool addUnread = true)
         {
+            if (Messages.Count >= 30) return;
             var client = new HttpClient().AcceptsJson();
             var responseMessages = await JsonConvert.DeserializeObjectAsync<WebResponse<Message[]>>(await client.GetStringAsync(Endpoints.CloudMessages.Replace("[:id]", Cloud.Id)));
 
@@ -171,42 +205,26 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 foreach (var message in responseMessages.Result)
                 {
-                    StatusForUser(message.Author.Id);
+                    StatusForUser(message.AuthorId);
                     AddMessageToSource(message, addUnread);
                 }
                 foreach (var message in newMessages)
                 {
-                    StatusForUser(message.Author.Id);
+                    StatusForUser(message.AuthorId);
                     AddMessageToSource(message, addUnread);
                 }
             }
             catch (Exception e)
             {
                 App.Connection.NotificationController.Notification.Notify(e.Message);
-                //LoadMessages();
             }
         }
 
 
-        public async void AddMessageToSource(Message message, bool addUnread = true)
+        public void AddMessageToSource(Message message, bool addUnread = true)
         {
-            //if (!App.Connection.ModelController.Users.ContainsKey(message.Author.Id))
-            //    App.Connection.ModelController.Users.Add(message.Author.Id, message.Author);
-            //message.Author.CopyTo(message.User);
-            //message.Timestamp = message.Timestamp.ToLocalTime();
+            if (MainWindow.Instance.MainFrame.Content.Equals(Login.Instance)) return;
 
-            //if (Messages.Count > 0)
-            //{
-            //    if (Messages.Last().AuthorId == message.AuthorId
-            //        && !message.Content.StartsWith("/me")
-            //        && Messages.Last().Content.StartsWith("/me"))
-            //    {
-            //        Messages[Messages.Count - 1].Content += "\n" + message.Content;
-            //        if (addUnread) AddUnread();
-            //    }
-            //    else Messages.Add(message);
-            //}
-            //else Messages.Add(message);
             if (!App.Connection.ModelController.Users.ContainsKey(message.AuthorId))
                 App.Connection.ModelController.Users.Add(message.AuthorId, message.Author);
             message.Author.CopyTo(message.User);

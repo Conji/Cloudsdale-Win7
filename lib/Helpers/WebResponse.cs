@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -142,6 +143,12 @@ namespace CloudsdaleWin7.lib.Helpers
                             .FirstOrDefault();
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return String.Format("Errors: {0}, Flash(Title: {1}, Message: {2}), Result: {3}",
+                new {Errors, Flash.Title, Flash.Message, Result});
         }
     }
 }

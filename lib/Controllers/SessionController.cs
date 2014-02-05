@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using CloudsdaleWin7.Properties;
 using CloudsdaleWin7.Views.Initial;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
@@ -45,6 +47,8 @@ namespace CloudsdaleWin7.lib.Controllers
                     return;
                 }
                 CurrentSession = response.Result.User;
+                App.Settings["token"] = CurrentSession.AuthToken;
+                App.Settings["id"] = CurrentSession.Id;
                 InitializeClouds();
                 RegistrationCheck();
             }
@@ -58,22 +62,11 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public void Logout()
         {
-            FayeConnector.ForceClose();
-            CurrentSession = null;
-            App.Connection.MessageController.CloudControllers = new Dictionary<string, CloudController>();
-            App.Settings.Clear();
+            FayeConnector.Socket.Close();
+            //App.Connection.MessageController.CloudControllers = new Dictionary<string, CloudController>();
+            //CurrentSession = null;
+            //App.Settings.Clear();
             MainWindow.Instance.MainFrame.Navigate(new Login());
-        }
-
-        public async void PostData(string property, string key)
-        {
-            var data = JObject.FromObject(new
-            {
-                user = new {property = key}
-            }).ToString();
-            var client = new HttpClient().AcceptsJson();
-            client.DefaultRequestHeaders.Add("X-Auth-Token", CurrentSession.AuthToken);
-            await client.PutAsync(Endpoints.User.ReplaceUserId(CurrentSession.Id), new StringContent(data));
         }
 
         public void RefreshClouds()

@@ -78,24 +78,34 @@ namespace CloudsdaleWin7
         private async void SearchForCloud(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
-            var client = new HttpClient().AcceptsJson();
-            var response =
-                client.GetStringAsync(Endpoints.ExploreSearch.Replace("$", ((TextBox) sender).Text.ReplaceToQuery()));
-            var objects = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud[]>>(await response);
-
-            var list = objects.Result.Select(cloud => new ItemBasic(cloud)).ToList();
-
             try
             {
-                var r = client.GetStringAsync(Endpoints.Cloud.Replace("[:id]", ((TextBox)sender).Text));
-                var result = JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(r.Result);
-                if (result.Result.Result != null)
-                {
-                    list.Add(new ItemBasic(result.Result.Result));
-                }
-            }catch{}
+                var client = new HttpClient().AcceptsJson();
+                var response =
+                    client.GetStringAsync(Endpoints.ExploreSearch.Replace("$", ((TextBox) sender).Text.ReplaceToQuery()));
+                var objects = await JsonConvert.DeserializeObjectAsync<WebResponse<Cloud[]>>(await response);
 
-            ExploreFrame.Navigate(new ExploreSearch(list));
+                var list = objects.Result.Select(cloud => new ItemBasic(cloud)).ToList();
+
+                try
+                {
+                    var r = client.GetStringAsync(Endpoints.Cloud.Replace("[:id]", ((TextBox) sender).Text));
+                    var result = JsonConvert.DeserializeObjectAsync<WebResponse<Cloud>>(r.Result);
+                    if (result.Result.Result != null)
+                    {
+                        list.Add(new ItemBasic(result.Result.Result));
+                    }
+                }
+                catch
+                {
+                }
+
+                ExploreFrame.Navigate(new ExploreSearch(list));
+            }
+            catch
+            {
+                App.Connection.NotificationController.Notification.Notify("It looks like Twilight can't find any books about that cloud. How about you try another?");
+            }
         }
     }
 }

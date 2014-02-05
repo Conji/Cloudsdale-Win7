@@ -64,7 +64,7 @@ namespace CloudsdaleWin7.Views.Flyouts
             App.Settings.ChangeSetting("notifications", "false");
         }
 
-        private void UploadNewAvatar(object sender, MouseButtonEventArgs e)
+        private async void UploadNewAvatar(object sender, MouseButtonEventArgs e)
         {
             var dialog = new System.Windows.Forms.OpenFileDialog
                              {
@@ -81,16 +81,16 @@ namespace CloudsdaleWin7.Views.Flyouts
             if (dialog.SafeFileName == null) return;
 
             if (dialog.SafeFileName.EndsWith(".png")) mimeType += "png";
-            else if (dialog.SafeFileName.EndsWith(".jpg")) mimeType += "jpg";
+            else if (dialog.SafeFileName.ToLower().EndsWith(".jpg")) mimeType += "jpg";
             else if (dialog.SafeFileName.EndsWith(".bmp")) mimeType += "bmp";
             else
             {
                 dialog.Dispose();
-                App.Connection.NotificationController.Notification.Notify(NotificationType.Client, new Message{Content = "That's not a supported file type! Please try again."});
+                App.Connection.NotificationController.Notification.Notify("That's not a supported file type! Please try again.");
                 return;
             }
 
-            App.Connection.SessionController.CurrentSession.UploadAvatar(
+            await App.Connection.SessionController.CurrentSession.UploadAvatar(
                 new FileStream(dialog.FileName, FileMode.Open), mimeType);
             dialog.Dispose();
             

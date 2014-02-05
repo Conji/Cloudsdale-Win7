@@ -7,9 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Threading;
 using CloudsdaleWin7.lib.CloudsdaleLib.Misc;
 using CloudsdaleWin7.lib;
-using CloudsdaleWin7.lib.Controllers;
 using CloudsdaleWin7.lib.Faye;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.Models;
@@ -26,7 +27,7 @@ namespace CloudsdaleWin7.Views
     public partial class Main
     {
         public static Main Instance;
-        public CloudView CurrentView { get; set; }
+        public static CloudView CurrentView = CloudView.Instance;
 
         public Main()
         {
@@ -36,19 +37,15 @@ namespace CloudsdaleWin7.Views
             InitSession();
             Clouds.ItemsSource = App.Connection.SessionController.CurrentSession.Clouds;
             Frame.Navigate(new Home());
-            InitializeConnection();
-            if (!CanMakeCloud) CreateCloud.Visibility = Visibility.Hidden;
+            Connection.Initialize();
+            CreateCloud.Visibility = !CanMakeCloud ? Visibility.Hidden : Visibility.Visible;
+
         }
 
         public void InitSession()
         {
             SelfAvatar.Source = new BitmapImage(App.Connection.SessionController.CurrentSession.Avatar.Normal);
             SelfName.Text = App.Connection.SessionController.CurrentSession.Name;
-        }
-
-        private static void InitializeConnection()
-        {
-            Connection.Initialize();
         }
 
         private void ToggleMenu(object sender, MouseButtonEventArgs e)
@@ -64,17 +61,14 @@ namespace CloudsdaleWin7.Views
                 return;
             }
             FlyoutFrame.Navigate(view);
-            var animation = (new DoubleAnimation(FlyoutFrame.Width, 250.0, new Duration(new TimeSpan(2000000)))
-                                 {EasingFunction = new ExponentialEase()});
             if (!FlyoutFrame.Width.Equals(250))
-                FlyoutFrame.BeginAnimation(WidthProperty, animation);
+                FlyoutFrame.BeginAnimation(WidthProperty, new DoubleAnimation(FlyoutFrame.Width, 250.0, new Duration(new TimeSpan(2000000)))
+                                 {EasingFunction = new ExponentialEase()});
         }
 
         public void HideFlyoutMenu()
         {
-            var a = new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000)))
-                        {EasingFunction = new ExponentialEase()};
-            FlyoutFrame.BeginAnimation(WidthProperty, a);
+            FlyoutFrame.BeginAnimation(WidthProperty, new DoubleAnimation(FlyoutFrame.Width, 0.0, new Duration(new TimeSpan(2000000))) { EasingFunction = new ExponentialEase() });
         }
 
         private async void CloudsSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,35 +80,27 @@ namespace CloudsdaleWin7.Views
                 return;
             }
             App.Connection.MessageController.HasCloudSelected = true;
-            LoadingText.Visibility = Visibility.Visible;
             var cloud = (ListView)sender;
             var item = (Cloud)cloud.SelectedItem;
             App.Connection.MessageController.CurrentCloud = App.Connection.MessageController[item];
-
-            Frame.IsEnabled = false;
-            await App.Connection.MessageController.CurrentCloud.LoadBans();
-            foreach (var ban in App.Connection.MessageController.CurrentCloud.Bans.Where(
-                b => (b.OffenderId == App.Connection.SessionController.CurrentSession.Id)).Where(ban => ban.Active == true))
-            {
-                Clouds.SelectedIndex = -1;
-                Frame.Navigate(new BannedCloud(ban, item.Id));
-                Frame.IsEnabled = true;
-                LoadingText.Visibility = Visibility.Hidden;
-                return;
-            }
             
-            if (!App.Connection.MessageController.CurrentCloud.BeenLoaded)
-            {
-                await App.Connection.MessageController[item].LoadMessages();
-                App.Connection.MessageController.CloudControllers[item.Id].BeenLoaded = true;
-            }
-            Frame.IsEnabled = true;
-
-            var cloudView = new CloudView(item);
-            Frame.Navigate(cloudView);
-            await App.Connection.MessageController.CurrentCloud.LoadUsers();
-            CurrentView = cloudView;
+            Dispatcher.InvokeAsync(async () =>
+                                   {
+                                       Frame.Navigate(new LoadingView());
+                                       await App.Connection.MessageController.CurrentCloud.LoadBans();
+                                       foreach (var ban in App.Connection.MessageController.CurrentCloud.Bans.Where(b => (b.OffenderId == App.Connection.SessionController.CurrentSession.Id)).Where(ban => ban.Active == true))
+                                       {
+                                           Clouds.SelectedIndex = -1;
+                                           Frame.Navigate(new BannedCloud(ban, item.Id));
+                                           return;
+                                       }
+                                       await App.Connection.MessageController[item].LoadMessages(false);
+                                       Frame.Navigate(new CloudView(item));
+                                       await App.Connection.MessageController.CurrentCloud.LoadModerators();
+                                       await App.Connection.MessageController.CurrentCloud.LoadUsers();
+                                   }, DispatcherPriority.Background);
             HideFlyoutMenu();
+            CreateCloud.Visibility = !CanMakeCloud ? Visibility.Hidden : Visibility.Visible;
         }
 
         private void DirectHome(object sender, MouseButtonEventArgs e)
@@ -131,23 +117,12 @@ namespace CloudsdaleWin7.Views
             }
         }
 
-        public void NavigateToCloud(CloudController cloud)
-        {
-            Frame.Navigate(new CloudView(cloud.Cloud));
-
-        }
-
         private void LaunchExplore(object sender, RoutedEventArgs e)
         {
             Clouds.SelectedIndex = -1;
             Frame.Navigate(new Explore());
         }
 
-        #region Cloud Reorder Mapping
-
-
-
-        #endregion
 
         private async void CreateNewCloud(object sender, RoutedEventArgs e)
         {
@@ -260,7 +235,7 @@ namespace CloudsdaleWin7.Views
             }
         }
 
-        private void ChangeTitle(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        private void ChangeTitle(object sender, NavigationEventArgs e)
         {
             MainWindow.Instance.Title = ((Page) e.Content).Title;
         }
