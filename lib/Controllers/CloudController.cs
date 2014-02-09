@@ -240,7 +240,15 @@ namespace CloudsdaleWin7.lib.Controllers
                 else Messages.Add(message);
             }else Messages.Add(message);
 
-            MainWindow.Instance.Title = String.Format("{0} ({1} Unread Messages)", ((Page)Main.Instance.Frame.Content).Title, App.Connection.MessageController.TotalUnreadMessages);
+            try {
+                MainWindow.Instance.Title = String.Format("{0} ({1} Unread Messages)", ((Page)Main.Instance.Frame.Content).Title, App.Connection.MessageController.TotalUnreadMessages);
+            }
+            catch (Exception ex){
+                #if DEBUG
+                Console.WriteLine(ex.Message);
+                #endif
+                MainWindow.Instance.Title = String.Format("Cloudsdale ({0} Unread Messages)", App.Connection.MessageController.TotalUnreadMessages);
+            }
             if (Messages.Count > 50) Messages.RemoveAt(0);
         }
 
