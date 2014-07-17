@@ -52,12 +52,8 @@ namespace CloudsdaleWin7 {
 
         public void ShowMessage(string message)
         {
-            #region Show Message
-
             ErrorMessage.Text = message;
             ErrorMessage.BeginAnimation(OpacityProperty, new DoubleAnimation(0.0, 100.0, new Duration(new TimeSpan(200000000))));
-
-            #endregion
         }
 
         private void LaunchReg(object sender, MouseButtonEventArgs e)

@@ -63,9 +63,12 @@ namespace CloudsdaleWin7.lib.Controllers
         public void Logout()
         {
             FayeConnector.Socket.Close();
-            //App.Connection.MessageController.CloudControllers = new Dictionary<string, CloudController>();
-            //CurrentSession = null;
-            //App.Settings.Clear();
+            FayeConnector.Socket.Closed += (sender, args) =>
+            {
+                App.Connection.MessageController.CloudControllers = new Dictionary<string, CloudController>();
+                CurrentSession = null;
+                App.Settings.Clear();
+            };
             MainWindow.Instance.MainFrame.Navigate(new Login());
         }
 
@@ -87,16 +90,13 @@ namespace CloudsdaleWin7.lib.Controllers
             {
                 App.Connection.MessageController.CloudControllers.Add(cloud.Id, new CloudController(cloud));
                 await App.Connection.MessageController[cloud].LoadMessages(false);
-                await App.Connection.MessageController[cloud].LoadUsers();
+                //await App.Connection.MessageController[cloud].LoadUsers();
             }
         }
 
         private void RegistrationCheck()
         {
-            if (CurrentSession.NeedsToConfirmRegistration == true)
-            {
-                MainWindow.Instance.MainFrame.Navigate(new Confirm());
-            }
+            if (CurrentSession.NeedsToConfirmRegistration == true) MainWindow.Instance.MainFrame.Navigate(new Confirm());
             else
             {
                 MainWindow.Instance.MainFrame.Navigate(new Main());

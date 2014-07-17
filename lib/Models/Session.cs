@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using CloudsdaleWin7.lib.Helpers;
 using CloudsdaleWin7.lib.CloudsdaleLib;
+using DevOne.Security.Cryptography.BCrypt;
 using Newtonsoft.Json;
 
 namespace CloudsdaleWin7.lib.Models
@@ -196,7 +197,7 @@ namespace CloudsdaleWin7.lib.Models
             {
                 oauth = new
                 {
-                    token = BCrypt.Net.BCrypt.HashPassword(Id + "cloudsdale", Endpoints.InternalToken),
+                    token = BCryptHelper.HashPassword(Id + "cloudsdale", Endpoints.InternalToken),
                     client_type = "desktop",
                     provider = "cloudsdale",
                     uid = Id,

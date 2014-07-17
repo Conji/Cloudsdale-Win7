@@ -10,7 +10,6 @@
       d:DesignHeight="480" d:DesignWidth="640"
 	Title="Login">
     <Page.Resources>
-        <MVVM:LoginScreen x:Key="ScreenColor"/>
         <MVVM:LoginShades x:Key="Shades"/>
         <Color x:Key="DarkerBlue">#FF3F85B3</Color>
     </Page.Resources>

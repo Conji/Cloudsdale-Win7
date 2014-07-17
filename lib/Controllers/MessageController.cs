@@ -24,7 +24,7 @@ namespace CloudsdaleWin7.lib.Controllers
 
         public MessageController()
         {
-            CloudMessages = new Dictionary<CloudController, List<Message>>();
+            CloudMessages = new Dictionary<CloudController, List<Message>>(50);
         }
 
         public async Task<CloudView> Page(Cloud cloud)
